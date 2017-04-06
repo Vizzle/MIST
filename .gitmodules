@@ -1,0 +1,3 @@
+[submodule "Carthage/Checkouts/VZFlexLayout"]
+	path = Carthage/Checkouts/VZFlexLayout
+	url = https://github.com/Vizzle/VZFlexLayout.git

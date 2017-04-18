@@ -7,6 +7,6 @@ target 'MIST-Demo' do
 
   # Pods for MIST-Demo
 
-  pod 'MIST'
+  pod 'MIST', '0.0.2'
 
 end

@@ -12,11 +12,11 @@ Pod::Spec.new do |s|
   s.name         = "MIST"
   s.version      = "0.0.1"
   s.summary      = "A High Performance Dynamic Template Engine."
-  s.description  = <<-DESC
-                   DESC
+  s.description  = "Dynamic View Template Engine Powered by Flexlayout"
+  s.homepage      = "https://github.com/Vizzle/MIST"
   s.license       = "MIT"
   s.author        = { "vizlabxt" => "jayson.xu@foxmail.com" }
-  s.source        = { :git => "git@github.com:Vizzle/MIST.git", :tag => s.version.to_s }
+  s.source        = { :git => "https://github.com/Vizzle/MIST.git", :tag => s.version.to_s }
   s.source_files  = "MIST/**/*.{h,m,mm}"
   s.frameworks    = 'UIKit'
   s.ios.deployment_target = '8.0'

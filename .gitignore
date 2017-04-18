@@ -22,4 +22,12 @@ xcuserdata/
 *.xcscmblueprint
 .DS_Store
 appledoc
+
+
+## carthage
 Carthage/Build
+
+## cocoapods
+
+Pods/*
+Pods

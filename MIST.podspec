@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
   s.author        = { "vizlabxt" => "jayson.xu@foxmail.com" }
   s.source        = { :git => "https://github.com/Vizzle/MIST.git", :tag => s.version.to_s }
   s.source_files  = "MIST/**/*.{h,m,mm}"
-  s.frameworks    = 'UIKit'
+  s.frameworks    = 'UIKit','ImageIO'
   s.ios.deployment_target = '8.0'
   s.xcconfig = {
     'CLANG_CXX_LANGUAGE_STANDARD' => 'c++11',

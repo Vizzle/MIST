@@ -1,0 +1,5 @@
+language: objective-c
+xcode_project: MIST.xcodeproj
+xcode_scheme: MIST
+osx_image: xcode8.3
+xcode_sdk: iphonesimulator

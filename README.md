@@ -1,6 +1,7 @@
 # MIST
 Dynamic View Template Engine Powered by Flexlayout
 
+[![Build Status](https://travis-ci.org/Vizzle/MIST.svg?branch=master)](https://travis-ci.org/Vizzle/MIST)
 [![Version](https://img.shields.io/cocoapods/v/MIST.svg?style=flat)](http://cocoapods.org/pods/MIST)
 [![License](https://img.shields.io/cocoapods/l/MIST.svg?style=flat)](http://cocoapods.org/pods/MIST)
 [![Platform](https://img.shields.io/cocoapods/p/MIST.svg?style=flat)](http://cocoapods.org/pods/MIST)

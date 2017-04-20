@@ -1,8 +1,9 @@
 language: objective-c
-xcode_workspace: MIST.xcworkspace
-xcode_scheme: MIST
-osx_image: xcode7.3
-xcode_sdk: iphonesimulator
+osx_image: xcode8.3
 cache: cocoapods
+branches:
+  only:
+  - master
 before_install:
 - pod repo update > /dev/null
+script: "xcodebuild -workspace MIST.xcworkspace -scheme MIST -sdk iphonesimulator"

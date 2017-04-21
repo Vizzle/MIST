@@ -1,0 +1,512 @@
+{
+  "styles": {
+    "title": {
+      "font-style": "bold",
+      "font-size": 15,
+      "padding-top": 15,
+      "padding-left": 10,
+      "color": "#666",
+      "background-color": "#ddd"
+    },
+    "subtitle": {
+      "lines": 0,
+      "font-size": 13,
+      "padding-bottom": 4,
+      "padding-left": 10,
+      "color": "#999",
+      "background-color": "#ddd"
+    },
+    "line": {
+      "height": "1px",
+      "background-color": "#888"
+    },
+    "commonTextView": {
+      "border-color": "black",
+      "border-width": "1px",
+      "margin": 10,
+      "height": 60
+    },
+    "smallTextView": {
+      "border-color": "black",
+      "border-width": "1px",
+      "margin": 5,
+      "height": 20,
+      "flex-grow": 1
+    },
+    "smallTitle": {
+      "width": 120,
+      "alignment": "right",
+      "font-size": 12
+    }
+  },
+  "controller": "MistTextViewDemoController",
+  "layout": {
+    "style": {
+      "direction": "vertical"
+    },
+    "children": [
+      {
+        "style": {
+          "direction": "vertical"
+        },
+        "children": [
+          {
+            "type": "text",
+            "class": "title",
+            "style": {
+              "text": "简单的 textview"
+            }
+          },
+          {
+            "type": "text",
+            "class": "subtitle",
+            "style": {
+              "text": "一个基本的 textview"
+            }
+          },
+          {
+            "class": "line"
+          },
+          {
+            "type": "textview",
+            "class": "commonTextView"
+          }
+        ]
+      },
+      {
+        "style": {
+          "direction": "vertical"
+        },
+        "children": [
+          {
+            "class": "line"
+          },
+          {
+            "type": "text",
+            "class": "title",
+            "style": {
+              "text": "auto-focus"
+            }
+          },
+          {
+            "type": "text",
+            "class": "subtitle",
+            "style": {
+              "text": "自动获取焦点，默认为 false"
+            }
+          },
+          {
+            "class": "line"
+          },
+          {
+            "type": "textview",
+            "class": "commonTextView",
+            "style": {
+              "auto-focus": true
+            }
+          }
+        ]
+      },
+      {
+        "style": {
+          "direction": "vertical"
+        },
+        "children": [
+          {
+            "class": "line"
+          },
+          {
+            "type": "text",
+            "class": "title",
+            "style": {
+              "text": "placeholder, placeholder-color"
+            }
+          },
+          {
+            "type": "text",
+            "class": "subtitle",
+            "style": {
+              "text": "placeholder 字体和 textview 一致"
+            }
+          },
+          {
+            "class": "line"
+          },
+          {
+            "type": "textview",
+            "class": "commonTextView",
+            "style": {
+              "placeholder": "I'm here",
+              "placeholder-color": "#ddd"
+            }
+          }
+        ]
+      },
+      {
+        "style": {
+          "direction": "vertical"
+        },
+        "children": [
+          {
+            "class": "line"
+          },
+          {
+            "type": "text",
+            "class": "title",
+            "style": {
+              "text": "editable"
+            }
+          },
+          {
+            "type": "text",
+            "class": "subtitle",
+            "style": {
+              "text": "是否可编辑，默认为 false"
+            }
+          },
+          {
+            "class": "line"
+          },
+          {
+            "type": "textview",
+            "class": "commonTextView",
+            "style": {
+              "text": "I'm immortal\nYou can't change even 1 letter.",
+              "editable": false
+            }
+          }
+        ]
+      },
+      {
+        "style": {
+          "direction": "vertical"
+        },
+        "children": [
+          {
+            "class": "line"
+          },
+          {
+            "type": "text",
+            "class": "title",
+            "style": {
+              "text": "max-length"
+            }
+          },
+          {
+            "type": "text",
+            "class": "subtitle",
+            "style": {
+              "text": "最大输入长度，默认为 -1，不限制输入长度"
+            }
+          },
+          {
+            "class": "line"
+          },
+          {
+            "type": "textview",
+            "class": "commonTextView",
+            "style": {
+              "placeholder": "10 characters at most",
+              "max-length": 10
+            }
+          }
+        ]
+      },
+      {
+        "style": {
+          "direction": "vertical"
+        },
+        "children": [
+          {
+            "class": "line"
+          },
+          {
+            "type": "text",
+            "class": "title",
+            "style": {
+              "text": "padding"
+            }
+          },
+          {
+            "type": "text",
+            "class": "subtitle",
+            "style": {
+              "text": "通过 padding 控制内容的 inset，与textView.textContainerInset作用相同，padding 同样会作用于 placeholder"
+            }
+          },
+          {
+            "class": "line"
+          },
+          {
+            "type": "textview",
+            "class": "commonTextView",
+            "style": {
+              "placeholder": "There are gaps",
+              "padding": 5
+            }
+          }
+        ]
+      },
+      {
+        "style": {
+          "direction": "vertical"
+        },
+        "vars": {
+          "types": [
+            "default",
+            "ascii-capable",
+            "number-punctuation",
+            "url",
+            "number",
+            "phone",
+            "name-phone",
+            "email",
+            "decimal",
+            "twitter",
+            "web"
+          ]
+        },
+        "children": [
+          {
+            "class": "line"
+          },
+          {
+            "type": "text",
+            "class": "title",
+            "style": {
+              "text": "keyboard-type"
+            }
+          },
+          {
+            "type": "text",
+            "class": "subtitle",
+            "style": {
+              "text": "键盘类型，默认为 default"
+            }
+          },
+          {
+            "class": "line"
+          },
+          {
+            "repeat": "${types.count}",
+            "children": [
+              {
+                "type": "text",
+                "class": "smallTitle",
+                "style": {
+                  "text": "${types[_index_]}"
+                }
+              },
+              {
+                "type": "textview",
+                "class": "smallTextView",
+                "style": {
+                  "keyboard-type": "${types[_index_]}"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "style": {
+          "direction": "vertical"
+        },
+        "vars": {
+          "types": [
+            "default",
+            "dark",
+            "light"
+          ]
+        },
+        "children": [
+          {
+            "class": "line"
+          },
+          {
+            "type": "text",
+            "class": "title",
+            "style": {
+              "text": "keyboard-appearance"
+            }
+          },
+          {
+            "type": "text",
+            "class": "subtitle",
+            "style": {
+              "text": "键盘外观，默认为 default"
+            }
+          },
+          {
+            "class": "line"
+          },
+          {
+            "repeat": "${types.count}",
+            "children": [
+              {
+                "type": "text",
+                "class": "smallTitle",
+                "style": {
+                  "text": "${types[_index_]}"
+                }
+              },
+              {
+                "type": "textview",
+                "class": "smallTextView",
+                "style": {
+                  "keyboard-appearance": "${types[_index_]}"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "style": {
+          "direction": "vertical"
+        },
+        "vars": {
+          "types": [
+            "default",
+            "go",
+            "google",
+            "join",
+            "next",
+            "route",
+            "search",
+            "send",
+            "yahoo",
+            "done",
+            "emergency-call"
+          ]
+        },
+        "children": [
+          {
+            "class": "line"
+          },
+          {
+            "type": "text",
+            "class": "title",
+            "style": {
+              "text": "return-key-type"
+            }
+          },
+          {
+            "type": "text",
+            "class": "subtitle",
+            "style": {
+              "text": "返回按键文本，默认为 default"
+            }
+          },
+          {
+            "class": "line"
+          },
+          {
+            "repeat": "${types.count}",
+            "children": [
+              {
+                "type": "text",
+                "class": "smallTitle",
+                "style": {
+                  "text": "${types[_index_]}"
+                }
+              },
+              {
+                "type": "textview",
+                "class": "smallTextView",
+                "style": {
+                  "return-key-type": "${types[_index_]}"
+                }
+              }
+            ]
+          },
+          {
+            "style": {
+              "direction": "vertical"
+            },
+            "children": [
+              {
+                "class": "line"
+              },
+              {
+                "type": "text",
+                "class": "title",
+                "style": {
+                  "text": "blur-on-submit"
+                }
+              },
+              {
+                "type": "text",
+                "class": "subtitle",
+                "style": {
+                  "text": "点击 returen key 是否失去焦点并触发 on-submit，默认为 false"
+                }
+              },
+              {
+                "class": "line"
+              },
+              {
+                "type": "textview",
+                "class": "commonTextView",
+                "style": {
+                  "blur-on-submit": true,
+                  "return-key-type": "go",
+                  "text": "5, 4, 3, 2, 1 ... implus"
+                }
+              }
+            ]
+          },
+          {
+            "style": {
+              "direction": "vertical"
+            },
+            "children": [
+              {
+                "class": "line"
+              },
+              {
+                "type": "text",
+                "class": "title",
+                "style": {
+                  "text": "各种事件"
+                }
+              },
+              {
+                "type": "text",
+                "class": "subtitle",
+                "style": {
+                  "text": "详见控制台输出"
+                }
+              },
+              {
+                "class": "line"
+              },
+              {
+                "type": "textview",
+                "class": "commonTextView",
+                "style": {
+                  "text": "Type something and watch the console output",
+                  "on-focus": {
+                    "onEvent:body:": "on-focus"
+                  },
+                  "on-blur": {
+                    "onEvent:body:": "on-blur"
+                  },
+                  "on-change": {
+                    "onEvent:body:": "on-change"
+                  },
+                  "on-submit": {
+                    "onEvent:body:": "on-submit"
+                  },
+                  "on-end": {
+                    "onEvent:body:": "on-end"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

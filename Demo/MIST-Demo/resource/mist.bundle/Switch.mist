@@ -1,0 +1,208 @@
+{
+  "styles": {
+    "title": {
+      "font-style": "bold",
+      "font-size": 15,
+      "padding-top": 15,
+      "padding-left": 10,
+      "color": "#666",
+      "background-color": "#ddd"
+    },
+    "subtitle": {
+      "lines": 0,
+      "font-size": 13,
+      "padding-bottom": 4,
+      "padding-left": 10,
+      "color": "#999",
+      "background-color": "#ddd"
+    }
+  },
+  "controller": "MistSwitchDemoController",
+  "layout": {
+    "style": {
+      "direction": "vertical"
+    },
+    "children": [
+      {
+        "style": {
+          "direction": "vertical"
+        },
+        "children": [
+          {
+            "type": "text",
+            "class": "title",
+            "style": {
+              "text": "基本用法"
+            }
+          },
+          {
+            "type": "text",
+            "class": "subtitle",
+            "style": {
+              "html-text": "一个基本的 switch"
+            }
+          },
+          {
+            "style": {
+              "height": "1px",
+              "background-color": "#888"
+            }
+          },
+          {
+            "type": "switch",
+            "style": {
+              "margin-top": 10,
+              "margin-left": 10,
+              "margin-bottom": 10
+            }
+          }
+        ]
+      },
+      {
+        "style": {
+          "direction": "vertical"
+        },
+        "children": [
+          {
+            "style": {
+              "height": "1px",
+              "background-color": "#888"
+            }
+          },
+          {
+            "type": "text",
+            "class": "title",
+            "style": {
+              "text": "enbaled"
+            }
+          },
+          {
+            "type": "text",
+            "class": "subtitle",
+            "style": {
+              "html-text": "通过 enabled 控制 switch 的可用状态，默认为 true"
+            }
+          },
+          {
+            "style": {
+              "height": "1px",
+              "background-color": "#888"
+            }
+          },
+          {
+            "type": "switch",
+            "style": {
+              "margin-top": 10,
+              "margin-left": 10,
+              "margin-bottom": 10,
+              "on": true,
+              "enabled": false
+            }
+          }
+        ]
+      },
+      {
+        "style": {
+          "direction": "vertical"
+        },
+        "children": [
+          {
+            "style": {
+              "height": "1px",
+              "background-color": "#888"
+            }
+          },
+          {
+            "type": "text",
+            "class": "title",
+            "style": {
+              "text": "on-change"
+            }
+          },
+          {
+            "type": "text",
+            "class": "subtitle",
+            "style": {
+              "html-text": "switch 切换事件通过 on-change 传递"
+            }
+          },
+          {
+            "style": {
+              "height": "1px",
+              "background-color": "#888"
+            }
+          },
+          {
+            "children": [
+              {
+                "type": "switch",
+                "style": {
+                  "margin-top": 10,
+                  "margin-left": 10,
+                  "margin-bottom": 10,
+                  "on": "${state.switchOn}",
+                  "on-change": {
+                    "switchChanged:body:": "on-change"
+                  }
+                }
+              },
+              {
+                "type": "switch",
+                "style": {
+                  "margin-top": 10,
+                  "margin-left": 10,
+                  "margin-bottom": 10,
+                  "on": "${state.switchOn}",
+                  "enabled": false
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "style": {
+          "direction": "vertical"
+        },
+        "children": [
+          {
+            "style": {
+              "height": "1px",
+              "background-color": "#888"
+            }
+          },
+          {
+            "type": "text",
+            "class": "title",
+            "style": {
+              "text": "on-tint-color, thumb-tint-color"
+            }
+          },
+          {
+            "type": "text",
+            "class": "subtitle",
+            "style": {
+              "html-text": "通过 on-tint-color, thumb-tint-color 改变外观"
+            }
+          },
+          {
+            "style": {
+              "height": "1px",
+              "background-color": "#888"
+            }
+          },
+          {
+            "type": "switch",
+            "style": {
+              "margin-top": 10,
+              "margin-left": 10,
+              "margin-bottom": 10,
+              "on-tint-color": "red",
+              "thumb-tint-color": "blue"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

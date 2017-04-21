@@ -1,0 +1,613 @@
+{
+  "styles": {
+    "title": {
+      "font-style": "bold",
+      "font-size": 15,
+      "padding-top": 15,
+      "padding-left": 10,
+      "color": "#666",
+      "background-color": "#ddd"
+    },
+    "subtitle": {
+      "lines": 0,
+      "font-size": 13,
+      "padding-bottom": 4,
+      "padding-left": 10,
+      "color": "#999",
+      "background-color": "#ddd"
+    },
+    "line": {
+      "height": "1px",
+      "background-color": "#888"
+    },
+    "commonTextField": {
+      "border-color": "black",
+      "border-width": "1px",
+      "margin": 10,
+      "height": 30
+    },
+    "smallTextField": {
+      "border-color": "black",
+      "border-width": "1px",
+      "margin": 5,
+      "height": 20,
+      "flex-grow": 1
+    }
+  },
+  "controller": "MistTextFieldDemoController",
+  "layout": {
+    "style": {
+      "direction": "vertical"
+    },
+    "children": [
+      {
+        "style": {
+          "direction": "vertical"
+        },
+        "children": [
+          {
+            "type": "text",
+            "class": "title",
+            "style": {
+              "text": "简单的 textfield"
+            }
+          },
+          {
+            "type": "text",
+            "class": "subtitle",
+            "style": {
+              "text": "一个基本的 textfield"
+            }
+          },
+          {
+            "class": "line"
+          },
+          {
+            "type": "textfield",
+            "class": "commonTextField",
+            "style": {
+              "placeholder": "I'm here ..."
+            }
+          }
+        ]
+      },
+      {
+        "style": {
+          "direction": "vertical"
+        },
+        "children": [
+          {
+            "class": "line"
+          },
+          {
+            "type": "text",
+            "class": "title",
+            "style": {
+              "text": "auto-focus"
+            }
+          },
+          {
+            "type": "text",
+            "class": "subtitle",
+            "style": {
+              "text": "自动获取焦点，默认为 false"
+            }
+          },
+          {
+            "class": "line"
+          },
+          {
+            "type": "textfield",
+            "class": "commonTextField",
+            "style": {
+              "auto-focus": true
+            }
+          }
+        ]
+      },
+      {
+        "style": {
+          "direction": "vertical"
+        },
+        "children": [
+          {
+            "class": "line"
+          },
+          {
+            "type": "text",
+            "class": "title",
+            "style": {
+              "text": "editable"
+            }
+          },
+          {
+            "type": "text",
+            "class": "subtitle",
+            "style": {
+              "text": "是否可编辑，默认为 false"
+            }
+          },
+          {
+            "class": "line"
+          },
+          {
+            "type": "textfield",
+            "class": "commonTextField",
+            "style": {
+              "text": "I'm immortal",
+              "editable": false
+            }
+          }
+        ]
+      },
+      {
+        "style": {
+          "direction": "vertical"
+        },
+        "children": [
+          {
+            "class": "line"
+          },
+          {
+            "type": "text",
+            "class": "title",
+            "style": {
+              "text": "max-length"
+            }
+          },
+          {
+            "type": "text",
+            "class": "subtitle",
+            "style": {
+              "text": "最大输入长度，默认为 -1，不限制输入长度"
+            }
+          },
+          {
+            "class": "line"
+          },
+          {
+            "type": "textfield",
+            "class": "commonTextField",
+            "style": {
+              "placeholder": "10 characters at most",
+              "max-length": 10
+            }
+          }
+        ]
+      },
+      {
+        "style": {
+          "direction": "vertical"
+        },
+        "children": [
+          {
+            "class": "line"
+          },
+          {
+            "type": "text",
+            "class": "title",
+            "style": {
+              "text": "padding"
+            }
+          },
+          {
+            "type": "text",
+            "class": "subtitle",
+            "style": {
+              "text": "UITextField 不能直接指定输入内容的偏移，textfiled 控件可通过 padding 控制"
+            }
+          },
+          {
+            "class": "line"
+          },
+          {
+            "type": "textfield",
+            "class": "commonTextField",
+            "style": {
+
+              "padding-left": 5,
+              "padding-right": 5
+            }
+          }
+        ]
+      },
+      {
+        "style": {
+          "direction": "vertical"
+        },
+        "children": [
+          {
+            "class": "line"
+          },
+          {
+            "type": "text",
+            "class": "title",
+            "style": {
+              "text": "placeholder, placeholder-color"
+            }
+          },
+          {
+            "type": "text",
+            "class": "subtitle",
+            "style": {
+              "text": ""
+            }
+          },
+          {
+            "class": "line"
+          },
+          {
+            "type": "textfield",
+            "class": "commonTextField",
+            "style": {
+
+              "placeholder": "Colorful days",
+              "placeholder-color": "#fb6165"
+            }
+          }
+        ]
+      },
+      {
+        "style": {
+          "direction": "vertical"
+        },
+        "children": [
+          {
+            "class": "line"
+          },
+          {
+            "type": "text",
+            "class": "title",
+            "style": {
+              "text": "secure-text-entry"
+            }
+          },
+          {
+            "type": "text",
+            "class": "subtitle",
+            "style": {
+              "text": "密码模式"
+            }
+          },
+          {
+            "class": "line"
+          },
+          {
+            "type": "textfield",
+            "class": "commonTextField",
+            "style": {
+
+              "secure-text-entry": true,
+              "text": "password"
+            }
+          }
+        ]
+      },
+      {
+        "style": {
+          "direction": "vertical"
+        },
+        "vars": {
+          "types": [
+            "default",
+            "ascii-capable",
+            "number-punctuation",
+            "url",
+            "number",
+            "phone",
+            "name-phone",
+            "email",
+            "decimal",
+            "twitter",
+            "web"
+          ]
+        },
+        "children": [
+          {
+            "class": "line"
+          },
+          {
+            "type": "text",
+            "class": "title",
+            "style": {
+              "text": "keyboard-type"
+            }
+          },
+          {
+            "type": "text",
+            "class": "subtitle",
+            "style": {
+              "text": "键盘类型，默认为 default"
+            }
+          },
+          {
+            "class": "line"
+          },
+          {
+            "repeat": "${types.count}",
+            "children": [
+              {
+                "type": "text",
+                "style": {
+                  "width": 120,
+                  "alignment": "right",
+                  "text": "${types[_index_]}",
+                  "font-size": 12
+                }
+              },
+              {
+                "type": "textfield",
+                "class": "smallTextField",
+                "style": {
+                  "keyboard-type": "${types[_index_]}"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "style": {
+          "direction": "vertical"
+        },
+        "vars": {
+          "types": [
+            "default",
+            "dark",
+            "light"
+          ]
+        },
+        "children": [
+          {
+            "class": "line"
+          },
+          {
+            "type": "text",
+            "class": "title",
+            "style": {
+              "text": "keyboard-appearance"
+            }
+          },
+          {
+            "type": "text",
+            "class": "subtitle",
+            "style": {
+              "text": "键盘外观，默认为 default"
+            }
+          },
+          {
+            "class": "line"
+          },
+          {
+            "repeat": "${types.count}",
+            "children": [
+              {
+                "type": "text",
+                "style": {
+                  "width": 120,
+                  "alignment": "right",
+                  "text": "${types[_index_]}",
+                  "font-size": 12
+                }
+              },
+              {
+                "type": "textfield",
+                "class": "smallTextField",
+                "style": {
+                  "keyboard-appearance": "${types[_index_]}"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "style": {
+          "direction": "vertical"
+        },
+        "vars": {
+          "types": [
+            "default",
+            "go",
+            "google",
+            "join",
+            "next",
+            "route",
+            "search",
+            "send",
+            "yahoo",
+            "done",
+            "emergency-call"
+          ]
+        },
+        "children": [
+          {
+            "class": "line"
+          },
+          {
+            "type": "text",
+            "class": "title",
+            "style": {
+              "text": "return-key-type"
+            }
+          },
+          {
+            "type": "text",
+            "class": "subtitle",
+            "style": {
+              "text": "返回按键文本，默认为 default"
+            }
+          },
+          {
+            "class": "line"
+          },
+          {
+            "repeat": "${types.count}",
+            "children": [
+              {
+                "type": "text",
+                "style": {
+                  "width": 120,
+                  "alignment": "right",
+                  "text": "${types[_index_]}",
+                  "font-size": 12
+                }
+              },
+              {
+                "type": "textfield",
+                "class": "smallTextField",
+                "style": {
+                  "return-key-type": "${types[_index_]}"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "style": {
+          "direction": "vertical"
+        },
+        "vars": {
+          "types": [
+            "never",
+            "while-editing",
+            "unless-editing",
+            "always"
+          ]
+        },
+        "children": [
+          {
+            "class": "line"
+          },
+          {
+            "type": "text",
+            "class": "title",
+            "style": {
+              "text": "clear-button-mode"
+            }
+          },
+          {
+            "type": "text",
+            "class": "subtitle",
+            "style": {
+              "text": "清除按钮模式，默认为 never"
+            }
+          },
+          {
+            "class": "line"
+          },
+          {
+            "repeat": "${types.count}",
+            "children": [
+              {
+                "type": "text",
+                "style": {
+                  "width": 120,
+                  "alignment": "right",
+                  "text": "${types[_index_]}",
+                  "font-size": 12
+                }
+              },
+              {
+                "type": "textfield",
+                "class": "smallTextField",
+                "style": {
+                  "clear-button-mode": "${types[_index_]}"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "style": {
+          "direction": "vertical"
+        },
+        "children": [
+          {
+            "class": "line"
+          },
+          {
+            "type": "text",
+            "class": "title",
+            "style": {
+              "text": "blur-on-submit"
+            }
+          },
+          {
+            "type": "text",
+            "class": "subtitle",
+            "style": {
+              "text": "点击 returen key 是否失去焦点，默认为 true"
+            }
+          },
+          {
+            "class": "line"
+          },
+          {
+            "type": "textfield",
+            "class": "commonTextField",
+            "style": {
+
+              "blur-on-submit": false,
+              "return-key-type": "go",
+              "text": "Key 'go' does not work"
+            }
+          }
+        ]
+      },
+      {
+        "style": {
+          "direction": "vertical"
+        },
+        "children": [
+          {
+            "class": "line"
+          },
+          {
+            "type": "text",
+            "class": "title",
+            "style": {
+              "text": "各种事件"
+            }
+          },
+          {
+            "type": "text",
+            "class": "subtitle",
+            "style": {
+              "text": "详见控制台输出"
+            }
+          },
+          {
+            "class": "line"
+          },
+          {
+            "type": "textfield",
+            "class": "commonTextField",
+            "style": {
+
+              "return-key-type": "done",
+              "text": "Type something and watch the console output",
+              "on-focus": {
+                "onEvent:body:": "on-focus"
+              },
+              "on-blur": {
+                "onEvent:body:": "on-blur"
+              },
+              "on-change": {
+                "onEvent:body:": "on-change"
+              },
+              "on-submit": {
+                "onEvent:body:": "on-submit"
+              },
+              "on-end": {
+                "onEvent:body:": "on-end"
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

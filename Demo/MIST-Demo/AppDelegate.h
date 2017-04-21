@@ -1,12 +1,13 @@
 //
 //  AppDelegate.h
-//  MIST-Demo
+//  MIST
 //
-//  Created by moxin on 2017/4/18.
-//  Copyright © 2017年 Vizlab. All rights reserved.
+//  Created by moxin on 2016/12/5.
+//  Copyright © 2016年 Vizlab. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
+
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -14,4 +15,3 @@
 
 
 @end
-

@@ -1,0 +1,38 @@
+{
+  "layout": {
+    "style": {
+      "direction": "vertical",
+      "align-items": "center"
+    },
+    "children": [
+      {
+        "type": "text",
+        "style": {
+          "text": "单页面支持",
+          "height": 80,
+          "width": "auto",
+          "font-style": "ultra-light",
+          "font-size": 24
+        }
+      },
+      {
+        "style": {
+          "height": "1px",
+          "width": "36%",
+          "background-color": "#a5a5a5"
+        }
+      },
+      {
+        "type": "text",
+        "style": {
+          "text": "借助 Mist 的动态布局能力和 JSPatch 的动态代码执行能力，我们提供了单页面的支持方案，你可以:\n\n1. 新建后缀为 .mist 的配置文件以及同名 JS 文件来完成页面的业务逻辑\n2. 在 JS 文件中你需要用 JSPatch 的语法写一个完整的 controller，然后在配置文件的 dynamicController 处配置好 controller 的类名\n3.为了方便布局，你可以让新的 controller 继承自一个实现了数据请求、Mist 模板加载、布局的父类",
+          "font-size": 13,
+          "padding": 30,
+          "lines": 0,
+          "line-spacing": 3,
+          "font-style": "light"
+        }
+      }
+    ]
+  }
+}

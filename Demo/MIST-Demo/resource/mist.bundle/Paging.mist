@@ -1,0 +1,445 @@
+{
+  "styles": {
+    "title": {
+      "font-style": "bold",
+      "font-size": 15,
+      "padding-top": 15,
+      "padding-left": 10,
+      "color": "#666",
+      "background-color": "#ddd"
+    },
+    "subtitle": {
+      "lines": 0,
+      "font-size": 13,
+      "padding-bottom": 4,
+      "padding-left": 10,
+      "color": "#999",
+      "background-color": "#ddd"
+    },
+    "button": {
+      "font-size": 15,
+      "background-color": "#eee",
+      "height": 36,
+      "alignment": "center",
+      "color": "blue"
+    }
+  },
+  "layout": {
+    "vars": {
+      "images": [
+        "http://www.33lc.com/article/UploadPic/2012-7/201272515473155222.jpg",
+        "http://www.33lc.com/article/UploadPic/2012-7/201272515473922882.jpg",
+        "http://www.33lc.com/article/UploadPic/2012-7/201272515474686564.jpg",
+        "http://www.33lc.com/article/UploadPic/2012-7/20127251548461109.jpg",
+        "http://www.33lc.com/article/UploadPic/2012-7/20127251548926546.jpg",
+        "http://www.33lc.com/article/UploadPic/2012-7/201272515481887125.jpg",
+        "http://www.33lc.com/article/UploadPic/2012-7/201272515482310415.jpg",
+        "http://www.33lc.com/article/UploadPic/2012-7/201272515482950345.jpg",
+        "http://www.33lc.com/article/UploadPic/2012-7/201272515483443939.jpg",
+        "http://www.33lc.com/article/UploadPic/2012-7/201272515484078937.jpg",
+        "http://www.33lc.com/article/UploadPic/2012-7/201272515485267642.jpg",
+        "http://www.33lc.com/article/UploadPic/2012-7/201272515485881788.jpg",
+        "http://www.33lc.com/article/UploadPic/2012-7/20127251549411956.jpg",
+        "http://www.33lc.com/article/UploadPic/2012-7/201272515491045799.jpg",
+        "http://www.33lc.com/article/UploadPic/2012-7/201272515491657950.jpg",
+        "http://www.33lc.com/article/UploadPic/2012-7/201272515492934843.jpg",
+        "http://www.33lc.com/article/UploadPic/2012-7/201272515493858026.jpg",
+        "http://www.33lc.com/article/UploadPic/2012-7/201272515494613942.jpg"
+      ]
+    },
+    "style": {
+      "direction": "vertical"
+    },
+    "children": [
+      {
+        "vars": {
+          "directions": ["horizontal", "vertical"]
+        },
+        "style": {
+          "direction": "vertical"
+        },
+        "children": [
+          {
+            "type": "text",
+            "class": "title",
+            "style": {
+              "text": "direction"
+            }
+          },
+          {
+            "type": "text",
+            "class": "subtitle",
+            "style": {
+              "html-text": "滚动方向。默认为 <i>horizontal</i>。"
+            }
+          },
+          {
+            "style": {
+              "height": "1px",
+              "background-color": "#888"
+            }
+          },
+          {
+            "style": {
+              "spacing": 1
+            },
+            "children": [
+              {
+                "repeat": 2,
+                "type": "text",
+                "class": "button",
+                "style": {
+                  "width": "50%",
+                  "text": "${directions[_index_]}",
+                  "font-size": 15,
+                  "background-color": "${_index_ == state.direction ? '#ccc' : '#eee'}"
+                },
+                "on-tap": {
+                  "updateState:": { "direction": "${_index_}" }
+                }
+              }
+            ]
+          },
+          {
+            "type": "paging",
+            "style": {
+              "height": 200,
+              "direction": "${directions[state.direction]}"
+            },
+            "children": [
+              {
+                "repeat": "${images.count}",
+                "children": [
+                  {
+                    "type": "image",
+                    "style": {
+                      "fixed": true,
+                      "backing-view": "MistDemoImageView",
+                      "image": "mist.bundle/default",
+                      "image-url": "${images[_index_]}",
+                      "clip": true,
+                      "content-mode": "scale-aspect-fill"
+                    }
+                  },
+                  {
+                    "style": {
+                      "fixed": true,
+                      "background-color": "#4000"
+                    }
+                  },
+                  {
+                    "type": "text",
+                    "style": {
+                      "text": "Page ${_index_ + 1}",
+                      "color": "white",
+                      "font-size": 30,
+                      "margin": "auto"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "style": {
+          "direction": "vertical"
+        },
+        "children": [
+          {
+            "style": {
+              "height": "1px",
+              "background-color": "#888"
+            }
+          },
+          {
+            "type": "text",
+            "class": "title",
+            "style": {
+              "text": "infinite-loop"
+            }
+          },
+          {
+            "type": "text",
+            "class": "subtitle",
+            "style": {
+              "html-text": "循环滚动。"
+            }
+          },
+          {
+            "style": {
+              "height": "1px",
+              "background-color": "#888"
+            }
+          },
+          {
+            "type": "paging",
+            "style": {
+              "height": 160,
+              "infinite-loop": true
+            },
+            "children": [
+              {
+                "repeat": 2,
+                "type": "text",
+                "style": {
+                  "text": "Page ${_index_ + 1}",
+                  "color": "white",
+                  "font-size": 30,
+                  "alignment": "center",
+                  "background-color": "${['#E24810', '#3366FF'][_index_]}"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "style": {
+          "direction": "vertical"
+        },
+        "children": [
+          {
+            "style": {
+              "height": "1px",
+              "background-color": "#888"
+            }
+          },
+          {
+            "type": "text",
+            "class": "title",
+            "style": {
+              "text": "page-control"
+            }
+          },
+          {
+            "type": "text",
+            "class": "subtitle",
+            "style": {
+              "html-text": "是否显示分页指示器。可以用 <b>page-control-color</b> 和 <b>page-control-selected-color</b> 属性设置圆点颜色，<b>page-control-scale</b> 属性设置圆点缩放，<b>page-control-margin-bottom</b> 等属性设置圆点与 Paging Node 的边距。"
+            }
+          },
+          {
+            "style": {
+              "height": "1px",
+              "background-color": "#888"
+            }
+          },
+          {
+            "vars": {
+              "pages": "${images.slice(6)}"
+            },
+            "type": "paging",
+            "style": {
+              "height": 200,
+              "page-control": true,
+              "page-control-margin-bottom": 10,
+              "page-control-color": "#4000",
+              "page-control-selected-color": "black",
+              "page-control-scale": 0.7
+            },
+            "children": [
+              {
+                "repeat": "${pages.count}",
+                "vars": {
+                  "lines": "${pages[_index_].slice(3)}"
+                },
+                "style": {
+                  "direction": "vertical",
+                  "justify-content": "space-around",
+                  "margin-bottom": 20
+                },
+                "children": [
+                  {
+                    "repeat": "${lines.count}",
+                    "vars": {
+                      "line": "${lines[_index_]}"
+                    },
+                    "style": {
+                      "justify-content": "space-around"
+                    },
+                    "children": [
+                      {
+                        "repeat": "${line.count}",
+                        "type": "image",
+                        "style": {
+                          "backing-view": "MistDemoImageView",
+                          "width": 70,
+                          "height": 70,
+                          "corner-radius": 35,
+                          "border-color": "#ccc",
+                          "border-width": 2,
+                          "image": "mist.bundle/default",
+                          "image-url": "${line[_index_]}",
+                          "clip": true,
+                          "content-mode": "scale-aspect-fill"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paging",
+            "style": {
+              "height": 120,
+              "direction": "${directions[state.direction]}",
+              "page-control": true,
+              "page-control-margin-bottom": 10,
+              "page-control-margin-right": 12,
+              "page-control-color": "#6fff",
+              "page-control-selected-color": "white",
+              "page-control-scale": 0.7
+            },
+            "children": [
+              {
+                "repeat": 5,
+                "type": "image",
+                "style": {
+                  "fixed": true,
+                  "backing-view": "MistDemoImageView",
+                  "image": "mist.bundle/default",
+                  "image-url": "${images[_index_]}",
+                  "clip": true,
+                  "content-mode": "scale-aspect-fill"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "style": {
+          "direction": "vertical"
+        },
+        "children": [
+          {
+            "style": {
+              "height": "1px",
+              "background-color": "#888"
+            }
+          },
+          {
+            "type": "text",
+            "class": "title",
+            "style": {
+              "text": "auto-scroll"
+            }
+          },
+          {
+            "type": "text",
+            "class": "subtitle",
+            "style": {
+              "html-text": "指定自动滚动的时间间隔，默认为 <i>0</i>，即不自动滚动。可以使用 <b>scroll-enabled</b> 属性来禁止用户拖动。"
+            }
+          },
+          {
+            "style": {
+              "height": "1px",
+              "background-color": "#888"
+            }
+          },
+          {
+            "vars": {
+              "news": [
+                "华为最大危机即将爆发，任正非或主动邀请马云入股挡灾！",
+                "OPPO和Vivo的幕后老板可能才是国内首富，看他的经营之道。",
+                "因软硬不吃，格力员工被供应商打伤，董明珠果断处理，霸气应对！"
+              ]
+            },
+            "type": "paging",
+            "style": {
+              "height": 50,
+              "direction": "vertical",
+              "infinite-loop": true,
+              "scroll-enabled": false,
+              "auto-scroll": 2
+            },
+            "children": [
+              {
+                "repeat": "${news.count}",
+                "children": [
+                  {
+                    "type": "text",
+                    "style": {
+                      "text": "${news[_index_]}",
+                      "font-size": 15,
+                      "lines": 2,
+                      "padding-left": 15,
+                      "padding-right": 15
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "style": {
+          "direction": "vertical"
+        },
+        "children": [
+          {
+            "style": {
+              "height": "1px",
+              "background-color": "#888"
+            }
+          },
+          {
+            "type": "text",
+            "class": "title",
+            "style": {
+              "text": "on-switch"
+            }
+          },
+          {
+            "type": "text",
+            "class": "subtitle",
+            "style": {
+              "html-text": "翻页时触发的事件。"
+            }
+          },
+          {
+            "style": {
+              "height": "1px",
+              "background-color": "#888"
+            }
+          },
+          {
+            "type": "paging",
+            "style": {
+              "height": 160,
+              "infinite-loop": true
+            },
+            "on-switch": {
+              "alert:": "翻页"
+            },
+            "children": [
+              {
+                "repeat": 2,
+                "type": "text",
+                "style": {
+                  "text": "Page ${_index_ + 1}",
+                  "color": "white",
+                  "font-size": 30,
+                  "alignment": "center",
+                  "background-color": "${['#E24810', '#3366FF'][_index_]}"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "style": {
+          "height": "1px",
+          "background-color": "#888"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,118 @@
+{
+  "styles": {
+    "title": {
+      "font-style": "bold",
+      "font-size": 15,
+      "padding-top": 15,
+      "padding-left": 10,
+      "color": "#666",
+      "background-color": "#ddd"
+    },
+    "subtitle": {
+      "lines": 0,
+      "font-size": 13,
+      "padding-bottom": 4,
+      "padding-left": 10,
+      "color": "#999",
+      "background-color": "#ddd"
+    }
+  },
+  "layout": {
+    "style": {
+      "direction": "vertical"
+    },
+    "children": [
+      {
+        "style": {
+          "direction": "vertical"
+        },
+        "children": [
+          {
+            "type": "text",
+            "class": "title",
+            "style": {
+              "text": "虚线"
+            }
+          },
+          {
+            "type": "text",
+            "class": "subtitle",
+            "style": {
+              "html-text": "line 元素主要用于显示虚线，实线通常用普通元素加背景色实现。线条的方向取决于哪一边比较窄。<br>使用 <b>color</b> 属性设置线条颜色。<br>使用 <b>dash-length</b> 和 <b>space-length</b> 设置虚线的线条和空白长度。"
+            }
+          },
+          {
+            "style": {
+              "height": "1px",
+              "background-color": "#888"
+            }
+          },
+          {
+            "vars": {
+              "lines": [
+                {
+                  "thick": "1px",
+                  "color": "black",
+                  "dash": 3,
+                  "space": 3
+                },
+                {
+                  "thick": 1,
+                  "color": "blue",
+                  "dash": 1,
+                  "space": 1
+                },
+                {
+                  "thick": 2,
+                  "color": "#E24810",
+                  "dash": 10,
+                  "space": 3
+                },
+                {
+                  "thick": 10,
+                  "color": "#cc0",
+                  "dash": 1,
+                  "space": 1
+                },
+                {
+                  "thick": 2,
+                  "color": "lightgray",
+                  "dash": 2,
+                  "space": 8
+                }
+              ]
+            },
+            "style": {
+              "direction": "vertical",
+              "padding-top": 15,
+              "padding-bottom": 15,
+              "justify-content": "center",
+              "spacing": 10
+            },
+            "children": [
+              {
+                "repeat": "${lines.count}",
+                "vars": {
+                  "line": "${lines[_index_]}"
+                },
+                "type": "line",
+                "style": {
+                  "color": "${line.color}",
+                  "height": "${line.thick}",
+                  "dash-length": "${line.dash}",
+                  "space-length": "${line.space}"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "style": {
+          "height": "1px",
+          "background-color": "#888"
+        }
+      }
+    ]
+  }
+}

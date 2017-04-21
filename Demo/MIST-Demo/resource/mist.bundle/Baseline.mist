@@ -1,0 +1,291 @@
+{
+  "styles": {
+    "title": {
+      "font-style": "bold",
+      "font-size": 15,
+      "padding-top": 15,
+      "padding-left": 10,
+      "color": "#666",
+      "background-color": "#ddd"
+    },
+    "subtitle": {
+      "lines": 0,
+      "font-size": 13,
+      "padding-bottom": 4,
+      "padding-left": 10,
+      "color": "#999",
+      "background-color": "#ddd"
+    }
+  },
+  "controller": "MistIndicatorTemplateController",
+  "layout": {
+    "vars": {
+      "themeColor": "#E24810"
+    },
+    "style": {
+      "direction": "vertical"
+    },
+    "children": [
+      {
+        "style": {
+          "direction": "vertical"
+        },
+        "children": [
+          {
+            "type": "text",
+            "class": "title",
+            "style": {
+              "text": ""
+            }
+          },
+          {
+            "type": "text",
+            "class": "subtitle",
+            "style": {
+              "html-text": "可以通过设置 <b>align-items</b> 属性为 <i>baseline</i> 实现基线对齐"
+            }
+          },
+          {
+            "style": {
+              "height": "1px",
+              "background-color": "#888"
+            }
+          },
+          {
+            "style": {
+              "align-items": "baseline",
+              "margin-left": 5
+            },
+            "children": [
+              {
+                "type": "text",
+                "style": {
+                  "text": "基线对齐：",
+                  "color": "gray"
+                }
+              },
+              {
+                "type": "text",
+                "style": {
+                  "text": "198",
+                  "color": "${themeColor}",
+                  "font-size": 28
+                }
+              },
+              {
+                "type": "text",
+                "style": {
+                  "text": "元",
+                  "color": "${themeColor}",
+                  "font-size": 18
+                }
+              }
+            ]
+          },
+          {
+            "style": {
+              "align-items": "end",
+              "margin-left": 5
+            },
+            "children": [
+              {
+                "type": "text",
+                "style": {
+                  "text": "底部对齐：",
+                  "color": "gray"
+                }
+              },
+              {
+                "type": "text",
+                "style": {
+                  "text": "198",
+                  "color": "${themeColor}",
+                  "font-size": 28
+                }
+              },
+              {
+                "type": "text",
+                "style": {
+                  "text": "元",
+                  "color": "${themeColor}",
+                  "font-size": 18
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "style": {
+          "direction": "vertical"
+        },
+        "children": [
+          {
+            "style": {
+              "height": "1px",
+              "background-color": "#888"
+            }
+          },
+          {
+            "type": "text",
+            "class": "title",
+            "style": {
+              "text": ""
+            }
+          },
+          {
+            "type": "text",
+            "class": "subtitle",
+            "style": {
+              "html-text": "也可以通过使用 <b>html-text</b> 设置富文本来实现基线对齐"
+            }
+          },
+          {
+            "style": {
+              "height": "1px",
+              "background-color": "#888"
+            }
+          },
+          {
+            "type": "text",
+            "style": {
+              "margin-left": 5,
+              "html-text": "<font size='28'>198</font>元",
+              "color": "${themeColor}",
+              "font-size": 18
+            }
+          }
+        ]
+      },
+      {
+        "style": {
+          "direction": "vertical"
+        },
+        "children": [
+          {
+            "style": {
+              "height": "1px",
+              "background-color": "#888"
+            }
+          },
+          {
+            "type": "text",
+            "class": "title",
+            "style": {
+              "text": "跨容器基线对齐"
+            }
+          },
+          {
+            "type": "text",
+            "class": "subtitle",
+            "style": {
+              "html-text": ""
+            }
+          },
+          {
+            "style": {
+              "height": "1px",
+              "background-color": "#888"
+            }
+          },
+          {
+            "style": {
+              "align-items": "baseline",
+              "padding": 4
+            },
+            "children": [
+              {
+                "style": {
+                  "align-items": "baseline",
+                  "background-color": "${themeColor}",
+                  "corner-radius": 3,
+                  "clip": true,
+                  "padding": 1
+                },
+                "children": [
+                  {
+                    "type": "text",
+                    "style": {
+                      "text": "基线",
+                      "color": "white",
+                      "margin-left": 2,
+                    }
+                  },
+                  {
+                    "type": "text",
+                    "style": {
+                      "text": "对齐",
+                      "font-size": 20,
+                      "background-color": "white",
+                      "corner-radius": 2,
+                      "padding-right": 2,
+                      "color": "${themeColor}"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "text",
+                "style": {
+                  "text": "基线对齐",
+                  "margin-left": 5
+                }
+              }
+            ]
+          },
+          {
+            "style": {
+              "align-items": "end",
+              "padding": 4
+            },
+            "children": [
+              {
+                "style": {
+                  "align-items": "end",
+                  "background-color": "${themeColor}",
+                  "corner-radius": 3,
+                  "clip": true,
+                  "padding": 1
+                },
+                "children": [
+                  {
+                    "type": "text",
+                    "style": {
+                      "text": "底部",
+                      "color": "white",
+                      "margin-left": 2,
+                    }
+                  },
+                  {
+                    "type": "text",
+                    "style": {
+                      "text": "对齐",
+                      "font-size": 20,
+                      "background-color": "white",
+                      "corner-radius": 2,
+                      "padding-right": 2,
+                      "color": "${themeColor}"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "text",
+                "style": {
+                  "text": "底部对齐",
+                  "margin-left": 5
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "style": {
+          "height": "1px",
+          "background-color": "#888"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,305 @@
+{
+  "controller": "MistExpressionDemoController",
+  "styles": {
+    "title": {
+      "font-style": "bold",
+      "font-size": 15,
+      "padding-top": 15,
+      "padding-left": 10,
+      "padding-bottom": 1,
+      "color": "#666",
+      "background-color": "#ddd"
+    },
+    "subtitle": {
+      "lines": 0,
+      "font-size": 12,
+      "font-style": "light",
+      "padding-bottom": 4,
+      "padding-left": 10,
+      "color": "#999",
+      "background-color": "#ddd"
+    },
+    "header": {
+      "color": "white",
+      "background-color": "#6FE24810",
+      "width": "50%",
+      "font-size": 12,
+      "font-style": "light",
+      "lines": 0,
+      "alignment": "center"
+    },
+    "code": {
+      "font-size": 12,
+      "font-name": "Courier New",
+      "lines": 0,
+      "line-spacing": 1,
+      "padding": 6
+    }
+  },
+  "layout": {
+    "vars": {
+      "themeColor": "#E24810",
+      "groups": [
+        {
+          "desc": "预置了一些全局函数，如 <tt><b>min, round, random</b></tt> 等，详见 <tt><b>VZTGlobalFunctions</b></tt> 类。可以通过 Category 为其扩展更多函数。",
+          "exps": [
+            "abs(-10)",
+            "sign(-10)",
+            "max(5, 10)",
+            "min(5, 10)",
+            "ceil(4.5)",
+            "floor(4.5)",
+            "round(4.5)",
+            "trunc(4.5)",
+            "sin(3.14159/2)",
+            "cos(0)",
+            "tan(3.14159)",
+            "pow(2, 10)",
+            "sqrt(1024)",
+            "log2(1024)",
+            "log10(1000)",
+            "log(2.718)",
+            "log(3, 9)"
+          ]
+        },
+        {
+          "exps": [
+            "random()",
+            "random(9, 10)",
+            "randomInt() % 100",
+            "randomInt(0, 100)"
+          ]
+        },
+        {
+          "exps": [
+            "PI()",
+            "E()",
+            "HUGENUM()"
+          ]
+        },
+        {
+          "exps": [
+            "size(1, 1)",
+            "point(1, 1)",
+            "rect(0, 0, 10, 10)",
+            "range(0, 10)",
+            "inset(1, 2, 3, 4)"
+          ]
+        },
+        {
+          "exps": [
+            "for(5)",
+            "for(5, 8)",
+            "for(5, 8, 0.5)"
+          ]
+        },
+        {
+          "title": "eval 函数",
+          "desc": "<tt><b>eval</b></tt> 是一个特殊的内置函数，用于把一个字符串当作表达式来执行，并返回结果。",
+          "exps": [
+            "eval('1+1')",
+            "eval( for(10).join('+') )"
+          ]
+        }
+      ]
+    },
+    "style": {
+      "direction": "vertical",
+      "height": "${_height_ - 64}",
+      "background-color": "#ddd"
+    },
+    "children": [
+      {
+        "type": "scroll",
+        "style": {
+          "tag": 1,
+          "direction": "vertical",
+          "scroll-direction": "vertical",
+          "flex-grow": 1
+        },
+        "children": [
+          {
+            "repeat": "${groups}",
+            "style": {
+              "direction": "vertical"
+            },
+            "children": [
+              {
+                "type": "text",
+                "class": "title",
+                "style": {
+                  "text": "${_item_.title}"
+                }
+              },
+              {
+                "type": "text",
+                "class": "subtitle",
+                "style": {
+                  "html-text": "${_item_.desc}"
+                }
+              },
+              {
+                "style": {
+                  "height": "1px",
+                  "background-color": "#888"
+                }
+              },
+              {
+                "style": {
+                  "direction": "vertical"
+                },
+                "children": [
+                  {
+                    "style": {
+                      "spacing": "1px",
+                      "height": 20
+                    },
+                    "children": [
+                      {
+                        "type": "text",
+                        "class": "header",
+                        "style": {
+                          "text": "表达式",
+                        }
+                      },
+                      {
+                        "type": "text",
+                        "class": "header",
+                        "style": {
+                          "text": "结果"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "style": {
+                      "height": "1px",
+                      "background-color": "#ccc"
+                    }
+                  },
+                  {
+                    "repeat": "${_item_.exps}",
+                    "vars": {
+                      "action": {
+                        "updateState:": {
+                          "exp": "${_item_}"
+                        }
+                      }
+                    },
+                    "style": {
+                      "spacing": "1px"
+                    },
+                    "on-tap": "${state.try ? action : nil}",
+                    "children": [
+                      {
+                        "type": "text",
+                        "class": "code",
+                        "style": {
+                          "text": "${_item_}",
+                          "width": "50%",
+                          "background-color": "${_index_ % 2 == 0 ? '#1FE24810' : '#2FE24810'}"
+                        }
+                      },
+                      {
+                        "type": "text",
+                        "class": "code",
+                        "style": {
+                          "text": "${MistExpressionDemoController.toString(eval(_item_))}",
+                          "width": "50%",
+                          "background-color": "${_index_ % 2 == 0 ? '#1FE24810' : '#2FE24810'}",
+                          "alignment": "center"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "style": {
+                  "height": "1px",
+                  "background-color": "#888"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "style": {
+          "tag": 2,
+          "margin-top": "auto",
+          "background-color": "#E24810",
+          "direction": "vertical",
+          "height": "${state.try ? 'auto' : 40}"
+        },
+        "children": [
+          {
+            "type": "text",
+            "on-tap": {
+              "updateState:": {
+                "try": "${!state.try}"
+              }
+            },
+            "style": {
+              "flex-grow": "${state.try ? 0 : 1}",
+              "text": "试一试",
+              "color": "white",
+              "font-size": "${state.try ? 12 : 15}",
+              "font-style": "bold",
+              "alignment": "${state.try ? 'left' : 'center'}",
+              "padding-left": 7,
+              "padding-right": 7,
+              "padding-top": 3,
+              "padding-bottom": 3
+            }
+          },
+          {
+            "gone": "${!state.try}",
+            "type": "textview",
+            "on-display": {
+              "onDisplay:sender:": ""
+            },
+            "style": {
+              "height": 60,
+              "background-color": "white",
+              "corner-radius-top-left": 3,
+              "corner-radius-top-right": 3,
+              "text": "${state.exp}",
+              "placeholder": "在此输入表达式",
+              "keyboard-type": "ascii-capable",
+              "font-size": 12,
+              "font-name": "Courier New",
+              "lines": 0,
+              "line-spacing": 1,
+              "padding": 4,
+              "padding-left": -1,
+              "padding-right": -1,
+              "margin-left": 5,
+              "margin-right": 5,
+              "on-change": {
+                "onTextChange:body:": ""
+              }
+            }
+          },
+          {
+            "gone": "${!state.try}",
+            "type": "text",
+            "style": {
+              "background-color": "white",
+              "corner-radius-bottom-left": 3,
+              "corner-radius-bottom-right": 3,
+              "html-text": "<font color='#aaa' size='12'>结果：</font>${MistExpressionDemoController.toString(eval(state.exp))}",
+              "font-name": "Courier New",
+              "font-size": 12,
+              "line-spacing": 1,
+              "lines": 0,
+              "padding": 4,
+              "margin": 5,
+              "margin-top": "1px"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

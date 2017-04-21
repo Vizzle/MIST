@@ -1,0 +1,385 @@
+{
+  "controller": "MistExpressionDemoController",
+  "styles": {
+    "title": {
+      "font-style": "bold",
+      "font-size": 15,
+      "padding-top": 15,
+      "padding-left": 10,
+      "padding-bottom": 1,
+      "color": "#666",
+      "background-color": "#ddd"
+    },
+    "subtitle": {
+      "lines": 0,
+      "font-size": 12,
+      "font-style": "light",
+      "padding-bottom": 4,
+      "padding-left": 10,
+      "color": "#999",
+      "background-color": "#ddd"
+    },
+    "header": {
+      "color": "white",
+      "background-color": "#6FE24810",
+      "width": "50%",
+      "font-size": 12,
+      "font-style": "light",
+      "lines": 0,
+      "alignment": "center"
+    },
+    "code": {
+      "font-size": 12,
+      "font-name": "Courier New",
+      "lines": 0,
+      "line-spacing": 1,
+      "padding": 6
+    }
+  },
+  "layout": {
+    "vars": {
+      "themeColor": "#E24810",
+      "groups": [
+        {
+          "title": "<tt><b>filter</b></tt>",
+          "desc": "筛选出符合条件的元素",
+          "exps": [
+            "[1, -3, 0, 4, -2].filter(n -> n >= 0)",
+            "['a', '', '', 'b', '', 'c'].filter(s -> s.length > 0)"
+          ]
+        },
+        {
+          "title": "<tt><b>select</b></tt>",
+          "desc": "对每个元素做转换",
+          "exps": [
+            "[1, 2, 3].select(n -> n * 2)",
+            "for(1, 11).select(n -> n*n)"
+          ]
+        },
+        {
+          "title": "<tt><b>all</b></tt>",
+          "desc": "是否所有元素都满足条件",
+          "exps": [
+            "[10, 20, 30].all(n -> n % 10 == 0)",
+            "[10, 25, 30].all(n -> n % 10 == 0)"
+          ]
+        },
+        {
+          "title": "<tt><b>any</b></tt>",
+          "desc": "是否有至少一个元素满足条件",
+          "exps": [
+            "[10, 20, 30].any(n -> n % 10 != 0)",
+            "[10, 25, 30].any(n -> n % 10 != 0)"
+          ]
+        },
+        {
+          "title": "<tt><b>first</b></tt>",
+          "desc": "第一个满足条件的元素",
+          "exps": [
+            "['a', 'b', 'c'].first()",
+            "['', 'b', 'c'].first(s -> s.length > 0)"
+          ]
+        },
+        {
+          "title": "<tt><b>firstIndex</b></tt>",
+          "desc": "第一个满足条件的元素的索引",
+          "exps": [
+            "['', 'b', 'c'].firstIndex(s -> s.length > 0)"
+          ]
+        },
+        {
+          "title": "<tt><b>last</b></tt>",
+          "desc": "最后一个满足条件的元素",
+          "exps": [
+            "['a', 'b', 'c'].last()",
+            "['a', 'b', ''].last(s -> s.length > 0)"
+          ]
+        },
+        {
+          "title": "<tt><b>lastIndex</b></tt>",
+          "desc": "第一个满足条件的元素的索引",
+          "exps": [
+            "['a', 'b', ''].lastIndex(s -> s.length > 0)"
+          ]
+        },
+        {
+          "title": "<tt><b>indexOf</b></tt>",
+          "desc": "元素在数组中的索引",
+          "exps": [
+            "['a', 'b', 'a', 'b'].indexOf('b')"
+          ]
+        },
+        {
+          "title": "<tt><b>lastIndexOf</b></tt>",
+          "desc": "元素在数组中的索引，反向查找",
+          "exps": [
+            "['a', 'b', 'a', 'b'].lastIndexOf('b')"
+          ]
+        },
+        {
+          "title": "<tt><b>reverse</b></tt>",
+          "desc": "反转数组",
+          "exps": [
+            "[1, 2, 3].reverse()"
+          ]
+        },
+        {
+          "title": "<tt><b>distinct</b></tt>",
+          "desc": "去重",
+          "exps": [
+            "['a', 'b', 'a', 'c'].distinct()"
+          ]
+        },
+        {
+          "title": "<tt><b>join</b></tt>",
+          "desc": "使用指定分隔符把数组元素拼成一个字符串",
+          "exps": [
+            "['a', 'b', 'c'].join(',')",
+            "for(1, 6).join(' + ')"
+          ]
+        },
+        {
+          "title": "<tt><b>join_property</b></tt>",
+          "desc": "使用指定分隔符把数组元素的指定属性拼成一个字符串",
+          "exps": [
+            "['a', 'abc', 'aa'].join_property(',', 'length')"
+          ]
+        },
+        {
+          "title": "<tt><b>repeat</b></tt>",
+          "desc": "重复所有元素制定次数",
+          "exps": [
+            "[1, 2, 3].repeat(2)"
+          ]
+        },
+        {
+          "title": "<tt><b>slice</b></tt>",
+          "desc": "把数组分割成若干个指定元素个数的小数组",
+          "exps": [
+            "[1, 2, 3, 4, 5, 6, 7, 8].slice(3)"
+          ]
+        },
+        {
+          "title": "<tt><b>sub_array</b></tt>",
+          "desc": "子数组",
+          "exps": [
+            "[1, 2, 3, 4, 5].sub_array(0, 3)"
+          ]
+        },
+        {
+          "title": "<tt><b>set_value</b></tt>",
+          "desc": "字典设置一个值并返回新的字典",
+          "exps": [
+            "{'a': 1}.set_value('b', 2)"
+          ]
+        },
+        {
+          "title": "示例",
+          "exps": [
+            "// 100以内的素数\nfor(2, 100).filter(n -> for(2, n).all(m -> n % m != 0))",
+            "[\n  { 'name': 'Koubei' },\n  { 'name': 'Alipay' },\n  { 'name': '' },\n  { 'name': 'Tmall' }\n].select(t -> t.name)\n .filter(n -> n.length > 0)\n .join(', ')",
+            "'Selected: ' + \n[\n  { 'name': 'Koubei' },\n  { 'name': 'Alipay', 'selected': true },\n  { 'name': 'Tmall' }\n].first(t -> t.selected).name"
+          ]
+        }
+      ]
+    },
+    "style": {
+      "direction": "vertical",
+      "height": "${(state.height ?: _height_) - 64}",
+      "background-color": "#ddd"
+    },
+    "children": [
+      {
+        "type": "scroll",
+        "style": {
+          "tag": 1,
+          "direction": "vertical",
+          "scroll-direction": "vertical",
+          "flex-grow": 1
+        },
+        "children": [
+          {
+            "repeat": "${groups}",
+            "style": {
+              "direction": "vertical"
+            },
+            "children": [
+              {
+                "type": "text",
+                "class": "title",
+                "style": {
+                  "html-text": "${_item_.title}"
+                }
+              },
+              {
+                "type": "text",
+                "class": "subtitle",
+                "style": {
+                  "html-text": "${_item_.desc}"
+                }
+              },
+              {
+                "style": {
+                  "height": "1px",
+                  "background-color": "#888"
+                }
+              },
+              {
+                "style": {
+                  "direction": "vertical"
+                },
+                "children": [
+                  {
+                    "style": {
+                      "spacing": "1px",
+                      "height": 20
+                    },
+                    "children": [
+                      {
+                        "type": "text",
+                        "class": "header",
+                        "style": {
+                          "text": "表达式",
+                        }
+                      },
+                      {
+                        "type": "text",
+                        "class": "header",
+                        "style": {
+                          "text": "结果"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "style": {
+                      "height": "1px",
+                      "background-color": "#ccc"
+                    }
+                  },
+                  {
+                    "repeat": "${_item_.exps}",
+                    "vars": {
+                      "action": {
+                        "updateState:": {
+                          "exp": "${_item_}"
+                        }
+                      }
+                    },
+                    "style": {
+                      "spacing": "1px"
+                    },
+                    "on-tap": "${state.try ? action : nil}",
+                    "children": [
+                      {
+                        "type": "text",
+                        "class": "code",
+                        "style": {
+                          "text": "${_item_}",
+                          "width": "50%",
+                          "background-color": "${_index_ % 2 == 0 ? '#1FE24810' : '#2FE24810'}"
+                        }
+                      },
+                      {
+                        "type": "text",
+                        "class": "code",
+                        "style": {
+                          "text": "${MistExpressionDemoController.toString(eval(_item_))}",
+                          "width": "50%",
+                          "background-color": "${_index_ % 2 == 0 ? '#1FE24810' : '#2FE24810'}",
+                          "alignment": "center"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "style": {
+                  "height": "1px",
+                  "background-color": "#888"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "style": {
+          "tag": 2,
+          "margin-top": "auto",
+          "background-color": "#E24810",
+          "direction": "vertical",
+          "height": "${state.try ? 'auto' : 40}"
+        },
+        "children": [
+          {
+            "type": "text",
+            "on-tap": {
+              "updateState:": {
+                "try": "${!state.try}"
+              }
+            },
+            "style": {
+              "flex-grow": "${state.try ? 0 : 1}",
+              "text": "试一试",
+              "color": "white",
+              "font-size": "${state.try ? 12 : 15}",
+              "font-style": "bold",
+              "alignment": "${state.try ? 'left' : 'center'}",
+              "padding-left": 7,
+              "padding-right": 7,
+              "padding-top": 3,
+              "padding-bottom": 3
+            }
+          },
+          {
+            "gone": "${!state.try}",
+            "type": "textview",
+            "on-display": {
+              "onDisplay:sender:": ""
+            },
+            "style": {
+              "height": 60,
+              "background-color": "white",
+              "corner-radius-top-left": 3,
+              "corner-radius-top-right": 3,
+              "text": "${state.exp}",
+              "placeholder": "在此输入表达式",
+              "keyboard-type": "ascii-capable",
+              "font-size": 12,
+              "font-name": "Courier New",
+              "lines": 0,
+              "line-spacing": 1,
+              "padding": 4,
+              "padding-left": -1,
+              "padding-right": -1,
+              "margin-left": 5,
+              "margin-right": 5,
+              "on-change": {
+                "onTextChange:body:": ""
+              }
+            }
+          },
+          {
+            "gone": "${!state.try}",
+            "type": "text",
+            "style": {
+              "background-color": "white",
+              "corner-radius-bottom-left": 3,
+              "corner-radius-bottom-right": 3,
+              "html-text": "<font color='#aaa' size='12'>结果：</font>${MistExpressionDemoController.toString(eval(state.exp))}",
+              "font-name": "Courier New",
+              "font-size": 12,
+              "line-spacing": 1,
+              "lines": 0,
+              "padding": 4,
+              "margin": 5,
+              "margin-top": "1px"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

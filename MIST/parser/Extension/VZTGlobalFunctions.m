@@ -78,6 +78,11 @@
     return pow(a, b);
 }
 
++ (double)sqrt:(double)a
+{
+    return sqrt(a);
+}
+
 + (double)log2:(double)a
 {
     return log2(a);
@@ -177,7 +182,6 @@
 {
     if (step == 0) step = 1;
     step = fabs(step);
-    if (start > end) step = -step;
 
     NSMutableArray *array = [NSMutableArray array];
     int count = ceil((end - start) / step);

@@ -1,15 +1,51 @@
 PODS:
+  - CocoaAsyncSocket (7.6.0)
+  - CocoaHTTPServer (2.3):
+    - CocoaAsyncSocket
+    - CocoaLumberjack
+  - CocoaLumberjack (3.1.0):
+    - CocoaLumberjack/Default (= 3.1.0)
+    - CocoaLumberjack/Extensions (= 3.1.0)
+  - CocoaLumberjack/Default (3.1.0)
+  - CocoaLumberjack/Extensions (3.1.0):
+    - CocoaLumberjack/Default
+  - DACircularProgress (2.3.1)
+  - IDMPhotoBrowser (1.11.1):
+    - DACircularProgress
+    - pop
+    - SDWebImage (= 4.0.0)
   - MIST (0.0.2):
     - VZFlexLayout
+  - MISTDebug (0.2.0):
+    - CocoaAsyncSocket
+    - CocoaHTTPServer
+    - Tweaks
+  - pop (1.0.9)
+  - SDWebImage (4.0.0):
+    - SDWebImage/Core (= 4.0.0)
+  - SDWebImage/Core (4.0.0)
+  - Tweaks (2.0.0)
   - VZFlexLayout (0.2.4)
 
 DEPENDENCIES:
+  - IDMPhotoBrowser
   - MIST (= 0.0.2)
+  - MISTDebug
+  - SDWebImage
 
 SPEC CHECKSUMS:
+  CocoaAsyncSocket: b9d5589f07baf9de8f34cc25abd4fcba28f13805
+  CocoaHTTPServer: 5624681fc3473d43b18202f635f9b3abb013b530
+  CocoaLumberjack: 8311463ddf9ee86a06ef92a071dd656c89244500
+  DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
+  IDMPhotoBrowser: 14505b91019a96e36479606cb582f864446dae01
   MIST: 9e917a317c8ff7d52724044951382dc522d7b8e5
+  MISTDebug: 9388ef8aaadb3436f3201556321adacf303e1736
+  pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
+  SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
+  Tweaks: 524fa47636cce3bf3a4d9156e980f10ae9480e81
   VZFlexLayout: 2929361eb930818621abf282d88cd29c59b67908
 
-PODFILE CHECKSUM: a3a203849994f7e82d3e57f767f9e00195c872f4
+PODFILE CHECKSUM: e81a564598051ce43509ebb251c524b5b7006b7a
 
 COCOAPODS: 1.2.1

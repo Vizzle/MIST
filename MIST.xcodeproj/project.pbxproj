@@ -45,7 +45,7 @@
 		455F94601EA601F80050EFFE /* VZTObjectExpressionNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F94221EA601F80050EFFE /* VZTObjectExpressionNode.m */; };
 		455F94611EA601F80050EFFE /* VZTOperatorNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 455F94231EA601F80050EFFE /* VZTOperatorNode.h */; };
 		455F94621EA601F80050EFFE /* VZTOperatorNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F94241EA601F80050EFFE /* VZTOperatorNode.m */; };
-		455F94631EA601F80050EFFE /* VZTParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 455F94251EA601F80050EFFE /* VZTParser.h */; };
+		455F94631EA601F80050EFFE /* VZTParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 455F94251EA601F80050EFFE /* VZTParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		455F94641EA601F80050EFFE /* VZTParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F94261EA601F80050EFFE /* VZTParser.m */; };
 		455F94651EA601F80050EFFE /* VZTSyntaxNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 455F94271EA601F80050EFFE /* VZTSyntaxNode.h */; };
 		455F94661EA601F80050EFFE /* VZTSyntaxNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F94281EA601F80050EFFE /* VZTSyntaxNode.m */; };
@@ -53,11 +53,11 @@
 		455F94681EA601F80050EFFE /* VZTUnaryExpressionNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F942A1EA601F80050EFFE /* VZTUnaryExpressionNode.m */; };
 		455F94691EA601F80050EFFE /* VZTUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 455F942B1EA601F80050EFFE /* VZTUtils.h */; };
 		455F946A1EA601F80050EFFE /* VZTUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F942C1EA601F80050EFFE /* VZTUtils.m */; };
-		455F946B1EA601F80050EFFE /* VZMistPage.h in Headers */ = {isa = PBXBuildFile; fileRef = 455F942E1EA601F80050EFFE /* VZMistPage.h */; };
+		455F946B1EA601F80050EFFE /* VZMistPage.h in Headers */ = {isa = PBXBuildFile; fileRef = 455F942E1EA601F80050EFFE /* VZMistPage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		455F946C1EA601F80050EFFE /* VZMistPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F942F1EA601F80050EFFE /* VZMistPage.m */; };
-		455F946D1EA601F80050EFFE /* VZScriptErrorMsgViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 455F94301EA601F80050EFFE /* VZScriptErrorMsgViewController.h */; };
+		455F946D1EA601F80050EFFE /* VZScriptErrorMsgViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 455F94301EA601F80050EFFE /* VZScriptErrorMsgViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		455F946E1EA601F80050EFFE /* VZScriptErrorMsgViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F94311EA601F80050EFFE /* VZScriptErrorMsgViewController.m */; };
-		455F946F1EA601F80050EFFE /* VZScriptManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 455F94321EA601F80050EFFE /* VZScriptManager.h */; };
+		455F946F1EA601F80050EFFE /* VZScriptManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 455F94321EA601F80050EFFE /* VZScriptManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		455F94701EA601F80050EFFE /* VZScriptManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F94331EA601F80050EFFE /* VZScriptManager.m */; };
 		455F94711EA601F80050EFFE /* VZDataStructure.h in Headers */ = {isa = PBXBuildFile; fileRef = 455F94351EA601F80050EFFE /* VZDataStructure.h */; };
 		455F94721EA601F80050EFFE /* VZDataStructure.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F94361EA601F80050EFFE /* VZDataStructure.m */; };
@@ -67,28 +67,28 @@
 		455F94761EA601F80050EFFE /* VZMistHTMLStringParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F943A1EA601F80050EFFE /* VZMistHTMLStringParser.m */; };
 		455F94771EA601F80050EFFE /* VZMistTemplateHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 455F943B1EA601F80050EFFE /* VZMistTemplateHelper.h */; };
 		455F94781EA601F80050EFFE /* VZMistTemplateHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 455F943C1EA601F80050EFFE /* VZMistTemplateHelper.mm */; };
-		458FECC81E9F3147004A44DB /* VZCommonDefine.h in Headers */ = {isa = PBXBuildFile; fileRef = 458FEC731E9F3147004A44DB /* VZCommonDefine.h */; };
-		458FECC91E9F3147004A44DB /* VZFCustomNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 458FEC741E9F3147004A44DB /* VZFCustomNode.h */; };
+		458FECC91E9F3147004A44DB /* VZFCustomNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 458FEC741E9F3147004A44DB /* VZFCustomNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		458FECCA1E9F3147004A44DB /* VZFCustomNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 458FEC751E9F3147004A44DB /* VZFCustomNode.mm */; };
 		458FECCB1E9F3147004A44DB /* VZFNode+Template.h in Headers */ = {isa = PBXBuildFile; fileRef = 458FEC761E9F3147004A44DB /* VZFNode+Template.h */; };
 		458FECCC1E9F3147004A44DB /* VZFNode+Template.mm in Sources */ = {isa = PBXBuildFile; fileRef = 458FEC771E9F3147004A44DB /* VZFNode+Template.mm */; };
-		458FECCD1E9F3147004A44DB /* VZFNodeListItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 458FEC781E9F3147004A44DB /* VZFNodeListItem.h */; };
+		458FECCD1E9F3147004A44DB /* VZFNodeListItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 458FEC781E9F3147004A44DB /* VZFNodeListItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		458FECCE1E9F3147004A44DB /* VZFNodeListItem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 458FEC791E9F3147004A44DB /* VZFNodeListItem.mm */; };
-		458FECCF1E9F3147004A44DB /* VZMist.h in Headers */ = {isa = PBXBuildFile; fileRef = 458FEC7A1E9F3147004A44DB /* VZMist.h */; };
+		458FECCF1E9F3147004A44DB /* VZMist.h in Headers */ = {isa = PBXBuildFile; fileRef = 458FEC7A1E9F3147004A44DB /* VZMist.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		458FECD01E9F3147004A44DB /* VZMist.mm in Sources */ = {isa = PBXBuildFile; fileRef = 458FEC7B1E9F3147004A44DB /* VZMist.mm */; };
-		458FECD11E9F3147004A44DB /* VZMistError.h in Headers */ = {isa = PBXBuildFile; fileRef = 458FEC7C1E9F3147004A44DB /* VZMistError.h */; };
+		458FECD11E9F3147004A44DB /* VZMistError.h in Headers */ = {isa = PBXBuildFile; fileRef = 458FEC7C1E9F3147004A44DB /* VZMistError.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		458FECD21E9F3147004A44DB /* VZMistError.m in Sources */ = {isa = PBXBuildFile; fileRef = 458FEC7D1E9F3147004A44DB /* VZMistError.m */; };
-		458FECD31E9F3147004A44DB /* VZMistItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 458FEC7E1E9F3147004A44DB /* VZMistItem.h */; };
-		458FECD41E9F3147004A44DB /* VZMistListItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 458FEC7F1E9F3147004A44DB /* VZMistListItem.h */; };
+		458FECD31E9F3147004A44DB /* VZMistItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 458FEC7E1E9F3147004A44DB /* VZMistItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		458FECD41E9F3147004A44DB /* VZMistListItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 458FEC7F1E9F3147004A44DB /* VZMistListItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		458FECD51E9F3147004A44DB /* VZMistListItem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 458FEC801E9F3147004A44DB /* VZMistListItem.mm */; };
-		458FECD61E9F3147004A44DB /* VZMistTemplate.h in Headers */ = {isa = PBXBuildFile; fileRef = 458FEC811E9F3147004A44DB /* VZMistTemplate.h */; };
+		458FECD61E9F3147004A44DB /* VZMistTemplate.h in Headers */ = {isa = PBXBuildFile; fileRef = 458FEC811E9F3147004A44DB /* VZMistTemplate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		458FECD71E9F3147004A44DB /* VZMistTemplate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 458FEC821E9F3147004A44DB /* VZMistTemplate.mm */; };
-		458FECD81E9F3147004A44DB /* VZMistTemplateController.h in Headers */ = {isa = PBXBuildFile; fileRef = 458FEC831E9F3147004A44DB /* VZMistTemplateController.h */; };
+		458FECD81E9F3147004A44DB /* VZMistTemplateController.h in Headers */ = {isa = PBXBuildFile; fileRef = 458FEC831E9F3147004A44DB /* VZMistTemplateController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		458FECD91E9F3147004A44DB /* VZMistTemplateController.m in Sources */ = {isa = PBXBuildFile; fileRef = 458FEC841E9F3147004A44DB /* VZMistTemplateController.m */; };
-		458FECDA1E9F3147004A44DB /* VZMistTemplateDownload.h in Headers */ = {isa = PBXBuildFile; fileRef = 458FEC851E9F3147004A44DB /* VZMistTemplateDownload.h */; };
-		458FECDB1E9F3147004A44DB /* VZMistTemplateEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 458FEC861E9F3147004A44DB /* VZMistTemplateEvent.h */; };
+		458FECDA1E9F3147004A44DB /* VZMistTemplateDownload.h in Headers */ = {isa = PBXBuildFile; fileRef = 458FEC851E9F3147004A44DB /* VZMistTemplateDownload.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		458FECDB1E9F3147004A44DB /* VZMistTemplateEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 458FEC861E9F3147004A44DB /* VZMistTemplateEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		458FECDC1E9F3147004A44DB /* VZMistTemplateEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 458FEC871E9F3147004A44DB /* VZMistTemplateEvent.m */; };
 		45C497961E8F9D55009BD7AA /* MIST.h in Headers */ = {isa = PBXBuildFile; fileRef = 45C497941E8F9D55009BD7AA /* MIST.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		45C9C3531EA786A2001015CD /* VZMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 45C9C3521EA786A2001015CD /* VZMacros.h */; };
 		D0C2F8F02AC964485E4BDA3F /* libPods-MIST.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A296F92AB5C0B3819173F3D /* libPods-MIST.a */; };
 /* End PBXBuildFile section */
 
@@ -155,7 +155,6 @@
 		455F943C1EA601F80050EFFE /* VZMistTemplateHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZMistTemplateHelper.mm; sourceTree = "<group>"; };
 		458FEACA1E976596004A44DB /* VZFlexLayout.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VZFlexLayout.framework; path = ../Carthage/Build/iOS/VZFlexLayout.framework; sourceTree = "<group>"; };
 		458FEADD1E977E48004A44DB /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		458FEC731E9F3147004A44DB /* VZCommonDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZCommonDefine.h; sourceTree = "<group>"; };
 		458FEC741E9F3147004A44DB /* VZFCustomNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFCustomNode.h; sourceTree = "<group>"; };
 		458FEC751E9F3147004A44DB /* VZFCustomNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFCustomNode.mm; sourceTree = "<group>"; };
 		458FEC761E9F3147004A44DB /* VZFNode+Template.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "VZFNode+Template.h"; sourceTree = "<group>"; };
@@ -179,6 +178,7 @@
 		45C497911E8F9D55009BD7AA /* MIST.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MIST.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		45C497941E8F9D55009BD7AA /* MIST.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MIST.h; sourceTree = "<group>"; };
 		45C497951E8F9D55009BD7AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		45C9C3521EA786A2001015CD /* VZMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZMacros.h; sourceTree = "<group>"; };
 		5A296F92AB5C0B3819173F3D /* libPods-MIST.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MIST.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		77255C84052463794133E6C9 /* Pods-MIST.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MIST.release.xcconfig"; path = "Pods/Target Support Files/Pods-MIST/Pods-MIST.release.xcconfig"; sourceTree = "<group>"; };
 		9FC5F8E9C2F6C9CFA25B88D3 /* Pods-MIST.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MIST.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MIST/Pods-MIST.debug.xcconfig"; sourceTree = "<group>"; };
@@ -298,7 +298,7 @@
 		458FEC2D1E9F3147004A44DB /* core */ = {
 			isa = PBXGroup;
 			children = (
-				458FEC731E9F3147004A44DB /* VZCommonDefine.h */,
+				45C9C3521EA786A2001015CD /* VZMacros.h */,
 				458FEC741E9F3147004A44DB /* VZFCustomNode.h */,
 				458FEC751E9F3147004A44DB /* VZFCustomNode.mm */,
 				458FEC761E9F3147004A44DB /* VZFNode+Template.h */,
@@ -372,12 +372,21 @@
 			files = (
 				458FECC91E9F3147004A44DB /* VZFCustomNode.h in Headers */,
 				455F94471EA601F80050EFFE /* VZTArrayExpressionNode.h in Headers */,
+				455F946B1EA601F80050EFFE /* VZMistPage.h in Headers */,
+				455F94631EA601F80050EFFE /* VZTParser.h in Headers */,
+				458FECCD1E9F3147004A44DB /* VZFNodeListItem.h in Headers */,
+				455F946F1EA601F80050EFFE /* VZScriptManager.h in Headers */,
+				458FECD81E9F3147004A44DB /* VZMistTemplateController.h in Headers */,
+				458FECD41E9F3147004A44DB /* VZMistListItem.h in Headers */,
+				455F946D1EA601F80050EFFE /* VZScriptErrorMsgViewController.h in Headers */,
+				458FECD31E9F3147004A44DB /* VZMistItem.h in Headers */,
+				458FECDB1E9F3147004A44DB /* VZMistTemplateEvent.h in Headers */,
+				458FECCF1E9F3147004A44DB /* VZMist.h in Headers */,
+				458FECD11E9F3147004A44DB /* VZMistError.h in Headers */,
+				458FECDA1E9F3147004A44DB /* VZMistTemplateDownload.h in Headers */,
+				458FECD61E9F3147004A44DB /* VZMistTemplate.h in Headers */,
 				455F94651EA601F80050EFFE /* VZTSyntaxNode.h in Headers */,
 				455F943F1EA601F80050EFFE /* NSDate+VZTExtension.h in Headers */,
-				455F946D1EA601F80050EFFE /* VZScriptErrorMsgViewController.h in Headers */,
-				455F94631EA601F80050EFFE /* VZTParser.h in Headers */,
-				458FECC81E9F3147004A44DB /* VZCommonDefine.h in Headers */,
-				458FECD31E9F3147004A44DB /* VZMistItem.h in Headers */,
 				455F94411EA601F80050EFFE /* NSDictionary+VZTExtension.h in Headers */,
 				455F94431EA601F80050EFFE /* NSString+VZTExtension.h in Headers */,
 				455F94571EA601F80050EFFE /* VZTKeyValueListNode.h in Headers */,
@@ -386,32 +395,23 @@
 				455F94671EA601F80050EFFE /* VZTUnaryExpressionNode.h in Headers */,
 				455F94751EA601F80050EFFE /* VZMistHTMLStringParser.h in Headers */,
 				455F94451EA601F80050EFFE /* VZTGlobalFunctions.h in Headers */,
-				455F946B1EA601F80050EFFE /* VZMistPage.h in Headers */,
-				458FECDB1E9F3147004A44DB /* VZMistTemplateEvent.h in Headers */,
 				455F945F1EA601F80050EFFE /* VZTObjectExpressionNode.h in Headers */,
 				455F945B1EA601F80050EFFE /* VZTLexer.h in Headers */,
 				455F94511EA601F80050EFFE /* VZTExpressionNode.h in Headers */,
 				455F944F1EA601F80050EFFE /* VZTExpressionListNode.h in Headers */,
-				458FECCD1E9F3147004A44DB /* VZFNodeListItem.h in Headers */,
-				458FECDA1E9F3147004A44DB /* VZMistTemplateDownload.h in Headers */,
 				455F944D1EA601F80050EFFE /* VZTExpressionContext.h in Headers */,
-				458FECD61E9F3147004A44DB /* VZMistTemplate.h in Headers */,
 				455F945D1EA601F80050EFFE /* VZTLiteralNode.h in Headers */,
 				455F94731EA601F80050EFFE /* VZImageCache.h in Headers */,
-				455F946F1EA601F80050EFFE /* VZScriptManager.h in Headers */,
 				455F94491EA601F80050EFFE /* VZTBinaryExpressionNode.h in Headers */,
 				455F94551EA601F80050EFFE /* VZTIdentifierNode.h in Headers */,
-				458FECD81E9F3147004A44DB /* VZMistTemplateController.h in Headers */,
-				458FECD41E9F3147004A44DB /* VZMistListItem.h in Headers */,
 				455F94591EA601F80050EFFE /* VZTLambdaExpressionNode.h in Headers */,
 				455F94691EA601F80050EFFE /* VZTUtils.h in Headers */,
 				455F94771EA601F80050EFFE /* VZMistTemplateHelper.h in Headers */,
 				455F94531EA601F80050EFFE /* VZTFunctionExpressionNode.h in Headers */,
 				455F94711EA601F80050EFFE /* VZDataStructure.h in Headers */,
-				458FECD11E9F3147004A44DB /* VZMistError.h in Headers */,
 				455F944B1EA601F80050EFFE /* VZTConditionalExpressionNode.h in Headers */,
+				45C9C3531EA786A2001015CD /* VZMacros.h in Headers */,
 				455F94611EA601F80050EFFE /* VZTOperatorNode.h in Headers */,
-				458FECCF1E9F3147004A44DB /* VZMist.h in Headers */,
 				45C497961E8F9D55009BD7AA /* MIST.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

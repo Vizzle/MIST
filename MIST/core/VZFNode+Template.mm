@@ -11,7 +11,7 @@
 #import "VZMistTemplateEvent.h"
 #import "VZTExpressionNode.h"
 #import "VZMist.h"
-#import "VZCommonDefine.h"
+#import "VZMacros.h"
 #import "VZDataStructure.h"
 
 #import <VZFlexLayout/VZFNodeSubClass.h>

@@ -8,5 +8,8 @@ target 'MIST-Demo' do
   # Pods for MIST-Demo
 
   pod 'MIST', '0.0.2'
+  pod 'MISTDebug', :configurations => ['Debug']
+  pod 'SDWebImage'
+  pod 'IDMPhotoBrowser'
 
 end

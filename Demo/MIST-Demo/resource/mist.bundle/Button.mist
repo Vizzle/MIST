@@ -1,0 +1,238 @@
+{
+  "styles": {
+    "title": {
+      "font-style": "bold",
+      "font-size": 15,
+      "padding-top": 15,
+      "padding-left": 10,
+      "color": "#666",
+      "background-color": "#ddd"
+    },
+    "subtitle": {
+      "lines": 0,
+      "font-size": 13,
+      "padding-bottom": 4,
+      "padding-left": 10,
+      "color": "#999",
+      "background-color": "#ddd"
+    }
+  },
+  "layout": {
+    "vars": {
+      "themeColor": "#E24810",
+      "tapEvent": {
+        "alert:": "Clicked!"
+      }
+    },
+    "style": {
+      "direction": "vertical"
+    },
+    "children": [
+      {
+        "style": {
+          "direction": "vertical"
+        },
+        "children": [
+          {
+            "type": "text",
+            "class": "title",
+            "style": {
+              "text": "一个简单的按钮"
+            }
+          },
+          {
+            "type": "text",
+            "class": "subtitle",
+            "style": {
+              "html-text": "注意按钮使用 <i>title</i> 设置按钮文字，<i>title-color</i> 设置文字颜色。"
+            }
+          },
+          {
+            "style": {
+              "height": "1px",
+              "background-color": "#888"
+            }
+          },
+          {
+            "type": "button",
+            "style": {
+              "margin": 10,
+              "padding": 10,
+              "title": "Button",
+              "title-color": "white",
+              "background-color": "${themeColor}",
+              "clip": true,
+              "font-size": 18,
+              "corner-radius": 3
+            },
+            "on-tap": "${tapEvent}"
+          }
+        ]
+      },
+      {
+        "style": {
+          "direction": "vertical"
+        },
+        "children": [
+          {
+            "style": {
+              "height": "1px",
+              "background-color": "#888"
+            }
+          },
+          {
+            "type": "text",
+            "class": "title",
+            "style": {
+              "text": "包含图标的按钮"
+            }
+          },
+          {
+            "type": "text",
+            "class": "subtitle",
+            "style": {
+              "html-text": "同时有图片和文字时，不能改变图标和文字的相对位置。"
+            }
+          },
+          {
+            "style": {
+              "height": "1px",
+              "background-color": "#888"
+            }
+          },
+          {
+            "type": "button",
+            "style": {
+              "margin": 10,
+              "padding": 10,
+              "title": "MIST",
+              "image": "mist.bundle/icon_white",
+              "title-color": "white",
+              "font-style": "heavy",
+              "background-color": "${themeColor}",
+              "clip": true,
+              "font-size": 18,
+              "corner-radius": 3
+            },
+            "on-tap": "${tapEvent}"
+          }
+        ]
+      },
+      {
+        "style": {
+          "direction": "vertical"
+        },
+        "children": [
+          {
+            "style": {
+              "height": "1px",
+              "background-color": "#888"
+            }
+          },
+          {
+            "type": "text",
+            "class": "title",
+            "style": {
+              "text": "按钮按下状态"
+            }
+          },
+          {
+            "type": "text",
+            "class": "subtitle",
+            "style": {
+              "html-text": "可以为按钮按下时设置不同的 <i>title</i>, <i>title-color</i>, <i>image</i>, <i>background-image</i>。"
+            }
+          },
+          {
+            "style": {
+              "height": "1px",
+              "background-color": "#888"
+            }
+          },
+          {
+            "type": "button",
+            "style": {
+              "margin": 10,
+              "padding": 10,
+              "title": {
+                "normal": "MIST",
+                "highlighted": "MIST (^ω^)"
+              },
+              "image": {
+                "normal": "mist.bundle/icon_red",
+                "highlighted": "mist.bundle/icon_white"
+              },
+              "title-color": {
+                "normal": "${themeColor}",
+                "highlighted": "white"
+              },
+              "background-image": {
+                "normal": "white",
+                "highlighted": "${themeColor}"
+              },
+              "font-style": "heavy",
+              "border-color": "${themeColor}",
+              "border-width": 1,
+              "clip": true,
+              "font-size": 18,
+              "corner-radius": 3
+            }
+          }
+        ]
+      },
+      {
+        "style": {
+          "direction": "vertical"
+        },
+        "children": [
+          {
+            "style": {
+              "height": "1px",
+              "background-color": "#888"
+            }
+          },
+          {
+            "type": "text",
+            "class": "title",
+            "style": {
+              "text": "扩大按钮点击区域"
+            }
+          },
+          {
+            "type": "text",
+            "class": "subtitle",
+            "style": {
+              "html-text": "通过 <i>enlarge-size</i> 属性扩大按钮的点击区域。（点击下面图标的周围试试）"
+            }
+          },
+          {
+            "style": {
+              "height": "1px",
+              "background-color": "#888"
+            }
+          },
+          {
+            "type": "button",
+            "style": {
+              "margin-top": 20,
+              "margin-bottom": 20,
+              "margin-left": "auto",
+              "margin-right": "auto",
+              "image": "mist.bundle/icon_red",
+              "border-width": "1px",
+              "border-color": "${themeColor}",
+              "enlarge-size": [50, 20]
+            },
+            "on-tap": "${tapEvent}"
+          }
+        ]
+      },
+      {
+        "style": {
+          "height": "1px",
+          "background-color": "#888"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "layout": {
+    "type": "text",
+    "style": {
+      "line-break-mode": "char",
+      "html-text": "<font size='13'>根据 <b>Try Out!</b> 搭建好环境，然后打开 <font color='#666'><b>工程目录/MIST/demo/resource/mist.bundle/Playground.mist</b></font> 进行编辑</font>，即可在下面预览效果",
+      "lines": 0,
+      "padding-top": 15,
+      "padding-bottom": 4,
+      "padding-left": 10,
+      "color": "#999",
+      "background-color": "#ddd"
+    }
+  }
+}

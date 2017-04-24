@@ -84,6 +84,12 @@
     return -1;
 }
 
+// ['a', 'b', 'c'].last()      =>      'c'
+- (id)vzt_last
+{
+    return self.lastObject;
+}
+
 // [11, 12, 13, 14].last(n -> n % 2 == 0)       =>      14
 - (id)vzt_last:(nonnull id (^)(id))block
 {
@@ -159,11 +165,7 @@
         if (i > 0) [ret appendString:str];
 
         id value = [self[i] valueForKey:property];
-        if (!value || ![value isKindOfClass:[NSString class]]) {
-            continue;
-        }
-
-        [ret appendString:(NSString *)value];
+        [ret appendString:[value description]];
     }
     return ret;
 }

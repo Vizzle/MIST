@@ -1,0 +1,84 @@
+{
+  "styles": {
+    "title": {
+      "font-style": "bold",
+      "font-size": 15,
+      "padding-top": 15,
+      "padding-left": 10,
+      "color": "#666",
+      "background-color": "#ddd"
+    },
+    "subtitle": {
+      "lines": 0,
+      "font-size": 13,
+      "padding-bottom": 4,
+      "padding-left": 10,
+      "color": "#999",
+      "background-color": "#ddd"
+    }
+  },
+  "controller": "MistPickerDemoController",
+  "layout": {
+    "style": {
+      "direction": "vertical"
+    },
+    "children": [
+      {
+        "style": {
+          "direction": "vertical"
+        },
+        "children": [
+          {
+            "type": "text",
+            "class": "title",
+            "style": {
+              "text": "基本用法"
+            }
+          },
+          {
+            "type": "text",
+            "class": "subtitle",
+            "style": {
+              "text": "items 设置 picker 的选项 \nselected-index 指定初始的选中项，默认为0 \non-change 传递选项变化事件"
+            }
+          },
+          {
+            "style": {
+              "height": "1px",
+              "background-color": "#888"
+            }
+          },
+          {
+            "type": "picker",
+            "style": {
+              "height": 150,
+              "selected-index": "${state.selectedIndex}",
+              "items": "${state.items}",
+              "on-change": {
+                "onPickerChanged:body:": "on-change"
+              }
+            }
+          },
+          {
+            "style": {
+              "height": "1px",
+              "background-color": "#888"
+            }
+          },
+          {
+            "type": "text",
+            "style": {
+              "font-size": 18,
+              "padding-top": 8,
+              "padding-bottom": 8,
+              "color": "#fb6165",
+              "background-color": "#ddd",
+              "text": "${state.items[state.selectedIndex] ?: 'undefined'}",
+              "alignment": "center"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -19,7 +19,8 @@
 #import <objc/runtime.h>
 
 
-#define kVZTemplateLoopVariableName @"_index_"
+#define kVZTemplateLoopIndex    @"_index_"
+#define kVZTemplateLoopItem     @"_item_"
 
 using namespace std;
 using namespace VZ;
@@ -868,15 +869,28 @@ static const void *displayEventKey = &displayEventKey;
 
                 if (obj[@"repeat"]) {
                     id repeat = [VZMistTemplateHelper extractValueForExpression:obj[@"repeat"] withContext:data];
-                    if (repeat && ![repeat isKindOfClass:[NSNumber class]] && ![repeat isKindOfClass:[NSString class]]) {
-                        NSAssert(NO, @"'repeat' must be a number value");
-                        NSLog(@"%@: 'repeat' must be a number value, '%@' is provided", self.class, repeat);
+                    
+                    NSArray *items = nil;
+                    NSInteger count = 0;
+                    if ([repeat isKindOfClass:[NSArray class]]) {
+                        items = repeat;
+                        count = items.count;
                     }
-
-                    NSInteger repeatCount = __vzInt(repeat, 0);
-                    [data pushVariableWithKey:kVZTemplateLoopVariableName value:nil];
-                    for (int i = 0; i < repeatCount; i++) {
-                        [data setValue:@(i) forKey:kVZTemplateLoopVariableName];
+                    else if ([repeat isKindOfClass:[NSNumber class]]) {
+                        count = __vzInt(repeat, 0);
+                    }
+                    else if (repeat) {
+                        NSAssert(NO, @"'repeat' must be a number or an array");
+                        NSLog(@"%@: 'repeat' must be a number or an array, but '%@' is provided", self.class, repeat);
+                    }
+                    
+                    [data pushVariableWithKey:kVZTemplateLoopIndex value:nil];
+                    [data pushVariableWithKey:kVZTemplateLoopItem value:nil];
+                    for (int i = 0; i < count; i++) {
+                        [data setValue:@(i) forKey:kVZTemplateLoopIndex];
+                        if (items) {
+                            [data setValue:items[i] forKey:kVZTemplateLoopItem];
+                        }
                         VZFNode *childNode = [self nodeFromTemplate:obj
                                                                data:data
                                                                item:item
@@ -884,7 +898,8 @@ static const void *displayEventKey = &displayEventKey;
                                                          isRootNode:NO];
                         list.push_back(childNode);
                     }
-                    [data popVariableWithKey:kVZTemplateLoopVariableName];
+                    [data popVariableWithKey:kVZTemplateLoopIndex];
+                    [data popVariableWithKey:kVZTemplateLoopItem];
                 } else {
                     VZFNode *childNode = [self nodeFromTemplate:obj
                                                            data:data

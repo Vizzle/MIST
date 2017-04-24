@@ -1,0 +1,157 @@
+{
+  "styles": {
+    "title": {
+      "font-style": "bold",
+      "font-size": 15,
+      "padding-top": 15,
+      "padding-left": 10,
+      "color": "#666",
+      "background-color": "#ddd"
+    },
+    "subtitle": {
+      "lines": 0,
+      "font-size": 13,
+      "padding-bottom": 4,
+      "padding-left": 10,
+      "color": "#999",
+      "background-color": "#ddd"
+    }
+  },
+  "controller": "MistWebViewDemoController",
+  "layout": {
+    "style": {
+      "direction": "vertical"
+    },
+    "children": [
+      {
+        "style": {
+          "direction": "vertical"
+        },
+        "children": [
+          {
+            "type": "text",
+            "class": "title",
+            "style": {
+              "text": "加载 HTML 字符串"
+            }
+          },
+          {
+            "type": "text",
+            "class": "subtitle",
+            "style": {
+              "text": "加载本地 html 字符串，设置 source.html 和 source.baseUrl"
+            }
+          },
+          {
+            "style": {
+              "height": "1px",
+              "background-color": "#888"
+            }
+          },
+          {
+            "type": "webview",
+            "style": {
+              "height": 200,
+              "source": {
+                "html": "<!DOCTYPE html><html><head><title></title></head><body style=\"background-color: #f0f0f0\"><h1>MIST</h1><h2> - Text </h2><h2> - Image </h2><h2> - Button </h2><h2> - Input </h2></body></html>"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "style": {
+          "direction": "vertical"
+        },
+        "children": [
+          {
+            "style": {
+              "height": "1px",
+              "background-color": "#888"
+            }
+          },
+          {
+            "type": "text",
+            "class": "title",
+            "style": {
+              "text": "加载 URL"
+            }
+          },
+          {
+            "type": "text",
+            "class": "subtitle",
+            "style": {
+              "text": "加载 url，设置 source.url"
+            }
+          },
+          {
+            "style": {
+              "height": "1px",
+              "background-color": "#888"
+            }
+          },
+          {
+            "type": "webview",
+            "style": {
+              "height": 300,
+              "source": {
+                "url": "https://www.google.com"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "style": {
+          "direction": "vertical"
+        },
+        "children": [
+          {
+            "style": {
+              "height": "1px",
+              "background-color": "#888"
+            }
+          },
+          {
+            "type": "text",
+            "class": "title",
+            "style": {
+              "text": "事件"
+            }
+          },
+          {
+            "type": "text",
+            "class": "subtitle",
+            "style": {
+              "text": "加载开始 on-loading-start，加载完成 on-loading-finish，加载错误 on-loading-error，事件详见控制台输出"
+            }
+          },
+          {
+            "style": {
+              "height": "1px",
+              "background-color": "#888"
+            }
+          },
+          {
+            "type": "webview",
+            "style": {
+              "height": 300,
+              "source": {
+                "url": "https://www.baidu.com"
+              },
+              "on-loading-start": {
+                "onStartLoading:body:": "on-loading-start"
+              },
+              "on-loading-finish": {
+                "onFinishLoading:body:": "on-loading-finish"
+              },
+              "on-loading-error": {
+                "onLoadingError:body:": "on-loading-error"
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

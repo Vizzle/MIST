@@ -1,0 +1,13 @@
+{
+  "blocks": [
+    {
+      "template": "PlaygroundHeader"
+    },
+    {
+      "template": "Playground",
+      "data": {
+        "helloText": "Hello world!"
+      }
+    }
+  ]
+}

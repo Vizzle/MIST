@@ -14,7 +14,7 @@ PODS:
     - DACircularProgress
     - pop
     - SDWebImage (= 4.0.0)
-  - MIST (0.0.2):
+  - MIST (0.0.3):
     - VZFlexLayout
   - MISTDebug (0.2.0):
     - CocoaAsyncSocket
@@ -29,9 +29,13 @@ PODS:
 
 DEPENDENCIES:
   - IDMPhotoBrowser
-  - MIST (= 0.0.2)
+  - MIST (from `../`)
   - MISTDebug
   - SDWebImage
+
+EXTERNAL SOURCES:
+  MIST:
+    :path: "../"
 
 SPEC CHECKSUMS:
   CocoaAsyncSocket: b9d5589f07baf9de8f34cc25abd4fcba28f13805
@@ -39,13 +43,13 @@ SPEC CHECKSUMS:
   CocoaLumberjack: 8311463ddf9ee86a06ef92a071dd656c89244500
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
   IDMPhotoBrowser: 14505b91019a96e36479606cb582f864446dae01
-  MIST: 9e917a317c8ff7d52724044951382dc522d7b8e5
+  MIST: 0656509ccc56a113e0d23253994a60c9e17d0d65
   MISTDebug: 9388ef8aaadb3436f3201556321adacf303e1736
   pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
   Tweaks: 524fa47636cce3bf3a4d9156e980f10ae9480e81
   VZFlexLayout: 2929361eb930818621abf282d88cd29c59b67908
 
-PODFILE CHECKSUM: e81a564598051ce43509ebb251c524b5b7006b7a
+PODFILE CHECKSUM: bb7c422f56a99a4f7a9783b503977a27cdeed2f9
 
 COCOAPODS: 1.2.1

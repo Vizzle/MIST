@@ -1,5 +1,6 @@
 # MIST
-Dynamic View Template Engine Powered by Flexlayout
+
+MIST is a dynamic view template engine strongly inspired by ComponentKit 
 
 [![Build Status](https://travis-ci.org/Vizzle/MIST.svg?branch=master)](https://travis-ci.org/Vizzle/MIST)
 [![Version](https://img.shields.io/cocoapods/v/MIST.svg?style=flat)](http://cocoapods.org/pods/MIST)

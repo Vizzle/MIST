@@ -31,3 +31,4 @@ Carthage/Build
 
 Pods/*
 Pods
+node_modules/*

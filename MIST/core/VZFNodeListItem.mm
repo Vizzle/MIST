@@ -37,7 +37,7 @@
 
 - (float)itemHeight
 {
-    return _recycler.layoutSize.height;
+    return MAX(0.0001, _recycler.layoutSize.height);
 }
 - (float)itemWidth
 {

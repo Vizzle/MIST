@@ -1,4 +1,0 @@
-{
-  "script": "require('UIColor')\ndefineClass('SinglePageDemoController: MistSimpleTemplateViewController',{initWithScheme:function(schemeOptions){self.setTemplateNames([schemeOptions.toJS()['templateName']])\nreturn self},viewDidLoad:function(){self.super().viewDidLoad()\nself.parentViewController().setTitle('Single Page')}})",
-  "dynamicController": "SinglePageDemoController"
-}

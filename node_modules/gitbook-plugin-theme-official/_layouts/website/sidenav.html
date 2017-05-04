@@ -1,0 +1,49 @@
+{% macro articles(_articles) %}
+    {% for article in _articles %}
+        {% if article.path %}
+        <a href="{{ article.path|resolveFile }}{{ article.anchor }}" class="list-group-item {% if article.path == file.path and not article.anchor %}active{% endif %}">
+        {% elif article.url %}
+        <a href="{{ article.url }}" target="_blank" class="list-group-item">
+        {% else %}
+        <span class="list-group-item">
+        {% endif %}
+
+            {% for i in range(0, article.depth - 1) %}
+            <i class="octicon octicon-chevron-down" style="opacity: 0"></i>
+            {% endfor %}
+
+            {% if article.articles.length > 0 and page.level.indexOf(article.level) == 0 %}
+            <i class="octicon octicon-chevron-down"></i>
+            {% elif article.articles.length > 0 %}
+            <i class="octicon octicon-chevron-right"></i>
+            {% endif %}
+
+            {{ article.title }}
+
+        {% if article.path or article.url %}
+        </a>
+        {% else %}
+        </span>
+        {% endif %}
+
+        {% if article.articles.length > 0 and page.level.indexOf(article.level) == 0 %}
+        {{ articles(article.articles) }}
+        {% endif %}
+    {% endfor %}
+{% endmacro %}
+
+{% block book_summary %}
+    {% for part in summary.parts %}
+    <div class="panel panel-default">
+        {% if part.title %}
+        <div class="panel-heading">
+            <h3 class="panel-title">{{ part.title }}</h3>
+        </div>
+        {% endif %}
+
+        <div class="list-group">
+            {{ articles(part.articles) }}
+        </div>
+    </div>
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,14 @@
+{
+  "title": "MIST Document",
+  "description": "MIST",
+  "structure": {
+    "readme": "introduction.md"
+  },
+  "gitbook": ">= 3.0.0",
+  "plugins": [
+    "-fontsettings",
+    "theme-official",
+    "theme-default"
+  ],
+  "pluginsConfig": {}
+}

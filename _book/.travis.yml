@@ -1,0 +1,11 @@
+language: objective-c
+xcode_workspace: MIST.xcworkspace
+xcode_scheme: MIST
+osx_image: xcode7.3
+xcode_sdk: iphonesimulator
+cache: cocoapods
+branches:
+  only:
+  - master
+before_install:
+- pod repo update > /dev/null

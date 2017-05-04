@@ -47,7 +47,6 @@ static const void *kMistItemInCell = &kMistItemInCell;
 @implementation VZMistListItem
 {
     VZTExpressionContext *_expressionContext;
-    NSDictionary *_customData;
     NSMutableArray *_stateUpdatesQueue;
     __weak UITableView *_tableView;
     __weak UIViewController* _viewController;
@@ -122,15 +121,21 @@ static const void *kMistItemInCell = &kMistItemInCell;
  */
 - (void)attachToView:(UIView *)view
 {
+    VZMistWeakObject *preItemWrapper = objc_getAssociatedObject(view, kMistItemInCell);
+    if (preItemWrapper.object
+        && preItemWrapper.object != self) {
+        [preItemWrapper.object detachFromView];
+    }
     [super attachToView:view];
-    objc_setAssociatedObject(view, kMistItemInCell, self, OBJC_ASSOCIATION_ASSIGN);
+    objc_setAssociatedObject(view, kMistItemInCell, [[VZMistWeakObject alloc] initWithObject:self], OBJC_ASSOCIATION_RETAIN);
 }
 
 - (void)detachFromView
 {
-    objc_setAssociatedObject(self.attachedView, kMistItemInCell, nil, OBJC_ASSOCIATION_ASSIGN);
+    objc_setAssociatedObject(self.attachedView, kMistItemInCell, nil, OBJC_ASSOCIATION_RETAIN);
     [super detachFromView];
     _tableView = nil;
+    _viewController = nil;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////

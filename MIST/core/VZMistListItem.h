@@ -63,6 +63,10 @@
  */
 @property (nonatomic, strong, readonly) NSDictionary *data;
 /**
+ 自定义数据，修改后，可调用 render 刷新布局
+ */
+@property (nonatomic, strong) NSMutableDictionary *customData;
+/**
  关联的模板对象
  */
 @property (nonatomic, strong, readonly) VZMistTemplate *tpl;

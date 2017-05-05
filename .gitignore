@@ -1,36 +1,16 @@
-# Xcode
-#
 
-## Build generated
-build/
-DerivedData/
+#node modules
+node_modules
 
-## Various settings
-*.pbxuser
-!default.pbxuser
-*.mode1v3
-!default.mode1v3
-*.mode2v3
-!default.mode2v3
-*.perspectivev3
-!default.perspectivev3
-xcuserdata/
+#package.json
+package.json
 
-## Other
-*.moved-aside
-*.xccheckout
-*.xcscmblueprint
-.DS_Store
-appledoc
+# Book build output
+_book
+
+# eBook build output
+*.epub
+*.mobi
+*.pdf
 
 
-## carthage
-Carthage/Build
-
-## cocoapods
-
-Pods/*
-Pods
-
-## node_modules
-node_modules/*

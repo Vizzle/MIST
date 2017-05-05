@@ -1,0 +1,8 @@
+{
+  "title": "MIST Document",
+  "description": "A declarative framework for building efficient UIs on iOS.",
+  "structure": {
+    "readme": "introduction.md"
+  },
+  "gitbook": ">= 3.0.0"
+}

@@ -2,9 +2,6 @@
 #node modules
 node_modules
 
-#package.json
-package.json
-
 # Book build output
 _book
 

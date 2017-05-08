@@ -17,6 +17,8 @@
 #import "VZMistItem.h"
 #import "VZMistError.h"
 
+@class VZTExpressionContext;
+
 
 /**
  Mist 用于标签解析的代码块
@@ -27,7 +29,7 @@
  @param data 模板使用的数据
  @return node 虚拟dom
  */
-typedef VZFNode * (^VZMistTagProcessor)(NodeSpecs specs, NSDictionary *tpl, id<VZMistItem> item, NSDictionary *data);
+typedef VZFNode * (^VZMistTagProcessor)(NodeSpecs specs, NSDictionary *tpl, id<VZMistItem> item, VZTExpressionContext *data);
 
 
 /**
@@ -72,6 +74,6 @@ typedef void (^VZMistErrorCallback)(VZMistError *error);
               withSpecs:(NodeSpecs)specs
                template:(NSDictionary *)tpl
                    item:(id<VZMistItem>)item
-                   data:(NSDictionary *)data;
+                   data:(VZTExpressionContext *)data;
 
 @end

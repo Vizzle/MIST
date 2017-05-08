@@ -721,7 +721,7 @@ static const void *displayEventKey = &displayEventKey;
 @implementation VZFNode (Template)
 
 + (instancetype)nodeFromTemplate:(VZMistTemplate *)tpl
-                            data:(id)data
+                            data:(VZTExpressionContext *)data
                             item:(id<VZMistItem>)item
 {
     return [self nodeFromTemplate:tpl.tplParsedResult
@@ -732,7 +732,7 @@ static const void *displayEventKey = &displayEventKey;
 }
 
 + (instancetype)nodeFromTemplate:(NSDictionary *)tpl
-                            data:(id)data
+                            data:(VZTExpressionContext *)data
                             item:(id<VZMistItem>)item
                       templateId:(NSString *)tplId
                       isRootNode:(BOOL)isRootNode
@@ -954,7 +954,7 @@ static const void *displayEventKey = &displayEventKey;
 
 + (VZMistTemplateEvent *)eventWithName:(NSString *)name
                               template:(NSDictionary *)tpl
-                                  data:(id)data
+                                  data:(VZTExpressionContext *)data
                                   item:(id<VZMistItem>)item
 {
     NSDictionary *actionDict = tpl[name];
@@ -1004,7 +1004,7 @@ static inline void vz_bindStatefulProperty(StatefulValue<T *> &prop, id value, i
     }
 
 
-+ (void)bindTextNodeSpecs:(TextNodeSpecs &)specs fromTemplate:(NSDictionary *)tpl data:(NSDictionary *)data
++ (void)bindTextNodeSpecs:(TextNodeSpecs &)specs fromTemplate:(NSDictionary *)tpl data:(VZTExpressionContext *)data
 {
     NSDictionary *style = tpl[@"style"];
     VZ_BIND_PROPERTY(NSAttributedString *, specs.attributedString, style[@"html-text"], data);
@@ -1027,7 +1027,7 @@ static inline void vz_bindStatefulProperty(StatefulValue<T *> &prop, id value, i
     /* gencode end */
 }
 
-+ (void)bindImageNodeSpecs:(ImageNodeSpecs &)specs fromTemplate:(NSDictionary *)tpl data:(NSDictionary *)data item:(id<VZMistItem>)item
++ (void)bindImageNodeSpecs:(ImageNodeSpecs &)specs fromTemplate:(NSDictionary *)tpl data:(VZTExpressionContext *)data item:(id<VZMistItem>)item
 {
     NSDictionary *style = tpl[@"style"];
     /* gencode start ImageNodeSpecs */
@@ -1049,7 +1049,7 @@ static inline void vz_bindStatefulProperty(StatefulValue<T *> &prop, id value, i
     specs.context = context;
 }
 
-+ (void)bindButtonNodeSpecs:(ButtonNodeSpecs &)specs fromTemplate:(NSDictionary *)tpl data:(NSDictionary *)data
++ (void)bindButtonNodeSpecs:(ButtonNodeSpecs &)specs fromTemplate:(NSDictionary *)tpl data:(VZTExpressionContext *)data
 {
     NSDictionary *style = tpl[@"style"];
     /* gencode start ButtonNodeSpecs */
@@ -1064,7 +1064,7 @@ static inline void vz_bindStatefulProperty(StatefulValue<T *> &prop, id value, i
     /* gencode end */
 }
 
-+ (void)bindScrollNodeSpecs:(ScrollNodeSpecs &)specs fromTemplate:(NSDictionary *)tpl data:(NSDictionary *)data
++ (void)bindScrollNodeSpecs:(ScrollNodeSpecs &)specs fromTemplate:(NSDictionary *)tpl data:(VZTExpressionContext *)data
 {
     NSDictionary *style = tpl[@"style"];
     /* gencode start ScrollNodeSpecs */
@@ -1075,7 +1075,7 @@ static inline void vz_bindStatefulProperty(StatefulValue<T *> &prop, id value, i
     /* gencode end */
 }
 
-+ (void)bindPagingNodeSpecs:(PagingNodeSpecs &)specs fromTemplate:(NSDictionary *)tpl data:(NSDictionary *)data item:(id<VZMistItem>)item
++ (void)bindPagingNodeSpecs:(PagingNodeSpecs &)specs fromTemplate:(NSDictionary *)tpl data:(VZTExpressionContext *)data item:(id<VZMistItem>)item
 {
     NSDictionary *style = tpl[@"style"];
     /* gencode start PagingNodeSpecs */
@@ -1097,7 +1097,7 @@ static inline void vz_bindStatefulProperty(StatefulValue<T *> &prop, id value, i
 }
 
 
-+ (void)bindIndicatorNodeSpecs:(IndicatorNodeSpecs &)specs fromTemplate:(NSDictionary *)tpl data:(NSDictionary *)data
++ (void)bindIndicatorNodeSpecs:(IndicatorNodeSpecs &)specs fromTemplate:(NSDictionary *)tpl data:(VZTExpressionContext *)data
 {
     NSDictionary *style = tpl[@"style"];
     /* gencode start IndicatorNodeSpecs */
@@ -1106,7 +1106,7 @@ static inline void vz_bindStatefulProperty(StatefulValue<T *> &prop, id value, i
     /* gencode end */
 }
 
-+ (void)bindLineNodeSpecs:(LineNodeSpecs &)specs fromTemplate:(NSDictionary *)tpl data:(NSDictionary *)data
++ (void)bindLineNodeSpecs:(LineNodeSpecs &)specs fromTemplate:(NSDictionary *)tpl data:(VZTExpressionContext *)data
 {
     NSDictionary *style = tpl[@"style"];
     /* gencode start LineNodeSpecs */
@@ -1116,7 +1116,7 @@ static inline void vz_bindStatefulProperty(StatefulValue<T *> &prop, id value, i
     /* gencode end */
 }
 
-+ (void)bindStackNodeSpecs:(StackNodeSpecs &)specs fromTemplate:(NSDictionary *)tpl data:(id)data
++ (void)bindStackNodeSpecs:(StackNodeSpecs &)specs fromTemplate:(NSDictionary *)tpl data:(VZTExpressionContext *)data
 {
     NSDictionary *style = tpl[@"style"];
     /* gencode start StackNodeSpecs */
@@ -1133,7 +1133,7 @@ static inline void vz_bindStatefulProperty(StatefulValue<T *> &prop, id value, i
     /* gencode end */
 }
 
-+ (void)bindNodeSpecs:(NodeSpecs &)specs fromTemplate:(NSDictionary *)tpl data:(id)data
++ (void)bindNodeSpecs:(NodeSpecs &)specs fromTemplate:(NSDictionary *)tpl data:(VZTExpressionContext *)data
 {
     NSDictionary *style = tpl[@"style"];
     /* gencode start NodeSpecs */
@@ -1199,7 +1199,7 @@ static inline void vz_bindStatefulProperty(StatefulValue<T *> &prop, id value, i
     }
 }
 
-+ (void)bindTextFieldNodeSpecs:(TextFieldNodeSpecs &)specs fromTemplate:(NSDictionary *)tpl data:(id)data item:(id<VZMistItem>)item
++ (void)bindTextFieldNodeSpecs:(TextFieldNodeSpecs &)specs fromTemplate:(NSDictionary *)tpl data:(VZTExpressionContext *)data item:(id<VZMistItem>)item
 {
     NSDictionary *style = tpl[@"style"];
     /* gencode start TextFieldNodeSpecs */
@@ -1228,7 +1228,7 @@ static inline void vz_bindStatefulProperty(StatefulValue<T *> &prop, id value, i
     /* gencode end */
 }
 
-+ (void)bindTextViewNodeSpecs:(VZ::TextViewNodeSpecs &)specs fromTemplate:(NSDictionary *)tpl data:(id)data item:(id<VZMistItem>)item
++ (void)bindTextViewNodeSpecs:(VZ::TextViewNodeSpecs &)specs fromTemplate:(NSDictionary *)tpl data:(VZTExpressionContext *)data item:(id<VZMistItem>)item
 {
     NSDictionary *style = tpl[@"style"];
     /* gencode start TextViewNodeSpecs */
@@ -1256,7 +1256,7 @@ static inline void vz_bindStatefulProperty(StatefulValue<T *> &prop, id value, i
     /* gencode end */
 }
 
-+ (void)bindSwitchNodeSpecs:(VZ::SwitchNodeSpecs &)specs fromTemplate:(NSDictionary *)tpl data:(id)data item:(id<VZMistItem>)item
++ (void)bindSwitchNodeSpecs:(VZ::SwitchNodeSpecs &)specs fromTemplate:(NSDictionary *)tpl data:(VZTExpressionContext *)data item:(id<VZMistItem>)item
 {
     NSDictionary *style = tpl[@"style"];
     /* gencode start SwitchNodeSpecs */
@@ -1268,7 +1268,7 @@ static inline void vz_bindStatefulProperty(StatefulValue<T *> &prop, id value, i
     /* gencode end */
 }
 
-+ (void)bindSegmentedControlNodeSpecs:(VZ::SegmentedControlNodeSpecs &)specs fromTemplate:(NSDictionary *)tpl data:(id)data item:(id<VZMistItem>)item
++ (void)bindSegmentedControlNodeSpecs:(VZ::SegmentedControlNodeSpecs &)specs fromTemplate:(NSDictionary *)tpl data:(VZTExpressionContext *)data item:(id<VZMistItem>)item
 {
     NSDictionary *style = tpl[@"style"];
     /* gencode start SegmentedControlNodeSpecs */
@@ -1279,7 +1279,7 @@ static inline void vz_bindStatefulProperty(StatefulValue<T *> &prop, id value, i
     /* gencode end */
 }
 
-+ (void)bindPickerNodeSpecs:(VZ::PickerNodeSpecs &)specs fromTemplate:(NSDictionary *)tpl data:(id)data item:(id<VZMistItem>)item
++ (void)bindPickerNodeSpecs:(VZ::PickerNodeSpecs &)specs fromTemplate:(NSDictionary *)tpl data:(VZTExpressionContext *)data item:(id<VZMistItem>)item
 {
     NSDictionary *style = tpl[@"style"];
     /* gencode start PickerNodeSpecs */
@@ -1289,7 +1289,7 @@ static inline void vz_bindStatefulProperty(StatefulValue<T *> &prop, id value, i
     /* gencode end */
 }
 
-+ (void)bindWebViewNodeSpecs:(VZ::WebViewNodeSpecs &)specs fromTemplate:(NSDictionary *)tpl data:(id)data item:(id<VZMistItem>)item
++ (void)bindWebViewNodeSpecs:(VZ::WebViewNodeSpecs &)specs fromTemplate:(NSDictionary *)tpl data:(VZTExpressionContext *)data item:(id<VZMistItem>)item
 {
     NSDictionary *style = tpl[@"style"];
     /* gencode start WebViewNodeSpecs */
@@ -1301,7 +1301,7 @@ static inline void vz_bindStatefulProperty(StatefulValue<T *> &prop, id value, i
     /* gencode end */
 }
 
-+ (void)bindMapViewNodeSpecs:(VZ::MapViewNodeSpecs &)specs fromTemplate:(NSDictionary *)tpl data:(id)data item:(id<VZMistItem>)item
++ (void)bindMapViewNodeSpecs:(VZ::MapViewNodeSpecs &)specs fromTemplate:(NSDictionary *)tpl data:(VZTExpressionContext *)data item:(id<VZMistItem>)item
 {
     NSDictionary *style = tpl[@"style"];
     /* gencode start MapViewNodeSpecs */
@@ -1351,7 +1351,7 @@ static inline void vz_bindStatefulProperty(StatefulValue<T *> &prop, id value, i
     }
 }
 
-+ (void)bindMapAnnotationSpecs:(MapAnnotationSpecs &)specs fromTemplate:(NSDictionary *)tpl data:(id)data
++ (void)bindMapAnnotationSpecs:(MapAnnotationSpecs &)specs fromTemplate:(NSDictionary *)tpl data:(VZTExpressionContext *)data
 {
     VZ_BIND_PROPERTY(NSString *, specs.identifier, tpl[@"id"], data);
     VZ_BIND_NUMBER_PROPERTY(double, specs.latitude, tpl[@"latitude"], data);
@@ -1363,7 +1363,7 @@ static inline void vz_bindStatefulProperty(StatefulValue<T *> &prop, id value, i
     VZ_BIND_NUMBER_PROPERTY(double, specs.draggable, tpl[@"draggable"], data);
 }
 
-+ (void)bindMapOverlaySpecs:(MapOverlaySpecs &)specs fromTemplate:(NSDictionary *)tpl data:(id)data
++ (void)bindMapOverlaySpecs:(MapOverlaySpecs &)specs fromTemplate:(NSDictionary *)tpl data:(VZTExpressionContext *)data
 {
     VZ_BIND_PROPERTY(NSString *, specs.identifier, tpl[@"id"], data);
     VZ_BIND_PROPERTY(UIColor *, specs.strokeColor, tpl[@"stroke-color"], data);

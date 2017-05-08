@@ -802,8 +802,6 @@ static const void *displayEventKey = &displayEventKey;
     //        }
     //    }
 
-    NSDictionary *styleTpl;
-
     NSString *classStr = __vzString(tpl[@"class"], nil);
     NSArray *classes = [classStr componentsSeparatedByString:@" "];
     if (classes.count > 0) {
@@ -815,12 +813,12 @@ static const void *displayEventKey = &displayEventKey;
             }
         }
         [mutableStyle setValuesForKeysWithDictionary:tpl[@"style"]];
-        styleTpl = mutableStyle;
-    } else {
-        styleTpl = tpl[@"style"];
+        NSMutableDictionary *mutableTpl = tpl.mutableCopy;
+        mutableTpl[@"style"] = mutableStyle;
+        tpl = mutableTpl;
     }
 
-    [self bindNodeSpecs:specs fromTemplate:styleTpl data:data];
+    [self bindNodeSpecs:specs fromTemplate:tpl data:data];
     if (isRootNode && specs.identifier.length() == 0 && tplId.length > 0) {
         specs.identifier = string([tplId UTF8String]);
     }
@@ -833,7 +831,7 @@ static const void *displayEventKey = &displayEventKey;
 
     node = [[VZMist sharedInstance] processTag:type
                                      withSpecs:specs
-                                      template:styleTpl
+                                      template:tpl
                                           item:item
                                           data:data];
 
@@ -846,7 +844,7 @@ static const void *displayEventKey = &displayEventKey;
         node = [VZFNode newWithView:viewClass ?: [UIView class] NodeSpecs:specs];
     } else {
         StackNodeSpecs stackSpecs = StackNodeSpecs();
-        [self bindStackNodeSpecs:stackSpecs fromTemplate:styleTpl data:data];
+        [self bindStackNodeSpecs:stackSpecs fromTemplate:tpl data:data];
 
         NSArray *childTpl = ((NSArray *)tpl[@"children"]);
         vector<VZFNode *> list = {};
@@ -920,11 +918,11 @@ static const void *displayEventKey = &displayEventKey;
             node = [VZFStackNode newWithStackAttributes:stackSpecs NodeSpecs:specs Children:children];
         } else if ([@"scroll" isEqualToString:type]) {
             ScrollNodeSpecs scrollSpecs = ScrollNodeSpecs();
-            [self bindScrollNodeSpecs:scrollSpecs fromTemplate:styleTpl data:data];
+            [self bindScrollNodeSpecs:scrollSpecs fromTemplate:tpl data:data];
             node = [VZFScrollNode newWithScrollAttributes:scrollSpecs StackAttributes:stackSpecs NodeSpecs:specs Children:list];
         } else if ([@"paging" isEqualToString:type]) {
             PagingNodeSpecs pagingSpecs = PagingNodeSpecs();
-            [self bindPagingNodeSpecs:pagingSpecs fromTemplate:styleTpl data:data item:item];
+            [self bindPagingNodeSpecs:pagingSpecs fromTemplate:tpl data:data item:item];
 
             VZMistTemplateEvent *switchEvent = [self eventWithName:@"on-switch" template:tpl data:data item:item];
             if (switchEvent) {
@@ -1005,33 +1003,35 @@ static inline void vz_bindStatefulProperty(StatefulValue<T *> &prop, id value, i
 
 + (void)bindTextNodeSpecs:(TextNodeSpecs &)specs fromTemplate:(NSDictionary *)tpl data:(NSDictionary *)data
 {
-    VZ_BIND_PROPERTY(NSAttributedString *, specs._attributedString, tpl[@"html-text"], data);
+    NSDictionary *style = tpl[@"style"];
+    VZ_BIND_PROPERTY(NSAttributedString *, specs.attributedString, style[@"html-text"], data);
     /* gencode start TextNodeSpecs */
-    VZ_BIND_PROPERTY(NSString *, specs.text, tpl[@"text"], data);
-    VZ_BIND_PROPERTY(UIColor *, specs.color, tpl[@"color"], data);
-    VZ_BIND_NUMBER_PROPERTY(float, specs.fontSize, tpl[@"font-size"], data);
-    VZ_BIND_PROPERTY(NSString *, specs.fontName, tpl[@"font-name"], data);
-    VZ_BIND_PROPERTY(VZFFontStyle, specs.fontStyle, tpl[@"font-style"], data);
-    VZ_BIND_NUMBER_PROPERTY(float, specs.miniScaleFactor, tpl[@"mini-scale-factor"], data);
-    VZ_BIND_NUMBER_PROPERTY(BOOL, specs.adjustsFontSize, tpl[@"adjusts-font-size"], data);
-    VZ_BIND_PROPERTY(UIBaselineAdjustment, specs.baselineAdjustment, tpl[@"baseline-adjustment"], data);
-    VZ_BIND_PROPERTY(NSTextAlignment, specs.alignment, tpl[@"alignment"], data);
-    VZ_BIND_PROPERTY(VZFTextVerticalAlignment, specs.verticalAlignment, tpl[@"vertical-alignment"], data);
-    VZ_BIND_PROPERTY(VZFTextLineBreakMode, specs.lineBreakMode, tpl[@"line-break-mode"], data);
-    VZ_BIND_PROPERTY(VZFTextTruncationMode, specs.truncationMode, tpl[@"truncation-mode"], data);
-    VZ_BIND_NUMBER_PROPERTY(unsigned int, specs.lines, tpl[@"lines"], data, DefaultFlexAttributesValue::lines);
-    VZ_BIND_NUMBER_PROPERTY(float, specs.kern, tpl[@"kern"], data);
-    VZ_BIND_NUMBER_PROPERTY(float, specs.lineSpacing, tpl[@"line-spacing"], data);
+    VZ_BIND_PROPERTY(NSString *, specs.text, style[@"text"], data);
+    VZ_BIND_PROPERTY(UIColor *, specs.color, style[@"color"], data);
+    VZ_BIND_NUMBER_PROPERTY(float, specs.fontSize, style[@"font-size"], data);
+    VZ_BIND_PROPERTY(NSString *, specs.fontName, style[@"font-name"], data);
+    VZ_BIND_PROPERTY(VZFFontStyle, specs.fontStyle, style[@"font-style"], data);
+    VZ_BIND_NUMBER_PROPERTY(float, specs.miniScaleFactor, style[@"mini-scale-factor"], data);
+    VZ_BIND_NUMBER_PROPERTY(BOOL, specs.adjustsFontSize, style[@"adjusts-font-size"], data);
+    VZ_BIND_PROPERTY(UIBaselineAdjustment, specs.baselineAdjustment, style[@"baseline-adjustment"], data);
+    VZ_BIND_PROPERTY(NSTextAlignment, specs.alignment, style[@"alignment"], data);
+    VZ_BIND_PROPERTY(VZFTextVerticalAlignment, specs.verticalAlignment, style[@"vertical-alignment"], data);
+    VZ_BIND_PROPERTY(VZFTextLineBreakMode, specs.lineBreakMode, style[@"line-break-mode"], data);
+    VZ_BIND_PROPERTY(VZFTextTruncationMode, specs.truncationMode, style[@"truncation-mode"], data);
+    VZ_BIND_NUMBER_PROPERTY(unsigned int, specs.lines, style[@"lines"], data, DefaultFlexAttributesValue::lines);
+    VZ_BIND_NUMBER_PROPERTY(float, specs.kern, style[@"kern"], data);
+    VZ_BIND_NUMBER_PROPERTY(float, specs.lineSpacing, style[@"line-spacing"], data);
     /* gencode end */
 }
 
 + (void)bindImageNodeSpecs:(ImageNodeSpecs &)specs fromTemplate:(NSDictionary *)tpl data:(NSDictionary *)data item:(id<VZMistItem>)item
 {
+    NSDictionary *style = tpl[@"style"];
     /* gencode start ImageNodeSpecs */
-    VZ_BIND_PROPERTY(UIImage *, specs.image, tpl[@"image"], data);
-    VZ_BIND_PROPERTY(NSString *, specs.imageUrl, tpl[@"image-url"], data);
-    VZ_BIND_PROPERTY(UIImage *, specs.errorImage, tpl[@"error-image"], data);
-    VZ_BIND_PROPERTY(UIViewContentMode, specs.contentMode, tpl[@"content-mode"], data);
+    VZ_BIND_PROPERTY(UIImage *, specs.image, style[@"image"], data);
+    VZ_BIND_PROPERTY(NSString *, specs.imageUrl, style[@"image-url"], data);
+    VZ_BIND_PROPERTY(UIImage *, specs.errorImage, style[@"error-image"], data);
+    VZ_BIND_PROPERTY(UIViewContentMode, specs.contentMode, style[@"content-mode"], data);
     /* gencode end */
 
     VZMistTemplateEvent *completeEvent = [self eventWithName:@"on-complete" template:tpl data:data item:item];
@@ -1048,44 +1048,47 @@ static inline void vz_bindStatefulProperty(StatefulValue<T *> &prop, id value, i
 
 + (void)bindButtonNodeSpecs:(ButtonNodeSpecs &)specs fromTemplate:(NSDictionary *)tpl data:(NSDictionary *)data
 {
+    NSDictionary *style = tpl[@"style"];
     /* gencode start ButtonNodeSpecs */
-    VZ_BIND_NUMBER_PROPERTY(CGFloat, specs.fontSize, tpl[@"font-size"], data);
-    VZ_BIND_PROPERTY(NSString *, specs.fontName, tpl[@"font-name"], data);
-    VZ_BIND_PROPERTY(VZFFontStyle, specs.fontStyle, tpl[@"font-style"], data);
-    VZ_BIND_STATEFUL_PROPERTY(NSString, specs.title, tpl[@"title"], data);
-    VZ_BIND_STATEFUL_PROPERTY(UIColor, specs.titleColor, tpl[@"title-color"], data);
-    VZ_BIND_STATEFUL_PROPERTY(UIImage, specs.backgroundImage, tpl[@"background-image"], data);
-    VZ_BIND_STATEFUL_PROPERTY(UIImage, specs.image, tpl[@"image"], data);
-    VZ_BIND_PROPERTY(CGSize, specs.enlargeSize, tpl[@"enlarge-size"], data, DefaultButtonAttributesValue::enlargeSize);
+    VZ_BIND_NUMBER_PROPERTY(CGFloat, specs.fontSize, style[@"font-size"], data);
+    VZ_BIND_PROPERTY(NSString *, specs.fontName, style[@"font-name"], data);
+    VZ_BIND_PROPERTY(VZFFontStyle, specs.fontStyle, style[@"font-style"], data);
+    VZ_BIND_STATEFUL_PROPERTY(NSString, specs.title, style[@"title"], data);
+    VZ_BIND_STATEFUL_PROPERTY(UIColor, specs.titleColor, style[@"title-color"], data);
+    VZ_BIND_STATEFUL_PROPERTY(UIImage, specs.backgroundImage, style[@"background-image"], data);
+    VZ_BIND_STATEFUL_PROPERTY(UIImage, specs.image, style[@"image"], data);
+    VZ_BIND_PROPERTY(CGSize, specs.enlargeSize, style[@"enlarge-size"], data, DefaultButtonAttributesValue::enlargeSize);
     /* gencode end */
 }
 
 + (void)bindScrollNodeSpecs:(ScrollNodeSpecs &)specs fromTemplate:(NSDictionary *)tpl data:(NSDictionary *)data
 {
+    NSDictionary *style = tpl[@"style"];
     /* gencode start ScrollNodeSpecs */
-    VZ_BIND_PROPERTY(ScrollDirection, specs.scrollDirection, tpl[@"scroll-direction"], data, DefaultFlexAttributesValue::scrollDirection);
-    VZ_BIND_NUMBER_PROPERTY(bool, specs.scrollEnabled, tpl[@"scroll-enabled"], data, DefaultFlexAttributesValue::scrollEnabled);
-    VZ_BIND_NUMBER_PROPERTY(bool, specs.paging, tpl[@"paging"], data);
+    VZ_BIND_PROPERTY(ScrollDirection, specs.scrollDirection, style[@"scroll-direction"], data, DefaultFlexAttributesValue::scrollDirection);
+    VZ_BIND_NUMBER_PROPERTY(bool, specs.scrollEnabled, style[@"scroll-enabled"], data, DefaultFlexAttributesValue::scrollEnabled);
+    VZ_BIND_NUMBER_PROPERTY(bool, specs.paging, style[@"paging"], data);
 
     /* gencode end */
 }
 
 + (void)bindPagingNodeSpecs:(PagingNodeSpecs &)specs fromTemplate:(NSDictionary *)tpl data:(NSDictionary *)data item:(id<VZMistItem>)item
 {
+    NSDictionary *style = tpl[@"style"];
     /* gencode start PagingNodeSpecs */
-    VZ_BIND_PROPERTY(PagingDirection, specs.direction, tpl[@"direction"], data);
-    VZ_BIND_NUMBER_PROPERTY(bool, specs.scrollEnabled, tpl[@"scroll-enabled"], data, PagingNodeSpecsDefault::scrollEnabled);
-    VZ_BIND_NUMBER_PROPERTY(bool, specs.paging, tpl[@"paging"], data, PagingNodeSpecsDefault::scrollEnabled);
-    VZ_BIND_NUMBER_PROPERTY(float, specs.autoScroll, tpl[@"auto-scroll"], data);
-    VZ_BIND_NUMBER_PROPERTY(bool, specs.infiniteLoop, tpl[@"infinite-loop"], data);
-    VZ_BIND_NUMBER_PROPERTY(bool, specs.pageControl, tpl[@"page-control"], data);
-    VZ_BIND_PROPERTY(FlexLength, specs.pageControlMarginLeft, tpl[@"page-control-margin-left"], data, PagingNodeSpecsDefault::margin);
-    VZ_BIND_PROPERTY(FlexLength, specs.pageControlMarginRight, tpl[@"page-control-margin-right"], data, PagingNodeSpecsDefault::margin);
-    VZ_BIND_PROPERTY(FlexLength, specs.pageControlMarginTop, tpl[@"page-control-margin-top"], data, PagingNodeSpecsDefault::margin);
-    VZ_BIND_PROPERTY(FlexLength, specs.pageControlMarginBottom, tpl[@"page-control-margin-bottom"], data, PagingNodeSpecsDefault::margin);
-    VZ_BIND_NUMBER_PROPERTY(float, specs.pageControlScale, tpl[@"page-control-scale"], data, PagingNodeSpecsDefault::pageControlScale);
-    VZ_BIND_PROPERTY(UIColor *, specs.pageControlColor, tpl[@"page-control-color"], data);
-    VZ_BIND_PROPERTY(UIColor *, specs.pageControlSelectedColor, tpl[@"page-control-selected-color"], data);
+    VZ_BIND_PROPERTY(PagingDirection, specs.direction, style[@"direction"], data);
+    VZ_BIND_NUMBER_PROPERTY(bool, specs.scrollEnabled, style[@"scroll-enabled"], data, PagingNodeSpecsDefault::scrollEnabled);
+    VZ_BIND_NUMBER_PROPERTY(bool, specs.paging, style[@"paging"], data, PagingNodeSpecsDefault::scrollEnabled);
+    VZ_BIND_NUMBER_PROPERTY(float, specs.autoScroll, style[@"auto-scroll"], data);
+    VZ_BIND_NUMBER_PROPERTY(bool, specs.infiniteLoop, style[@"infinite-loop"], data);
+    VZ_BIND_NUMBER_PROPERTY(bool, specs.pageControl, style[@"page-control"], data);
+    VZ_BIND_PROPERTY(FlexLength, specs.pageControlMarginLeft, style[@"page-control-margin-left"], data, PagingNodeSpecsDefault::margin);
+    VZ_BIND_PROPERTY(FlexLength, specs.pageControlMarginRight, style[@"page-control-margin-right"], data, PagingNodeSpecsDefault::margin);
+    VZ_BIND_PROPERTY(FlexLength, specs.pageControlMarginTop, style[@"page-control-margin-top"], data, PagingNodeSpecsDefault::margin);
+    VZ_BIND_PROPERTY(FlexLength, specs.pageControlMarginBottom, style[@"page-control-margin-bottom"], data, PagingNodeSpecsDefault::margin);
+    VZ_BIND_NUMBER_PROPERTY(float, specs.pageControlScale, style[@"page-control-scale"], data, PagingNodeSpecsDefault::pageControlScale);
+    VZ_BIND_PROPERTY(UIColor *, specs.pageControlColor, style[@"page-control-color"], data);
+    VZ_BIND_PROPERTY(UIColor *, specs.pageControlSelectedColor, style[@"page-control-selected-color"], data);
 
     /* gencode end */
 }
@@ -1093,82 +1096,86 @@ static inline void vz_bindStatefulProperty(StatefulValue<T *> &prop, id value, i
 
 + (void)bindIndicatorNodeSpecs:(IndicatorNodeSpecs &)specs fromTemplate:(NSDictionary *)tpl data:(NSDictionary *)data
 {
+    NSDictionary *style = tpl[@"style"];
     /* gencode start IndicatorNodeSpecs */
-    VZ_BIND_PROPERTY(UIColor *, specs.color, tpl[@"color"], data);
+    VZ_BIND_PROPERTY(UIColor *, specs.color, style[@"color"], data);
 
     /* gencode end */
 }
 
 + (void)bindLineNodeSpecs:(LineNodeSpecs &)specs fromTemplate:(NSDictionary *)tpl data:(NSDictionary *)data
 {
+    NSDictionary *style = tpl[@"style"];
     /* gencode start LineNodeSpecs */
-    VZ_BIND_PROPERTY(UIColor *, specs.color, tpl[@"color"], data);
-    VZ_BIND_NUMBER_PROPERTY(CGFloat, specs.dashLength, tpl[@"dash-length"], data);
-    VZ_BIND_NUMBER_PROPERTY(CGFloat, specs.spaceLength, tpl[@"space-length"], data);
+    VZ_BIND_PROPERTY(UIColor *, specs.color, style[@"color"], data);
+    VZ_BIND_NUMBER_PROPERTY(CGFloat, specs.dashLength, style[@"dash-length"], data);
+    VZ_BIND_NUMBER_PROPERTY(CGFloat, specs.spaceLength, style[@"space-length"], data);
     /* gencode end */
 }
 
 + (void)bindStackNodeSpecs:(StackNodeSpecs &)specs fromTemplate:(NSDictionary *)tpl data:(id)data
 {
+    NSDictionary *style = tpl[@"style"];
     /* gencode start StackNodeSpecs */
-    VZ_BIND_PROPERTY(VZFlexLayoutWrapMode, specs.wrap, tpl[@"wrap"], data, DefaultStackAttributesValue::wrap);
-    VZ_BIND_NUMBER_PROPERTY(unsigned int, specs.lines, tpl[@"lines"], data);
-    VZ_BIND_NUMBER_PROPERTY(unsigned int, specs.itemsPerLine, tpl[@"items-per-line"], data);
-    VZ_BIND_PROPERTY(VZFlexLayoutDirection, specs.direction, tpl[@"direction"], data, DefaultStackAttributesValue::direction);
-    VZ_BIND_PROPERTY(VZFlexLayoutAlignment, specs.justifyContent, tpl[@"justify-content"], data, DefaultStackAttributesValue::justifyContent);
-    VZ_BIND_PROPERTY(VZFlexLayoutAlignment, specs.alignItems, tpl[@"align-items"], data, DefaultStackAttributesValue::alignItems);
-    VZ_BIND_PROPERTY(VZFlexLayoutAlignment, specs.alignContent, tpl[@"align-content"], data, DefaultStackAttributesValue::alignContent);
-    VZ_BIND_PROPERTY(FlexLength, specs.spacing, tpl[@"spacing"], data, DefaultStackAttributesValue::spacing);
-    VZ_BIND_PROPERTY(FlexLength, specs.lineSpacing, tpl[@"line-spacing"], data, DefaultStackAttributesValue::lineSpacing);
+    VZ_BIND_PROPERTY(VZFlexLayoutWrapMode, specs.wrap, style[@"wrap"], data, DefaultStackAttributesValue::wrap);
+    VZ_BIND_NUMBER_PROPERTY(unsigned int, specs.lines, style[@"lines"], data);
+    VZ_BIND_NUMBER_PROPERTY(unsigned int, specs.itemsPerLine, style[@"items-per-line"], data);
+    VZ_BIND_PROPERTY(VZFlexLayoutDirection, specs.direction, style[@"direction"], data, DefaultStackAttributesValue::direction);
+    VZ_BIND_PROPERTY(VZFlexLayoutAlignment, specs.justifyContent, style[@"justify-content"], data, DefaultStackAttributesValue::justifyContent);
+    VZ_BIND_PROPERTY(VZFlexLayoutAlignment, specs.alignItems, style[@"align-items"], data, DefaultStackAttributesValue::alignItems);
+    VZ_BIND_PROPERTY(VZFlexLayoutAlignment, specs.alignContent, style[@"align-content"], data, DefaultStackAttributesValue::alignContent);
+    VZ_BIND_PROPERTY(FlexLength, specs.spacing, style[@"spacing"], data, DefaultStackAttributesValue::spacing);
+    VZ_BIND_PROPERTY(FlexLength, specs.lineSpacing, style[@"line-spacing"], data, DefaultStackAttributesValue::lineSpacing);
 
     /* gencode end */
 }
 
 + (void)bindNodeSpecs:(NodeSpecs &)specs fromTemplate:(NSDictionary *)tpl data:(id)data
 {
+    NSDictionary *style = tpl[@"style"];
     /* gencode start NodeSpecs */
     VZ_BIND_PROPERTY(std::string, specs.identifier, tpl[@"identifier"], data);
     VZ_BIND_NUMBER_PROPERTY(NSInteger, specs.tag, tpl[@"tag"], data);
-    VZ_BIND_NUMBER_PROPERTY(BOOL, specs.clip, tpl[@"clip"], data);
-    VZ_BIND_NUMBER_PROPERTY(float, specs.alpha, tpl[@"alpha"], data, DefaultAttributesValue::alpha);
-    VZ_BIND_NUMBER_PROPERTY(int, specs.userInteractionEnabled, tpl[@"user-interaction-enabled"], data, DefaultAttributesValue::userInteractionEnabled);
-    VZ_BIND_PROPERTY(UIColor*, specs.backgroundColor, tpl[@"background-color"], data, DefaultAttributesValue::backgroundColor);
-    VZ_BIND_PROPERTY(UIColor*, specs.highlightBackgroundColor, tpl[@"highlight-background-color"], data, DefaultAttributesValue::highlightBackgroundColor);
-    VZ_BIND_NUMBER_PROPERTY(CGFloat, specs.cornerRadius, tpl[@"corner-radius"], data);
-    VZ_BIND_NUMBER_PROPERTY(CGFloat, specs.cornerRadiusTopLeft, tpl[@"corner-radius-top-left"], data, DefaultAttributesValue::cornerRadiusUndefined);
-    VZ_BIND_NUMBER_PROPERTY(CGFloat, specs.cornerRadiusTopRight, tpl[@"corner-radius-top-right"], data, DefaultAttributesValue::cornerRadiusUndefined);
-    VZ_BIND_NUMBER_PROPERTY(CGFloat, specs.cornerRadiusBottomLeft, tpl[@"corner-radius-bottom-left"], data, DefaultAttributesValue::cornerRadiusUndefined);
-    VZ_BIND_NUMBER_PROPERTY(CGFloat, specs.cornerRadiusBottomRight, tpl[@"corner-radius-bottom-right"], data, DefaultAttributesValue::cornerRadiusUndefined);
-    VZ_BIND_NUMBER_PROPERTY(CGFloat, specs.borderWidth, tpl[@"border-width"], data);
-    VZ_BIND_PROPERTY(UIColor *, specs.borderColor, tpl[@"border-color"], data);
-    VZ_BIND_PROPERTY(UIImage *, specs.contents, tpl[@"contents"], data);
-    VZ_BIND_PROPERTY(FlexLength, specs.width, tpl[@"width"], data, DefaultAttributesValue::width);
-    VZ_BIND_PROPERTY(FlexLength, specs.height, tpl[@"height"], data, DefaultAttributesValue::height);
-    VZ_BIND_PROPERTY(FlexLength, specs.maxWidth, tpl[@"max-width"], data, DefaultAttributesValue::maxWidth);
-    VZ_BIND_PROPERTY(FlexLength, specs.maxHeight, tpl[@"max-height"], data, DefaultAttributesValue::maxHeight);
-    VZ_BIND_PROPERTY(FlexLength, specs.minWidth, tpl[@"min-width"], data, DefaultAttributesValue::minWidth);
-    VZ_BIND_PROPERTY(FlexLength, specs.minHeight, tpl[@"min-height"], data, DefaultAttributesValue::minHeight);
-    VZ_BIND_PROPERTY(FlexLength, specs.marginLeft, tpl[@"margin-left"], data, DefaultAttributesValue::marginLeft);
-    VZ_BIND_PROPERTY(FlexLength, specs.marginRight, tpl[@"margin-right"], data, DefaultAttributesValue::marginRight);
-    VZ_BIND_PROPERTY(FlexLength, specs.marginTop, tpl[@"margin-top"], data, DefaultAttributesValue::marginTop);
-    VZ_BIND_PROPERTY(FlexLength, specs.marginBottom, tpl[@"margin-bottom"], data, DefaultAttributesValue::marginBottom);
-    VZ_BIND_PROPERTY(FlexLength, specs.paddingLeft, tpl[@"padding-left"], data, DefaultAttributesValue::paddingLeft);
-    VZ_BIND_PROPERTY(FlexLength, specs.paddingRight, tpl[@"padding-right"], data, DefaultAttributesValue::paddingRight);
-    VZ_BIND_PROPERTY(FlexLength, specs.paddingTop, tpl[@"padding-top"], data, DefaultAttributesValue::paddingTop);
-    VZ_BIND_PROPERTY(FlexLength, specs.paddingBottom, tpl[@"padding-bottom"], data, DefaultAttributesValue::paddingBottom);
-    VZ_BIND_PROPERTY(FlexLength, specs.margin, tpl[@"margin"], data, DefaultAttributesValue::margin);
-    VZ_BIND_PROPERTY(FlexLength, specs.padding, tpl[@"padding"], data, DefaultAttributesValue::padding);
-    VZ_BIND_NUMBER_PROPERTY(float, specs.flexGrow, tpl[@"flex-grow"], data, DefaultAttributesValue::flexGrow);
-    VZ_BIND_NUMBER_PROPERTY(float, specs.flexShrink, tpl[@"flex-shrink"], data, DefaultAttributesValue::flexShrink);
-    VZ_BIND_PROPERTY(FlexLength, specs.flexBasis, tpl[@"flex-basis"], data, DefaultAttributesValue::flexBasis);
-    VZ_BIND_PROPERTY(VZFlexLayoutAlignment, specs.alignSelf, tpl[@"align-self"], data, DefaultAttributesValue::alignSelf);
-    VZ_BIND_NUMBER_PROPERTY(bool, specs.fixed, tpl[@"fixed"], data, DefaultAttributesValue::fixed);
-    VZ_BIND_NUMBER_PROPERTY(int, specs.isAccessibilityElement, tpl[@"is-accessibility-element"], data, DefaultAttributesValue::userInteractionEnabled);
-    VZ_BIND_PROPERTY(NSString *, specs.accessibilityLabel, tpl[@"accessibility-label"], data);
-    VZ_BIND_NUMBER_PROPERTY(BOOL, specs.asyncDisplay, tpl[@"async-display"], data);
+    VZ_BIND_NUMBER_PROPERTY(BOOL, specs.clip, style[@"clip"], data);
+    VZ_BIND_NUMBER_PROPERTY(float, specs.alpha, style[@"alpha"], data, DefaultAttributesValue::alpha);
+    VZ_BIND_NUMBER_PROPERTY(int, specs.userInteractionEnabled, style[@"user-interaction-enabled"], data, DefaultAttributesValue::userInteractionEnabled);
+    VZ_BIND_PROPERTY(UIColor*, specs.backgroundColor, style[@"background-color"], data, DefaultAttributesValue::backgroundColor);
+    VZ_BIND_PROPERTY(UIColor*, specs.highlightBackgroundColor, style[@"highlight-background-color"], data, DefaultAttributesValue::highlightBackgroundColor);
+    VZ_BIND_NUMBER_PROPERTY(CGFloat, specs.cornerRadius, style[@"corner-radius"], data);
+    VZ_BIND_NUMBER_PROPERTY(CGFloat, specs.cornerRadiusTopLeft, style[@"corner-radius-top-left"], data, DefaultAttributesValue::cornerRadiusUndefined);
+    VZ_BIND_NUMBER_PROPERTY(CGFloat, specs.cornerRadiusTopRight, style[@"corner-radius-top-right"], data, DefaultAttributesValue::cornerRadiusUndefined);
+    VZ_BIND_NUMBER_PROPERTY(CGFloat, specs.cornerRadiusBottomLeft, style[@"corner-radius-bottom-left"], data, DefaultAttributesValue::cornerRadiusUndefined);
+    VZ_BIND_NUMBER_PROPERTY(CGFloat, specs.cornerRadiusBottomRight, style[@"corner-radius-bottom-right"], data, DefaultAttributesValue::cornerRadiusUndefined);
+    VZ_BIND_NUMBER_PROPERTY(CGFloat, specs.borderWidth, style[@"border-width"], data);
+    VZ_BIND_PROPERTY(UIColor *, specs.borderColor, style[@"border-color"], data);
+    VZ_BIND_PROPERTY(UIImage *, specs.contents, style[@"contents"], data);
+    VZ_BIND_PROPERTY(FlexLength, specs.width, style[@"width"], data, DefaultAttributesValue::width);
+    VZ_BIND_PROPERTY(FlexLength, specs.height, style[@"height"], data, DefaultAttributesValue::height);
+    VZ_BIND_PROPERTY(FlexLength, specs.maxWidth, style[@"max-width"], data, DefaultAttributesValue::maxWidth);
+    VZ_BIND_PROPERTY(FlexLength, specs.maxHeight, style[@"max-height"], data, DefaultAttributesValue::maxHeight);
+    VZ_BIND_PROPERTY(FlexLength, specs.minWidth, style[@"min-width"], data, DefaultAttributesValue::minWidth);
+    VZ_BIND_PROPERTY(FlexLength, specs.minHeight, style[@"min-height"], data, DefaultAttributesValue::minHeight);
+    VZ_BIND_PROPERTY(FlexLength, specs.marginLeft, style[@"margin-left"], data, DefaultAttributesValue::marginLeft);
+    VZ_BIND_PROPERTY(FlexLength, specs.marginRight, style[@"margin-right"], data, DefaultAttributesValue::marginRight);
+    VZ_BIND_PROPERTY(FlexLength, specs.marginTop, style[@"margin-top"], data, DefaultAttributesValue::marginTop);
+    VZ_BIND_PROPERTY(FlexLength, specs.marginBottom, style[@"margin-bottom"], data, DefaultAttributesValue::marginBottom);
+    VZ_BIND_PROPERTY(FlexLength, specs.paddingLeft, style[@"padding-left"], data, DefaultAttributesValue::paddingLeft);
+    VZ_BIND_PROPERTY(FlexLength, specs.paddingRight, style[@"padding-right"], data, DefaultAttributesValue::paddingRight);
+    VZ_BIND_PROPERTY(FlexLength, specs.paddingTop, style[@"padding-top"], data, DefaultAttributesValue::paddingTop);
+    VZ_BIND_PROPERTY(FlexLength, specs.paddingBottom, style[@"padding-bottom"], data, DefaultAttributesValue::paddingBottom);
+    VZ_BIND_PROPERTY(FlexLength, specs.margin, style[@"margin"], data, DefaultAttributesValue::margin);
+    VZ_BIND_PROPERTY(FlexLength, specs.padding, style[@"padding"], data, DefaultAttributesValue::padding);
+    VZ_BIND_NUMBER_PROPERTY(float, specs.flexGrow, style[@"flex-grow"], data, DefaultAttributesValue::flexGrow);
+    VZ_BIND_NUMBER_PROPERTY(float, specs.flexShrink, style[@"flex-shrink"], data, DefaultAttributesValue::flexShrink);
+    VZ_BIND_PROPERTY(FlexLength, specs.flexBasis, style[@"flex-basis"], data, DefaultAttributesValue::flexBasis);
+    VZ_BIND_PROPERTY(VZFlexLayoutAlignment, specs.alignSelf, style[@"align-self"], data, DefaultAttributesValue::alignSelf);
+    VZ_BIND_NUMBER_PROPERTY(bool, specs.fixed, style[@"fixed"], data, DefaultAttributesValue::fixed);
+    VZ_BIND_NUMBER_PROPERTY(int, specs.isAccessibilityElement, style[@"is-accessibility-element"], data, DefaultAttributesValue::userInteractionEnabled);
+    VZ_BIND_PROPERTY(NSString *, specs.accessibilityLabel, style[@"accessibility-label"], data);
+    VZ_BIND_NUMBER_PROPERTY(BOOL, specs.asyncDisplay, style[@"async-display"], data);
     /* gencode end */
 
-    NSDictionary *properties = __vzDictionary(__extractValue(tpl[@"view-properties"], data), nil);
+    NSDictionary *properties = __vzDictionary(__extractValue(style[@"properties"], data), nil);
     NSMutableDictionary *originalProperties = [NSMutableDictionary dictionary];
     if (properties.count > 0) {
         specs.applicator = ^(UIView *view) {
@@ -1191,24 +1198,25 @@ static inline void vz_bindStatefulProperty(StatefulValue<T *> &prop, id value, i
 
 + (void)bindTextFieldNodeSpecs:(TextFieldNodeSpecs &)specs fromTemplate:(NSDictionary *)tpl data:(id)data item:(id<VZMistItem>)item
 {
+    NSDictionary *style = tpl[@"style"];
     /* gencode start TextFieldNodeSpecs */
-    VZ_BIND_PROPERTY(NSString *, specs.text, tpl[@"text"], data);
-    VZ_BIND_PROPERTY(UIColor *, specs.color, tpl[@"color"], data);
-    VZ_BIND_NUMBER_PROPERTY(float, specs.fontSize, tpl[@"font-size"], data);
-    VZ_BIND_PROPERTY(NSString *, specs.fontName, tpl[@"font-name"], data);
-    VZ_BIND_PROPERTY(VZFFontStyle, specs.fontStyle, tpl[@"font-style"], data);
-    VZ_BIND_PROPERTY(NSTextAlignment, specs.alignment, tpl[@"alignment"], data);
-    VZ_BIND_PROPERTY(NSString *, specs.placeholder, tpl[@"placeholder"], data);
-    VZ_BIND_PROPERTY(UIColor *, specs.placeholderColor, tpl[@"placeholder-color"], data);
-    VZ_BIND_NUMBER_PROPERTY(BOOL, specs.editable, tpl[@"editable"], data, DefaultControlAttrValue::able);
-    VZ_BIND_NUMBER_PROPERTY(BOOL, specs.secureTextEntry, tpl[@"secure-text-entry"], data);
-    VZ_BIND_PROPERTY(UIKeyboardType, specs.keyboardType, tpl[@"keyboard-type"], data);
-    VZ_BIND_PROPERTY(UIKeyboardAppearance, specs.keyboardAppearance, tpl[@"keyboard-appearance"], data);
-    VZ_BIND_PROPERTY(UIReturnKeyType, specs.returnKeyType, tpl[@"return-key-type"], data);
-    VZ_BIND_PROPERTY(UITextFieldViewMode, specs.clearButtonMode, tpl[@"clear-button-mode"], data);
-    VZ_BIND_NUMBER_PROPERTY(NSUInteger, specs.maxLength, tpl[@"max-length"], data, DefaultTextFieldAttrValue::defaultMaxLength);
-    VZ_BIND_NUMBER_PROPERTY(BOOL, specs.blurOnSubmit, tpl[@"blur-on-submit"], data, DefaultControlAttrValue::able);
-    VZ_BIND_NUMBER_PROPERTY(BOOL, specs.autoFocus, tpl[@"auto-focus"], data, DefaultControlAttrValue::disable);
+    VZ_BIND_PROPERTY(NSString *, specs.text, style[@"text"], data);
+    VZ_BIND_PROPERTY(UIColor *, specs.color, style[@"color"], data);
+    VZ_BIND_NUMBER_PROPERTY(float, specs.fontSize, style[@"font-size"], data);
+    VZ_BIND_PROPERTY(NSString *, specs.fontName, style[@"font-name"], data);
+    VZ_BIND_PROPERTY(VZFFontStyle, specs.fontStyle, style[@"font-style"], data);
+    VZ_BIND_PROPERTY(NSTextAlignment, specs.alignment, style[@"alignment"], data);
+    VZ_BIND_PROPERTY(NSString *, specs.placeholder, style[@"placeholder"], data);
+    VZ_BIND_PROPERTY(UIColor *, specs.placeholderColor, style[@"placeholder-color"], data);
+    VZ_BIND_NUMBER_PROPERTY(BOOL, specs.editable, style[@"editable"], data, DefaultControlAttrValue::able);
+    VZ_BIND_NUMBER_PROPERTY(BOOL, specs.secureTextEntry, style[@"secure-text-entry"], data);
+    VZ_BIND_PROPERTY(UIKeyboardType, specs.keyboardType, style[@"keyboard-type"], data);
+    VZ_BIND_PROPERTY(UIKeyboardAppearance, specs.keyboardAppearance, style[@"keyboard-appearance"], data);
+    VZ_BIND_PROPERTY(UIReturnKeyType, specs.returnKeyType, style[@"return-key-type"], data);
+    VZ_BIND_PROPERTY(UITextFieldViewMode, specs.clearButtonMode, style[@"clear-button-mode"], data);
+    VZ_BIND_NUMBER_PROPERTY(NSUInteger, specs.maxLength, style[@"max-length"], data, DefaultTextFieldAttrValue::defaultMaxLength);
+    VZ_BIND_NUMBER_PROPERTY(BOOL, specs.blurOnSubmit, style[@"blur-on-submit"], data, DefaultControlAttrValue::able);
+    VZ_BIND_NUMBER_PROPERTY(BOOL, specs.autoFocus, style[@"auto-focus"], data, DefaultControlAttrValue::disable);
     VZ_BIND_EVENT_PROPERTY(specs.onFocus, @"on-focus", tpl, data, item);
     VZ_BIND_EVENT_PROPERTY(specs.onBlur, @"on-blur", tpl, data, item);
     VZ_BIND_EVENT_PROPERTY(specs.onChange, @"on-change", tpl, data, item);
@@ -1219,22 +1227,23 @@ static inline void vz_bindStatefulProperty(StatefulValue<T *> &prop, id value, i
 
 + (void)bindTextViewNodeSpecs:(VZ::TextViewNodeSpecs &)specs fromTemplate:(NSDictionary *)tpl data:(id)data item:(id<VZMistItem>)item
 {
+    NSDictionary *style = tpl[@"style"];
     /* gencode start TextViewNodeSpecs */
-    VZ_BIND_PROPERTY(NSString *, specs.text, tpl[@"text"], data);
-    VZ_BIND_PROPERTY(UIColor *, specs.color, tpl[@"color"], data);
-    VZ_BIND_NUMBER_PROPERTY(float, specs.fontSize, tpl[@"font-size"], data);
-    VZ_BIND_PROPERTY(NSString *, specs.fontName, tpl[@"font-name"], data);
-    VZ_BIND_PROPERTY(VZFFontStyle, specs.fontStyle, tpl[@"font-style"], data);
-    VZ_BIND_PROPERTY(NSTextAlignment, specs.alignment, tpl[@"alignment"], data);
-    VZ_BIND_PROPERTY(NSString *, specs.placeholder, tpl[@"placeholder"], data);
-    VZ_BIND_PROPERTY(UIColor *, specs.placeholderColor, tpl[@"placeholder-color"], data);
-    VZ_BIND_NUMBER_PROPERTY(BOOL, specs.editable, tpl[@"editable"], data, DefaultControlAttrValue::able);
-    VZ_BIND_NUMBER_PROPERTY(BOOL, specs.autoFocus, tpl[@"auto-focus"], data, DefaultControlAttrValue::disable);
-    VZ_BIND_PROPERTY(UIKeyboardType, specs.keyboardType, tpl[@"keyboard-type"], data);
-    VZ_BIND_PROPERTY(UIKeyboardAppearance, specs.keyboardAppearance, tpl[@"keyboard-appearance"], data);
-    VZ_BIND_PROPERTY(UIReturnKeyType, specs.returnKeyType, tpl[@"return-key-type"], data);
-    VZ_BIND_NUMBER_PROPERTY(NSUInteger, specs.maxLength, tpl[@"max-length"], data, DefaultTextViewAttrValue::defaultMaxLength);
-    VZ_BIND_NUMBER_PROPERTY(BOOL, specs.blurOnSubmit, tpl[@"blur-on-submit"], data, DefaultControlAttrValue::disable);
+    VZ_BIND_PROPERTY(NSString *, specs.text, style[@"text"], data);
+    VZ_BIND_PROPERTY(UIColor *, specs.color, style[@"color"], data);
+    VZ_BIND_NUMBER_PROPERTY(float, specs.fontSize, style[@"font-size"], data);
+    VZ_BIND_PROPERTY(NSString *, specs.fontName, style[@"font-name"], data);
+    VZ_BIND_PROPERTY(VZFFontStyle, specs.fontStyle, style[@"font-style"], data);
+    VZ_BIND_PROPERTY(NSTextAlignment, specs.alignment, style[@"alignment"], data);
+    VZ_BIND_PROPERTY(NSString *, specs.placeholder, style[@"placeholder"], data);
+    VZ_BIND_PROPERTY(UIColor *, specs.placeholderColor, style[@"placeholder-color"], data);
+    VZ_BIND_NUMBER_PROPERTY(BOOL, specs.editable, style[@"editable"], data, DefaultControlAttrValue::able);
+    VZ_BIND_NUMBER_PROPERTY(BOOL, specs.autoFocus, style[@"auto-focus"], data, DefaultControlAttrValue::disable);
+    VZ_BIND_PROPERTY(UIKeyboardType, specs.keyboardType, style[@"keyboard-type"], data);
+    VZ_BIND_PROPERTY(UIKeyboardAppearance, specs.keyboardAppearance, style[@"keyboard-appearance"], data);
+    VZ_BIND_PROPERTY(UIReturnKeyType, specs.returnKeyType, style[@"return-key-type"], data);
+    VZ_BIND_NUMBER_PROPERTY(NSUInteger, specs.maxLength, style[@"max-length"], data, DefaultTextViewAttrValue::defaultMaxLength);
+    VZ_BIND_NUMBER_PROPERTY(BOOL, specs.blurOnSubmit, style[@"blur-on-submit"], data, DefaultControlAttrValue::disable);
     VZ_BIND_EVENT_PROPERTY(specs.onFocus, @"on-focus", tpl, data, item);
     VZ_BIND_EVENT_PROPERTY(specs.onBlur, @"on-blur", tpl, data, item);
     VZ_BIND_EVENT_PROPERTY(specs.onChange, @"on-change", tpl, data, item);
@@ -1246,39 +1255,43 @@ static inline void vz_bindStatefulProperty(StatefulValue<T *> &prop, id value, i
 
 + (void)bindSwitchNodeSpecs:(VZ::SwitchNodeSpecs &)specs fromTemplate:(NSDictionary *)tpl data:(id)data item:(id<VZMistItem>)item
 {
+    NSDictionary *style = tpl[@"style"];
     /* gencode start SwitchNodeSpecs */
-    VZ_BIND_NUMBER_PROPERTY(BOOL, specs.on, tpl[@"on"], data);
-    VZ_BIND_NUMBER_PROPERTY(BOOL, specs.enabled, tpl[@"enabled"], data, DefaultControlAttrValue::able);
-    VZ_BIND_PROPERTY(UIColor *, specs.onTintColor, tpl[@"on-tint-color"], data);
-    VZ_BIND_PROPERTY(UIColor *, specs.thumbTintColor, tpl[@"thumb-tint-color"], data);
+    VZ_BIND_NUMBER_PROPERTY(BOOL, specs.on, style[@"on"], data);
+    VZ_BIND_NUMBER_PROPERTY(BOOL, specs.enabled, style[@"enabled"], data, DefaultControlAttrValue::able);
+    VZ_BIND_PROPERTY(UIColor *, specs.onTintColor, style[@"on-tint-color"], data);
+    VZ_BIND_PROPERTY(UIColor *, specs.thumbTintColor, style[@"thumb-tint-color"], data);
     VZ_BIND_EVENT_PROPERTY(specs.onChange, @"on-change", tpl, data, item);
     /* gencode end */
 }
 
 + (void)bindSegmentedControlNodeSpecs:(VZ::SegmentedControlNodeSpecs &)specs fromTemplate:(NSDictionary *)tpl data:(id)data item:(id<VZMistItem>)item
 {
+    NSDictionary *style = tpl[@"style"];
     /* gencode start SegmentedControlNodeSpecs */
-    VZ_BIND_PROPERTY(NSArray<NSString *> *, specs.items, tpl[@"items"], data);
+    VZ_BIND_PROPERTY(NSArray<NSString *> *, specs.items, style[@"items"], data);
     VZ_BIND_EVENT_PROPERTY(specs.onChange, @"on-change", tpl, data, item);
-    VZ_BIND_NUMBER_PROPERTY(NSInteger, specs.selectedSegmentedIndex, tpl[@"selected-segmented-index"], data, DefaultAttributesValue::noSegment);
-    VZ_BIND_NUMBER_PROPERTY(BOOL, specs.enabled, tpl[@"enabled"], data, DefaultControlAttrValue::able);
+    VZ_BIND_NUMBER_PROPERTY(NSInteger, specs.selectedSegmentedIndex, style[@"selected-segmented-index"], data, DefaultAttributesValue::noSegment);
+    VZ_BIND_NUMBER_PROPERTY(BOOL, specs.enabled, style[@"enabled"], data, DefaultControlAttrValue::able);
     /* gencode end */
 }
 
 + (void)bindPickerNodeSpecs:(VZ::PickerNodeSpecs &)specs fromTemplate:(NSDictionary *)tpl data:(id)data item:(id<VZMistItem>)item
 {
+    NSDictionary *style = tpl[@"style"];
     /* gencode start PickerNodeSpecs */
-    VZ_BIND_PROPERTY(NSArray<NSString *> *, specs.items, tpl[@"items"], data);
-    VZ_BIND_NUMBER_PROPERTY(NSInteger, specs.selectedIndex, tpl[@"selected-index"], data, DefaultAttributesValue::selectedIndex);
+    VZ_BIND_PROPERTY(NSArray<NSString *> *, specs.items, style[@"items"], data);
+    VZ_BIND_NUMBER_PROPERTY(NSInteger, specs.selectedIndex, style[@"selected-index"], data, DefaultAttributesValue::selectedIndex);
     VZ_BIND_EVENT_PROPERTY(specs.onChange, @"on-change", tpl, data, item);
     /* gencode end */
 }
 
 + (void)bindWebViewNodeSpecs:(VZ::WebViewNodeSpecs &)specs fromTemplate:(NSDictionary *)tpl data:(id)data item:(id<VZMistItem>)item
 {
+    NSDictionary *style = tpl[@"style"];
     /* gencode start WebViewNodeSpecs */
-    VZ_BIND_PROPERTY(NSDictionary *, specs.source, tpl[@"source"], data);
-    VZ_BIND_NUMBER_PROPERTY(BOOL, specs.scalesPageToFit, tpl[@"scales-page-to-fit"], data);
+    VZ_BIND_PROPERTY(NSDictionary *, specs.source, style[@"source"], data);
+    VZ_BIND_NUMBER_PROPERTY(BOOL, specs.scalesPageToFit, style[@"scales-page-to-fit"], data);
     VZ_BIND_EVENT_PROPERTY(specs.onLoadingStart, @"on-loading-start", tpl, data, item);
     VZ_BIND_EVENT_PROPERTY(specs.onLoadingFinish, @"on-loading-finish", tpl, data, item);
     VZ_BIND_EVENT_PROPERTY(specs.onLoadingError, @"on-loading-error", tpl, data, item);
@@ -1287,25 +1300,26 @@ static inline void vz_bindStatefulProperty(StatefulValue<T *> &prop, id value, i
 
 + (void)bindMapViewNodeSpecs:(VZ::MapViewNodeSpecs &)specs fromTemplate:(NSDictionary *)tpl data:(id)data item:(id<VZMistItem>)item
 {
+    NSDictionary *style = tpl[@"style"];
     /* gencode start MapViewNodeSpecs */
-    VZ_BIND_PROPERTY(MKMapType, specs.mapType, tpl[@"map-type"], data);
-    VZ_BIND_NUMBER_PROPERTY(BOOL, specs.showsUserLocation, tpl[@"shows-user-location"], data);
-    VZ_BIND_NUMBER_PROPERTY(BOOL, specs.followUserLocation, tpl[@"follow-user-location"], data);
-    VZ_BIND_NUMBER_PROPERTY(BOOL, specs.showsAnnotationCallouts, tpl[@"shows-annotation-callouts"], data);
-    VZ_BIND_NUMBER_PROPERTY(BOOL, specs.zoomEnabled, tpl[@"zoom-enabled"], data, DefaultControlAttrValue::able);
-    VZ_BIND_NUMBER_PROPERTY(BOOL, specs.scrollEnabled, tpl[@"scroll-enabled"], data, DefaultControlAttrValue::able);
-    VZ_BIND_NUMBER_PROPERTY(BOOL, specs.rotateEnabled, tpl[@"rotate-enabled"], data, DefaultControlAttrValue::able);
-    VZ_BIND_NUMBER_PROPERTY(BOOL, specs.pitchEnabled, tpl[@"pitch-enabled"], data, DefaultControlAttrValue::able);
-    VZ_BIND_PROPERTY(MKCoordinateRegion, specs.region, tpl[@"region"], data, DefaultAttributesValue::undefinedRegion);
+    VZ_BIND_PROPERTY(MKMapType, specs.mapType, style[@"map-type"], data);
+    VZ_BIND_NUMBER_PROPERTY(BOOL, specs.showsUserLocation, style[@"shows-user-location"], data);
+    VZ_BIND_NUMBER_PROPERTY(BOOL, specs.followUserLocation, style[@"follow-user-location"], data);
+    VZ_BIND_NUMBER_PROPERTY(BOOL, specs.showsAnnotationCallouts, style[@"shows-annotation-callouts"], data);
+    VZ_BIND_NUMBER_PROPERTY(BOOL, specs.zoomEnabled, style[@"zoom-enabled"], data, DefaultControlAttrValue::able);
+    VZ_BIND_NUMBER_PROPERTY(BOOL, specs.scrollEnabled, style[@"scroll-enabled"], data, DefaultControlAttrValue::able);
+    VZ_BIND_NUMBER_PROPERTY(BOOL, specs.rotateEnabled, style[@"rotate-enabled"], data, DefaultControlAttrValue::able);
+    VZ_BIND_NUMBER_PROPERTY(BOOL, specs.pitchEnabled, style[@"pitch-enabled"], data, DefaultControlAttrValue::able);
+    VZ_BIND_PROPERTY(MKCoordinateRegion, specs.region, style[@"region"], data, DefaultAttributesValue::undefinedRegion);
     VZ_BIND_EVENT_PROPERTY(specs.onAnnotationPress, @"on-annotation-press", tpl, data, item);
     VZ_BIND_EVENT_PROPERTY(specs.onAnnotationFocus, @"on-annotation-focus", tpl, data, item);
     VZ_BIND_EVENT_PROPERTY(specs.onAnnotationBlur, @"on-annotation-blur", tpl, data, item);
     VZ_BIND_EVENT_PROPERTY(specs.onAnnotationDragStateChange, @"on-annotation-drag-state-change", tpl, data, item);
     /* gencode end */
 
-    if ([tpl[@"annotations"] isKindOfClass:[NSArray class]]) {
+    if ([style[@"annotations"] isKindOfClass:[NSArray class]]) {
         std::vector<MapAnnotationSpecs> annotations;
-        for (NSDictionary *dict in tpl[@"annotations"]) {
+        for (NSDictionary *dict in style[@"annotations"]) {
             if (![dict isKindOfClass:[NSDictionary class]]) {
                 continue;
             }
@@ -1318,9 +1332,9 @@ static inline void vz_bindStatefulProperty(StatefulValue<T *> &prop, id value, i
         }
     }
 
-    if ([tpl[@"overlays"] isKindOfClass:[NSArray class]]) {
+    if ([style[@"overlays"] isKindOfClass:[NSArray class]]) {
         std::vector<MapOverlaySpecs> overlays;
-        for (NSDictionary *dict in tpl[@"overlays"]) {
+        for (NSDictionary *dict in style[@"overlays"]) {
             if (![dict isKindOfClass:[NSDictionary class]]) {
                 continue;
             }

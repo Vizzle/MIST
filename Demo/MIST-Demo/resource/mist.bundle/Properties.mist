@@ -118,7 +118,7 @@
             "class": "button",
             "style": {
               "title": "−",
-              "view-properties": {
+              "properties": {
                 "enabled": "${state.itemsCount > 0}"
               }
             },

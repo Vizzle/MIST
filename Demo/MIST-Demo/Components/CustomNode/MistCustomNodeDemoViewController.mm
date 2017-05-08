@@ -26,7 +26,7 @@
     // 注册 custom node
     [[VZMist sharedInstance] registerTag:@"custom-button" withProcessor:^VZFNode *(VZ::NodeSpecs specs, NSDictionary *tpl, id<VZMistItem> item, NSDictionary *data) {
 
-        NSString *title = tpl[@"title"];
+        NSString *title = [tpl valueForKeyPath:@"style.title"];
         VZMistTemplateEvent *event = [[VZMistTemplateEvent alloc] initWithItem:item action:tpl[@"on-tap"] onceAction:tpl[@"on-tap-once"]];
 
         return [VZFCustomNode newWithViewFactory:^(CGRect frame) {

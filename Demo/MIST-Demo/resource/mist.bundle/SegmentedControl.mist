@@ -187,14 +187,14 @@
           },
           {
             "type": "segmentedcontrol",
+            "on-change": {
+              "onChanged:body:": "on-change"
+            },
             "style": {
               "margin": 10,
               "height": 30,
               "items": "${state.items}",
-              "selected-segmented-index": "${state.selectedSegmentedIndex}",
-              "on-change": {
-                "onChanged:body:": "on-change"
-              }
+              "selected-segmented-index": "${state.selectedSegmentedIndex}"
             }
           },
           {

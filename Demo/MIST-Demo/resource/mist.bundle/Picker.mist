@@ -50,13 +50,13 @@
           },
           {
             "type": "picker",
+            "on-change": {
+              "onPickerChanged:body:": "on-change"
+            },
             "style": {
               "height": 150,
               "selected-index": "${state.selectedIndex}",
-              "items": "${state.items}",
-              "on-change": {
-                "onPickerChanged:body:": "on-change"
-              }
+              "items": "${state.items}"
             }
           },
           {

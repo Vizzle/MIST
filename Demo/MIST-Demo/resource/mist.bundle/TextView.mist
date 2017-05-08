@@ -485,22 +485,22 @@
                 "type": "textview",
                 "class": "commonTextView",
                 "style": {
-                  "text": "Type something and watch the console output",
-                  "on-focus": {
-                    "onEvent:body:": "on-focus"
-                  },
-                  "on-blur": {
-                    "onEvent:body:": "on-blur"
-                  },
-                  "on-change": {
-                    "onEvent:body:": "on-change"
-                  },
-                  "on-submit": {
-                    "onEvent:body:": "on-submit"
-                  },
-                  "on-end": {
-                    "onEvent:body:": "on-end"
-                  }
+                  "text": "Type something and watch the console output"
+                },
+                "on-focus": {
+                  "onEvent:body:": "on-focus"
+                },
+                "on-blur": {
+                  "onEvent:body:": "on-blur"
+                },
+                "on-change": {
+                  "onEvent:body:": "on-change"
+                },
+                "on-submit": {
+                  "onEvent:body:": "on-submit"
+                },
+                "on-end": {
+                  "onEvent:body:": "on-end"
                 }
               }
             ]

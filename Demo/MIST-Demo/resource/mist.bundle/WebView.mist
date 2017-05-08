@@ -138,16 +138,16 @@
               "height": 300,
               "source": {
                 "url": "https://www.baidu.com"
-              },
-              "on-loading-start": {
-                "onStartLoading:body:": "on-loading-start"
-              },
-              "on-loading-finish": {
-                "onFinishLoading:body:": "on-loading-finish"
-              },
-              "on-loading-error": {
-                "onLoadingError:body:": "on-loading-error"
               }
+            },
+            "on-loading-start": {
+              "onStartLoading:body:": "on-loading-start"
+            },
+            "on-loading-finish": {
+              "onFinishLoading:body:": "on-loading-finish"
+            },
+            "on-loading-error": {
+              "onLoadingError:body:": "on-loading-error"
             }
           }
         ]

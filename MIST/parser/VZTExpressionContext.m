@@ -23,6 +23,16 @@
     return self;
 }
 
+- (id)copyWithZone:(NSZone *)zone {
+    VZTExpressionContext *ctx = [VZTExpressionContext new];
+    NSMutableDictionary *dict = [NSMutableDictionary new];
+    for (NSString *key in _variablesTable) {
+        dict[key] = _variablesTable[key].mutableCopy;
+    }
+    ctx->_variablesTable = dict;
+    return ctx;
+}
+
 - (id)pushVariableWithKey:(NSString *)key value:(id)value
 {
     NSMutableArray *valueStack = _variablesTable[key];

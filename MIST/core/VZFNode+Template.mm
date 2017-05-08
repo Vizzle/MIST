@@ -957,10 +957,10 @@ static const void *displayEventKey = &displayEventKey;
                                   data:(id)data
                                   item:(id<VZMistItem>)item
 {
-    NSDictionary *actionDict = __vzDictionary(__extractValue(tpl[name], data), nil);
-    NSDictionary *onceActionDict = __vzDictionary(__extractValue(tpl[[name stringByAppendingString:@"-once"]], data), nil);
+    NSDictionary *actionDict = tpl[name];
+    NSDictionary *onceActionDict = tpl[[name stringByAppendingString:@"-once"]];
     if (actionDict || onceActionDict) {
-        return [[VZMistTemplateEvent alloc] initWithItem:item action:actionDict onceAction:onceActionDict];
+        return [[VZMistTemplateEvent alloc] initWithItem:item action:actionDict onceAction:onceActionDict expressionContext:data];
     }
     return nil;
 }
@@ -995,7 +995,10 @@ static inline void vz_bindStatefulProperty(StatefulValue<T *> &prop, id value, i
         VZMistTemplateEvent *event = [self eventWithName:eventName template:tpl data:data item:item]; \
         if (event) {                                                                                  \
             prop = ^(NSDictionary * body) {                                                           \
-                [event invokeWithSender:body];                                                        \
+                for (NSString *key in body) {                                                         \
+                    [event addEventParamWithName:key object:body[key]];                               \
+                }                                                                                     \
+                [event invokeWithSender:body[@"sender"]];                                             \
             };                                                                                        \
         }                                                                                             \
     }

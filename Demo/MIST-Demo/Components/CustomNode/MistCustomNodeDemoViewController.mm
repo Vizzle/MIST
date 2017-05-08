@@ -27,7 +27,7 @@
     [[VZMist sharedInstance] registerTag:@"custom-button" withProcessor:^VZFNode *(VZ::NodeSpecs specs, NSDictionary *tpl, id<VZMistItem> item, NSDictionary *data) {
 
         NSString *title = [tpl valueForKeyPath:@"style.title"];
-        VZMistTemplateEvent *event = [[VZMistTemplateEvent alloc] initWithItem:item action:tpl[@"on-tap"] onceAction:tpl[@"on-tap-once"]];
+        VZMistTemplateEvent *event = [[VZMistTemplateEvent alloc] initWithItem:item action:tpl[@"on-tap"] onceAction:tpl[@"on-tap-once"] expressionContext:nil];
 
         return [VZFCustomNode newWithViewFactory:^(CGRect frame) {
             // frame 为布局后的尺寸

@@ -31,17 +31,9 @@ end
 
 ```
 
-### Carthage
+## Documentation
 
-[Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks.
-
-**Cartfile**
-
-```ruby
-
-github "Vizzle/MIST" "master"
-
-```
+MIST Document is currently under construction. You can visit [https://vizzle.github.io/MIST/](https://vizzle.github.io/MIST/) to learn more.
 
 
 

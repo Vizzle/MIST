@@ -4,11 +4,11 @@
 
 ### 安装Gitbook
 
-- 该文档使用Gitbook构建，使用NPM安装gitbook，安装Gitbook参考[Setup and Installation of GitBook](https://github.com/GitbookIO/gitbook/blob/master/docs/setup.md)
+- 该文档使用Gitbook构建，使用NPM安装gitbook，参考[Setup and Installation of GitBook](https://github.com/GitbookIO/gitbook/blob/master/docs/setup.md)
 
 ### 编写文档
 
-- clone该项目，切到`doc`分支
+- clone该项目，切到`docs`分支
 - 执行命令：`gitbook install`
 - 编写文档
 - 预览命令：`gitbook serve`

@@ -1,17 +1,15 @@
 
 
 
+![MIST](https://zos.alipayobjects.com/rmsportal/UdQchQQMceYaxFkYQJHu.svg)
 
-# MIST
-
-MIST is a dynamic view template engine strongly inspired by ComponentKit 
+MIST lets you create iOS app with nothing but JSON templates.  
 
 [![Build Status](https://travis-ci.org/Vizzle/MIST.svg?branch=master)](https://travis-ci.org/Vizzle/MIST)
 [![Version](https://img.shields.io/cocoapods/v/MIST.svg?style=flat)](http://cocoapods.org/pods/MIST)
 [![License](https://img.shields.io/cocoapods/l/MIST.svg?style=flat)](http://cocoapods.org/pods/MIST)
 [![Platform](https://img.shields.io/cocoapods/p/MIST.svg?style=flat)](http://cocoapods.org/pods/MIST)
 
-![MIST](https://zos.alipayobjects.com/rmsportal/UdQchQQMceYaxFkYQJHu.svg)
 
 ## Example
 

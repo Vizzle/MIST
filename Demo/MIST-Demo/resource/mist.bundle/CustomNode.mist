@@ -49,14 +49,14 @@
           },
           {
             "type": "custom-button",
+            "on-tap": {
+              "alert:": "Hello !"
+            },
             "style": {
               "title": "Custom Button",
               "margin-top": 10,
               "margin-bottom": 10,
-              "align-self": "center",
-              "on-tap": {
-                "alert:": "Hello !"
-              }
+              "align-self": "center"
             }
           }
         ]

@@ -86,7 +86,7 @@
             "class": "button",
             "style": {
               "title": "−",
-              "view-properties": {
+              "properties": {
                 "enabled": "${values[item.var] > item.min}"
               }
             },
@@ -109,7 +109,7 @@
             "class": "button",
             "style": {
               "title": "+",
-              "view-properties": {
+              "properties": {
                 "enabled": "${values[item.var] < item.max}"
               }
             },

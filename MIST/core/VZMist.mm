@@ -45,19 +45,19 @@
 
 - (void)registerDefaultTags
 {
-    [self registerTag:@"text" withProcessor:^VZFNode *(NodeSpecs specs, NSDictionary *tpl, id<VZMistItem> item, NSDictionary *data) {
+    [self registerTag:@"text" withProcessor:^VZFNode *(NodeSpecs specs, NSDictionary *tpl, id<VZMistItem> item, VZTExpressionContext *data) {
         TextNodeSpecs textSpecs = TextNodeSpecs();
         [VZFNode bindTextNodeSpecs:textSpecs fromTemplate:tpl data:data];
         return [VZFTextNode newWithTextAttributes:textSpecs NodeSpecs:specs];
     }];
 
-    [self registerTag:@"button" withProcessor:^VZFNode *(VZ::NodeSpecs specs, NSDictionary *tpl, id<VZMistItem> item, NSDictionary *data) {
+    [self registerTag:@"button" withProcessor:^VZFNode *(VZ::NodeSpecs specs, NSDictionary *tpl, id<VZMistItem> item, VZTExpressionContext *data) {
         ButtonNodeSpecs buttonSpecs = ButtonNodeSpecs();
         [VZFNode bindButtonNodeSpecs:buttonSpecs fromTemplate:tpl data:data];
         return [VZFButtonNode newWithButtonAttributes:buttonSpecs NodeSpecs:specs];
     }];
 
-    [self registerTag:@"image" withProcessor:^VZFNode *(VZ::NodeSpecs specs, NSDictionary *tpl, id<VZMistItem> item, NSDictionary *data) {
+    [self registerTag:@"image" withProcessor:^VZFNode *(VZ::NodeSpecs specs, NSDictionary *tpl, id<VZMistItem> item, VZTExpressionContext *data) {
         ImageNodeSpecs imageSpecs = ImageNodeSpecs();
         [VZFNode bindImageNodeSpecs:imageSpecs fromTemplate:tpl data:data item:item];
         // TODO image view
@@ -73,55 +73,55 @@
         return [VZFImageNode newWithImageAttributes:imageSpecs NodeSpecs:specs BackingImageViewClass:backingViewClass];
     }];
 
-    [self registerTag:@"indicator" withProcessor:^VZFNode *(VZ::NodeSpecs specs, NSDictionary *tpl, id<VZMistItem> item, NSDictionary *data) {
+    [self registerTag:@"indicator" withProcessor:^VZFNode *(VZ::NodeSpecs specs, NSDictionary *tpl, id<VZMistItem> item, VZTExpressionContext *data) {
         IndicatorNodeSpecs indicatorSpecs = IndicatorNodeSpecs();
         [VZFNode bindIndicatorNodeSpecs:indicatorSpecs fromTemplate:tpl data:data];
         return [VZFIndicatorNode newWithIndicatorAttributes:indicatorSpecs NodeSpecs:specs];
     }];
 
-    [self registerTag:@"line" withProcessor:^VZFNode *(VZ::NodeSpecs specs, NSDictionary *tpl, id<VZMistItem> item, NSDictionary *data) {
+    [self registerTag:@"line" withProcessor:^VZFNode *(VZ::NodeSpecs specs, NSDictionary *tpl, id<VZMistItem> item, VZTExpressionContext *data) {
         LineNodeSpecs lineSpecs = LineNodeSpecs();
         [VZFNode bindLineNodeSpecs:lineSpecs fromTemplate:tpl data:data];
         return [VZFLineNode newWithLineAttributes:lineSpecs NodeSpecs:specs];
     }];
 
-    [self registerTag:@"textfield" withProcessor:^VZFNode *(VZ::NodeSpecs specs, NSDictionary *tpl, id<VZMistItem> item, NSDictionary *data) {
+    [self registerTag:@"textfield" withProcessor:^VZFNode *(VZ::NodeSpecs specs, NSDictionary *tpl, id<VZMistItem> item, VZTExpressionContext *data) {
         TextFieldNodeSpecs textFieldSpecs = TextFieldNodeSpecs();
         [VZFNode bindTextFieldNodeSpecs:textFieldSpecs fromTemplate:tpl data:data item:item];
         return [VZFTextFieldNode newWithTextFieldAttributes:textFieldSpecs NodeSpecs:specs];
     }];
 
-    [self registerTag:@"textview" withProcessor:^VZFNode *(VZ::NodeSpecs specs, NSDictionary *tpl, id<VZMistItem> item, NSDictionary *data) {
+    [self registerTag:@"textview" withProcessor:^VZFNode *(VZ::NodeSpecs specs, NSDictionary *tpl, id<VZMistItem> item, VZTExpressionContext *data) {
         TextViewNodeSpecs textViewSpecs = TextViewNodeSpecs();
         [VZFNode bindTextViewNodeSpecs:textViewSpecs fromTemplate:tpl data:data item:item];
         return [VZFTextViewNode newWithTextViewAttributes:textViewSpecs NodeSpecs:specs];
     }];
 
-    [self registerTag:@"switch" withProcessor:^VZFNode *(VZ::NodeSpecs specs, NSDictionary *tpl, id<VZMistItem> item, NSDictionary *data) {
+    [self registerTag:@"switch" withProcessor:^VZFNode *(VZ::NodeSpecs specs, NSDictionary *tpl, id<VZMistItem> item, VZTExpressionContext *data) {
         SwitchNodeSpecs switchSpecs = SwitchNodeSpecs();
         [VZFNode bindSwitchNodeSpecs:switchSpecs fromTemplate:tpl data:data item:item];
         return [VZFSwitchNode newWithSwitchAttributes:switchSpecs NodeSpecs:specs];
     }];
 
-    [self registerTag:@"segmentedcontrol" withProcessor:^VZFNode *(VZ::NodeSpecs specs, NSDictionary *tpl, id<VZMistItem> item, NSDictionary *data) {
+    [self registerTag:@"segmentedcontrol" withProcessor:^VZFNode *(VZ::NodeSpecs specs, NSDictionary *tpl, id<VZMistItem> item, VZTExpressionContext *data) {
         SegmentedControlNodeSpecs segmentedControlSpecs = SegmentedControlNodeSpecs();
         [VZFNode bindSegmentedControlNodeSpecs:segmentedControlSpecs fromTemplate:tpl data:data item:item];
         return [VZFSegmentedControlNode newWithSegmentedControlAttributes:segmentedControlSpecs NodeSpecs:specs];
     }];
 
-    [self registerTag:@"picker" withProcessor:^VZFNode *(VZ::NodeSpecs specs, NSDictionary *tpl, id<VZMistItem> item, NSDictionary *data) {
+    [self registerTag:@"picker" withProcessor:^VZFNode *(VZ::NodeSpecs specs, NSDictionary *tpl, id<VZMistItem> item, VZTExpressionContext *data) {
         PickerNodeSpecs pickerSpecs = PickerNodeSpecs();
         [VZFNode bindPickerNodeSpecs:pickerSpecs fromTemplate:tpl data:data item:item];
         return [VZFPickerNode newWithPickerAttributes:pickerSpecs NodeSpecs:specs];
     }];
 
-    [self registerTag:@"webview" withProcessor:^VZFNode *(VZ::NodeSpecs specs, NSDictionary *tpl, id<VZMistItem> item, NSDictionary *data) {
+    [self registerTag:@"webview" withProcessor:^VZFNode *(VZ::NodeSpecs specs, NSDictionary *tpl, id<VZMistItem> item, VZTExpressionContext *data) {
         WebViewNodeSpecs webViewSpecs = WebViewNodeSpecs();
         [VZFNode bindWebViewNodeSpecs:webViewSpecs fromTemplate:tpl data:data item:item];
         return [VZFWebViewNode newWithWebViewAttributes:webViewSpecs NodeSpecs:specs];
     }];
 
-    [self registerTag:@"map" withProcessor:^VZFNode *(VZ::NodeSpecs specs, NSDictionary *tpl, id<VZMistItem> item, NSDictionary *data) {
+    [self registerTag:@"map" withProcessor:^VZFNode *(VZ::NodeSpecs specs, NSDictionary *tpl, id<VZMistItem> item, VZTExpressionContext *data) {
         MapViewNodeSpecs mapSpecs = MapViewNodeSpecs();
         [VZFNode bindMapViewNodeSpecs:mapSpecs fromTemplate:tpl data:data item:item];
         return [VZFMapViewNode newWithMapViewAttributes:mapSpecs NodeSpecs:specs];
@@ -142,7 +142,7 @@
               withSpecs:(VZ::NodeSpecs)specs
                template:(NSDictionary *)tpl
                    item:(id<VZMistItem>)item
-                   data:(NSDictionary *)data
+                   data:(VZTExpressionContext *)data
 {
     if (tag.length == 0) {
         return nil;

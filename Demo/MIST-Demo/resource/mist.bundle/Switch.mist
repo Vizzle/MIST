@@ -136,14 +136,14 @@
             "children": [
               {
                 "type": "switch",
+                "on-change": {
+                  "switchChanged:body:": "on-change"
+                },
                 "style": {
                   "margin-top": 10,
                   "margin-left": 10,
                   "margin-bottom": 10,
-                  "on": "${state.switchOn}",
-                  "on-change": {
-                    "switchChanged:body:": "on-change"
-                  }
+                  "on": "${state.switchOn}"
                 }
               },
               {

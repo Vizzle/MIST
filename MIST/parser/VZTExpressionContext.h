@@ -9,7 +9,7 @@
 #import "VZTSyntaxNode.h"
 
 
-@interface VZTExpressionContext : VZTSyntaxNode
+@interface VZTExpressionContext : VZTSyntaxNode <NSCopying>
 
 - (id)pushVariableWithKey:(NSString *)key value:(id)value;
 - (void)popVariableWithKey:(NSString *)key;

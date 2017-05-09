@@ -76,6 +76,12 @@ return [[MistSimpleTemplateViewController alloc] initWithTitle:NAME templates:@[
                         return [[MistSimpleTemplateViewController alloc] initWithTitle:nil templates:@[@"Baseline"]];
                     }
                 },
+                {
+                    .title = @"事件处理",
+                    .block = ^{
+                        return [[MistSimpleTemplateViewController alloc] initWithTitle:@"评价" templates:@[@"EventParam"]];
+                    }
+                },
             }
         },
         {

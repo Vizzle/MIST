@@ -348,8 +348,8 @@
             "children":[
               {
                 "type":"image",
+                "tag":1,
                 "style":{
-                  "tag":1,
                   "image":"${state.like.status?'wb.bundle/artical_detail_icon_liked':'wb.bundle/artical_detail_icon_like_disabled'}"
                 }
               },

@@ -1,0 +1,76 @@
+{
+  "layout": {
+    "vars": {
+      "maxLength": 120
+    },
+    "style": {
+      "justify-content": "center",
+      "spacing": 5,
+      "padding": 5,
+      "direction": "vertical"
+    },
+    "children": [
+      {
+        "type": "textview",
+        "on-change": {
+          "updateState:": {
+            "text": "${_event_.sender.text}"
+          }
+        },
+        "style": {
+          "placeholder": "点击此处输入",
+          "text": "${state.text}",
+          "editable": "${!state.loading}",
+          "height": 80,
+          "max-length": "${maxLength}"
+        }
+      },
+      {
+        "type": "text",
+        "style": {
+          "margin-left": "auto",
+          "text": "还可以输入 ${maxLength - state.text.length} 个字",
+          "color": "#aaa"
+        }
+      },
+      {
+        "vars": {
+          "enabled": "${state.text.length > 0}"
+        },
+        "style": {
+          "direction": "vertical"
+        },
+        "children": [
+          {
+            "type": "button",
+            "style": {
+              "title": "${state.loading ? '' : '提交'}",
+              "user-interaction-enabled": "${enabled && !state.loading}",
+              "background-image": "${enabled ? '#E24810' : '#66E24810'}",
+              "title-color": "white",
+              "font-size": 16,
+              "height": 34,
+              "alignment": "center"
+            },
+            "on-tap": {
+              "updateState:": {
+                "loading": true
+              }
+            }
+          },
+          {
+            "gone": "${!state.loading}",
+            "type": "indicator",
+            "style": {
+              "fixed": true,
+              "color": "white",
+              "width": 16,
+              "height": 16,
+              "margin": "auto"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -100,9 +100,9 @@
     },
     "children": [
       {
+        "tag": 1,
         "type": "scroll",
         "style": {
-          "tag": 1,
           "direction": "vertical",
           "scroll-direction": "vertical",
           "flex-grow": 1
@@ -215,8 +215,8 @@
         ]
       },
       {
+        "tag": 2,
         "style": {
-          "tag": 2,
           "margin-top": "auto",
           "background-color": "#E24810",
           "direction": "vertical",
@@ -249,6 +249,9 @@
             "on-display": {
               "onDisplay:sender:": ""
             },
+            "on-change": {
+              "onTextChange:body:": ""
+            },
             "style": {
               "height": 60,
               "background-color": "white",
@@ -265,10 +268,7 @@
               "padding-left": -1,
               "padding-right": -1,
               "margin-left": 5,
-              "margin-right": 5,
-              "on-change": {
-                "onTextChange:body:": ""
-              }
+              "margin-right": 5
             }
           },
           {

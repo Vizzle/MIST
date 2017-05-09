@@ -198,19 +198,19 @@
                   "subtitle": "Xixi Park",
                   "draggable": true
                 }
-              ],
-              "on-annotation-press": {
-                "onEventWithName:body:": "on-annotation-press"
-              },
-              "on-annotation-focus": {
-                "onEventWithName:body:": "on-annotation-focus"
-              },
-              "on-annotation-blur": {
-                "onEventWithName:body:": "on-annotation-focus"
-              },
-              "on-annotation-drag-state-change": {
-                "onEventWithName:body:": "on-annotation-drag-state-change"
-              }
+              ]
+            },
+            "on-annotation-press": {
+              "onEventWithName:body:": "on-annotation-press"
+            },
+            "on-annotation-focus": {
+              "onEventWithName:body:": "on-annotation-focus"
+            },
+            "on-annotation-blur": {
+              "onEventWithName:body:": "on-annotation-focus"
+            },
+            "on-annotation-drag-state-change": {
+              "onEventWithName:body:": "on-annotation-drag-state-change"
             }
           }
         ]

@@ -1007,7 +1007,7 @@ static inline void vz_bindStatefulProperty(StatefulValue<T *> &prop, id value, i
 + (void)bindTextNodeSpecs:(TextNodeSpecs &)specs fromTemplate:(NSDictionary *)tpl data:(VZTExpressionContext *)data
 {
     NSDictionary *style = tpl[@"style"];
-    VZ_BIND_PROPERTY(NSAttributedString *, specs.attributedString, style[@"html-text"], data);
+    VZ_BIND_PROPERTY(NSAttributedString *, specs._attributedString, style[@"html-text"], data);
     /* gencode start TextNodeSpecs */
     VZ_BIND_PROPERTY(NSString *, specs.text, style[@"text"], data);
     VZ_BIND_PROPERTY(UIColor *, specs.color, style[@"color"], data);

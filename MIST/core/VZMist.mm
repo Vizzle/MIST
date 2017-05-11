@@ -61,7 +61,7 @@
         ImageNodeSpecs imageSpecs = ImageNodeSpecs();
         [VZFNode bindImageNodeSpecs:imageSpecs fromTemplate:tpl data:data item:item];
         // TODO image view
-        NSString *backingView = tpl[@"backing-view"];
+        NSString *backingView = tpl[@"style"][@"backing-view"];
         Class backingViewClass = nil;
         if (backingView.length > 0) {
             backingViewClass = NSClassFromString(backingView);

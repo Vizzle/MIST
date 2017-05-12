@@ -32,6 +32,17 @@ end
 
 ```
 
+
+## Usage
+
+### Install MIST-Tool-kit
+
+- `npm install -g mist-toolkit`
+
+### Debugging
+
+
+
 ## Documentation
 
 MIST Document is currently under construction. You can visit [https://vizzle.github.io/MIST/](https://vizzle.github.io/MIST/) to learn more.

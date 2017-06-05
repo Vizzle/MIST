@@ -16,7 +16,7 @@
 
 @implementation VZMistTemplateEvent
 {
-    id<VZMistItem> _item;
+    __weak id<VZMistItem> _item;
     NSDictionary *_action;
     NSDictionary *_onceAction;
     VZTExpressionContext *_expressionContext;
@@ -67,7 +67,8 @@
     }
 }
 
-- (void)addEventParamWithName:(NSString *)name object:(id)object {
+- (void)addEventParamWithName:(NSString *)name object:(id)object
+{
     _eventDict[name] = object;
 }
 
@@ -78,19 +79,19 @@
         [_expressionContext pushVariableWithKey:@"_event_" value:_eventDict.copy];
     }
     [_eventDict removeAllObjects];
-    
+
     [self performAction:_onceAction withSender:sender];
     _onceAction = nil;
     [self performAction:_action withSender:sender];
-    
+
     if (_expressionContext) {
         [_expressionContext popVariableWithKey:@"_event_"];
     }
 }
 
-- (NSString* )description
+- (NSString *)description
 {
-    NSString* desc = [NSString stringWithFormat:@"action:%@\n controller:%@\n", _action,_item.tplController];
+    NSString *desc = [NSString stringWithFormat:@"action:%@\n controller:%@\n", _action, _item.tplController];
     return desc;
 }
 

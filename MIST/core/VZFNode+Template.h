@@ -6,10 +6,10 @@
 //  Copyright © 2016 Vizlab. All rights reserved.
 //
 
-
 #import <VZFlexLayout/VZFlexLayout.h>
 #import "VZMistTemplate.h"
 #import "VZMistItem.h"
+#import "VZMist.h"
 
 @class VZTExpressionContext;
 
@@ -17,7 +17,8 @@
 
 + (instancetype)nodeFromTemplate:(VZMistTemplate *)tpl
                             data:(VZTExpressionContext *)data
-                            item:(id<VZMistItem>)item;
+                            item:(id<VZMistItem>)item
+                    mistInstance:(VZMist *)mistInstance;
 
 + (void)bindTextNodeSpecs:(TextNodeSpecs &)specs fromTemplate:(NSDictionary *)tpl data:(VZTExpressionContext *)data;
 + (void)bindImageNodeSpecs:(ImageNodeSpecs &)specs fromTemplate:(NSDictionary *)tpl data:(VZTExpressionContext *)data item:(id<VZMistItem>)item;

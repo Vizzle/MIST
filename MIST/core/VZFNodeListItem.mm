@@ -8,18 +8,28 @@
 
 #import "VZFNodeListItem.h"
 
-#if __has_include(<VZFlexLayout/VZFlexLayout.h>)
 #import <VZFlexLayout/VZFNodeListItemRecycler.h>
 #import <VZFlexLayout/VZFSizeRange.h>
 #import <VZFlexLayout/VZFNodeProvider.h>
 #import <VZFlexLayout/VZFNodeSpecs.h>
-#else
-#import "VZFNodeListItemRecycler.h"
-#import "VZFSizeRange.h"
-#import "VZFNodeProvider.h"
-#import "VZFNodeSpecs.h"
-#endif
 
+@interface UIView(VZFNodeListItemInfo)
+
+
+@end
+
+const void* g_vzfIndexPath = &g_vzfIndexPath;
+@implementation UIView(VZFNodeListItemInfo)
+
+- (void)setVz_indexPath:(NSIndexPath *)indexPath{
+    objc_setAssociatedObject(self, &g_vzfIndexPath, indexPath, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (NSIndexPath* )vz_indexPath{
+    return objc_getAssociatedObject(self, g_vzfIndexPath);
+}
+
+@end
 
 @interface VZFNodeListItem () <VZFNodeProvider>
 
@@ -71,7 +81,11 @@
 
 - (void)attachToView:(UIView *)view
 {
-    [_recycler attachToView:view];
+//    NSIndexPath *indexPath = view.vz_indexPath;
+//    BOOL rasterizeUseCache = indexPath && indexPath.section == self.indexPath.section && indexPath.row == self.indexPath.row;
+//    [view setVz_indexPath:self.indexPath];
+    
+    [_recycler attachToView:view rasterizeUseCache:NO];
     _attachedView = view;
 }
 

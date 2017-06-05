@@ -49,3 +49,10 @@
 - (void)updateState:(id (^)(id))block;
 
 @end
+
+@protocol VZMistAsyncDisplayItem <NSObject>
+
+@required
+@property (nonatomic, assign) BOOL asyncDisplay;
+
+@end

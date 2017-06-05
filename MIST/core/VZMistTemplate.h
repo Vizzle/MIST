@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 
 
+@class VZMist;
+
+
 @interface VZMistTemplate : NSObject
 
 
@@ -46,10 +49,9 @@
  */
 @property (nonatomic, strong, readonly) NSDictionary *styles;
 /**
- 模板显示是否需要光栅化
- @discussion：todo
+ 模板显示是否需要异步渲染
  */
-//@property (nonatomic, assign, readonly) BOOL asyncDisplay;
+@property (nonatomic, assign, readonly) BOOL asyncDisplay;
 
 
 /**
@@ -59,6 +61,6 @@
  @param content 模板原始数据
  @return 模板对象
  */
-- (instancetype)initWithTemplateId:(NSString *)tplId content:(NSDictionary *)content;
+- (instancetype)initWithTemplateId:(NSString *)tplId content:(NSDictionary *)content mistInstance:(VZMist *)mistInstance;
 
 @end

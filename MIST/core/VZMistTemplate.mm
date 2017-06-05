@@ -14,44 +14,45 @@
 #import "VZMistError.h"
 #import "VZScriptManager.h"
 
+
 @implementation VZMistTemplate
 
-- (instancetype)initWithTemplateId:(NSString *)tplId content:(NSDictionary *)content
+- (instancetype)initWithTemplateId:(NSString *)tplId content:(NSDictionary *)content mistInstance:(VZMist *)mistInstance
 {
     if (self = [super init]) {
         if (![content isKindOfClass:[NSDictionary class]]) {
             NSAssert(content, @"%@: a template with empty content %@", self.class, content);
             VZMistError *error = [VZMistError templateEmptyErrorWithTemplateId:tplId];
-            [VZMist sharedInstance].errorCallback(error);
+            mistInstance.errorCallback(error);
             return nil;
         }
         NSDictionary *layout = __vzDictionary(content[@"layout"], nil);
         if (!layout) {
             NSAssert(layout, @"%@: a template with empty content %@", self.class, content);
             VZMistError *error = [VZMistError templateEmptyErrorWithTemplateId:tplId];
-            [VZMist sharedInstance].errorCallback(error);
+            mistInstance.errorCallback(error);
             return nil;
         }
 
         _tplId = tplId;
         _tplRawContent = content;
-        _tplParsedResult = [VZMistTemplateHelper parseExpressionsInTemplate:layout];
-        
+        _tplParsedResult = [VZMistTemplateHelper parseExpressionsInTemplate:layout mistInstance:mistInstance];
+
         NSString *str = content[@"script"];
         if (str.length) {
             [[VZScriptManager manager] runScript:str];
         }
-        
+
         _tplControllerClass = NSClassFromString(content[@"controller"]);
         NSAssert(!_tplControllerClass || [_tplControllerClass isSubclassOfClass:[VZMistTemplateController class]], @"controller must be inherited from VZMistTemplateController");
         if (![_tplControllerClass isSubclassOfClass:[VZMistTemplateController class]]) {
             _tplControllerClass = nil;
         }
-        _initialState = [VZMistTemplateHelper parseExpressionsInTemplate:content[@"state"]];
+        _initialState = [VZMistTemplateHelper parseExpressionsInTemplate:content[@"state"] mistInstance:mistInstance];
         _tplReuseIdentifier = content[@"reuse-identifier"];
         _identifier = content[@"identifier"];
-        _styles = __vzDictionary([VZMistTemplateHelper parseExpressionsInTemplate:content[@"styles"]], nil);
-        //_asyncDisplay = __vzBool(content[@"async-display"], NO);
+        _styles = __vzDictionary([VZMistTemplateHelper parseExpressionsInTemplate:content[@"styles"] mistInstance:mistInstance], nil);
+        _asyncDisplay = __vzBool(content[@"async-display"], NO);
     }
     return self;
 }

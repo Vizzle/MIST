@@ -24,9 +24,10 @@
 
 @class VZMistTemplateController;
 @class VZMistTemplate;
+@class VZMist;
 
 
-@interface VZMistListItem : VZFNodeListItem <VZMistListItem>
+@interface VZMistListItem : VZFNodeListItem <VZMistListItem, VZMistAsyncDisplayItem>
 
 
 /**
@@ -70,6 +71,10 @@
  关联的模板对象
  */
 @property (nonatomic, strong, readonly) VZMistTemplate *tpl;
+/**
+ 异步渲染开启标志
+ */
+@property (nonatomic, assign) BOOL asyncDisplay;
 
 /**
  渲染，生成视图布局
@@ -107,5 +112,7 @@
  @param indexPath cell 的 indexPath
  */
 - (void)attachToView:(UIView *)view atIndexPath:(NSIndexPath *)indexPath;
+
+- (VZMist *)mistInstance;
 
 @end

@@ -13,14 +13,12 @@
 #import "VZMist.h"
 #import "VZMacros.h"
 #import "VZDataStructure.h"
-
 #import <VZFlexLayout/VZFNodeSubClass.h>
-
 #import <objc/runtime.h>
 
 
-#define kVZTemplateLoopIndex    @"_index_"
-#define kVZTemplateLoopItem     @"_item_"
+#define kVZTemplateLoopIndex @"_index_"
+#define kVZTemplateLoopItem @"_item_"
 
 using namespace std;
 using namespace VZ;
@@ -57,7 +55,7 @@ inline FlexLength __value(id obj, id data, FlexLength defaultValue)
         if ([@"auto" isEqualToString:obj]) {
             return FlexLengthAuto;
         } else if ([@"content" isEqualToString:obj]) {
-                return FlexLengthContent;
+            return FlexLengthContent;
         } else {
             static NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"^-?(0|[1-9]\\d*)(\\.\\d+)?([eE][+-]?\\d+)?" options:0 error:nil];
             NSTextCheckingResult *result = [regex firstMatchInString:obj options:0 range:NSMakeRange(0, [obj length])];
@@ -139,8 +137,7 @@ inline VZFlexLayoutWrapMode __value(id obj, id data, VZFlexLayoutWrapMode defaul
     obj = __extractValue(obj, data);
     if ([obj isKindOfClass:[NSNumber class]]) {
         return [obj boolValue] ? VZFlexWrap : VZFlexNoWrap;
-    }
-    else if ([obj isKindOfClass:[NSString class]]) {
+    } else if ([obj isKindOfClass:[NSString class]]) {
         static NSDictionary *dict = @{
             @"nowrap" : @(VZFlexNoWrap),
             @"wrap" : @(VZFlexWrap),
@@ -723,19 +720,31 @@ static const void *displayEventKey = &displayEventKey;
 + (instancetype)nodeFromTemplate:(VZMistTemplate *)tpl
                             data:(VZTExpressionContext *)data
                             item:(id<VZMistItem>)item
+                    mistInstance:(VZMist *)mistInstance
 {
+    BOOL asyncDisplay = NO;
+
+    if ([item conformsToProtocol:@protocol(VZMistAsyncDisplayItem)] && [item respondsToSelector:@selector(asyncDisplay)]) {
+        //暂时只判断[(O2OFNodeListItem *)item asyncDisplay]，不判断模板里的
+        asyncDisplay = tpl.asyncDisplay && [(id<VZMistAsyncDisplayItem>)item asyncDisplay];
+    }
+
     return [self nodeFromTemplate:tpl.tplParsedResult
                              data:data
                              item:item
+                     mistInstance:mistInstance
                        templateId:tpl.tplId
-                       isRootNode:YES];
+                       isRootNode:YES
+                     asyncDisplay:asyncDisplay];
 }
 
 + (instancetype)nodeFromTemplate:(NSDictionary *)tpl
                             data:(VZTExpressionContext *)data
                             item:(id<VZMistItem>)item
+                    mistInstance:(VZMist *)mistInstance
                       templateId:(NSString *)tplId
                       isRootNode:(BOOL)isRootNode
+                    asyncDisplay:(BOOL)asyncDisplay
 {
     NSArray *vars = tpl[@"vars"];
     if ([vars isKindOfClass:[NSDictionary class]]) {
@@ -773,6 +782,9 @@ static const void *displayEventKey = &displayEventKey;
 
     VZFNode *node;
     NodeSpecs specs = NodeSpecs();
+
+    specs.asyncDisplay = asyncDisplay;
+
     VZMistTemplateEvent *tapEvent = [self eventWithName:@"on-tap" template:tpl data:data item:item];
     if (tapEvent) {
         specs.gesture = [VZFBlockGesture tapGesture:^(id sender) {
@@ -829,11 +841,11 @@ static const void *displayEventKey = &displayEventKey;
     }
 
 
-    node = [[VZMist sharedInstance] processTag:type
-                                     withSpecs:specs
-                                      template:tpl
-                                          item:item
-                                          data:data];
+    node = [mistInstance processTag:type
+                          withSpecs:specs
+                           template:tpl
+                               item:item
+                               data:data];
 
     if (node) {
     } else if ([type isEqualToString:@"node"]) {
@@ -867,21 +879,19 @@ static const void *displayEventKey = &displayEventKey;
 
                 if (obj[@"repeat"]) {
                     id repeat = [VZMistTemplateHelper extractValueForExpression:obj[@"repeat"] withContext:data];
-                    
+
                     NSArray *items = nil;
                     NSInteger count = 0;
                     if ([repeat isKindOfClass:[NSArray class]]) {
                         items = repeat;
                         count = items.count;
-                    }
-                    else if ([repeat isKindOfClass:[NSNumber class]]) {
+                    } else if ([repeat isKindOfClass:[NSNumber class]]) {
                         count = __vzInt(repeat, 0);
-                    }
-                    else if (repeat) {
+                    } else if (repeat) {
                         NSAssert(NO, @"'repeat' must be a number or an array");
                         NSLog(@"%@: 'repeat' must be a number or an array, but '%@' is provided", self.class, repeat);
                     }
-                    
+
                     [data pushVariableWithKey:kVZTemplateLoopIndex value:nil];
                     [data pushVariableWithKey:kVZTemplateLoopItem value:nil];
                     for (int i = 0; i < count; i++) {
@@ -892,8 +902,10 @@ static const void *displayEventKey = &displayEventKey;
                         VZFNode *childNode = [self nodeFromTemplate:obj
                                                                data:data
                                                                item:item
+                                                       mistInstance:mistInstance
                                                          templateId:tplId
-                                                         isRootNode:NO];
+                                                         isRootNode:NO
+                                                       asyncDisplay:asyncDisplay];
                         list.push_back(childNode);
                     }
                     [data popVariableWithKey:kVZTemplateLoopIndex];
@@ -902,8 +914,11 @@ static const void *displayEventKey = &displayEventKey;
                     VZFNode *childNode = [self nodeFromTemplate:obj
                                                            data:data
                                                            item:item
+                                                   mistInstance:mistInstance
                                                      templateId:tplId
-                                                     isRootNode:NO];
+                                                     isRootNode:NO
+                                                   asyncDisplay:asyncDisplay];
+
                     list.push_back(childNode);
                 }
             }
@@ -933,7 +948,7 @@ static const void *displayEventKey = &displayEventKey;
 
             node = [VZFPagingNode newWithPagingAttributes:pagingSpecs NodeSpecs:specs Children:list];
         } else {
-            [VZMist sharedInstance].errorCallback([VZMistError templateNotRecognizedType:type]);
+            mistInstance.errorCallback([VZMistError templateNotRecognizedType:type]);
         }
     }
 
@@ -995,7 +1010,7 @@ static inline void vz_bindStatefulProperty(StatefulValue<T *> &prop, id value, i
         VZMistTemplateEvent *event = [self eventWithName:eventName template:tpl data:data item:item]; \
         if (event) {                                                                                  \
             prop = ^(NSDictionary * body) {                                                           \
-                for (NSString *key in body) {                                                         \
+                for (NSString * key in body) {                                                        \
                     [event addEventParamWithName:key object:body[key]];                               \
                 }                                                                                     \
                 [event invokeWithSender:body[@"sender"]];                                             \
@@ -1142,8 +1157,8 @@ static inline void vz_bindStatefulProperty(StatefulValue<T *> &prop, id value, i
     VZ_BIND_NUMBER_PROPERTY(BOOL, specs.clip, style[@"clip"], data);
     VZ_BIND_NUMBER_PROPERTY(float, specs.alpha, style[@"alpha"], data, DefaultAttributesValue::alpha);
     VZ_BIND_NUMBER_PROPERTY(int, specs.userInteractionEnabled, style[@"user-interaction-enabled"], data, DefaultAttributesValue::userInteractionEnabled);
-    VZ_BIND_PROPERTY(UIColor*, specs.backgroundColor, style[@"background-color"], data, DefaultAttributesValue::backgroundColor);
-    VZ_BIND_PROPERTY(UIColor*, specs.highlightBackgroundColor, style[@"highlight-background-color"], data, DefaultAttributesValue::highlightBackgroundColor);
+    VZ_BIND_PROPERTY(UIColor *, specs.backgroundColor, style[@"background-color"], data, DefaultAttributesValue::backgroundColor);
+    VZ_BIND_PROPERTY(UIColor *, specs.highlightBackgroundColor, style[@"highlight-background-color"], data, DefaultAttributesValue::highlightBackgroundColor);
     VZ_BIND_NUMBER_PROPERTY(CGFloat, specs.cornerRadius, style[@"corner-radius"], data);
     VZ_BIND_NUMBER_PROPERTY(CGFloat, specs.cornerRadiusTopLeft, style[@"corner-radius-top-left"], data, DefaultAttributesValue::cornerRadiusUndefined);
     VZ_BIND_NUMBER_PROPERTY(CGFloat, specs.cornerRadiusTopRight, style[@"corner-radius-top-right"], data, DefaultAttributesValue::cornerRadiusUndefined);
@@ -1175,7 +1190,6 @@ static inline void vz_bindStatefulProperty(StatefulValue<T *> &prop, id value, i
     VZ_BIND_NUMBER_PROPERTY(bool, specs.fixed, style[@"fixed"], data, DefaultAttributesValue::fixed);
     VZ_BIND_NUMBER_PROPERTY(int, specs.isAccessibilityElement, style[@"is-accessibility-element"], data, DefaultAttributesValue::userInteractionEnabled);
     VZ_BIND_PROPERTY(NSString *, specs.accessibilityLabel, style[@"accessibility-label"], data);
-    VZ_BIND_NUMBER_PROPERTY(BOOL, specs.asyncDisplay, style[@"async-display"], data);
     /* gencode end */
 
     NSDictionary *properties = __vzDictionary(__extractValue(style[@"properties"], data), nil);

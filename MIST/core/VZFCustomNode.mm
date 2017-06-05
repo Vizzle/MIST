@@ -7,8 +7,8 @@
 //
 
 #import "VZFCustomNode.h"
-#import "VZFNodeInternal.h"
-#import "VZFlexNode.h"
+#import <VZFlexLayout/VZFNodeInternal.h>
+#import <VZFlexLayout/VZFlexNode.h>
 
 
 @implementation VZFCustomNode

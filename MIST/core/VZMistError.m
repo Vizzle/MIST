@@ -40,19 +40,21 @@ NSString *const VZMistErrorDomain = @"com.vizlab.Mist.Error";
 
 + (instancetype)templateParseErrorWithExpression:(NSString *)expression Message:(NSString *)errorMessage
 {
+    NSInteger errorCode = VZMistErrorTemplateExpressionParse;
     return [self errorWithDomain:VZMistErrorDomain
-                            code:VZMistErrorTemplateExpressionParse
+                            code:errorCode
                         userInfo:@{
-                            NSLocalizedDescriptionKey : [NSString stringWithFormat:@"expression: %@\nerror: %@", expression, errorMessage]
+                            NSLocalizedDescriptionKey : [NSString stringWithFormat:@"expression: %@\nerror: %@ (%ld)", expression, errorMessage, errorCode]
                         }];
 }
 
 + (instancetype)templateNotRecognizedType:(NSString *)type
 {
+    NSInteger errorCode = VZMistErrorTemplateNotRecognized;
     return [self errorWithDomain:VZMistErrorDomain
-                            code:VZMistErrorTemplateNotRecognized
+                            code:errorCode
                         userInfo:@{
-                            NSLocalizedDescriptionKey : [NSString stringWithFormat:@"type not recognized: %@", type]
+                            NSLocalizedDescriptionKey : [NSString stringWithFormat:@"type not recognized: %@ (%ld)", type, errorCode]
                         }];
 }
 

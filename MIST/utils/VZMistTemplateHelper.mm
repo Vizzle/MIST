@@ -274,25 +274,26 @@ UIColor *colorFromHex(const char *hex)
     }
 }
 
-+ (NSDictionary *)parseExpressionsInTemplate:(NSDictionary *)tpl
++ (NSDictionary *)parseExpressionsInTemplate:(NSDictionary *)tpl mistInstance:(VZMist *)mistInstance
 {
-    return [self parseExpressionsInObject:tpl];
+    return [self parseExpressionsInObject:tpl mistInstance:mistInstance];
 }
-+ (id)parseExpressionsInObject:(id)obj
+
++ (id)parseExpressionsInObject:(id)obj mistInstance:(VZMist *)mistInstance
 {
     if ([obj isKindOfClass:[NSString class]]) {
-        return [self parseExpression:obj];
+        return [self parseExpression:obj mistInstance:mistInstance];
     } else if ([obj isKindOfClass:[NSArray class]]) {
         NSMutableArray *array = [NSMutableArray array];
         for (id child in obj) {
-            [array addObject:[self parseExpressionsInObject:child]];
+            [array addObject:[self parseExpressionsInObject:child mistInstance:mistInstance]];
         }
         return array;
     } else if ([obj isKindOfClass:[NSDictionary class]]) {
         NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
         for (id key in obj) {
             id value = [obj objectForKey:key];
-            dictionary[key] = [self parseExpressionsInObject:value];
+            dictionary[key] = [self parseExpressionsInObject:value mistInstance:mistInstance];
         }
         return dictionary;
     } else {
@@ -300,7 +301,7 @@ UIColor *colorFromHex(const char *hex)
     }
 }
 
-+ (id)parseExpression:(NSString *)value
++ (id)parseExpression:(NSString *)value mistInstance:(VZMist *)mistInstance
 {
     if (![value isKindOfClass:[NSString class]]) {
         return value;
@@ -313,7 +314,7 @@ UIColor *colorFromHex(const char *hex)
         return value;
     } else if (results.count == 1 && results[0].range.length == value.length) {
         NSString *expression = [value substringWithRange:NSMakeRange(2, value.length - 3)];
-        exp = [self _parseExpression:expression];
+        exp = [self _parseExpression:expression mistInstance:mistInstance];
     } else {
         VZTStringConcatExpressionNode *resultExpression = [[VZTStringConcatExpressionNode alloc] init];
         NSUInteger lastLocation = 0;
@@ -322,7 +323,7 @@ UIColor *colorFromHex(const char *hex)
                 [resultExpression.expressions addObject:[[VZTLiteralNode alloc] initWithValue:[value substringWithRange:NSMakeRange(lastLocation, result.range.location - lastLocation)]]];
             }
             NSString *expression = [value substringWithRange:NSMakeRange(result.range.location + 2, result.range.length - 3)];
-            VZTExpressionNode *expressionNode = [self _parseExpression:expression];
+            VZTExpressionNode *expressionNode = [self _parseExpression:expression mistInstance:mistInstance];
             if (expressionNode) {
                 [resultExpression.expressions addObject:expressionNode];
             }
@@ -337,14 +338,14 @@ UIColor *colorFromHex(const char *hex)
     return exp;
 }
 
-+ (VZTExpressionNode *)_parseExpression:(NSString *)expression
++ (VZTExpressionNode *)_parseExpression:(NSString *)expression mistInstance:(VZMist *)mistInstance
 {
     NSError *error;
     VZTExpressionNode *node = [VZTParser parse:expression error:&error];
     if (!node) {
         NSString *errorDesc = error.localizedDescription ?: @"parse expression failure";
         VZMistError *mistError = [VZMistError templateParseErrorWithExpression:expression Message:errorDesc];
-        [VZMist sharedInstance].errorCallback(mistError);
+        mistInstance.errorCallback(mistError);
     }
     return node;
 }

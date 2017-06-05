@@ -12,14 +12,11 @@
 #import "VZTExpressionContext.h"
 #import "VZMistTemplateHelper.h"
 #import "VZMistTemplateController.h"
-#if __has_include(<VZFlexLayout/VZFlexLayout.h>)
 #import <VZFlexLayout/VZFValue.h>
-#else
-#import "VZFValue.h"
-#endif
 #import "VZMistItem.h"
 #import <UIKit/UIKit.h>
 #import <objc/runtime.h>
+#import "VZMist.h"
 
 
 @interface VZMistWeakObject : NSObject
@@ -49,7 +46,7 @@ static const void *kMistItemInCell = &kMistItemInCell;
     VZTExpressionContext *_expressionContext;
     NSMutableArray *_stateUpdatesQueue;
     __weak UITableView *_tableView;
-    __weak UIViewController* _viewController;
+    __weak UIViewController *_viewController;
 }
 
 - (instancetype)init
@@ -73,7 +70,8 @@ static const void *kMistItemInCell = &kMistItemInCell;
     return self;
 }
 
-- (void)render {
+- (void)render
+{
     if (!_tpl) {
         return;
     }
@@ -122,8 +120,7 @@ static const void *kMistItemInCell = &kMistItemInCell;
 - (void)attachToView:(UIView *)view
 {
     VZMistWeakObject *preItemWrapper = objc_getAssociatedObject(view, kMistItemInCell);
-    if (preItemWrapper.object
-        && preItemWrapper.object != self) {
+    if (preItemWrapper.object && preItemWrapper.object != self) {
         [preItemWrapper.object detachFromView];
     }
     [super attachToView:view];
@@ -168,7 +165,9 @@ static const void *kMistItemInCell = &kMistItemInCell;
         dispatch_async(dispatch_get_main_queue(), ^{
 
             UITableViewCell *cell = [[self tableView] cellForRowAtIndexPath:self.indexPath];
-            VZMistListItem *item = objc_getAssociatedObject(self.attachedView, kMistItemInCell);
+
+            VZMistWeakObject *itemWrapper = objc_getAssociatedObject(self.attachedView, kMistItemInCell);
+            VZMistListItem *item = itemWrapper.object;
 
             if (item == self && cell) {
                 //如果高度不变，刷新当前cell
@@ -230,6 +229,11 @@ static const void *kMistItemInCell = &kMistItemInCell;
     return [VZMistTemplateController class];
 }
 
+- (VZMist *)mistInstance
+{
+    return [VZMist sharedInstance];
+}
+
 - (UITableView *)tableView
 {
     // TODO 暂时通过 superview 的方式找到 table view。
@@ -246,13 +250,13 @@ static const void *kMistItemInCell = &kMistItemInCell;
     return _tableView;
 }
 
-- (UIViewController* )viewController{
+- (UIViewController *)viewController
+{
     if (!_viewController) {
-        
-        UIResponder*  responder = [[self tableView] nextResponder];
+        UIResponder *responder = [[self tableView] nextResponder];
         while (responder) {
-            if([responder isKindOfClass:[UIViewController class]]){
-                _viewController = (UIViewController* )responder;
+            if ([responder isKindOfClass:[UIViewController class]]) {
+                _viewController = (UIViewController *)responder;
                 break;
             }
             responder = responder.nextResponder;
@@ -270,7 +274,7 @@ static const void *kMistItemInCell = &kMistItemInCell;
 
     if (context.tpl && context.data) {
         @try {
-            return [VZFNode nodeFromTemplate:context->_tpl data:context->_expressionContext item:context];
+            return [VZFNode nodeFromTemplate:context->_tpl data:context->_expressionContext item:context mistInstance:context.mistInstance];
         } @catch (NSException *exception) {
             NSAssert(YES, @"%@: node is nil", self.class);
 

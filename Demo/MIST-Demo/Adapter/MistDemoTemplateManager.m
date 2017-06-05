@@ -25,7 +25,7 @@
 
 - (void)downloadTemplates:(NSArray *)tplIds completion:(void (^)(NSDictionary<NSString *, VZMistTemplate *> *))completion options:(NSDictionary *)opt
 {
-    __block NSDictionary<NSString *, VZMistTemplate *> *results = [NSMutableDictionary dictionary];
+    __block NSMutableDictionary<NSString *, VZMistTemplate *> *results = [NSMutableDictionary dictionary];
     __block NSInteger count = 0;
     for (NSString *tplId in tplIds) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -36,7 +36,7 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 ++count;
                 VZMistTemplate *template = [[VZMistTemplate alloc] initWithTemplateId:tplId content:result];
-                [results setValue:template forKey:tplId];
+                [results setObject:template forKey:tplId];
                 if (count == tplIds.count) {
                     if (completion) {
                         completion(results);

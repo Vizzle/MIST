@@ -9,9 +9,9 @@
 #ifndef VZMistTemplateDownload_h
 #define VZMistTemplateDownload_h
 #import <UIKit/UIKit.h>
-#import "VZMistTemplate.h"
 
 
+@class VZMistTemplate;
 @protocol VZMistTplDownload <NSObject>
 
 /**

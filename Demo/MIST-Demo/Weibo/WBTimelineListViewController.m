@@ -8,6 +8,7 @@
 
 #import "WBTimelineListViewController.h"
 #import "MistDemoTemplateManager.h"
+#import "VZMistTemplateDownload.h"
 #import "VZMistListItem.h"
 #import "VZMistTemplate.h"
 #ifdef DEBUG

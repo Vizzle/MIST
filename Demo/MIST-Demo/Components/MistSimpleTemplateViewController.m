@@ -8,7 +8,9 @@
 
 #import "MistSimpleTemplateViewController.h"
 #import "MistDemoTemplateManager.h"
+#import "VZMistTemplateDownload.h"
 #import "VZMistListItem.h"
+#import "VZMistTemplate.h"
 #import "VZMistTemplateHelper.h"
 
 #if DEBUG

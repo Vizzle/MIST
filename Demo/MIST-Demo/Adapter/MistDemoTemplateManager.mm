@@ -7,6 +7,9 @@
 //
 
 #import "MistDemoTemplateManager.h"
+#import "VZMistTemplateDownload.h"
+#import "VZMistTemplate.h"
+#import "VZMist.h"
 
 
 @implementation MistDemoTemplateManager
@@ -35,8 +38,15 @@
                                                                      error:nil];
             dispatch_async(dispatch_get_main_queue(), ^{
                 ++count;
-                VZMistTemplate *template = [[VZMistTemplate alloc] initWithTemplateId:tplId content:result];
-                [results setObject:template forKey:tplId];
+                
+                VZMistTemplate* tpl = [[VZMistTemplate alloc] initWithTemplateId:tplId
+                                                                         content:result
+                                                                    mistInstance:[VZMist sharedInstance]];
+                
+//                VZMistTemplate *template = [[VZMistTemplate alloc] initWithTemplateId:tplId
+//                                                                              content:result
+//                                                                         mistInstance:[VZMist sharedInstance]];
+                [results setObject:tpl forKey:tplId];
                 if (count == tplIds.count) {
                     if (completion) {
                         completion(results);

@@ -7,8 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "VZMistTemplateDownload.h"
+//#import "VZMistTemplateDownload.h"
 
+@protocol VZMistTplDownload;
 
 @interface MistDemoTemplateManager : NSObject <VZMistTplDownload>
 

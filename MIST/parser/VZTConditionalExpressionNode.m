@@ -25,9 +25,9 @@
 - (id)compute:(VZTExpressionContext *)context
 {
     id value = [_condition compute:context];
-    id trueValue = _trueExpression ? [_trueExpression compute:context] : value;
-    id falseValue = [_falseExpression compute:context];
-    return vzt_boolValue(value) ? trueValue : falseValue;
+    return vzt_boolValue(value) ? (_trueExpression ? [_trueExpression compute:context] : value)
+                                : [_falseExpression compute:context];
+
 }
 
 @end

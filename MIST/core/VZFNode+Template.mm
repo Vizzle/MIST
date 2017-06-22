@@ -14,6 +14,7 @@
 #import "VZMacros.h"
 #import "VZDataStructure.h"
 #import <VZFlexLayout/VZFNodeSubClass.h>
+#import <VZFlexLayout/VZFScrollView.h>
 #import <objc/runtime.h>
 
 
@@ -934,7 +935,17 @@ static const void *displayEventKey = &displayEventKey;
         } else if ([@"scroll" isEqualToString:type]) {
             ScrollNodeSpecs scrollSpecs = ScrollNodeSpecs();
             [self bindScrollNodeSpecs:scrollSpecs fromTemplate:tpl data:data];
-            node = [VZFScrollNode newWithScrollAttributes:scrollSpecs StackAttributes:stackSpecs NodeSpecs:specs Children:list];
+            
+            NSString *backingView = __value<NSString *>(tpl[@"backing-view"], data);
+            Class backingViewClass = nil;
+            if (backingView.length > 0) {
+                backingViewClass = NSClassFromString(backingView);
+            }
+            if (!backingViewClass || ![backingViewClass conformsToProtocol:@protocol(VZFNodeBackingViewInterface)]) {
+                backingViewClass = [VZFScrollView class];
+            }
+            
+            node = [VZFScrollNode newWithScrollAttributes:scrollSpecs StackAttributes:stackSpecs NodeSpecs:specs BackingViewClass:backingViewClass Children:list];
         } else if ([@"paging" isEqualToString:type]) {
             PagingNodeSpecs pagingSpecs = PagingNodeSpecs();
             [self bindPagingNodeSpecs:pagingSpecs fromTemplate:tpl data:data item:item];
@@ -1060,7 +1071,7 @@ static inline void vz_bindStatefulProperty(StatefulValue<T *> &prop, id value, i
     }
 
     NSMutableDictionary *context = [NSMutableDictionary dictionary];
-    [context addEntriesFromDictionary:tpl];
+    [context addEntriesFromDictionary:__vzDictionary(__extractValue(tpl, data), @{})];
     specs.context = context;
 }
 
@@ -1099,6 +1110,7 @@ static inline void vz_bindStatefulProperty(StatefulValue<T *> &prop, id value, i
     VZ_BIND_NUMBER_PROPERTY(bool, specs.paging, style[@"paging"], data, PagingNodeSpecsDefault::scrollEnabled);
     VZ_BIND_NUMBER_PROPERTY(float, specs.autoScroll, style[@"auto-scroll"], data);
     VZ_BIND_NUMBER_PROPERTY(bool, specs.infiniteLoop, style[@"infinite-loop"], data);
+    VZ_BIND_NUMBER_PROPERTY(float, specs.animationDuration, tpl[@"animation-duration"], data, PagingNodeSpecsDefault::animationDuration);
     VZ_BIND_NUMBER_PROPERTY(bool, specs.pageControl, style[@"page-control"], data);
     VZ_BIND_PROPERTY(FlexLength, specs.pageControlMarginLeft, style[@"page-control-margin-left"], data, PagingNodeSpecsDefault::margin);
     VZ_BIND_PROPERTY(FlexLength, specs.pageControlMarginRight, style[@"page-control-margin-right"], data, PagingNodeSpecsDefault::margin);

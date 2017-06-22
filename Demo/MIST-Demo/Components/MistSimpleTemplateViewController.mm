@@ -12,6 +12,7 @@
 #import "VZMistListItem.h"
 #import "VZMistTemplate.h"
 #import "VZMistTemplateHelper.h"
+#import <MIST/VZMist.h>
 
 #if DEBUG
 #import <MISTDebug/MSTDebugger.h>
@@ -117,10 +118,23 @@
 {
     NSArray *templateNames = [self.blocks valueForKey:@"templateName"];
     templateNames = [[NSSet setWithArray:templateNames] allObjects];
-    [[MistDemoTemplateManager defaultManager] downloadTemplates:templateNames completion:^(NSDictionary<NSString *, VZMistTemplate *> *templates) {
+    [[MistDemoTemplateManager defaultManager] downloadTemplates:templateNames completion:^(NSDictionary<NSString *, NSString *> *templates) {
         NSMutableArray *items = [NSMutableArray new];
         for (MistSimpleTemplateBlock *block in self.blocks) {
-            VZMistListItem *item = [[VZMistListItem alloc] initWithData:block.data?:@{} customData:@{} template:templates[block.templateName]];
+            NSString *tplContent = templates[block.templateName];
+            if (!tplContent) {
+                continue;
+            }
+            NSDictionary *tplDict = [NSJSONSerialization JSONObjectWithData:[tplContent dataUsingEncoding:NSUTF8StringEncoding]
+                                                                options:0
+                                                                  error:nil];
+            if (!tplDict) {
+                continue;
+            }
+            VZMistTemplate *tpl = [[VZMistTemplate alloc] initWithTemplateId:block.templateName
+                                                                     content:tplDict
+                                                                mistInstance:[VZMist sharedInstance]];
+            VZMistListItem *item = [[VZMistListItem alloc] initWithData:block.data?:@{} customData:@{} template:tpl];
             [items addObject:item];
         }
         self.items = items;
@@ -147,7 +161,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-        cell.selectionStyle = 0;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     [item attachToView:cell.contentView atIndexPath:indexPath];
 

@@ -13,7 +13,7 @@
 	{ "name": "enlarg-size", "desc": "放大按钮的点击区域。如：<p>  <i>\"enlarge-size\": 5</i>，上下左右各放大 5；  <i>\"enlarge-size\": [5, 10]</i>，左右放大 5，上下放大 10。" }
 ] %}
 
-{% include "../properties_template.md" %}
+{% include "../templates/properties.md" %}
 
 <a name="button_state"></a>
 ## 按钮状态

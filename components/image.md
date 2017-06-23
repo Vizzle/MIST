@@ -14,4 +14,4 @@
 	{ "name": "business", "desc": "图片下载需要传入 business key。可以在重写 `O2OMistListItem` 的 `- (NSString *)defaultBusiness` 来为所有图片设置一个相同的 key。", "o2o": true }
 ] %}
 
-{% include "../properties_template.md" %}
+{% include "../templates/properties.md" %}

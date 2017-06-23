@@ -9,8 +9,7 @@
 Your browser does not support the video tag.
 </video>
 
-```json
-{
+{% set code = {
   "layout": {
     "style": {
       "padding": 10,
@@ -54,5 +53,5 @@ Your browser does not support the video tag.
       }
     ]
   }
-}
-```
+} %}
+{% include "../templates/code.md" %}

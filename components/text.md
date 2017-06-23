@@ -16,4 +16,4 @@
 	{ "name": "mini-scale-factor", "desc": "与`adjusts-font-size`配合使用，设置一个字号调整的最小系数，设置为0时，字号会调整至内容能完全展示。" }
 ] %}
 
-{% include "../properties_template.md" %}
+{% include "../templates/properties.md" %}

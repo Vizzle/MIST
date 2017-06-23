@@ -1,0 +1,23 @@
+{% extends template.self %}
+
+{% block body %}
+    {{ super() }}
+    <script src="../js/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/mode-json.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+    function prepareEditor(event) {
+        var target = event.target.parentNode.querySelector(".editor");
+        var editor = ace.edit(target);
+        var JsonMode = ace.require("ace/mode/json").Mode;
+        editor.session.setMode(new JsonMode());
+        editor.setDisplayIndentGuides(false);
+        editor.setShowPrintMargin(false);
+        editor.setReadOnly(true);
+        editor.setAutoScrollEditorIntoView(true);
+        editor.setOptions({ maxLines: Infinity, scrollPastEnd: false, wrap: 'free' });
+        editor.setValue(JSON.stringify(JSON.parse(editor.getValue()), null, 2))
+        editor.resize();
+        editor.clearSelection();
+    }
+    </script>
+{% endblock %}

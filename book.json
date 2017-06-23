@@ -4,5 +4,21 @@
   "structure": {
     "readme": "introduction.md"
   },
+  "styles": {
+    "website": "styles/website.css"
+  },
+  "plugins": [
+    "anchor-navigation-ex",
+    "-lunr", "-search", "search-plus",
+    "sectionx"
+  ],
+  "pluginsConfig": {
+    "sectionx": {
+      "tag": "b"
+    },
+    "anchor-navigation-ex": {
+      "showLevel": false
+    }
+  },
   "gitbook": ">= 3.0.0"
 }

@@ -23,6 +23,10 @@
     list-style-type: circle
 }
 
+#anchor-navigation-ex-navbar {
+    max-width: 80%;
+}
+
 #anchor-navigation-ex-navbar ul li>a {
     color: #E24810;
 }

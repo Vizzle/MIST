@@ -81,10 +81,11 @@ id vzt_invokeMethod(id target, SEL selector, NSArray *parameters)
     }
     char returnType[2];
     method_getReturnType(method, returnType, 2);
-    if (returnType[0] == 'v') {
-        NSLog(@"return type of '%@' is void", NSStringFromSelector(selector));
-        return nil;
-    }
+    // void 函数也执行
+//    if (returnType[0] == 'v') {
+//        NSLog(@"return type of '%@' is void", NSStringFromSelector(selector));
+//        return nil;
+//    }
 
     NSMethodSignature *signature = [target methodSignatureForSelector:selector];
     signature = _vzt_fixSignature(signature);

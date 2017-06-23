@@ -26,7 +26,7 @@
 		B19313281EA9A63D0035331C /* MistCustomNodeDemoViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = B19312F11EA9A63D0035331C /* MistCustomNodeDemoViewController.mm */; };
 		B19313291EA9A63D0035331C /* MistIndicatorTemplateController.m in Sources */ = {isa = PBXBuildFile; fileRef = B19312F41EA9A63D0035331C /* MistIndicatorTemplateController.m */; };
 		B193132A1EA9A63D0035331C /* MistMapDemoController.m in Sources */ = {isa = PBXBuildFile; fileRef = B19312F71EA9A63D0035331C /* MistMapDemoController.m */; };
-		B193132B1EA9A63D0035331C /* MistSimpleTemplateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B19312F91EA9A63D0035331C /* MistSimpleTemplateViewController.m */; };
+		B193132B1EA9A63D0035331C /* MistSimpleTemplateViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = B19312F91EA9A63D0035331C /* MistSimpleTemplateViewController.mm */; };
 		B193132C1EA9A63D0035331C /* MistPickerDemoController.m in Sources */ = {isa = PBXBuildFile; fileRef = B19312FC1EA9A63D0035331C /* MistPickerDemoController.m */; };
 		B193132D1EA9A63D0035331C /* MistScrollTemplateController.m in Sources */ = {isa = PBXBuildFile; fileRef = B19312FF1EA9A63D0035331C /* MistScrollTemplateController.m */; };
 		B193132E1EA9A63D0035331C /* MistSegmentedControlDemoController.m in Sources */ = {isa = PBXBuildFile; fileRef = B19313021EA9A63D0035331C /* MistSegmentedControlDemoController.m */; };
@@ -77,7 +77,7 @@
 		B19312F61EA9A63D0035331C /* MistMapDemoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MistMapDemoController.h; sourceTree = "<group>"; };
 		B19312F71EA9A63D0035331C /* MistMapDemoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MistMapDemoController.m; sourceTree = "<group>"; };
 		B19312F81EA9A63D0035331C /* MistSimpleTemplateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MistSimpleTemplateViewController.h; sourceTree = "<group>"; };
-		B19312F91EA9A63D0035331C /* MistSimpleTemplateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MistSimpleTemplateViewController.m; sourceTree = "<group>"; };
+		B19312F91EA9A63D0035331C /* MistSimpleTemplateViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MistSimpleTemplateViewController.mm; sourceTree = "<group>"; };
 		B19312FB1EA9A63D0035331C /* MistPickerDemoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MistPickerDemoController.h; sourceTree = "<group>"; };
 		B19312FC1EA9A63D0035331C /* MistPickerDemoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MistPickerDemoController.m; sourceTree = "<group>"; };
 		B19312FE1EA9A63D0035331C /* MistScrollTemplateController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MistScrollTemplateController.h; sourceTree = "<group>"; };
@@ -230,7 +230,7 @@
 				B19312F21EA9A63D0035331C /* Indicator */,
 				B19312F51EA9A63D0035331C /* Map */,
 				B19312F81EA9A63D0035331C /* MistSimpleTemplateViewController.h */,
-				B19312F91EA9A63D0035331C /* MistSimpleTemplateViewController.m */,
+				B19312F91EA9A63D0035331C /* MistSimpleTemplateViewController.mm */,
 				B19312FA1EA9A63D0035331C /* Picker */,
 				B19312FD1EA9A63D0035331C /* Scroll */,
 				B19313001EA9A63D0035331C /* SegmentedControl */,
@@ -489,7 +489,7 @@
 				B19313201EA9A63D0035331C /* MistJSDemoViewController.m in Sources */,
 				B193131F1EA9A63D0035331C /* MistDemoTemplateManager.mm in Sources */,
 				B19313331EA9A63D0035331C /* MistTextViewDemoViewController.m in Sources */,
-				B193132B1EA9A63D0035331C /* MistSimpleTemplateViewController.m in Sources */,
+				B193132B1EA9A63D0035331C /* MistSimpleTemplateViewController.mm in Sources */,
 				B19313291EA9A63D0035331C /* MistIndicatorTemplateController.m in Sources */,
 				B19313301EA9A63D0035331C /* MistTextFieldDemoController.m in Sources */,
 				B19313251EA9A63D0035331C /* WBTimelineListViewController.m in Sources */,

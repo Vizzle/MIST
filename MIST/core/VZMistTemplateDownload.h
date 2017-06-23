@@ -11,7 +11,6 @@
 #import <UIKit/UIKit.h>
 
 
-@class VZMistTemplate;
 @protocol VZMistTplDownload <NSObject>
 
 /**
@@ -22,7 +21,7 @@
  @param opt 其它参数
  */
 - (void)downloadTemplates:(NSArray *)tplIds
-               completion:(void (^)(NSDictionary<NSString *, VZMistTemplate *> *))completion
+               completion:(void (^)(NSDictionary<NSString *, NSString *> *))completion
                   options:(NSDictionary *)opt;
 
 @end

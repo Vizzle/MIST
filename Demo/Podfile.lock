@@ -23,12 +23,12 @@ PODS:
     - CocoaAsyncSocket
     - CocoaHTTPServer
     - Tweaks
-  - pop (1.0.9)
+  - pop (1.0.10)
   - SDWebImage (4.0.0):
     - SDWebImage/Core (= 4.0.0)
   - SDWebImage/Core (4.0.0)
   - Tweaks (2.0.0)
-  - VZFlexLayout (0.2.5)
+  - VZFlexLayout (0.2.6)
 
 DEPENDENCIES:
   - IDMPhotoBrowser
@@ -50,10 +50,10 @@ SPEC CHECKSUMS:
   JSPatch: 02cfed591cb907bbfe80a346666e5a35fc2d349d
   MIST: 0656509ccc56a113e0d23253994a60c9e17d0d65
   MISTDebug: 9388ef8aaadb3436f3201556321adacf303e1736
-  pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
+  pop: 82ca6b068ce9278fd350fd9dd09482a0ce9492e6
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
   Tweaks: 524fa47636cce3bf3a4d9156e980f10ae9480e81
-  VZFlexLayout: 8a42a55bdfecc86776dec2d6ef2cb68b0394c8f6
+  VZFlexLayout: 83c7eb34609038b5e07398771f4ed24fefce9761
 
 PODFILE CHECKSUM: 1f652b7045ffe9dcf386de3c8ef354a4f70b0b7d
 

@@ -85,6 +85,30 @@
 		458FECDC1E9F3147004A44DB /* VZMistTemplateEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 458FEC871E9F3147004A44DB /* VZMistTemplateEvent.m */; };
 		45C497961E8F9D55009BD7AA /* MIST.h in Headers */ = {isa = PBXBuildFile; fileRef = 45C497941E8F9D55009BD7AA /* MIST.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45C9C3531EA786A2001015CD /* VZMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 45C9C3521EA786A2001015CD /* VZMacros.h */; };
+		B1A0AB4B1EF3E60C0019F8D9 /* VZTExpressionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B1A0AB4A1EF3E60C0019F8D9 /* VZTExpressionTests.m */; };
+		B1A0AB501EF3E91B0019F8D9 /* NSArray+VZTExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F94001EA601F80050EFFE /* NSArray+VZTExtension.m */; };
+		B1A0AB511EF3E91B0019F8D9 /* NSDate+VZTExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F94021EA601F80050EFFE /* NSDate+VZTExtension.m */; };
+		B1A0AB521EF3E91B0019F8D9 /* NSDictionary+VZTExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F94041EA601F80050EFFE /* NSDictionary+VZTExtension.m */; };
+		B1A0AB531EF3E91B0019F8D9 /* NSString+VZTExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F94061EA601F80050EFFE /* NSString+VZTExtension.m */; };
+		B1A0AB541EF3E91B0019F8D9 /* VZTGlobalFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F94081EA601F80050EFFE /* VZTGlobalFunctions.m */; };
+		B1A0AB551EF3E91B0019F8D9 /* VZTArrayExpressionNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F940A1EA601F80050EFFE /* VZTArrayExpressionNode.m */; };
+		B1A0AB561EF3E91B0019F8D9 /* VZTBinaryExpressionNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F940C1EA601F80050EFFE /* VZTBinaryExpressionNode.m */; };
+		B1A0AB571EF3E91B0019F8D9 /* VZTConditionalExpressionNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F940E1EA601F80050EFFE /* VZTConditionalExpressionNode.m */; };
+		B1A0AB581EF3E91B0019F8D9 /* VZTExpressionContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F94101EA601F80050EFFE /* VZTExpressionContext.m */; };
+		B1A0AB591EF3E91B0019F8D9 /* VZTExpressionListNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F94121EA601F80050EFFE /* VZTExpressionListNode.m */; };
+		B1A0AB5A1EF3E91B0019F8D9 /* VZTExpressionNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F94141EA601F80050EFFE /* VZTExpressionNode.m */; };
+		B1A0AB5B1EF3E91B0019F8D9 /* VZTFunctionExpressionNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F94161EA601F80050EFFE /* VZTFunctionExpressionNode.m */; };
+		B1A0AB5C1EF3E91B0019F8D9 /* VZTIdentifierNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F94181EA601F80050EFFE /* VZTIdentifierNode.m */; };
+		B1A0AB5D1EF3E91B0019F8D9 /* VZTKeyValueListNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F941A1EA601F80050EFFE /* VZTKeyValueListNode.m */; };
+		B1A0AB5E1EF3E91B0019F8D9 /* VZTLambdaExpressionNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F941C1EA601F80050EFFE /* VZTLambdaExpressionNode.m */; };
+		B1A0AB5F1EF3E91B0019F8D9 /* VZTLexer.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F941E1EA601F80050EFFE /* VZTLexer.m */; };
+		B1A0AB601EF3E91B0019F8D9 /* VZTLiteralNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F94201EA601F80050EFFE /* VZTLiteralNode.m */; };
+		B1A0AB611EF3E91B0019F8D9 /* VZTObjectExpressionNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F94221EA601F80050EFFE /* VZTObjectExpressionNode.m */; };
+		B1A0AB621EF3E91B0019F8D9 /* VZTOperatorNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F94241EA601F80050EFFE /* VZTOperatorNode.m */; };
+		B1A0AB631EF3E91B0019F8D9 /* VZTParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F94261EA601F80050EFFE /* VZTParser.m */; };
+		B1A0AB641EF3E91B0019F8D9 /* VZTSyntaxNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F94281EA601F80050EFFE /* VZTSyntaxNode.m */; };
+		B1A0AB651EF3E91B0019F8D9 /* VZTUnaryExpressionNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F942A1EA601F80050EFFE /* VZTUnaryExpressionNode.m */; };
+		B1A0AB661EF3E91B0019F8D9 /* VZTUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F942C1EA601F80050EFFE /* VZTUtils.m */; };
 		D0C2F8F02AC964485E4BDA3F /* libPods-MIST.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A296F92AB5C0B3819173F3D /* libPods-MIST.a */; };
 /* End PBXBuildFile section */
 
@@ -174,6 +198,11 @@
 		5A296F92AB5C0B3819173F3D /* libPods-MIST.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MIST.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		77255C84052463794133E6C9 /* Pods-MIST.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MIST.release.xcconfig"; path = "Pods/Target Support Files/Pods-MIST/Pods-MIST.release.xcconfig"; sourceTree = "<group>"; };
 		9FC5F8E9C2F6C9CFA25B88D3 /* Pods-MIST.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MIST.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MIST/Pods-MIST.debug.xcconfig"; sourceTree = "<group>"; };
+		B1A0AB3F1EF3E5EC0019F8D9 /* MISTTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MISTTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B1A0AB431EF3E5ED0019F8D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B1A0AB4A1EF3E60C0019F8D9 /* VZTExpressionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZTExpressionTests.m; sourceTree = "<group>"; };
+		B1A0AB4C1EF3E89E0019F8D9 /* libVZFlexLayout.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libVZFlexLayout.a; path = "../../../../Library/Developer/Xcode/DerivedData/MIST-cdwrhaqwmoofypdwpuvikzkwozhp/Build/Products/Debug-iphonesimulator/VZFlexLayout/libVZFlexLayout.a"; sourceTree = "<group>"; };
+		B1A0AB4E1EF3E8A00019F8D9 /* libPods-MIST.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-MIST.a"; path = "../../../../Library/Developer/Xcode/DerivedData/MIST-cdwrhaqwmoofypdwpuvikzkwozhp/Build/Products/Debug-iphonesimulator/libPods-MIST.a"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,6 +211,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				D0C2F8F02AC964485E4BDA3F /* libPods-MIST.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B1A0AB3C1EF3E5EC0019F8D9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,6 +312,8 @@
 		458FEAC91E976596004A44DB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B1A0AB4E1EF3E8A00019F8D9 /* libPods-MIST.a */,
+				B1A0AB4C1EF3E89E0019F8D9 /* libVZFlexLayout.a */,
 				458FEADD1E977E48004A44DB /* UIKit.framework */,
 				458FEACA1E976596004A44DB /* VZFlexLayout.framework */,
 				5A296F92AB5C0B3819173F3D /* libPods-MIST.a */,
@@ -315,6 +353,7 @@
 			isa = PBXGroup;
 			children = (
 				45C497931E8F9D55009BD7AA /* MIST */,
+				B1A0AB401EF3E5EC0019F8D9 /* MISTTests */,
 				45C497921E8F9D55009BD7AA /* Products */,
 				458FEAC91E976596004A44DB /* Frameworks */,
 				F7EA6949F98E68451E8B306F /* Pods */,
@@ -325,6 +364,7 @@
 			isa = PBXGroup;
 			children = (
 				45C497911E8F9D55009BD7AA /* MIST.framework */,
+				B1A0AB3F1EF3E5EC0019F8D9 /* MISTTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -340,6 +380,15 @@
 				45C497951E8F9D55009BD7AA /* Info.plist */,
 			);
 			path = MIST;
+			sourceTree = "<group>";
+		};
+		B1A0AB401EF3E5EC0019F8D9 /* MISTTests */ = {
+			isa = PBXGroup;
+			children = (
+				B1A0AB4A1EF3E60C0019F8D9 /* VZTExpressionTests.m */,
+				B1A0AB431EF3E5ED0019F8D9 /* Info.plist */,
+			);
+			path = MISTTests;
 			sourceTree = "<group>";
 		};
 		F7EA6949F98E68451E8B306F /* Pods */ = {
@@ -426,6 +475,23 @@
 			productReference = 45C497911E8F9D55009BD7AA /* MIST.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		B1A0AB3E1EF3E5EC0019F8D9 /* MISTTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B1A0AB491EF3E5ED0019F8D9 /* Build configuration list for PBXNativeTarget "MISTTests" */;
+			buildPhases = (
+				B1A0AB3B1EF3E5EC0019F8D9 /* Sources */,
+				B1A0AB3C1EF3E5EC0019F8D9 /* Frameworks */,
+				B1A0AB3D1EF3E5EC0019F8D9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MISTTests;
+			productName = MISTTests;
+			productReference = B1A0AB3F1EF3E5EC0019F8D9 /* MISTTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -438,6 +504,11 @@
 					45C497901E8F9D55009BD7AA = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = RMP5PV6R6N;
+						ProvisioningStyle = Automatic;
+					};
+					B1A0AB3E1EF3E5EC0019F8D9 = {
+						CreatedOnToolsVersion = 8.3;
+						DevelopmentTeam = 8EZ24DBNN4;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -455,12 +526,20 @@
 			projectRoot = "";
 			targets = (
 				45C497901E8F9D55009BD7AA /* MIST */,
+				B1A0AB3E1EF3E5EC0019F8D9 /* MISTTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		45C4978F1E8F9D55009BD7AA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B1A0AB3D1EF3E5EC0019F8D9 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -510,7 +589,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -557,6 +636,37 @@
 				455F94761EA601F80050EFFE /* VZMistHTMLStringParser.m in Sources */,
 				455F94581EA601F80050EFFE /* VZTKeyValueListNode.m in Sources */,
 				455F945A1EA601F80050EFFE /* VZTLambdaExpressionNode.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B1A0AB3B1EF3E5EC0019F8D9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B1A0AB4B1EF3E60C0019F8D9 /* VZTExpressionTests.m in Sources */,
+				B1A0AB501EF3E91B0019F8D9 /* NSArray+VZTExtension.m in Sources */,
+				B1A0AB511EF3E91B0019F8D9 /* NSDate+VZTExtension.m in Sources */,
+				B1A0AB521EF3E91B0019F8D9 /* NSDictionary+VZTExtension.m in Sources */,
+				B1A0AB531EF3E91B0019F8D9 /* NSString+VZTExtension.m in Sources */,
+				B1A0AB541EF3E91B0019F8D9 /* VZTGlobalFunctions.m in Sources */,
+				B1A0AB551EF3E91B0019F8D9 /* VZTArrayExpressionNode.m in Sources */,
+				B1A0AB561EF3E91B0019F8D9 /* VZTBinaryExpressionNode.m in Sources */,
+				B1A0AB571EF3E91B0019F8D9 /* VZTConditionalExpressionNode.m in Sources */,
+				B1A0AB581EF3E91B0019F8D9 /* VZTExpressionContext.m in Sources */,
+				B1A0AB591EF3E91B0019F8D9 /* VZTExpressionListNode.m in Sources */,
+				B1A0AB5A1EF3E91B0019F8D9 /* VZTExpressionNode.m in Sources */,
+				B1A0AB5B1EF3E91B0019F8D9 /* VZTFunctionExpressionNode.m in Sources */,
+				B1A0AB5C1EF3E91B0019F8D9 /* VZTIdentifierNode.m in Sources */,
+				B1A0AB5D1EF3E91B0019F8D9 /* VZTKeyValueListNode.m in Sources */,
+				B1A0AB5E1EF3E91B0019F8D9 /* VZTLambdaExpressionNode.m in Sources */,
+				B1A0AB5F1EF3E91B0019F8D9 /* VZTLexer.m in Sources */,
+				B1A0AB601EF3E91B0019F8D9 /* VZTLiteralNode.m in Sources */,
+				B1A0AB611EF3E91B0019F8D9 /* VZTObjectExpressionNode.m in Sources */,
+				B1A0AB621EF3E91B0019F8D9 /* VZTOperatorNode.m in Sources */,
+				B1A0AB631EF3E91B0019F8D9 /* VZTParser.m in Sources */,
+				B1A0AB641EF3E91B0019F8D9 /* VZTSyntaxNode.m in Sources */,
+				B1A0AB651EF3E91B0019F8D9 /* VZTUnaryExpressionNode.m in Sources */,
+				B1A0AB661EF3E91B0019F8D9 /* VZTUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -679,7 +789,6 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
 				PRODUCT_BUNDLE_IDENTIFIER = com.vizlab.MIST;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -700,10 +809,39 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
 				PRODUCT_BUNDLE_IDENTIFIER = com.vizlab.MIST;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		B1A0AB471EF3E5ED0019F8D9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				DEVELOPMENT_TEAM = 8EZ24DBNN4;
+				INFOPLIST_FILE = MISTTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = mh_dylib;
+				OTHER_CFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = com.vizlab.MIST.MISTTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		B1A0AB481EF3E5ED0019F8D9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				DEVELOPMENT_TEAM = 8EZ24DBNN4;
+				INFOPLIST_FILE = MISTTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = mh_dylib;
+				OTHER_CFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = com.vizlab.MIST.MISTTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
@@ -724,6 +862,15 @@
 			buildConfigurations = (
 				45C4979A1E8F9D55009BD7AA /* Debug */,
 				45C4979B1E8F9D55009BD7AA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B1A0AB491EF3E5ED0019F8D9 /* Build configuration list for PBXNativeTarget "MISTTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B1A0AB471EF3E5ED0019F8D9 /* Debug */,
+				B1A0AB481EF3E5ED0019F8D9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

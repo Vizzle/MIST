@@ -17,6 +17,9 @@
 {
     NSMutableDictionary<NSString *, VZMistTagProcessor> *_processorMap;
     pthread_rwlock_t rwlock;
+    
+    NSMutableDictionary<NSString *, id> *_jsGlobalFunctions;
+    pthread_rwlock_t jsRwlock;
 }
 
 + (instancetype)sharedInstance
@@ -36,6 +39,10 @@
         pthread_rwlock_init(&rwlock, NULL);
         _processorMap = [NSMutableDictionary dictionaryWithCapacity:10];
         [self registerDefaultTags];
+        
+        pthread_rwlock_init(&jsRwlock, NULL);
+        _jsGlobalFunctions = [NSMutableDictionary dictionary];
+
         self.errorCallback = ^(NSError *error) {
             NSLog(@"MIST error: %@", error);
         };
@@ -155,6 +162,18 @@
     }
     pthread_rwlock_unlock(&rwlock);
     return ret;
+}
+
+- (void)registerJSFunction:(NSString *)funcName block:(id)block {
+    if (funcName.length > 0 && block) {
+        pthread_rwlock_wrlock(&jsRwlock);
+        [_jsGlobalFunctions setObject:block forKey:funcName];
+        pthread_rwlock_unlock(&jsRwlock);
+    }
+}
+
+- (NSDictionary *)registeredJSFunctions {
+    return _jsGlobalFunctions;
 }
 
 @end

@@ -12,7 +12,7 @@
 #import <UIKit/UIKit.h>
 #import "VZMistTemplateHelper.h"
 #import "VZTExpressionNode.h"
-
+#import <JavaScriptCore/JavaScriptCore.h>
 
 @implementation VZMistTemplateEvent
 {
@@ -52,17 +52,27 @@
     }
 
     for (NSString *sel in action) {
-        VZMistTemplateController *controller = _item.tplController;
-        SEL selector = NSSelectorFromString(sel);
-        if ([(id)controller respondsToSelector:selector]) {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+        if ([sel hasPrefix:@"js-"]) {
+            NSString *methodName = [sel substringFromIndex:3];
             id param = action[sel];
-            param = [VZMistTemplateHelper extractValueForExpression:param withContext:_expressionContext];
-            [(id)controller performSelector:selector withObject:param withObject:sender];
-#pragma clang diagnostic pop
+            JSContext *jsContext = _item.jsContext;
+            JSValue *method = jsContext[methodName];
+            if (method) {
+                [method callWithArguments:@[param]];
+            }
         } else {
-            NSLog(@"%@ does not responds to selector '%@'", controller, sel);
+            VZMistTemplateController *controller = _item.tplController;
+            SEL selector = NSSelectorFromString(sel);
+            if ([(id)controller respondsToSelector:selector]) {
+    #pragma clang diagnostic push
+    #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+                id param = action[sel];
+                param = [VZMistTemplateHelper extractValueForExpression:param withContext:_expressionContext];
+                [(id)controller performSelector:selector withObject:param withObject:sender];
+    #pragma clang diagnostic pop
+            } else {
+                NSLog(@"%@ does not responds to selector '%@'", controller, sel);
+            }
         }
     }
 }

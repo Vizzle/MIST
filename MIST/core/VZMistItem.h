@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <JavaScriptCore/JavaScriptCore.h>
 
 @class VZMistTemplate;
 @class VZMistTemplateController;
@@ -33,6 +34,10 @@
  模板中UI组件的的state,理解state参考Reacthttps://facebook.github.io/react-native/docs/state.html
  */
 @property (nonatomic, strong, readonly) id state;
+/**
+ 执行js、调用js方法的JSContext
+ */
+@property (nonatomic, strong, readonly) JSContext *jsContext;
 
 /**
  默认的 controller 类。根据不同的item可以返回不同的 controller，可以实现不同业务方接入的时候，同样的功能（比如埋点）有不同的实现。

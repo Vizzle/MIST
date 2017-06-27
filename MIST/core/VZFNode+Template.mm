@@ -16,7 +16,7 @@
 #import <VZFlexLayout/VZFNodeSubClass.h>
 #import <VZFlexLayout/VZFScrollView.h>
 #import <objc/runtime.h>
-
+#import "VZMistInternal.h"
 
 #define kVZTemplateLoopIndex @"_index_"
 #define kVZTemplateLoopItem @"_item_"

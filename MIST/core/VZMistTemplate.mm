@@ -12,8 +12,6 @@
 #import "VZMistTemplateController.h"
 #import "VZMist.h"
 #import "VZMistError.h"
-#import "VZScriptManager.h"
-
 
 @implementation VZMistTemplate
 
@@ -35,14 +33,8 @@
         }
 
         _tplId = tplId;
-        _tplRawContent = content;
+        _script = content[@"script"];
         _tplParsedResult = [VZMistTemplateHelper parseExpressionsInTemplate:layout mistInstance:mistInstance];
-
-        NSString *str = content[@"script"];
-        if (str.length) {
-            [[VZScriptManager manager] runScript:str];
-        }
-
         _tplControllerClass = NSClassFromString(content[@"controller"]);
         NSAssert(!_tplControllerClass || [_tplControllerClass isSubclassOfClass:[VZMistTemplateController class]], @"controller must be inherited from VZMistTemplateController");
         if (![_tplControllerClass isSubclassOfClass:[VZMistTemplateController class]]) {
@@ -56,6 +48,5 @@
     }
     return self;
 }
-
 
 @end

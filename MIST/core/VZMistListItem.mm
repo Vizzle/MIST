@@ -17,7 +17,8 @@
 #import <UIKit/UIKit.h>
 #import <objc/runtime.h>
 #import "VZMist.h"
-
+#import "VZMistInternal.h"
+#import "VZTUtils.h"
 
 @interface VZMistWeakObject : NSObject
 
@@ -48,6 +49,8 @@ static const void *kMistItemInCell = &kMistItemInCell;
     __weak UITableView *_tableView;
     __weak UIViewController *_viewController;
 }
+
+@synthesize jsContext = _jsContext;
 
 - (instancetype)init
 {
@@ -285,5 +288,96 @@ static const void *kMistItemInCell = &kMistItemInCell;
         return nil;
     }
 }
+
+# pragma mark - Javascript
+
+- (JSContext *)jsContext {
+    if (!_jsContext) {
+        NSString *script = self.tpl.script;
+        if (script.length) {
+            _jsContext = [self jsContextBuilder];
+            [_jsContext evaluateScript:script];
+        }
+    }
+    
+    return _jsContext;
+}
+
+- (JSContext *)jsContextBuilder {
+    JSContext *context = [[JSContext alloc] init];
+    [self registerGlobalFunctions:context];
+//    [self registerTypes:nil inContext:context];
+    
+    return context;
+}
+
+#define JSContextLog(fmt, ...) NSLog(@"MistJSContext: " fmt, ##__VA_ARGS__)
+
+- (void)registerGlobalFunctions:(JSContext *)context {
+    NSDictionary *bizJsFunctions = [[VZMist sharedInstance] registeredJSFunctions];
+    for (NSString *funcName in bizJsFunctions) {
+        context[funcName] = bizJsFunctions;
+    }
+    
+    context[@"callInstance"] = ^id(id target, NSString *selector, NSArray *parameters) {
+        return vzt_invokeMethod(target, NSSelectorFromString(selector), parameters);
+    };
+    
+    context[@"callClass"] = ^id(NSString *className, NSString *selector, NSArray *parameters) {
+        Class clz = NSClassFromString(className);
+        if (clz) {
+            return vzt_invokeMethod(clz, NSSelectorFromString(selector), parameters);
+        }
+        return nil;
+    };
+    
+    context[@"oclog"] = ^() {
+        NSArray *args = [JSContext currentArguments];
+        for (JSValue *jsVal in args) {
+            JSContextLog(@"%@", [jsVal toObject]);
+        }
+    };
+    
+    context[@"dispatch_after"] = ^(double time, JSValue *func) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(time * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [func callWithArguments:nil];
+        });
+    };
+    
+    context[@"dispatch_async_main"] = ^(JSValue *func) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [func callWithArguments:nil];
+        });
+    };
+    
+    context[@"dispatch_sync_main"] = ^(JSValue *func) {
+        if ([NSThread currentThread].isMainThread) {
+            [func callWithArguments:nil];
+        } else {
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [func callWithArguments:nil];
+            });
+        }
+    };
+    
+    context[@"dispatch_async_global_queue"] = ^(JSValue *func) {
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            [func callWithArguments:nil];
+        });
+    };
+    
+    context.exceptionHandler = ^(JSContext *con, JSValue *exception) {
+        JSContextLog(@"%@", exception);
+    };
+}
+
+//- (void)registerTypes:(NSArray *)types inContext:(JSContext *)context {
+//    for (NSString *type in types) {
+//        Class clz = NSClassFromString(type);
+//        if (clz) {
+//            context[type] = clz;
+//        }
+//    }
+//}
 
 @end

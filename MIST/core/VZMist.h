@@ -54,20 +54,13 @@ typedef void (^VZMistErrorCallback)(VZMistError *error);
  */
 - (void)registerTag:(NSString *)tag withProcessor:(VZMistTagProcessor)processor;
 
-/**
- 处理标签，返回解析出的 node。Mist 内部调用，外部不应使用。
 
- @param tag 标签名称
- @param specs 声明的布局
- @param tpl 书写的模板
- @param item 承载数据的 item
- @param data 模板使用的数据
- @return node 虚拟 dom
+/**
+ 注册 js 全局函数
+
+ @param funcName 方法名
+ @param block 方法实现block
  */
-- (VZFNode *)processTag:(NSString *)tag
-              withSpecs:(NodeSpecs)specs
-               template:(NSDictionary *)tpl
-                   item:(id<VZMistItem>)item
-                   data:(VZTExpressionContext *)data;
+- (void)registerJSFunction:(NSString *)funcName block:(id)block;
 
 @end

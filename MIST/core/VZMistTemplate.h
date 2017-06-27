@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-
 @class VZMist;
 
 
@@ -23,10 +22,6 @@
  模板的内部标识，一般用于native代码识别模板的标识，从而能够跟模板Id隔离。
  */
 @property (nonatomic, strong, readonly) NSString *identifier;
-/**
- 模板原始内容
- */
-@property (nonatomic, strong, readonly) NSDictionary *tplRawContent;
 /**
  模板解析后的结果
  */
@@ -52,7 +47,10 @@
  模板显示是否需要异步渲染
  */
 @property (nonatomic, assign, readonly) BOOL asyncDisplay;
-
+/**
+ 模板中脚本内容
+ */
+@property (nonatomic, strong, readonly) NSString *script;
 
 /**
  创建Template实体

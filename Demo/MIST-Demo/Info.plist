@@ -18,17 +18,6 @@
 	<string>需要扫码连接模板调试服务器</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleURLName</key>
-			<string>com.vizlab.MIST</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>mist</string>
-			</array>
-		</dict>
-	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>

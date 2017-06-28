@@ -19,7 +19,7 @@ PODS:
   - JSPatch/Core (1.1.3)
   - MIST (0.0.3):
     - VZFlexLayout
-  - MISTDebug (0.2.0):
+  - MISTDebug (0.2.1):
     - CocoaAsyncSocket
     - CocoaHTTPServer
     - Tweaks
@@ -48,8 +48,8 @@ SPEC CHECKSUMS:
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
   IDMPhotoBrowser: b96159fe4adb991a844068eb17dab9c0b7d7e51a
   JSPatch: 02cfed591cb907bbfe80a346666e5a35fc2d349d
-  MIST: 0656509ccc56a113e0d23253994a60c9e17d0d65
-  MISTDebug: 9388ef8aaadb3436f3201556321adacf303e1736
+  MIST: '0656509ccc56a113e0d23253994a60c9e17d0d65'
+  MISTDebug: bf07dac69cc943ba09400b183349f9a168ee3317
   pop: 82ca6b068ce9278fd350fd9dd09482a0ce9492e6
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
   Tweaks: 524fa47636cce3bf3a4d9156e980f10ae9480e81

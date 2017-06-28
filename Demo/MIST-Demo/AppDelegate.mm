@@ -8,9 +8,6 @@
 
 #import "AppDelegate.h"
 #import "VZMist.h"
-#import "VZScriptManager.h"
-#import "VZMistPage.h"
-
 #import "MistDemoIndexViewController.h"
 #import "WBTimelineListViewController.h"
 #import "MistSimpleTemplateViewController.h"
@@ -18,7 +15,6 @@
 #import "MistTextFieldDemoViewController.h"
 #import "MistCustomNodeDemoViewController.h"
 #import "MistJSDemoViewController.h"
-#import "MistDemoConfigDownloader.h"
 
 #ifdef DEBUG
 #import <MISTDebug/MSTDebugger.h>
@@ -204,12 +200,6 @@ return [[MistSimpleTemplateViewController alloc] initWithTitle:NAME templates:@[
     // 完成初始化
     [VZMist sharedInstance];
     
-    //设置脚本解密方法
-    [[VZScriptManager manager] registerDecryptMethod:^NSString *(NSString *rawScript) {
-        //demo 里不加密
-        return rawScript;
-    }];
-    
     _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     _viewController = [[MistDemoIndexViewController alloc] initWithTitle:@"MIST" demoItems:self.demos];
     _navController = [[UINavigationController alloc] initWithRootViewController:_viewController];
@@ -218,37 +208,6 @@ return [[MistSimpleTemplateViewController alloc] initWithTitle:NAME templates:@[
     
     return YES;
 }
-
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    if ([[url scheme] isEqualToString:@"mist"]) {
-        
-        //mist://singlepage?pageName=SinglePageDemo&templateName=SinglePageTemplate
-        if ([[url host] isEqualToString:@"singlepage"]) {
-            
-            NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-            for (NSString *param in [[url query] componentsSeparatedByString:@"&"]) {
-                NSArray *pair = [param componentsSeparatedByString:@"="];
-                if([pair count] < 2) continue;
-                [params setObject:[pair lastObject] forKey:[pair firstObject]];
-            }
-            
-            if (!params.allKeys.count) {
-                return NO;
-            }
-            
-            VZMistPage *mistpage = [[VZMistPage alloc] initWithPageName:params[@"pageName"] options:params];
-            mistpage.delegate = [MistDemoConfigDownloader defaultDelegate];
-            [(UINavigationController *)[UIApplication sharedApplication].keyWindow.rootViewController pushViewController:mistpage animated:YES];
-            
-            return YES;
-        }
-        
-        return NO;
-    }
-    
-    return NO;
-}
-
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {

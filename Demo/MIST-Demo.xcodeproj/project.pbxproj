@@ -12,7 +12,6 @@
 		455F94B51EA63CC70050EFFE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 455F94B41EA63CC70050EFFE /* Assets.xcassets */; };
 		455F94B81EA63CC70050EFFE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 455F94B61EA63CC70050EFFE /* LaunchScreen.storyboard */; };
 		AEAC3D45DB0D7F3CDBD32272 /* libPods-MIST-Demo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FEABC4C3376B6EEEBF738E8B /* libPods-MIST-Demo.a */; };
-		B193131D1EA9A63D0035331C /* MistDemoConfigDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = B19312D81EA9A63D0035331C /* MistDemoConfigDownloader.m */; };
 		B193131E1EA9A63D0035331C /* MistDemoImageView.mm in Sources */ = {isa = PBXBuildFile; fileRef = B19312DA1EA9A63D0035331C /* MistDemoImageView.mm */; };
 		B193131F1EA9A63D0035331C /* MistDemoTemplateManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = B19312DC1EA9A63D0035331C /* MistDemoTemplateManager.mm */; };
 		B19313201EA9A63D0035331C /* MistJSDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B19312DF1EA9A63D0035331C /* MistJSDemoViewController.m */; };
@@ -50,8 +49,6 @@
 		455F94B91EA63CC70050EFFE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8077F1AE59CBBE2DD266CBD9 /* Pods-MIST-Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MIST-Demo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MIST-Demo/Pods-MIST-Demo.debug.xcconfig"; sourceTree = "<group>"; };
 		B0B27EEA8EB467CC9F77B927 /* Pods-MIST-Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MIST-Demo.release.xcconfig"; path = "Pods/Target Support Files/Pods-MIST-Demo/Pods-MIST-Demo.release.xcconfig"; sourceTree = "<group>"; };
-		B19312D71EA9A63D0035331C /* MistDemoConfigDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MistDemoConfigDownloader.h; sourceTree = "<group>"; };
-		B19312D81EA9A63D0035331C /* MistDemoConfigDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MistDemoConfigDownloader.m; sourceTree = "<group>"; };
 		B19312D91EA9A63D0035331C /* MistDemoImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MistDemoImageView.h; sourceTree = "<group>"; };
 		B19312DA1EA9A63D0035331C /* MistDemoImageView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MistDemoImageView.mm; sourceTree = "<group>"; };
 		B19312DB1EA9A63D0035331C /* MistDemoTemplateManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MistDemoTemplateManager.h; sourceTree = "<group>"; };
@@ -184,8 +181,6 @@
 		B19312D61EA9A63D0035331C /* Adapter */ = {
 			isa = PBXGroup;
 			children = (
-				B19312D71EA9A63D0035331C /* MistDemoConfigDownloader.h */,
-				B19312D81EA9A63D0035331C /* MistDemoConfigDownloader.m */,
 				B19312D91EA9A63D0035331C /* MistDemoImageView.h */,
 				B19312DA1EA9A63D0035331C /* MistDemoImageView.mm */,
 				B19312DB1EA9A63D0035331C /* MistDemoTemplateManager.h */,
@@ -473,7 +468,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B19313271EA9A63D0035331C /* CustomButton.m in Sources */,
-				B193131D1EA9A63D0035331C /* MistDemoConfigDownloader.m in Sources */,
 				B193132E1EA9A63D0035331C /* MistSegmentedControlDemoController.m in Sources */,
 				B193132A1EA9A63D0035331C /* MistMapDemoController.m in Sources */,
 				B193132D1EA9A63D0035331C /* MistScrollTemplateController.m in Sources */,

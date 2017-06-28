@@ -20,6 +20,10 @@
 #import "VZMistInternal.h"
 #import "VZTUtils.h"
 
+#ifdef DEBUG
+#import "VZScriptErrorMsgViewController.h"
+#endif
+
 @interface VZMistWeakObject : NSObject
 
 @property (nonatomic, weak) id object;
@@ -43,6 +47,12 @@ static const void *kMistItemInCell = &kMistItemInCell;
 
 @interface VZMistListItem ()
 @property (nonatomic, copy) void (^updateStateCompletion)();
+
+#ifdef DEBUG
+@property (nonatomic, strong) UIWindow *errorWindow;
+@property (nonatomic, strong) NSString *errMsg;
+#endif
+
 @end
 
 @implementation VZMistListItem
@@ -383,10 +393,56 @@ static const void *kMistItemInCell = &kMistItemInCell;
         });
     };
     
+#ifdef DEBUG
     context.exceptionHandler = ^(JSContext *con, JSValue *exception) {
         JSContextLog(@"%@", exception);
+        
+        NSString *msg = exception.description;
+        self.errMsg = msg;
+        self.errorWindow.hidden = NO;
+        
+        if (!self.errorWindow) {
+            self.errorWindow = [[UIWindow alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 20)];
+            self.errorWindow.windowLevel = UIWindowLevelStatusBar + 1.0f;
+            self.errorWindow.backgroundColor = [UIColor blackColor];
+            UIButton *errBtn = [[UIButton alloc] initWithFrame:CGRectMake(5, 0, [UIScreen mainScreen].bounds.size.width - 10, 20)];
+            errBtn.titleLabel.font = [UIFont systemFontOfSize:10];
+            [errBtn setTitle:msg forState:UIControlStateNormal];
+            [errBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            errBtn.tag = 100;
+            [errBtn addTarget:self action:@selector(handleTapErrorBtn) forControlEvents:UIControlEventTouchDown];
+            [self.errorWindow addSubview:errBtn];
+            self.errorWindow.hidden = NO;
+        } else {
+            UIButton *errBtn = [self.errorWindow viewWithTag:100];
+            [errBtn setTitle:msg forState:UIControlStateNormal];
+        }
     };
+#endif
+    
 }
+
+#ifdef DEBUG
+
+- (void)handleTapErrorBtn {
+    self.errorWindow.hidden = YES;
+    
+    VZScriptErrorMsgViewController *errorMsgVC = [[VZScriptErrorMsgViewController alloc] initWithMsg:self.errMsg];
+    UIViewController *root = [UIApplication sharedApplication].keyWindow.rootViewController;
+    UINavigationController *nav = nil;
+    
+    if ([root isKindOfClass:[UINavigationController class]]) {
+        nav = (UINavigationController *)root;
+    } else {
+        nav = root.navigationController;
+    }
+    
+    NSAssert(nav, @"VZMistListItem: 未能获取导航栏");
+    
+    [nav pushViewController:errorMsgVC animated:YES];
+}
+
+#endif
 
 //- (void)registerTypes:(NSArray *)types inContext:(JSContext *)context {
 //    for (NSString *type in types) {

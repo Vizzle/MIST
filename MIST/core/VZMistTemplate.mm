@@ -34,6 +34,7 @@
 
         _tplId = tplId;
         _script = content[@"script"];
+        _tplRawContent = [content copy];
         _tplParsedResult = [VZMistTemplateHelper parseExpressionsInTemplate:layout mistInstance:mistInstance];
         _tplControllerClass = NSClassFromString(content[@"controller"]);
         NSAssert(!_tplControllerClass || [_tplControllerClass isSubclassOfClass:[VZMistTemplateController class]], @"controller must be inherited from VZMistTemplateController");

@@ -27,4 +27,12 @@ static inline void ext_executeCleanupBlock(__strong ext_cleanupBlock_t *block)
 __strong ext_cleanupBlock_t __SCOPEGUARD_CONCATENATE(ext_exitBlock_, __LINE__) __attribute__((cleanup(ext_executeCleanupBlock), unused)) = ^
 
 
+// define of weakify and strongify
+#define weakify(var) ext_keywordify __weak typeof(var) O2OWeak_##var = var;
+#define strongify(var) ext_keywordify \
+_Pragma("clang diagnostic push") \
+_Pragma("clang diagnostic ignored \"-Wshadow\"") \
+__strong typeof(var) var = O2OWeak_##var; \
+_Pragma("clang diagnostic pop")
+
 #endif /* VZCommonDefine_h */

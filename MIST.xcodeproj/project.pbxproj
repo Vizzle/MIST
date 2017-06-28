@@ -53,12 +53,8 @@
 		455F94681EA601F80050EFFE /* VZTUnaryExpressionNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F942A1EA601F80050EFFE /* VZTUnaryExpressionNode.m */; };
 		455F94691EA601F80050EFFE /* VZTUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 455F942B1EA601F80050EFFE /* VZTUtils.h */; };
 		455F946A1EA601F80050EFFE /* VZTUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F942C1EA601F80050EFFE /* VZTUtils.m */; };
-		455F946B1EA601F80050EFFE /* VZMistPage.h in Headers */ = {isa = PBXBuildFile; fileRef = 455F942E1EA601F80050EFFE /* VZMistPage.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		455F946C1EA601F80050EFFE /* VZMistPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F942F1EA601F80050EFFE /* VZMistPage.m */; };
 		455F946D1EA601F80050EFFE /* VZScriptErrorMsgViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 455F94301EA601F80050EFFE /* VZScriptErrorMsgViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		455F946E1EA601F80050EFFE /* VZScriptErrorMsgViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F94311EA601F80050EFFE /* VZScriptErrorMsgViewController.m */; };
-		455F946F1EA601F80050EFFE /* VZScriptManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 455F94321EA601F80050EFFE /* VZScriptManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		455F94701EA601F80050EFFE /* VZScriptManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F94331EA601F80050EFFE /* VZScriptManager.m */; };
 		455F94711EA601F80050EFFE /* VZDataStructure.h in Headers */ = {isa = PBXBuildFile; fileRef = 455F94351EA601F80050EFFE /* VZDataStructure.h */; };
 		455F94721EA601F80050EFFE /* VZDataStructure.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F94361EA601F80050EFFE /* VZDataStructure.m */; };
 		455F94731EA601F80050EFFE /* VZImageCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 455F94371EA601F80050EFFE /* VZImageCache.h */; };
@@ -139,12 +135,8 @@
 		455F942A1EA601F80050EFFE /* VZTUnaryExpressionNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZTUnaryExpressionNode.m; sourceTree = "<group>"; };
 		455F942B1EA601F80050EFFE /* VZTUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZTUtils.h; sourceTree = "<group>"; };
 		455F942C1EA601F80050EFFE /* VZTUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZTUtils.m; sourceTree = "<group>"; };
-		455F942E1EA601F80050EFFE /* VZMistPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZMistPage.h; sourceTree = "<group>"; };
-		455F942F1EA601F80050EFFE /* VZMistPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZMistPage.m; sourceTree = "<group>"; };
 		455F94301EA601F80050EFFE /* VZScriptErrorMsgViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZScriptErrorMsgViewController.h; sourceTree = "<group>"; };
 		455F94311EA601F80050EFFE /* VZScriptErrorMsgViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZScriptErrorMsgViewController.m; sourceTree = "<group>"; };
-		455F94321EA601F80050EFFE /* VZScriptManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZScriptManager.h; sourceTree = "<group>"; };
-		455F94331EA601F80050EFFE /* VZScriptManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZScriptManager.m; sourceTree = "<group>"; };
 		455F94351EA601F80050EFFE /* VZDataStructure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZDataStructure.h; sourceTree = "<group>"; };
 		455F94361EA601F80050EFFE /* VZDataStructure.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZDataStructure.m; sourceTree = "<group>"; };
 		455F94371EA601F80050EFFE /* VZImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZImageCache.h; sourceTree = "<group>"; };
@@ -260,12 +252,8 @@
 		455F942D1EA601F80050EFFE /* script */ = {
 			isa = PBXGroup;
 			children = (
-				455F942E1EA601F80050EFFE /* VZMistPage.h */,
-				455F942F1EA601F80050EFFE /* VZMistPage.m */,
 				455F94301EA601F80050EFFE /* VZScriptErrorMsgViewController.h */,
 				455F94311EA601F80050EFFE /* VZScriptErrorMsgViewController.m */,
-				455F94321EA601F80050EFFE /* VZScriptManager.h */,
-				455F94331EA601F80050EFFE /* VZScriptManager.m */,
 			);
 			path = script;
 			sourceTree = "<group>";
@@ -372,10 +360,8 @@
 			files = (
 				458FECC91E9F3147004A44DB /* VZFCustomNode.h in Headers */,
 				455F94471EA601F80050EFFE /* VZTArrayExpressionNode.h in Headers */,
-				455F946B1EA601F80050EFFE /* VZMistPage.h in Headers */,
 				455F94631EA601F80050EFFE /* VZTParser.h in Headers */,
 				458FECCD1E9F3147004A44DB /* VZFNodeListItem.h in Headers */,
-				455F946F1EA601F80050EFFE /* VZScriptManager.h in Headers */,
 				458FECD81E9F3147004A44DB /* VZMistTemplateController.h in Headers */,
 				458FECD41E9F3147004A44DB /* VZMistListItem.h in Headers */,
 				455F946D1EA601F80050EFFE /* VZScriptErrorMsgViewController.h in Headers */,
@@ -547,7 +533,6 @@
 				455F945C1EA601F80050EFFE /* VZTLexer.m in Sources */,
 				455F94541EA601F80050EFFE /* VZTFunctionExpressionNode.m in Sources */,
 				455F943E1EA601F80050EFFE /* NSArray+VZTExtension.m in Sources */,
-				455F94701EA601F80050EFFE /* VZScriptManager.m in Sources */,
 				455F94781EA601F80050EFFE /* VZMistTemplateHelper.mm in Sources */,
 				458FECD21E9F3147004A44DB /* VZMistError.m in Sources */,
 				455F94481EA601F80050EFFE /* VZTArrayExpressionNode.m in Sources */,
@@ -555,7 +540,6 @@
 				455F94461EA601F80050EFFE /* VZTGlobalFunctions.m in Sources */,
 				455F94601EA601F80050EFFE /* VZTObjectExpressionNode.m in Sources */,
 				455F946E1EA601F80050EFFE /* VZScriptErrorMsgViewController.m in Sources */,
-				455F946C1EA601F80050EFFE /* VZMistPage.m in Sources */,
 				458FECD51E9F3147004A44DB /* VZMistListItem.mm in Sources */,
 				458FECCA1E9F3147004A44DB /* VZFCustomNode.mm in Sources */,
 				455F94621EA601F80050EFFE /* VZTOperatorNode.m in Sources */,

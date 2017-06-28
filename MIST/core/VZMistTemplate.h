@@ -23,6 +23,10 @@
  */
 @property (nonatomic, strong, readonly) NSString *identifier;
 /**
+ 模板原始内容
+ */
+@property (nonatomic, strong, readonly) NSDictionary *tplRawContent;
+/**
  模板解析后的结果
  */
 @property (nonatomic, strong, readonly) NSDictionary *tplParsedResult;

@@ -81,12 +81,8 @@ const void* g_vzfIndexPath = &g_vzfIndexPath;
 
 - (void)attachToView:(UIView *)view
 {
-//    NSIndexPath *indexPath = view.vz_indexPath;
-//    BOOL rasterizeUseCache = indexPath && indexPath.section == self.indexPath.section && indexPath.row == self.indexPath.row;
-//    [view setVz_indexPath:self.indexPath];
-    
-    [_recycler attachToView:view rasterizeUseCache:NO];
     _attachedView = view;
+    [_recycler attachToView:view rasterizeUseCache:NO];
 }
 
 - (void)detachFromView

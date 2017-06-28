@@ -17,23 +17,36 @@
 }
 
 // deprecated: use `substring` instead
-- (NSString *)vzt_sub:(NSUInteger)start string:(NSUInteger)length
+- (NSString *)vzt_sub:(NSInteger)start string:(NSUInteger)length
 {
-    return [self substringWithRange:NSMakeRange(start, length)];
+    return [self vzt_substring:start :length];
 }
 
-- (NSString *)vzt_substring:(NSUInteger)start:(NSUInteger)length
+- (NSString *)vzt_substring:(NSInteger)length
 {
+    if (length >= 0) {
+        return [self substringWithRange:NSMakeRange(0, length)];
+    }
+    else {
+        return [self substringWithRange:NSMakeRange(self.length + length, -length)];
+    }
+}
+
+- (NSString *)vzt_substring:(NSInteger)start :(NSUInteger)length
+{
+    if (start < 0) {
+        start += self.length;
+    }
     return [self substringWithRange:NSMakeRange(start, length)];
 }
 
 // deprecated: use `replace` instead
 - (NSString *)vzt_replace:(NSString *)replace with:(NSString *)with
 {
-    return [self stringByReplacingOccurrencesOfString:replace withString:with];
+    return [self vzt_replace:replace with:with];
 }
 
-- (NSString *)vzt_replace:(NSString *)replace:(NSString *)with
+- (NSString *)vzt_replace:(NSString *)replace :(NSString *)with
 {
     return [self stringByReplacingOccurrencesOfString:replace withString:with];
 }

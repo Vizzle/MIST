@@ -1,0 +1,97 @@
+{
+  "styles": {
+    "button": {
+      "background-image": "#77f",
+      "padding": 8,
+      "corner-radius": 4,
+      "clip": true,
+      "title-color": "white",
+      "alignment": "center",
+      "font-size": 15
+    }
+  },
+  "layout": {
+    "style": {
+      "direction": "vertical",
+      "padding": 15,
+      "spacing": 15
+    },
+    "children": [
+      {
+        "type": "button",
+        "class": "button",
+        "style": {
+          "title": "普通弹窗"
+        },
+        "on-tap": {
+          "type": "alert",
+          "params": {
+            "title": "这是标题",
+            "message": "这是描述这是描述这是描述这是描述"
+          }
+        }
+      },
+      {
+        "type": "button",
+        "class": "button",
+        "style": {
+          "title": "有取消按钮的弹窗"
+        },
+        "on-tap": {
+          "type": "alert",
+          "params": {
+            "title": "提示",
+            "message": "这是一个弹窗",
+            "cancel": "Cancel"
+          }
+        }
+      },
+      {
+        "type": "button",
+        "class": "button",
+        "style": {
+          "title": "自定义按钮文字"
+        },
+        "on-tap": {
+          "type": "alert",
+          "params": {
+            "title": "为“XXX”评分",
+            "message": "如果喜欢我们的应用，或者有任何意见，请到 AppStore 给我们评价，谢谢！",
+            "cancel": "残忍拒绝",
+            "buttons": ["我要吐槽", "不再提醒"]
+          }
+        }
+      },
+      {
+        "type": "button",
+        "class": "button",
+        "style": {
+          "title": "按钮事件响应"
+        },
+        "on-tap": {
+          "type": "alert",
+          "params": {
+            "title": "警告",
+            "message": "确定要在没有保存的情况下退出应用吗？",
+            "cancel": "取消",
+            "buttons": ["确定"]
+          },
+          "success": {
+            "if": "${!_result_.cancel}",
+            "type": "alert",
+            "params": {
+              "title": "再次确认",
+              "message": "真的确定吗？",
+              "cancel": "我再想想",
+              "buttons": ["确定"]
+            },
+            "success": {
+              "if": "${!_result_.cancel}",
+              "type": "pop"
+            }
+          }
+        }
+      }
+    ]
+  }
+}

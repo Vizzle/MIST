@@ -9,6 +9,8 @@
 #import "VZMistTemplateController.h"
 #import "VZMistItem.h"
 #import "VZFNodeListItem.h"
+#import "VZFDispatch.h"
+#import "VZDataStructure.h"
 
 #import <UIKit/UIKit.h>
 
@@ -56,6 +58,26 @@
 - (void)openUrl:(NSString *)url
 {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+}
+
+- (void)alert:(NSDictionary *)alert
+{
+    if ([alert isKindOfClass:[NSString class]]) {
+        alert = @{@"message": alert};
+    }
+    else {
+        alert = __vzDictionary(alert, nil);
+    }
+    
+    VZFDispatchMain(0, ^{
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:__vzStringDefault(alert[@"title"])
+                                                            message:__vzStringDefault(alert[@"message"])
+                                                           delegate:nil
+                                                  cancelButtonTitle:nil
+                                                  otherButtonTitles:nil];
+        [alertView addButtonWithTitle:@"OK"];
+        [alertView show];
+    });
 }
 
 @end

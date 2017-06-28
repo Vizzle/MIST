@@ -1,0 +1,144 @@
+{
+  "state": {
+    "oldNum": "0",
+    "num": "0",
+    "clear": false,
+    "op": ""
+  },
+  "styles": {
+    "button": {
+      "font-size": 40,
+      "font-style": "thin",
+      "background-image": {
+        "normal": "#d5d5d5",
+        "highlighted": "#e8d5d5d5"
+      }
+    },
+    "gray": {
+      "font-size": 27,
+      "background-image": {
+        "normal": "#c8c8c8",
+        "highlighted": "#e8c8c8c8"
+      }
+    },
+    "orange": {
+      "font-size": 52,
+      "background-image": {
+        "normal": "#f78c2a",
+        "highlighted": "#e8f78c2a"
+      },
+      "title-color": "white"
+    }
+  },
+  "layout": {
+    "vars": {
+      "rows": [
+        {
+          "buttons": [
+            { "text": "AC", "style": "gray" },
+            { "text": "⁺∕₋", "style": "gray" },
+            { "text": "％", "style": "gray" },
+            { "text": "÷", "op": "/", "style": "orange" }
+          ]
+        },
+        {
+          "buttons": [
+            { "text": "7" },
+            { "text": "8" },
+            { "text": "9" },
+            { "text": "×", "op": "*", "style": "orange" }
+          ]
+        },
+        {
+          "buttons": [
+            { "text": "4" },
+            { "text": "5" },
+            { "text": "6" },
+            { "text": "−", "op": "-", "style": "orange" }
+          ]
+        },
+        {
+          "buttons": [
+            { "text": "1" },
+            { "text": "2" },
+            { "text": "3" },
+            { "text": "+", "op": "+", "style": "orange" }
+          ]
+        },
+        {
+          "buttons": [
+            { "text": "0" },
+            { "text": "." },
+            { "text": "=", "style": "orange" }
+          ]
+        }
+      ]
+    },
+    "style": {
+      "direction": "vertical",
+      "background-color": "black",
+      "height": "${_height_ - 64}"
+    },
+    "children": [
+      {
+        "type": "text",
+        "style": {
+          "text": "${state.num}",
+          "adjusts-font-size": true,
+          "font-size": 98,
+          "font-style": "ultra-light",
+          "flex-grow": 1,
+          "vertical-alignment": "bottom",
+          "alignment": "right",
+          "padding-right": 10,
+          "background-color": "#202020",
+          "color": "white"
+        }
+      },
+      {
+        "vars": [
+          {
+            "lineWidth": "${1 / UIScreen.mainScreen.scale}"
+          },
+          {
+            "buttonSize": "${floor((_width_ - lineWidth * 3) / 4)}"
+          }
+        ],
+        "style": {
+          "direction": "vertical",
+          "align-self": "center",
+          "spacing": "${lineWidth}"
+        },
+        "children": [
+          {
+            "repeat": "${rows}",
+            "style": {
+              "spacing": "${lineWidth}"
+            },
+            "children": [
+              {
+                "repeat": "${_item_.buttons}",
+                "class": "button ${_item_.style}",
+                "type": "button",
+                "style": {
+                  "title": "${_item_.text}",
+                  "height": "${buttonSize}",
+                  "width": "${buttonSize}",
+                  "flex-grow": "${_item_.text == '0' ? 1 : 0}"
+                },
+                "on-tap": {
+                  "updateState:": {
+                    "op": "${_item_.op ?: nil}",
+                    "clear": "${_item_.op ? true : false}",
+                    "oldNum": "${_item_.op || _item_.text == '=' ? state.num : nil}",
+                    "num": "${_item_.text == '⁺∕₋' ? (state.num.hasPrefix('-') ? state.num.substring(1, state.num.length-1) : '-' + state.num) : _item_.op ? state.num : _item_.text == 'AC' ? '0' : _item_.text == '=' ? state.op.length > 0 ? eval(state.oldNum + state.op + state.num) : state.num : state.num.description.length >= 9 ? state.num : (state.num == '0' || state.clear ? '' : state.num) + (_item_.input ?: _item_.text)}"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

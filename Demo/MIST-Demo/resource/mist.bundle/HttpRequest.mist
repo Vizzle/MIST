@@ -1,0 +1,111 @@
+{
+  "state": {
+    "url": "https://raw.githubusercontent.com/Vizzle/MIST/master/README.md"
+  },
+  "layout": {
+    "style": {
+      "direction": "vertical",
+      "padding": 15,
+      "spacing": 15
+    },
+    "children": [
+      {
+        "children": [
+          {
+            "type": "textfield",
+            "style": {
+              "flex-grow": 1,
+              "border-width": 1,
+              "border-color": "#ccc",
+              "corner-radius": 4,
+              "margin-right": 6,
+              "padding-left": 8,
+              "padding-right": 8,
+              "text": "${state.url}",
+              "placeholder": "请输入 URL",
+              "auto-focus": true,
+              "clear-button-mode": "always"
+            },
+            "on-change": {
+              "updateState:": {
+                "url": "${_event_.sender.text}"
+              }
+            }
+          },
+          {
+            "class": "button",
+            "style": {
+              "width": 70,
+              "align-items": "center",
+              "justify-content": "center",
+              "background-color": "#77f",
+              "padding": 8,
+              "corner-radius": 4,
+              "clip": true
+            },
+            "on-tap": {
+              "type": "update-state",
+              "params": {
+                "loading": true
+              },
+              "success": {
+                "result": "response",
+                "type": "http-request",
+                "params": {
+                  "url": "${state.url}",
+                  "cache": false
+                },
+                "success": {
+                  "type": "update-state",
+                  "params": {
+                    "loading": false
+                  },
+                  "success": {
+                    "type": "alert",
+                    "params": {
+                      "title": "Success",
+                      "message": "${response.textData}"
+                    }
+                  }
+                },
+                "error": {
+                  "type": "update-state",
+                  "params": {
+                    "loading": false
+                  },
+                  "success": {
+                    "type": "alert",
+                    "params": {
+                      "title": "Error",
+                      "message": "${response.error}"
+                    }
+                  }
+                }
+              }
+            },
+            "children": [
+              {
+                "type": "text",
+                "style": {
+                  "text": "请求",
+                  "color": "white",
+                  "font-size": 15
+                }
+              },
+              {
+                "gone": "${!state.loading}",
+                "type": "indicator",
+                "style": {
+                  "color": "white",
+                  "width": 14,
+                  "height": 14,
+                  "margin-left": 3
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

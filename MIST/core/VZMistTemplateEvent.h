@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "VZTExpressionContext.h"
 
+#define kVZTemplateNodeId       @"_node_id_"
 
 @protocol VZMistItem;
 
@@ -18,18 +19,19 @@
  */
 @interface VZMistTemplateEvent : NSObject
 
-
 /**
  Mist 的事件创建方法。
-
- @param item Mist 的 item
- @param action 响应事件的行为。键为调用的selector，值为调用的参数。
- @param onceAction 响应时间的行为，创建后只调用一次。键值同上。
+ 
+ @param name 事件名，建议以 'on-' 开头。
+ @param dict 事件所在的 dictionary（node）
  @param expressionContext 用于表达式延后计算
+ @param item Mist 的 item
  @return Mist 的事件实例。
  */
-- (instancetype)initWithItem:(id<VZMistItem>)item action:(NSDictionary *)action onceAction:(NSDictionary *)onceAction expressionContext:(VZTExpressionContext *)expressionContext;
-
++ (VZMistTemplateEvent *)eventWithName:(NSString *)name
+                                  dict:(NSDictionary *)dict
+                     expressionContext:(VZTExpressionContext *)expressionContextxx
+                                  item:(id<VZMistItem>)item;
 
 /**
  事件触发时调用，以触发响应事件的行为。

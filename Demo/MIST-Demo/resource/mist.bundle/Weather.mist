@@ -1,0 +1,171 @@
+{
+  "state": {
+    "text": "${NSUserDefaults.standardUserDefaults.objectForKey('cityName') ?: 'Hangzhou'}"
+  },
+  "layout": {
+    "style": {
+      "direction": "vertical",
+      "background-color": "#ddd"
+    },
+    "children": [
+      {
+        "style": {
+          "align-items": "center",
+          "margin": 20,
+          "corner-radius": 4,
+          "spacing": 8,
+          "clip": true,
+          "background-color": "white"
+        },
+        "children": [
+          {
+            "type": "textfield",
+            "on-change": {
+              "updateState:": {
+                "text": "${_event_.sender.text}"
+              }
+            },
+            "style": {
+              "padding-left": 6,
+              "text": "${state.text}",
+              "placeholder": "请输入",
+              "height": 25,
+              "flex-grow": 1
+            }
+          },
+          {
+            "style": {
+              "background-color": "#77f"
+            },
+            "children": [
+              {
+                "type": "text",
+                "style": {
+                  "text": "Refresh",
+                  "font-size": 16,
+                  "color": "${state.loading ? '#0fff' : '#fff'}",
+                  "padding": 4
+                }
+              },
+              {
+                "gone": "${!state.loading}",
+                "type": "indicator",
+                "style": {
+                  "fixed": true,
+                  "color": "white",
+                  "width": 16,
+                  "height": 16,
+                  "margin": "auto"
+                }
+              }
+            ],
+            "on-display-once": {
+              "type": "update-state",
+              "params": {
+                "loading": true
+              },
+              "success": {
+                "type": "http-request",
+                "result": "response",
+                "params": {
+                  "timeout": 5,
+                  "cache": false,
+                  "url": "http://api.openweathermap.org/data/2.5/weather?q=${state.text}&appid=e29037c971eb05e99323a39106735690&units=metric&lang=zh"
+                },
+                "success": {
+                  "type": "update-state",
+                  "params": {
+                    "loading": false,
+                    "weather": "${response.jsonData}"
+                  },
+                  "success": {
+                    "if": "${!!response.jsonData.name}",
+                    "type": "set-cache",
+                    "params": {
+                      "cityName": "${state.text}"
+                    }
+                  }
+                },
+                "error": {
+                  "alert:": "${response.error.localizedDescription}",
+                  "updateState:": {
+                    "loading": false
+                  }
+                }
+              }
+            },
+            "on-tap": {
+              "type": "update-state",
+              "params": {
+                "loading": true
+              },
+              "success": {
+                "type": "http-request",
+                "result": "response",
+                "params": {
+                  "timeout": 5,
+                  "cache": false,
+                  "url": "http://api.openweathermap.org/data/2.5/weather?q=${state.text}&appid=e29037c971eb05e99323a39106735690&units=metric&lang=zh"
+                },
+                "success": {
+                  "type": "update-state",
+                  "params": {
+                    "loading": false,
+                    "weather": "${response.jsonData}"
+                  },
+                  "success": {
+                    "if": "${!!response.jsonData.name}",
+                    "type": "set-cache",
+                    "params": {
+                      "cityName": "${state.text}"
+                    }
+                  }
+                },
+                "error": {
+                  "alert:": "${response.error.localizedDescription}",
+                  "updateState:": {
+                    "loading": false
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "gone": "${!state.weather.name}",
+        "style": {
+          "direction": "vertical",
+          "align-items": "center",
+          "margin-top": 3
+        },
+        "children": [
+          {
+            "type": "text",
+            "style": {
+              "text": "${state.weather.name}",
+              "font-size": 36
+            }
+          },
+          {
+            "type": "text",
+            "style": {
+              "text": "${state.weather.weather[0].description}",
+              "font-size": 18,
+              "margin-top": 2
+            }
+          },
+          {
+            "type": "text",
+            "style": {
+              "text": "${state.weather.main.temp.intValue}˚",
+              "font-size": 72,
+              "font-name": "HelveticaNeue-Thin",
+              "margin-top": 10
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

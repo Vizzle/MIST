@@ -18,8 +18,8 @@
 #import <objc/runtime.h>
 #import "VZMistInternal.h"
 
-#define kVZTemplateLoopIndex @"_index_"
-#define kVZTemplateLoopItem @"_item_"
+#define kVZTemplateLoopIndex    @"_index_"
+#define kVZTemplateLoopItem     @"_item_"
 
 using namespace std;
 using namespace VZ;
@@ -735,6 +735,7 @@ static const void *displayEventKey = &displayEventKey;
                              item:item
                      mistInstance:mistInstance
                        templateId:tpl.tplId
+                           nodeId:@"root"
                        isRootNode:YES
                      asyncDisplay:asyncDisplay];
 }
@@ -744,6 +745,7 @@ static const void *displayEventKey = &displayEventKey;
                             item:(id<VZMistItem>)item
                     mistInstance:(VZMist *)mistInstance
                       templateId:(NSString *)tplId
+                          nodeId:(NSString *)nodeId
                       isRootNode:(BOOL)isRootNode
                     asyncDisplay:(BOOL)asyncDisplay
 {
@@ -753,8 +755,10 @@ static const void *displayEventKey = &displayEventKey;
     }
 
     NSMutableArray *pushedVars = [NSMutableArray array];
+    [data pushVariableWithKey:kVZTemplateNodeId value:nodeId];
     @defer
     {
+        [data popVariableWithKey:kVZTemplateNodeId];
         for (NSString *key in pushedVars) {
             [data popVariableWithKey:key];
         }
@@ -786,36 +790,14 @@ static const void *displayEventKey = &displayEventKey;
 
     specs.asyncDisplay = asyncDisplay;
 
-    VZMistTemplateEvent *tapEvent = [self eventWithName:@"on-tap" template:tpl data:data item:item];
+    VZMistTemplateEvent *tapEvent = [VZMistTemplateEvent eventWithName:@"on-tap" dict:tpl expressionContext:data item:item];
     if (tapEvent) {
         specs.gesture = [VZFBlockGesture tapGesture:^(id sender) {
             [tapEvent invokeWithSender:sender];
         }];
     }
-
-    // TODO display event
-    //    id display = __extractValue(tpl[@"on-display"], data);
-    //    if (display) {
-    //        VZMistTemplateEvent *event = [[VZMistTemplateEvent alloc] initWithItem:item action:display defaultActionId:nil];
-    //        specs.display = [VZFBlockAction action:^(id sender) {
-    //            [event invokeWithSender:sender];
-    //        }];
-    //    }
-
-    //    if (needsLogOpenPage) {
-    //        NSDictionary *openPageLog = __vzDictionary(__extractValue(tpl[@"old-open-page-log"], data), nil);
-    //        if (openPageLog) {
-    //            O2OMistBehaviourLog *log = [[O2OMistBehaviourLog alloc] initWithDictionary:openPageLog item:item defaultActionId:kO2OActionOpenPage];
-    //            [item writeOpenPageLog:log];
-    //        }
-    //        NSDictionary *exposeLog = __vzDictionary(__extractValue(tpl[@"exposure-log"], data), nil);
-    //        if (exposeLog) {
-    //            O2OMistSpmLog *log = [[O2OMistSpmLog alloc] initWithDictionary:exposeLog item:item defaultActionId:KO2OActionExposure];
-    //            [item writeExposureLog:log];
-    //        }
-    //    }
-
-    NSString *classStr = __vzString(tpl[@"class"], nil);
+    
+    NSString *classStr = __vzString(__extractValue(tpl[@"class"], data), nil);
     NSArray *classes = [classStr componentsSeparatedByString:@" "];
     if (classes.count > 0) {
         NSMutableDictionary *mutableStyle = [NSMutableDictionary dictionary];
@@ -905,6 +887,7 @@ static const void *displayEventKey = &displayEventKey;
                                                                item:item
                                                        mistInstance:mistInstance
                                                          templateId:tplId
+                                                             nodeId:[nodeId stringByAppendingFormat:@">%lu", list.size()]
                                                          isRootNode:NO
                                                        asyncDisplay:asyncDisplay];
                         list.push_back(childNode);
@@ -917,6 +900,7 @@ static const void *displayEventKey = &displayEventKey;
                                                            item:item
                                                    mistInstance:mistInstance
                                                      templateId:tplId
+                                                         nodeId:[nodeId stringByAppendingFormat:@">%lu", list.size()]
                                                      isRootNode:NO
                                                    asyncDisplay:asyncDisplay];
 
@@ -950,7 +934,7 @@ static const void *displayEventKey = &displayEventKey;
             PagingNodeSpecs pagingSpecs = PagingNodeSpecs();
             [self bindPagingNodeSpecs:pagingSpecs fromTemplate:tpl data:data item:item];
 
-            VZMistTemplateEvent *switchEvent = [self eventWithName:@"on-switch" template:tpl data:data item:item];
+            VZMistTemplateEvent *switchEvent = [VZMistTemplateEvent eventWithName:@"on-switch" dict:tpl expressionContext:data item:item];
             if (switchEvent) {
                 pagingSpecs.switched = [VZFBlockAction action:^(id sender) {
                     [switchEvent invokeWithSender:sender];
@@ -964,31 +948,18 @@ static const void *displayEventKey = &displayEventKey;
     }
 
     if (node) {
-        VZMistTemplateEvent *createEvent = [self eventWithName:@"on-create" template:tpl data:data item:item];
+        VZMistTemplateEvent *createEvent = [VZMistTemplateEvent eventWithName:@"on-create" dict:tpl expressionContext:data item:item];
         if (createEvent) {
             [createEvent invokeWithSender:node];
         }
 
-        VZMistTemplateEvent *displayEvent = [self eventWithName:@"on-display" template:tpl data:data item:item];
+        VZMistTemplateEvent *displayEvent = [VZMistTemplateEvent eventWithName:@"on-display" dict:tpl expressionContext:data item:item];
         if (displayEvent) {
             [node setDisplayEvent:displayEvent];
         }
     }
 
     return node;
-}
-
-+ (VZMistTemplateEvent *)eventWithName:(NSString *)name
-                              template:(NSDictionary *)tpl
-                                  data:(VZTExpressionContext *)data
-                                  item:(id<VZMistItem>)item
-{
-    NSDictionary *actionDict = tpl[name];
-    NSDictionary *onceActionDict = tpl[[name stringByAppendingString:@"-once"]];
-    if (actionDict || onceActionDict) {
-        return [[VZMistTemplateEvent alloc] initWithItem:item action:actionDict onceAction:onceActionDict expressionContext:data];
-    }
-    return nil;
 }
 
 // 因为太多if会被PMD扫描报圈复杂度太高，此处用函数替换掉if
@@ -1018,7 +989,10 @@ static inline void vz_bindStatefulProperty(StatefulValue<T *> &prop, id value, i
 #define VZ_BIND_STATEFUL_PROPERTY(type, prop, value, data) vz_bindStatefulProperty<type>(prop, value, data)
 #define VZ_BIND_EVENT_PROPERTY(prop, eventName, tpl, data, item)                                      \
     {                                                                                                 \
-        VZMistTemplateEvent *event = [self eventWithName:eventName template:tpl data:data item:item]; \
+        VZMistTemplateEvent *event = [VZMistTemplateEvent eventWithName:eventName                     \
+                                                                   dict:tpl                           \
+                                                      expressionContext:data                          \
+                                                                   item:item];                        \
         if (event) {                                                                                  \
             prop = ^(NSDictionary * body) {                                                           \
                 for (NSString * key in body) {                                                        \
@@ -1063,7 +1037,7 @@ static inline void vz_bindStatefulProperty(StatefulValue<T *> &prop, id value, i
     VZ_BIND_PROPERTY(UIViewContentMode, specs.contentMode, style[@"content-mode"], data);
     /* gencode end */
 
-    VZMistTemplateEvent *completeEvent = [self eventWithName:@"on-complete" template:tpl data:data item:item];
+    VZMistTemplateEvent *completeEvent = [VZMistTemplateEvent eventWithName:@"on-complete" dict:tpl expressionContext:data item:item];
     if (completeEvent) {
         specs.completion = [VZFBlockAction action:^(id sender) {
             [completeEvent invokeWithSender:sender];

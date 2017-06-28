@@ -78,6 +78,20 @@ return [[MistSimpleTemplateViewController alloc] initWithTitle:NAME templates:@[
                         return [[MistSimpleTemplateViewController alloc] initWithTitle:@"评价" templates:@[@"EventParam"]];
                     }
                 },
+                {
+                    .title = @"计算器",
+                    .block = ^{
+                        MistSimpleTemplateViewController *vc = [[MistSimpleTemplateViewController alloc] initWithTitle:nil templates:@[@"Calculator"]];
+                        vc.tableView.bounces = NO;
+                        return vc;
+                    }
+                },
+                {
+                    .title = @"天气",
+                    .block = ^{
+                        return [[MistSimpleTemplateViewController alloc] initWithTitle:nil templates:@[@"Weather"]];
+                    }
+                },
             }
         },
         {
@@ -167,6 +181,28 @@ return [[MistSimpleTemplateViewController alloc] initWithTitle:NAME templates:@[
                         return vc;
                     }
                 }
+            }
+        },
+        {
+            .title = @"Action",
+            .subtitle = @"事件响应",
+            .items = {
+                {
+                    .title = @"alert",
+                    .block = ^{
+                        MistSimpleTemplateViewController *vc = [[MistSimpleTemplateViewController alloc] initWithTitle:nil templates:@[@"Alert"]];
+                        vc.tableView.bounces = NO;
+                        return vc;
+                    }
+                },
+                {
+                    .title = @"http-request",
+                    .block = ^{
+                        MistSimpleTemplateViewController *vc = [[MistSimpleTemplateViewController alloc] initWithTitle:nil templates:@[@"HttpRequest"]];
+                        vc.tableView.bounces = NO;
+                        return vc;
+                    }
+                },
             }
         },
         {

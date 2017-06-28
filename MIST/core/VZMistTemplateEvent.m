@@ -9,21 +9,42 @@
 #import "VZMistTemplateEvent.h"
 #import "VZDataStructure.h"
 #import "VZMistItem.h"
-#import <UIKit/UIKit.h>
 #import "VZMistTemplateHelper.h"
 #import "VZTExpressionNode.h"
+#import "VZMistTemplateAction.h"
+
+#import <UIKit/UIKit.h>
 #import <JavaScriptCore/JavaScriptCore.h>
+
+#import <objc/runtime.h>
 
 @implementation VZMistTemplateEvent
 {
     __weak id<VZMistItem> _item;
-    NSDictionary *_action;
-    NSDictionary *_onceAction;
+    NSString *_eventId;
+    VZMistTemplateAction *_action;
+    VZMistTemplateAction *_onceAction;
     VZTExpressionContext *_expressionContext;
     NSMutableDictionary *_eventDict;
 }
 
++ (VZMistTemplateEvent *)eventWithName:(NSString *)name
+                                  dict:(NSDictionary *)dict
+                     expressionContext:(VZTExpressionContext *)expressionContext
+                                  item:(id<VZMistItem>)item
+{
+    NSString *nodeId = [expressionContext valueForKey:kVZTemplateNodeId];
+    NSDictionary *actionDict = dict[name];
+    NSDictionary *onceActionDict = dict[[name stringByAppendingString:@"-once"]];
+    if (actionDict || onceActionDict) {
+        NSString *eventId = [nodeId ?: @"" stringByAppendingFormat:@">%@", name];
+        return [[self alloc] initWithItem:item eventId:eventId action:actionDict onceAction:onceActionDict expressionContext:expressionContext];
+    }
+    return nil;
+}
+
 - (instancetype)initWithItem:(id<VZMistItem>)item
+                     eventId:(NSString *)eventId
                       action:(NSDictionary *)action
                   onceAction:(NSDictionary *)onceAction
            expressionContext:(VZTExpressionContext *)expressionContext
@@ -32,49 +53,25 @@
         if ([action isKindOfClass:[VZTExpressionNode class]]) {
             action = [VZMistTemplateHelper extractValueForExpression:action withContext:expressionContext];
         }
+        if ([action isKindOfClass:[NSString class]]) {
+            action = @{action: @""};
+        }
+        
         if ([onceAction isKindOfClass:[VZTExpressionNode class]]) {
             onceAction = [VZMistTemplateHelper extractValueForExpression:onceAction withContext:expressionContext];
         }
+        if ([onceAction isKindOfClass:[NSString class]]) {
+            onceAction = @{onceAction: @""};
+        }
+        
         _item = item;
-        _action = __vzDictionary(action, nil);
-        _onceAction = __vzDictionary(onceAction, nil);
+        _eventId = eventId;
         _expressionContext = [expressionContext copy];
+        _action = [VZMistTemplateAction actionWithDictionary:__vzDictionary(action, nil) expressionContext:_expressionContext item:_item];
+        _onceAction = [VZMistTemplateAction actionWithDictionary:__vzDictionary(onceAction, nil) expressionContext:_expressionContext item:_item];
         _eventDict = [NSMutableDictionary new];
     }
     return self;
-}
-
-
-- (void)performAction:(NSDictionary *)action withSender:(id)sender
-{
-    if (!action) {
-        return;
-    }
-
-    for (NSString *sel in action) {
-        if ([sel hasPrefix:@"js-"]) {
-            NSString *methodName = [sel substringFromIndex:3];
-            id param = action[sel];
-            JSContext *jsContext = _item.jsContext;
-            JSValue *method = jsContext[methodName];
-            if (method) {
-                [method callWithArguments:@[param]];
-            }
-        } else {
-            VZMistTemplateController *controller = _item.tplController;
-            SEL selector = NSSelectorFromString(sel);
-            if ([(id)controller respondsToSelector:selector]) {
-    #pragma clang diagnostic push
-    #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-                id param = action[sel];
-                param = [VZMistTemplateHelper extractValueForExpression:param withContext:_expressionContext];
-                [(id)controller performSelector:selector withObject:param withObject:sender];
-    #pragma clang diagnostic pop
-            } else {
-                NSLog(@"%@ does not responds to selector '%@'", controller, sel);
-            }
-        }
-    }
 }
 
 - (void)addEventParamWithName:(NSString *)name object:(id)object
@@ -89,11 +86,21 @@
         [_expressionContext pushVariableWithKey:@"_event_" value:_eventDict.copy];
     }
     [_eventDict removeAllObjects];
-
-    [self performAction:_onceAction withSender:sender];
-    _onceAction = nil;
-    [self performAction:_action withSender:sender];
-
+    
+    static void *key = &key;
+    NSMutableArray *invokedActions = objc_getAssociatedObject(_item, key);
+    if (!invokedActions) {
+        invokedActions = [NSMutableArray new];
+        objc_setAssociatedObject(_item, key, invokedActions, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
+    if (![invokedActions containsObject:_eventId]) {
+        [_onceAction runWithSender:sender];
+        _onceAction = nil;
+        [invokedActions addObject:_eventId];
+    }
+    
+    [_action runWithSender:sender];
+    
     if (_expressionContext) {
         [_expressionContext popVariableWithKey:@"_event_"];
     }

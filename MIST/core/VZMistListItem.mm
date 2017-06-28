@@ -41,6 +41,9 @@
 
 static const void *kMistItemInCell = &kMistItemInCell;
 
+@interface VZMistListItem ()
+@property (nonatomic, copy) void (^updateStateCompletion)();
+@end
 
 @implementation VZMistListItem
 {
@@ -93,21 +96,29 @@ static const void *kMistItemInCell = &kMistItemInCell;
     [self _rebuild:!b];
 }
 
-- (void)updateState:(id (^)(id))block
-{
+- (void)updateState:(id (^)(id oldState))block completion:(void (^)())completion {
+    if (completion) {
+        self.updateStateCompletion = completion;
+    }
+    
     dispatch_async(dispatch_get_main_queue(), ^{
-
+        
         [_stateUpdatesQueue addObject:block];
-
+        
         //丢弃来不及处理的state
         if (_stateUpdatesQueue.count == 1) {
             dispatch_async(dispatch_get_main_queue(), ^{
-
+                
                 [self _doUpdateState];
             });
         }
-
+        
     });
+}
+
+- (void)updateState:(id (^)(id))block
+{
+    [self updateState:block completion:nil];
 }
 
 - (void)attachToView:(UIView *)view atIndexPath:(NSIndexPath *)indexPath
@@ -183,6 +194,12 @@ static const void *kMistItemInCell = &kMistItemInCell;
                 [self attachToView:self.attachedView];
             }
 
+            if (self.updateStateCompletion) {
+                self.updateStateCompletion();
+                
+                //只执行一次
+                self.updateStateCompletion = nil;
+            }
         });
     });
 }

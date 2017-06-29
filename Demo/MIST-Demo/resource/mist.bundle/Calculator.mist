@@ -1,9 +1,7 @@
 {
+  "script": "function click(params){var button=params.button;var state=params.state;var maxLength=9;if(button.type=='clear'){if(state.isC){state.num='0';if(state.second){state.num2=state.num;}\nelse{state.num1=state.num;}\nstate.isC=false;}\nelse{state={};}}\nelse if(button.type=='sign'){if(state.clear){state.num='0';state.clear=false;}\nstate.num=state.num.startsWith('-')?state.num.substring(1):'-'+state.num;}\nelse if(button.type=='percent'){state.num=state.num/100;if(state.second){state.num2=state.num;}\nelse{state.num1=state.num;}}\nelse if(button.type=='equal'){if(!state.op){return;}\nif(!state.num2){state.num2=state.num1;}\nstate.num=eval((state.num1||state.num)+state.op+(state.num2));state.num1=null;state.clear=true;state.second=false;}\nelse if(button.type=='point'){if(state.num.includes('.')||state.num.length>=maxLength){return;}\nstate.num+='.';}\nelse if(button.op){if(state.num1&&state.num2&&state.second){state.num1=state.num=eval((state.num1||state.num)+state.op+(state.num2||state.num));}\nstate.num1=state.num;state.second=true;state.op=button.op;state.clear=true;}\nelse{state.num=(state.num=='0'||state.clear)?button.text:(state.num=='-0'?'-':(state.num||''))+button.text;if(state.num.replace('.','').length>maxLength){return;}\nif(state.second){state.num2=state.num;}\nelse{state.num1=state.num;}\nstate.clear=false;}\nif(state.num&&state.num!='0'){state.isC=true;}\nstate.showNum=state.num?String(state.num).replace('-','–').replace(/\\d+/,function(s){return s.replace(/\\d+?(?=(\\d{3})+\\b)/g,function(s){return s+',';});}):'0';setState(state);}",
   "state": {
-    "oldNum": "0",
-    "num": "0",
-    "clear": false,
-    "op": ""
+    "num": "0"
   },
   "styles": {
     "button": {
@@ -35,9 +33,9 @@
       "rows": [
         {
           "buttons": [
-            { "text": "AC", "style": "gray" },
-            { "text": "⁺∕₋", "style": "gray" },
-            { "text": "％", "style": "gray" },
+            { "text": "${state.isC ? 'C' : 'AC'}", "type": "clear", "style": "gray" },
+            { "text": "⁺∕₋", "type": "sign", "style": "gray" },
+            { "text": "％", "type": "percent", "style": "gray" },
             { "text": "÷", "op": "/", "style": "orange" }
           ]
         },
@@ -68,8 +66,8 @@
         {
           "buttons": [
             { "text": "0" },
-            { "text": "." },
-            { "text": "=", "style": "orange" }
+            { "text": ".", "type": "point" },
+            { "text": "=", "type": "equal", "style": "orange" }
           ]
         }
       ]
@@ -83,7 +81,7 @@
       {
         "type": "text",
         "style": {
-          "text": "${state.num}",
+          "text": "${state.showNum ?: '0'}",
           "adjusts-font-size": true,
           "font-size": 98,
           "font-style": "ultra-light",
@@ -127,11 +125,9 @@
                   "flex-grow": "${_item_.text == '0' ? 1 : 0}"
                 },
                 "on-tap": {
-                  "updateState:": {
-                    "op": "${_item_.op ?: nil}",
-                    "clear": "${_item_.op ? true : false}",
-                    "oldNum": "${_item_.op || _item_.text == '=' ? state.num : nil}",
-                    "num": "${_item_.text == '⁺∕₋' ? (state.num.hasPrefix('-') ? state.num.substring(1, state.num.length-1) : '-' + state.num) : _item_.op ? state.num : _item_.text == 'AC' ? '0' : _item_.text == '=' ? state.op.length > 0 ? eval(state.oldNum + state.op + state.num) : state.num : state.num.description.length >= 9 ? state.num : (state.num == '0' || state.clear ? '' : state.num) + (_item_.input ?: _item_.text)}"
+                  "js-click": {
+                    "state": "${state}",
+                    "button": "${_item_}"
                   }
                 }
               }

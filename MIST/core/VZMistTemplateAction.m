@@ -92,6 +92,7 @@
             if ([sel hasPrefix:@"js-"]) {
                 NSString *methodName = [sel substringFromIndex:3];
                 id param = _dict[sel];
+                param = [VZMistTemplateHelper extractValueForExpression:param withContext:_context];
                 JSContext *jsContext = _item.jsContext;
                 JSValue *method = jsContext[methodName];
                 if (method) {

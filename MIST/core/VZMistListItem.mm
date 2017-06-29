@@ -393,6 +393,22 @@ static const void *kMistItemInCell = &kMistItemInCell;
         });
     };
     
+    __weak __typeof(self) weakSelf = self;
+    
+    context[@"updateState"] = ^(NSDictionary *stateChanges) {
+        [weakSelf updateState:^id(id oldState) {
+            NSMutableDictionary *state = [oldState ?: @{} mutableCopy];
+            [state setValuesForKeysWithDictionary:stateChanges];
+            return state;
+        }];
+    };
+    
+    context[@"setState"] = ^(NSDictionary *newState) {
+        [weakSelf updateState:^id(id oldState) {
+            return newState;
+        }];
+    };
+    
 #ifdef DEBUG
     context.exceptionHandler = ^(JSContext *con, JSValue *exception) {
         JSContextLog(@"%@", exception);

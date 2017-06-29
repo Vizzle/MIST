@@ -1,6 +1,6 @@
 //
 //  VZMistInternal.h
-//  Pods
+//  MIST
 //
 //  Created by lingwan on 2017/6/23.
 //

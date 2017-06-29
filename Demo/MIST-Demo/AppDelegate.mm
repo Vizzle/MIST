@@ -14,7 +14,6 @@
 #import "MistTextViewDemoViewController.h"
 #import "MistTextFieldDemoViewController.h"
 #import "MistCustomNodeDemoViewController.h"
-#import "MistJSDemoViewController.h"
 
 #ifdef DEBUG
 #import <MISTDebug/MSTDebugger.h>
@@ -209,19 +208,14 @@ return [[MistSimpleTemplateViewController alloc] initWithTitle:NAME templates:@[
             .title = @"JS Support",
             .subtitle = @"在模板中使用 JS",
             .block = ^{
-                return [[MistJSDemoViewController alloc] initWithTitle:nil templates:@[@"JSDemo"]];
+                return [[MistSimpleTemplateViewController alloc] initWithTitle:nil templates:@[@"JSDemo"]];
             }
-        },
-        {
-            .title = @"Single Page Demo",
-            .subtitle = @"演示单页面方案",
-            .url = @"mist://singlepage?pageName=SinglePageDemo&templateName=SinglePageTemplate"
         },
         {
             .title = @"Playground",
             .subtitle = @"在这里尝试模版的编写",
             .block = ^{
-                return [[MistJSDemoViewController alloc] initWithTitle:nil data:@"Playground.json"];
+                return [[MistSimpleTemplateViewController alloc] initWithTitle:nil data:@"Playground.json"];
             }
         },
     };

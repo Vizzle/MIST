@@ -414,23 +414,23 @@ static const void *kMistItemInCell = &kMistItemInCell;
         JSContextLog(@"%@", exception);
         
         NSString *msg = exception.description;
-        self.errMsg = msg;
-        self.errorWindow.hidden = NO;
+        weakSelf.errMsg = msg;
+        weakSelf.errorWindow.hidden = NO;
         
-        if (!self.errorWindow) {
-            self.errorWindow = [[UIWindow alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 20)];
-            self.errorWindow.windowLevel = UIWindowLevelStatusBar + 1.0f;
-            self.errorWindow.backgroundColor = [UIColor blackColor];
+        if (!weakSelf.errorWindow) {
+            weakSelf.errorWindow = [[UIWindow alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 20)];
+            weakSelf.errorWindow.windowLevel = UIWindowLevelStatusBar + 1.0f;
+            weakSelf.errorWindow.backgroundColor = [UIColor blackColor];
             UIButton *errBtn = [[UIButton alloc] initWithFrame:CGRectMake(5, 0, [UIScreen mainScreen].bounds.size.width - 10, 20)];
             errBtn.titleLabel.font = [UIFont systemFontOfSize:10];
             [errBtn setTitle:msg forState:UIControlStateNormal];
             [errBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             errBtn.tag = 100;
-            [errBtn addTarget:self action:@selector(handleTapErrorBtn) forControlEvents:UIControlEventTouchDown];
-            [self.errorWindow addSubview:errBtn];
-            self.errorWindow.hidden = NO;
+            [errBtn addTarget:weakSelf action:@selector(handleTapErrorBtn) forControlEvents:UIControlEventTouchDown];
+            [weakSelf.errorWindow addSubview:errBtn];
+            weakSelf.errorWindow.hidden = NO;
         } else {
-            UIButton *errBtn = [self.errorWindow viewWithTag:100];
+            UIButton *errBtn = [weakSelf.errorWindow viewWithTag:100];
             [errBtn setTitle:msg forState:UIControlStateNormal];
         }
     };

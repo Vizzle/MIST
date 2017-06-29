@@ -19,8 +19,3 @@
 #import <MIST/VZMistTemplateEvent.h>
 #import <MIST/VZMistTemplateDownload.h>
 #import <MIST/VZMistTemplateController.h>
-
-//script
-#import <MIST/VZMistPage.h>
-#import <MIST/VZScriptManager.h>
-#import <MIST/VZScriptErrorMsgViewController.h>

@@ -105,6 +105,15 @@
  */
 - (void)updateState:(id (^)(id oldState))block;
 
+
+/**
+ 更新 state
+ 
+ @param block state block
+ @param completion 更新完成回调
+ */
+- (void)updateState:(id (^)(id oldState))block completion:(void (^)())completion;
+
 /**
  table view 下使用这个方法传入 indexPath，用于 item 更新界面的时候做一下检测保护。
 

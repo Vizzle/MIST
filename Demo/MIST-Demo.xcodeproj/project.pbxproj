@@ -14,7 +14,6 @@
 		AEAC3D45DB0D7F3CDBD32272 /* libPods-MIST-Demo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FEABC4C3376B6EEEBF738E8B /* libPods-MIST-Demo.a */; };
 		B193131E1EA9A63D0035331C /* MistDemoImageView.mm in Sources */ = {isa = PBXBuildFile; fileRef = B19312DA1EA9A63D0035331C /* MistDemoImageView.mm */; };
 		B193131F1EA9A63D0035331C /* MistDemoTemplateManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = B19312DC1EA9A63D0035331C /* MistDemoTemplateManager.mm */; };
-		B19313201EA9A63D0035331C /* MistJSDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B19312DF1EA9A63D0035331C /* MistJSDemoViewController.m */; };
 		B19313211EA9A63D0035331C /* MistDemoIndexViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = B19312E11EA9A63D0035331C /* MistDemoIndexViewController.mm */; };
 		B19313221EA9A63D0035331C /* MistDemoListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = B19312E31EA9A63D0035331C /* MistDemoListViewController.mm */; };
 		B19313231EA9A63D0035331C /* mist.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B19312E51EA9A63D0035331C /* mist.bundle */; };
@@ -53,8 +52,6 @@
 		B19312DA1EA9A63D0035331C /* MistDemoImageView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MistDemoImageView.mm; sourceTree = "<group>"; };
 		B19312DB1EA9A63D0035331C /* MistDemoTemplateManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MistDemoTemplateManager.h; sourceTree = "<group>"; };
 		B19312DC1EA9A63D0035331C /* MistDemoTemplateManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MistDemoTemplateManager.mm; sourceTree = "<group>"; };
-		B19312DE1EA9A63D0035331C /* MistJSDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MistJSDemoViewController.h; sourceTree = "<group>"; };
-		B19312DF1EA9A63D0035331C /* MistJSDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MistJSDemoViewController.m; sourceTree = "<group>"; };
 		B19312E01EA9A63D0035331C /* MistDemoIndexViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MistDemoIndexViewController.h; sourceTree = "<group>"; };
 		B19312E11EA9A63D0035331C /* MistDemoIndexViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MistDemoIndexViewController.mm; sourceTree = "<group>"; };
 		B19312E21EA9A63D0035331C /* MistDemoListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MistDemoListViewController.h; sourceTree = "<group>"; };
@@ -192,8 +189,6 @@
 		B19312DD1EA9A63D0035331C /* JS */ = {
 			isa = PBXGroup;
 			children = (
-				B19312DE1EA9A63D0035331C /* MistJSDemoViewController.h */,
-				B19312DF1EA9A63D0035331C /* MistJSDemoViewController.m */,
 			);
 			path = JS;
 			sourceTree = "<group>";
@@ -480,7 +475,6 @@
 				B19313391EA9A63D0035331C /* AppDelegate.mm in Sources */,
 				B19313341EA9A63D0035331C /* MistWebViewDemoController.m in Sources */,
 				B19313311EA9A63D0035331C /* MistTextFieldDemoViewController.m in Sources */,
-				B19313201EA9A63D0035331C /* MistJSDemoViewController.m in Sources */,
 				B193131F1EA9A63D0035331C /* MistDemoTemplateManager.mm in Sources */,
 				B19313331EA9A63D0035331C /* MistTextViewDemoViewController.m in Sources */,
 				B193132B1EA9A63D0035331C /* MistSimpleTemplateViewController.mm in Sources */,

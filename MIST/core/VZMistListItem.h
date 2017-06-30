@@ -58,7 +58,7 @@
  @discussion：
  state的初始值(initial state)会优先从模板的"state"标签获取，如果没有则会从controller的initialState获取
  */
-@property (nonatomic, strong, readonly) id state;
+@property (nonatomic, strong, readonly) NSDictionary *state;
 /**
  关联的数据
  */
@@ -103,7 +103,7 @@
  更新state参考Reacthttps://facebook.github.io/react-native/docs/state.html
  @param block state更新函数
  */
-- (void)updateState:(id (^)(id oldState))block;
+- (void)updateState:(NSDictionary * (^)(NSDictionary * oldState))block;
 
 
 /**
@@ -112,7 +112,7 @@
  @param block state block
  @param completion 更新完成回调
  */
-- (void)updateState:(id (^)(id oldState))block completion:(void (^)())completion;
+- (void)updateState:(NSDictionary * (^)(NSDictionary * oldState))block completion:(void (^)())completion;
 
 /**
  table view 下使用这个方法传入 indexPath，用于 item 更新界面的时候做一下检测保护。

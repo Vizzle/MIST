@@ -48,7 +48,7 @@
 
 - (void)updateState:(NSDictionary *)stateChanges
 {
-    [_item updateState:^id(id oldState) {
+    [_item updateState:^NSDictionary *(NSDictionary * oldState) {
         NSMutableDictionary *state = [oldState ?: @{} mutableCopy];
         [state setValuesForKeysWithDictionary:stateChanges];
         return state;

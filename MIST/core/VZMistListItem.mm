@@ -106,7 +106,7 @@ static const void *kMistItemInCell = &kMistItemInCell;
     [self _rebuild:!b];
 }
 
-- (void)updateState:(id (^)(id oldState))block completion:(void (^)())completion {
+- (void)updateState:(NSDictionary * (^)(NSDictionary * oldState))block completion:(void (^)())completion {
     if (completion) {
         self.updateStateCompletion = completion;
     }
@@ -126,7 +126,7 @@ static const void *kMistItemInCell = &kMistItemInCell;
     });
 }
 
-- (void)updateState:(id (^)(id))block
+- (void)updateState:(NSDictionary * (^)(NSDictionary *))block
 {
     [self updateState:block completion:nil];
 }
@@ -176,7 +176,7 @@ static const void *kMistItemInCell = &kMistItemInCell;
 - (void)_doUpdateState
 {
     //求最终state的值
-    for (id (^block)(id) in _stateUpdatesQueue) {
+    for (NSDictionary * (^block)(NSDictionary *) in _stateUpdatesQueue) {
         _state = block(_state);
     }
     [_stateUpdatesQueue removeAllObjects];
@@ -396,7 +396,7 @@ static const void *kMistItemInCell = &kMistItemInCell;
     __weak __typeof(self) weakSelf = self;
     
     context[@"updateState"] = ^(NSDictionary *stateChanges) {
-        [weakSelf updateState:^id(id oldState) {
+        [weakSelf updateState:^NSDictionary *(NSDictionary *oldState) {
             NSMutableDictionary *state = [oldState ?: @{} mutableCopy];
             [state setValuesForKeysWithDictionary:stateChanges];
             return state;
@@ -404,7 +404,7 @@ static const void *kMistItemInCell = &kMistItemInCell;
     };
     
     context[@"setState"] = ^(NSDictionary *newState) {
-        [weakSelf updateState:^id(id oldState) {
+        [weakSelf updateState:^NSDictionary *(NSDictionary *oldState) {
             return newState;
         }];
     };

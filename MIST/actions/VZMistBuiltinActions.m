@@ -75,7 +75,7 @@
 + (void)update_state {
     [VZMistTemplateAction registerActionWithName:@"update-state" block:^(VZMistTemplateAction *action) {
         NSDictionary *change = __vzDictionary(action.params, nil);
-        [action.item updateState:^id(id oldState) {
+        [action.item updateState:^NSDictionary *(NSDictionary *oldState) {
             NSMutableDictionary *state = [oldState ?: @{} mutableCopy];
             [state setValuesForKeysWithDictionary:change];
             return state;

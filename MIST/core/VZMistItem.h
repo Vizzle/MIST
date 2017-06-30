@@ -33,7 +33,7 @@
 /**
  模板中UI组件的的state,理解state参考Reacthttps://facebook.github.io/react-native/docs/state.html
  */
-@property (nonatomic, strong, readonly) id state;
+@property (nonatomic, strong, readonly) NSDictionary *state;
 /**
  执行js、调用js方法的JSContext
  */
@@ -51,7 +51,7 @@
 
  @param block ：【in】=>old state /【out】=>new state
  */
-- (void)updateState:(id (^)(id))block;
+- (void)updateState:(NSDictionary * (^)(NSDictionary *oldState))block;
 
 @end
 

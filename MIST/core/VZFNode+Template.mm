@@ -757,7 +757,7 @@ static const void *displayEventKey = &displayEventKey;
 
     NSMutableArray *pushedVars = [NSMutableArray array];
     [data pushVariableWithKey:kVZTemplateNodeId value:nodeId];
-    [data pushVariableWithKey:kVZTemplateMistItem value:item];
+    [data pushWeakVariableWithKey:kVZTemplateMistItem value:item];
     @defer
     {
         [data popVariableWithKey:kVZTemplateMistItem];

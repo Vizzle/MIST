@@ -10,6 +10,19 @@
 #import "VZTUtils.h"
 
 
+@interface VZTWeakWrapper : NSObject 
+@property (nonatomic, weak) id object;
++ (instancetype)newWithObject:(id)object;
+@end
+@implementation VZTWeakWrapper
++ (instancetype)newWithObject:(id)object {
+    VZTWeakWrapper *wrapper = [VZTWeakWrapper new];
+    wrapper.object = object;
+    return wrapper;
+}
+@end
+
+
 @implementation VZTExpressionContext
 {
     NSMutableDictionary<NSString *, NSMutableArray *> *_variablesTable;
@@ -43,6 +56,11 @@
 
     [valueStack addObject:value ?: [VZTNull null]];
     return valueStack;
+}
+
+- (id)pushWeakVariableWithKey:(NSString *)key value:(id)value
+{
+    return [self pushVariableWithKey:key value:[VZTWeakWrapper newWithObject:value]];
 }
 
 - (void)popVariableWithKey:(NSString *)key
@@ -91,6 +109,9 @@
         *count = valueStack.count;
     }
 
+    if ([value isKindOfClass:[VZTWeakWrapper class]]) {
+        value = ((VZTWeakWrapper *)value).object;
+    }
     return value;
 }
 

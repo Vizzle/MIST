@@ -12,6 +12,7 @@
 @interface VZTExpressionContext : VZTSyntaxNode <NSCopying>
 
 - (id)pushVariableWithKey:(NSString *)key value:(id)value;
+- (id)pushWeakVariableWithKey:(NSString *)key value:(id)value;
 - (void)popVariableWithKey:(NSString *)key;
 - (void)pushVariables:(NSDictionary *)variables;
 - (void)popVariables:(NSDictionary *)variables;

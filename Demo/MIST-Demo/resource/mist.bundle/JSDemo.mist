@@ -1,5 +1,5 @@
 {
-  "script": "function getWeather(){var url='http://api.openweathermap.org/data/2.5/weather?q=Hangzhou&appid=e29037c971eb05e99323a39106735690&units=metric&lang=zh'\nhttp.get(url,function(response,error){oclog(response.name,response.weather[0].description,response.main.temp)\ntoast.alert('Result',[response.name,response.weather[0].description,response.main.temp].join(', '))})}",
+  "script": "function getWeather(){var url='http://api.openweathermap.org/data/2.5/weather?q=Hangzhou&appid=e29037c971eb05e99323a39106735690&units=metric&lang=zh'\nhttp.get(url,function(response,error){toast.alert('Result',[response.name,response.weather[0].description,response.main.temp].join(', '))})}",
   "layout": {
     "style": {
       "direction": "vertical",
@@ -31,7 +31,7 @@
       {
         "type": "text",
         "style": {
-          "text": "Mist 中的 JS 支持借助 JSPatch 实现，用于动态下发部分控件的点击逻辑，开发调试过程：\n\n1、在 Sublime 中，Command+Shift+M -> Jump To JS File，如果不存在，会自动新建模板同名 JS 文件\n2、编写 JS 代码，当你保存时，JS 代码会被自动格式化，同步至 .mist 文件的 script 标签中，并立即重新执行\n3、验证 JS 逻辑，如果出错，会在状态栏提示错误信息，点击可查看详细错误，双击可关闭错误窗口",
+          "text": "Mist 中的 JS 支持借助 JavaScriptCore，你可以在 VZMist 中注册所需的方法、类，来支持控件点击逻辑、模板中发请求等等，开发调试过程：\n\n1、在 Sublime 中，Command+Shift+M -> Jump To JS File，如果不存在，会自动新建模板同名 JS 文件\n2、编写 JS 代码，当你保存时，JS 代码会被自动格式化，同步至 .mist 文件的 script 标签中，并立即重新执行\n3、验证 JS 逻辑，如果出错，会在状态栏提示错误信息，点击可查看详细错误，在错误页空白处双击可关闭错误窗口",
           "font-size": 13,
           "padding": 30,
           "lines": 0,

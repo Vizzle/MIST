@@ -14,6 +14,8 @@
 #import "MistTextViewDemoViewController.h"
 #import "MistTextFieldDemoViewController.h"
 #import "MistCustomNodeDemoViewController.h"
+#import "MistJSHttpRequestHelper.h"
+#import "MistJSToast.h"
 
 #ifdef DEBUG
 #import <MISTDebug/MSTDebugger.h>
@@ -229,6 +231,10 @@ return [[MistSimpleTemplateViewController alloc] initWithTitle:NAME templates:@[
     
     // 完成初始化
     [VZMist sharedInstance];
+    
+    //注册 js 全局对象
+    [[VZMist sharedInstance] registerJSGlobalVariable:@"http" object:[MistJSHttpRequestHelper sharedInstance]];
+    [[VZMist sharedInstance] registerJSGlobalVariable:@"toast" object:[MistJSToast class]];
     
     _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     _viewController = [[MistDemoIndexViewController alloc] initWithTitle:@"MIST" demoItems:self.demos];

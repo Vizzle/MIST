@@ -11,14 +11,13 @@
 #import <VZFlexLayout/VZFlexLayout.h>
 #import <VZFlexLayout/VZFNetworkImageView.h>
 #include <pthread.h>
-
+#import "VZMistInternal.h"
 
 @implementation VZMist
 {
     NSMutableDictionary<NSString *, VZMistTagProcessor> *_processorMap;
     pthread_rwlock_t rwlock;
     
-    NSMutableDictionary<NSString *, id> *_jsGlobalFunctions;
     pthread_rwlock_t jsRwlock;
 }
 
@@ -41,7 +40,7 @@
         [self registerDefaultTags];
         
         pthread_rwlock_init(&jsRwlock, NULL);
-        _jsGlobalFunctions = [NSMutableDictionary dictionary];
+        _registeredJSVariables = [NSMutableDictionary dictionary];
 
         self.errorCallback = ^(NSError *error) {
             NSLog(@"MIST error: %@", error);
@@ -164,16 +163,16 @@
     return ret;
 }
 
-- (void)registerJSFunction:(NSString *)funcName block:(id)block {
-    if (funcName.length > 0 && block) {
+- (void)registerJSGlobalVariable:(NSString *)name object:(id)object {
+    if (name.length > 0 && object) {
         pthread_rwlock_wrlock(&jsRwlock);
-        [_jsGlobalFunctions setObject:block forKey:funcName];
+        [_registeredJSVariables setObject:object forKey:name];
         pthread_rwlock_unlock(&jsRwlock);
     }
 }
 
-- (NSDictionary *)registeredJSFunctions {
-    return _jsGlobalFunctions;
+- (void)registerJSTypes:(NSArray<NSString *> *)types {
+    _exportTypes = types;
 }
 
 @end

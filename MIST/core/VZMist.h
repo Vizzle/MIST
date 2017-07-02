@@ -56,11 +56,19 @@ typedef void (^VZMistErrorCallback)(VZMistError *error);
 
 
 /**
- 注册 js 全局函数
+ 注册 js 全局对象或方法，如果需要注册方法，object 传入 block
 
- @param funcName 方法名
- @param block 方法实现block
+ @param name 变量名
+ @param object 可以是对象或者 block
  */
-- (void)registerJSFunction:(NSString *)funcName block:(id)block;
+- (void)registerJSGlobalVariable:(NSString *)name object:(id)object;
+
+
+/**
+ 注册 Class 到 js 环境
+
+ @param types 类名数组
+ */
+- (void)registerJSTypes:(NSArray<NSString *> *)types;
 
 @end

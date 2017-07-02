@@ -31,11 +31,15 @@
 
 
 /**
- VZMistTemplate 里生成 JSContext 时获取业务注册的 js 方法
-
- @return 已注册方法
+ 业务注册的 js 方法
  */
-- (NSDictionary *)registeredJSFunctions;
+@property (nonatomic, strong) NSMutableDictionary<NSString *, id> *registeredJSVariables;
+
+
+/**
+ 业务注册的类型
+ */
+@property (nonatomic, strong) NSArray<NSString *> *exportTypes;
 
 @end
 #endif /* VZMistInternal_h */

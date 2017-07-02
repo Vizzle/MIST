@@ -323,27 +323,39 @@ static const void *kMistItemInCell = &kMistItemInCell;
         NSString *script = self.tpl.script;
         if (script.length) {
             _jsContext = [self jsContextBuilder];
-            [_jsContext evaluateScript:script];
+            [_jsContext evaluateScript:script withSourceURL:[NSURL URLWithString:@"main.js"]];
         }
     }
     
     return _jsContext;
 }
 
-- (JSContext *)jsContextBuilder {
+- (JSContext *)jsContextBuilder
+{
     JSContext *context = [[JSContext alloc] init];
-    [self registerGlobalFunctions:context];
-//    [self registerTypes:nil inContext:context];
+    [self registerTypes:[[VZMist sharedInstance] exportTypes] inContext:context];
+    [self registerGlobalVariables:context];
     
     return context;
 }
 
+- (void)registerTypes:(NSArray *)types inContext:(JSContext *)context
+{
+    for (NSString *type in types) {
+        Class clz = NSClassFromString(type);
+        if (clz) {
+            context[type] = clz;
+        }
+    }
+}
+
 #define JSContextLog(fmt, ...) NSLog(@"MistJSContext: " fmt, ##__VA_ARGS__)
 
-- (void)registerGlobalFunctions:(JSContext *)context {
-    NSDictionary *bizJsFunctions = [[VZMist sharedInstance] registeredJSFunctions];
-    for (NSString *funcName in bizJsFunctions) {
-        context[funcName] = bizJsFunctions;
+- (void)registerGlobalVariables:(JSContext *)context
+{
+    NSDictionary *bizJsVariables = [[VZMist sharedInstance] registeredJSVariables];
+    for (NSString *name in bizJsVariables) {
+        context[name] = bizJsVariables[name];
     }
     
     context[@"callInstance"] = ^id(id target, NSString *selector, NSArray *parameters) {
@@ -413,26 +425,28 @@ static const void *kMistItemInCell = &kMistItemInCell;
     context.exceptionHandler = ^(JSContext *con, JSValue *exception) {
         JSContextLog(@"%@", exception);
         
-        NSString *msg = exception.description;
-        weakSelf.errMsg = msg;
-        weakSelf.errorWindow.hidden = NO;
-        
-        if (!weakSelf.errorWindow) {
-            weakSelf.errorWindow = [[UIWindow alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 20)];
-            weakSelf.errorWindow.windowLevel = UIWindowLevelStatusBar + 1.0f;
-            weakSelf.errorWindow.backgroundColor = [UIColor blackColor];
-            UIButton *errBtn = [[UIButton alloc] initWithFrame:CGRectMake(5, 0, [UIScreen mainScreen].bounds.size.width - 10, 20)];
-            errBtn.titleLabel.font = [UIFont systemFontOfSize:10];
-            [errBtn setTitle:msg forState:UIControlStateNormal];
-            [errBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            errBtn.tag = 100;
-            [errBtn addTarget:weakSelf action:@selector(handleTapErrorBtn) forControlEvents:UIControlEventTouchDown];
-            [weakSelf.errorWindow addSubview:errBtn];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSString *msg = exception.description;
+            weakSelf.errMsg = msg;
             weakSelf.errorWindow.hidden = NO;
-        } else {
-            UIButton *errBtn = [weakSelf.errorWindow viewWithTag:100];
-            [errBtn setTitle:msg forState:UIControlStateNormal];
-        }
+            
+            if (!weakSelf.errorWindow) {
+                weakSelf.errorWindow = [[UIWindow alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 20)];
+                weakSelf.errorWindow.windowLevel = UIWindowLevelStatusBar + 1.0f;
+                weakSelf.errorWindow.backgroundColor = [UIColor blackColor];
+                UIButton *errBtn = [[UIButton alloc] initWithFrame:CGRectMake(5, 0, [UIScreen mainScreen].bounds.size.width - 10, 20)];
+                errBtn.titleLabel.font = [UIFont systemFontOfSize:10];
+                [errBtn setTitle:msg forState:UIControlStateNormal];
+                [errBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                errBtn.tag = 100;
+                [errBtn addTarget:weakSelf action:@selector(tapJsErrorView) forControlEvents:UIControlEventTouchDown];
+                [weakSelf.errorWindow addSubview:errBtn];
+                weakSelf.errorWindow.hidden = NO;
+            } else {
+                UIButton *errBtn = [weakSelf.errorWindow viewWithTag:100];
+                [errBtn setTitle:msg forState:UIControlStateNormal];
+            }
+        });
     };
 #endif
     
@@ -440,7 +454,8 @@ static const void *kMistItemInCell = &kMistItemInCell;
 
 #ifdef DEBUG
 
-- (void)handleTapErrorBtn {
+- (void)tapJsErrorView
+{
     self.errorWindow.hidden = YES;
     
     VZScriptErrorMsgViewController *errorMsgVC = [[VZScriptErrorMsgViewController alloc] initWithMsg:self.errMsg];
@@ -459,14 +474,5 @@ static const void *kMistItemInCell = &kMistItemInCell;
 }
 
 #endif
-
-//- (void)registerTypes:(NSArray *)types inContext:(JSContext *)context {
-//    for (NSString *type in types) {
-//        Class clz = NSClassFromString(type);
-//        if (clz) {
-//            context[type] = clz;
-//        }
-//    }
-//}
 
 @end

@@ -99,10 +99,8 @@ inline FlexLength __value(id obj, id data, FlexLength defaultValue)
                 } else {
                     type = FlexLengthTypeDefault;
                 }
-                NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
-                nf.numberStyle = NSNumberFormatterDecimalStyle;
-                NSNumber *number = [nf numberFromString:[obj substringWithRange:result.range]];
-                return flexLength([number floatValue], type);
+                
+                return flexLength([[obj substringWithRange:result.range] doubleValue], type);
             }
         }
     }

@@ -84,5 +84,5 @@ function click(params) {
         });
     }) : '0';
     
-    setState(state);
+    setState(params.mistitem, state);
 }

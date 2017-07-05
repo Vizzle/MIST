@@ -18,7 +18,7 @@
 #import <objc/runtime.h>
 #import "VZMist.h"
 #import "VZMistInternal.h"
-#import "VZTUtils.h"
+#import "VZMistJSContextBuilder.h"
 
 #ifdef DEBUG
 #import "VZScriptErrorMsgViewController.h"
@@ -322,157 +322,12 @@ static const void *kMistItemInCell = &kMistItemInCell;
     if (!_jsContext) {
         NSString *script = self.tpl.script;
         if (script.length) {
-            _jsContext = [self jsContextBuilder];
+            _jsContext = [VZMistJSContextBuilder newJSContext];
             [_jsContext evaluateScript:script withSourceURL:[NSURL URLWithString:@"main.js"]];
         }
     }
     
     return _jsContext;
 }
-
-- (JSContext *)jsContextBuilder
-{
-    JSContext *context = [[JSContext alloc] init];
-    [self registerTypes:[[VZMist sharedInstance] exportTypes] inContext:context];
-    [self registerGlobalVariables:context];
-    
-    return context;
-}
-
-- (void)registerTypes:(NSArray *)types inContext:(JSContext *)context
-{
-    for (NSString *type in types) {
-        Class clz = NSClassFromString(type);
-        if (clz) {
-            context[type] = clz;
-        }
-    }
-}
-
-#define JSContextLog(fmt, ...) NSLog(@"MistJSContext: " fmt, ##__VA_ARGS__)
-
-- (void)registerGlobalVariables:(JSContext *)context
-{
-    NSDictionary *bizJsVariables = [[VZMist sharedInstance] registeredJSVariables];
-    for (NSString *name in bizJsVariables) {
-        context[name] = bizJsVariables[name];
-    }
-    
-    context[@"callInstance"] = ^id(id target, NSString *selector, NSArray *parameters) {
-        return vzt_invokeMethod(target, NSSelectorFromString(selector), parameters);
-    };
-    
-    context[@"callClass"] = ^id(NSString *className, NSString *selector, NSArray *parameters) {
-        Class clz = NSClassFromString(className);
-        if (clz) {
-            return vzt_invokeMethod(clz, NSSelectorFromString(selector), parameters);
-        }
-        return nil;
-    };
-    
-    context[@"oclog"] = ^() {
-        NSArray *args = [JSContext currentArguments];
-        for (JSValue *jsVal in args) {
-            JSContextLog(@"%@", [jsVal toObject]);
-        }
-    };
-    
-    context[@"dispatch_after"] = ^(double time, JSValue *func) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(time * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [func callWithArguments:nil];
-        });
-    };
-    
-    context[@"dispatch_async_main"] = ^(JSValue *func) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [func callWithArguments:nil];
-        });
-    };
-    
-    context[@"dispatch_sync_main"] = ^(JSValue *func) {
-        if ([NSThread currentThread].isMainThread) {
-            [func callWithArguments:nil];
-        } else {
-            dispatch_sync(dispatch_get_main_queue(), ^{
-                [func callWithArguments:nil];
-            });
-        }
-    };
-    
-    context[@"dispatch_async_global_queue"] = ^(JSValue *func) {
-        dispatch_async(dispatch_get_global_queue(0, 0), ^{
-            [func callWithArguments:nil];
-        });
-    };
-    
-    __weak __typeof(self) weakSelf = self;
-    
-    context[@"updateState"] = ^(NSDictionary *stateChanges) {
-        [weakSelf updateState:^NSDictionary *(NSDictionary *oldState) {
-            NSMutableDictionary *state = [oldState ?: @{} mutableCopy];
-            [state setValuesForKeysWithDictionary:stateChanges];
-            return state;
-        }];
-    };
-    
-    context[@"setState"] = ^(NSDictionary *newState) {
-        [weakSelf updateState:^NSDictionary *(NSDictionary *oldState) {
-            return newState;
-        }];
-    };
-    
-#ifdef DEBUG
-    context.exceptionHandler = ^(JSContext *con, JSValue *exception) {
-        JSContextLog(@"%@", exception);
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            NSString *msg = exception.description;
-            weakSelf.errMsg = msg;
-            weakSelf.errorWindow.hidden = NO;
-            
-            if (!weakSelf.errorWindow) {
-                weakSelf.errorWindow = [[UIWindow alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 20)];
-                weakSelf.errorWindow.windowLevel = UIWindowLevelStatusBar + 1.0f;
-                weakSelf.errorWindow.backgroundColor = [UIColor blackColor];
-                UIButton *errBtn = [[UIButton alloc] initWithFrame:CGRectMake(5, 0, [UIScreen mainScreen].bounds.size.width - 10, 20)];
-                errBtn.titleLabel.font = [UIFont systemFontOfSize:10];
-                [errBtn setTitle:msg forState:UIControlStateNormal];
-                [errBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-                errBtn.tag = 100;
-                [errBtn addTarget:weakSelf action:@selector(tapJsErrorView) forControlEvents:UIControlEventTouchDown];
-                [weakSelf.errorWindow addSubview:errBtn];
-                weakSelf.errorWindow.hidden = NO;
-            } else {
-                UIButton *errBtn = [weakSelf.errorWindow viewWithTag:100];
-                [errBtn setTitle:msg forState:UIControlStateNormal];
-            }
-        });
-    };
-#endif
-    
-}
-
-#ifdef DEBUG
-
-- (void)tapJsErrorView
-{
-    self.errorWindow.hidden = YES;
-    
-    VZScriptErrorMsgViewController *errorMsgVC = [[VZScriptErrorMsgViewController alloc] initWithMsg:self.errMsg];
-    UIViewController *root = [UIApplication sharedApplication].keyWindow.rootViewController;
-    UINavigationController *nav = nil;
-    
-    if ([root isKindOfClass:[UINavigationController class]]) {
-        nav = (UINavigationController *)root;
-    } else {
-        nav = root.navigationController;
-    }
-    
-    NSAssert(nav, @"VZMistListItem: 未能获取导航栏");
-    
-    [nav pushViewController:errorMsgVC animated:YES];
-}
-
-#endif
 
 @end

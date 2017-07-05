@@ -36,6 +36,11 @@
  */
 @property (nonatomic, strong, readonly) NSDictionary *initialState;
 /**
+ 对数据进行一些处理或适配
+ 理解state参考Reacthttps://facebook.github.io/react-native/docs/state.html
+ */
+@property (nonatomic, strong, readonly) NSDictionary *data;
+/**
  模板对应的controller类
  */
 @property (nonatomic, strong, readonly) Class tplControllerClass;

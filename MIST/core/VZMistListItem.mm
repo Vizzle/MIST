@@ -61,6 +61,9 @@ static const void *kMistItemInCell = &kMistItemInCell;
     NSMutableArray *_stateUpdatesQueue;
     __weak UITableView *_tableView;
     __weak UIViewController *_viewController;
+    NSDictionary *_rawData;
+    NSDictionary *_processedData;
+    BOOL _didLoad;
 }
 
 @synthesize jsContext = _jsContext;
@@ -76,7 +79,7 @@ static const void *kMistItemInCell = &kMistItemInCell;
     self = [super init];
     if (self) {
         //初始化数据和模板
-        _data = data;
+        _rawData = data;
         _customData = customData ? [customData mutableCopy] : [NSMutableDictionary dictionary];
         _stateUpdatesQueue = [NSMutableArray new];
 
@@ -93,16 +96,14 @@ static const void *kMistItemInCell = &kMistItemInCell;
     }
     Class tplClass = _tpl.tplControllerClass ?: [self templateControllerClass];
     _tplController = [[tplClass alloc] initWithItem:self];
-    if (_tplController) {
-        [_tplController didLoadTemplate];
-    }
     _state = nil;
+    _didLoad = NO;
     [self _rebuild:YES];
 }
 
 - (void)setData:(NSDictionary *)data keepState:(BOOL)b
 {
-    _data = data;
+    _rawData = data;
     [self _rebuild:!b];
 }
 
@@ -157,6 +158,14 @@ static const void *kMistItemInCell = &kMistItemInCell;
     [super detachFromView];
     _tableView = nil;
     _viewController = nil;
+}
+
+- (NSDictionary *)rawData {
+    return _rawData;
+}
+
+- (NSDictionary *)data {
+    return _processedData ?: _rawData;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -216,20 +225,37 @@ static const void *kMistItemInCell = &kMistItemInCell;
 
 - (void)_rebuild:(BOOL)useInitialState
 {
-    if (_tpl && _data) {
+    if (_tpl && _rawData) {
         _expressionContext = [VZTExpressionContext new];
-        [_expressionContext pushVariables:_data];
+        [_expressionContext pushVariables:_rawData];
         [_expressionContext pushVariableWithKey:@"_width_" value:@([UIScreen mainScreen].bounds.size.width)];
         [_expressionContext pushVariableWithKey:@"_height_" value:@([UIScreen mainScreen].bounds.size.height)];
-        [_expressionContext pushVariableWithKey:@"_data_" value:self.data];
+        
         if (_customData) {
             [_expressionContext pushVariables:_customData];
         }
+        
+        [_expressionContext pushVariableWithKey:@"_rawdata_" value:_rawData];
+        [_expressionContext pushVariableWithKey:@"_data_" value:_rawData];
+        
+        NSDictionary *tplData = [VZMistTemplateHelper extractValueForExpression:_tpl.data withContext:_expressionContext];
+        [_expressionContext pushVariables:tplData];
+        NSMutableDictionary *processedData = _rawData.mutableCopy;
+        [processedData setValuesForKeysWithDictionary:tplData];
+        _processedData = processedData;
+        
+        [_expressionContext pushVariableWithKey:@"_data_" value:processedData];
+        
         if (useInitialState) {
             _state = _tpl.initialState ?: [_tplController initialState];
         }
         _state = [VZMistTemplateHelper extractValueForExpression:_state withContext:_expressionContext];
         [_expressionContext pushVariableWithKey:@"state" value:_state];
+        
+        if (_tplController && !_didLoad) {
+            [_tplController didLoadTemplate];
+            _didLoad = YES;
+        }
 
         [self updateModel:self.data
             constrainedSize:CGSizeMake([UIScreen mainScreen].bounds.size.width, VZ::FlexValue::Auto())

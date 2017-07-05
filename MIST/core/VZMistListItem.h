@@ -60,10 +60,6 @@
  */
 @property (nonatomic, strong, readonly) NSDictionary *state;
 /**
- 关联的数据
- */
-@property (nonatomic, strong, readonly) NSDictionary *data;
-/**
  自定义数据，修改后，可调用 render 刷新布局
  */
 @property (nonatomic, strong) NSMutableDictionary *customData;

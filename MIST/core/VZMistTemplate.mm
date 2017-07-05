@@ -42,6 +42,7 @@
             _tplControllerClass = nil;
         }
         _initialState = [VZMistTemplateHelper parseExpressionsInTemplate:content[@"state"] mistInstance:mistInstance];
+        _data = [VZMistTemplateHelper parseExpressionsInTemplate:content[@"data"] mistInstance:mistInstance];
         _tplReuseIdentifier = content[@"reuse-identifier"];
         _identifier = content[@"identifier"];
         _styles = __vzDictionary([VZMistTemplateHelper parseExpressionsInTemplate:content[@"styles"] mistInstance:mistInstance], nil);

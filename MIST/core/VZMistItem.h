@@ -27,9 +27,13 @@
  */
 @property (nonatomic, strong, readonly) VZMistTemplate *tpl;
 /**
- 关联的数据
+ 关联的数据，包含模版中 data 属性里的数据
  */
 @property (nonatomic, strong, readonly) NSDictionary *data;
+/**
+ 关联的数据，原始数据
+ */
+@property (nonatomic, strong, readonly) NSDictionary *rawData;
 /**
  模板中UI组件的的state,理解state参考Reacthttps://facebook.github.io/react-native/docs/state.html
  */

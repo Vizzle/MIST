@@ -13,6 +13,7 @@
 		455F94B31EA63CC70050EFFE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 455F94B11EA63CC70050EFFE /* Main.storyboard */; };
 		455F94B51EA63CC70050EFFE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 455F94B41EA63CC70050EFFE /* Assets.xcassets */; };
 		455F94B81EA63CC70050EFFE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 455F94B61EA63CC70050EFFE /* LaunchScreen.storyboard */; };
+		52A79DEC1F0CB59400658288 /* WBTimelineListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 52A79DEB1F0CB59400658288 /* WBTimelineListViewController.mm */; };
 		AEAC3D45DB0D7F3CDBD32272 /* libPods-MIST-Demo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FEABC4C3376B6EEEBF738E8B /* libPods-MIST-Demo.a */; };
 		B193131E1EA9A63D0035331C /* MistDemoImageView.mm in Sources */ = {isa = PBXBuildFile; fileRef = B19312DA1EA9A63D0035331C /* MistDemoImageView.mm */; };
 		B193131F1EA9A63D0035331C /* MistDemoTemplateManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = B19312DC1EA9A63D0035331C /* MistDemoTemplateManager.mm */; };
@@ -20,7 +21,6 @@
 		B19313221EA9A63D0035331C /* MistDemoListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = B19312E31EA9A63D0035331C /* MistDemoListViewController.mm */; };
 		B19313231EA9A63D0035331C /* mist.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B19312E51EA9A63D0035331C /* mist.bundle */; };
 		B19313241EA9A63D0035331C /* wb.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B19312E71EA9A63D0035331C /* wb.bundle */; };
-		B19313251EA9A63D0035331C /* WBTimelineListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B19312E91EA9A63D0035331C /* WBTimelineListViewController.m */; };
 		B19313261EA9A63D0035331C /* WBTimelineTemplateController.m in Sources */ = {isa = PBXBuildFile; fileRef = B19312EB1EA9A63D0035331C /* WBTimelineTemplateController.m */; };
 		B19313271EA9A63D0035331C /* CustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B19312EF1EA9A63D0035331C /* CustomButton.m */; };
 		B19313281EA9A63D0035331C /* MistCustomNodeDemoViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = B19312F11EA9A63D0035331C /* MistCustomNodeDemoViewController.mm */; };
@@ -52,6 +52,7 @@
 		455F94B41EA63CC70050EFFE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		455F94B71EA63CC70050EFFE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		455F94B91EA63CC70050EFFE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		52A79DEB1F0CB59400658288 /* WBTimelineListViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WBTimelineListViewController.mm; sourceTree = "<group>"; };
 		8077F1AE59CBBE2DD266CBD9 /* Pods-MIST-Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MIST-Demo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MIST-Demo/Pods-MIST-Demo.debug.xcconfig"; sourceTree = "<group>"; };
 		B0B27EEA8EB467CC9F77B927 /* Pods-MIST-Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MIST-Demo.release.xcconfig"; path = "Pods/Target Support Files/Pods-MIST-Demo/Pods-MIST-Demo.release.xcconfig"; sourceTree = "<group>"; };
 		B19312D91EA9A63D0035331C /* MistDemoImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MistDemoImageView.h; sourceTree = "<group>"; };
@@ -65,7 +66,6 @@
 		B19312E51EA9A63D0035331C /* mist.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = mist.bundle; sourceTree = "<group>"; };
 		B19312E71EA9A63D0035331C /* wb.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = wb.bundle; sourceTree = "<group>"; };
 		B19312E81EA9A63D0035331C /* WBTimelineListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBTimelineListViewController.h; sourceTree = "<group>"; };
-		B19312E91EA9A63D0035331C /* WBTimelineListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBTimelineListViewController.m; sourceTree = "<group>"; };
 		B19312EA1EA9A63D0035331C /* WBTimelineTemplateController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBTimelineTemplateController.h; sourceTree = "<group>"; };
 		B19312EB1EA9A63D0035331C /* WBTimelineTemplateController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBTimelineTemplateController.m; sourceTree = "<group>"; };
 		B19312EE1EA9A63D0035331C /* CustomButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomButton.h; sourceTree = "<group>"; };
@@ -216,7 +216,7 @@
 			children = (
 				B19312E71EA9A63D0035331C /* wb.bundle */,
 				B19312E81EA9A63D0035331C /* WBTimelineListViewController.h */,
-				B19312E91EA9A63D0035331C /* WBTimelineListViewController.m */,
+				52A79DEB1F0CB59400658288 /* WBTimelineListViewController.mm */,
 				B19312EA1EA9A63D0035331C /* WBTimelineTemplateController.h */,
 				B19312EB1EA9A63D0035331C /* WBTimelineTemplateController.m */,
 			);
@@ -354,7 +354,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 455F94BC1EA63CC70050EFFE /* Build configuration list for PBXNativeTarget "MIST-Demo" */;
 			buildPhases = (
-				7E82C816958967514652458D /* [CP] Check Pods Manifest.lock */,
 				455F94A11EA63CC70050EFFE /* Sources */,
 				455F94A21EA63CC70050EFFE /* Frameworks */,
 				455F94A31EA63CC70050EFFE /* Resources */,
@@ -435,21 +434,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MIST-Demo/Pods-MIST-Demo-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		7E82C816958967514652458D /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
 		CF93DB04D7F19FC734C49EFE /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -474,6 +458,7 @@
 			files = (
 				B19313271EA9A63D0035331C /* CustomButton.m in Sources */,
 				B193132E1EA9A63D0035331C /* MistSegmentedControlDemoController.m in Sources */,
+				52A79DEC1F0CB59400658288 /* WBTimelineListViewController.mm in Sources */,
 				B193132A1EA9A63D0035331C /* MistMapDemoController.m in Sources */,
 				B193132D1EA9A63D0035331C /* MistScrollTemplateController.m in Sources */,
 				B19313321EA9A63D0035331C /* MistTextViewDemoController.m in Sources */,
@@ -492,7 +477,6 @@
 				B193132B1EA9A63D0035331C /* MistSimpleTemplateViewController.mm in Sources */,
 				B19313291EA9A63D0035331C /* MistIndicatorTemplateController.m in Sources */,
 				B19313301EA9A63D0035331C /* MistTextFieldDemoController.m in Sources */,
-				B19313251EA9A63D0035331C /* WBTimelineListViewController.m in Sources */,
 				B193132F1EA9A63D0035331C /* MistSwitchDemoController.m in Sources */,
 				B19313351EA9A63D0035331C /* MistExpressionDemoController.m in Sources */,
 				B19313211EA9A63D0035331C /* MistDemoIndexViewController.mm in Sources */,

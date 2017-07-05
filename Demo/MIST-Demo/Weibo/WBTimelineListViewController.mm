@@ -34,7 +34,7 @@
     [super viewDidLoad];
     
     self.title = @"Timeline";
-
+    
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds)) style:UITableViewStylePlain];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -51,8 +51,6 @@
     UIBarButtonItem *rightBarItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(load)];
     self.navigationItem.rightBarButtonItem = rightBarItem;
     
-    
-    //mist
     
     
 #ifdef DEBUG
@@ -83,9 +81,8 @@
                 return;
             }
             
-            [[MistDemoTemplateManager defaultManager] downloadTemplates:@[@"WeiBo"]
-                                                           mistInstance:[VZMist sharedInstance]
-                                                             completion:^(NSDictionary<NSString *, VZMistTemplate *> *templates) {
+            
+            [[MistDemoTemplateManager defaultManager] downloadTemplates:@[@"WeiBo"] completion:^(NSDictionary<NSString *, NSString *> *templates) {
                 //refresh UI
                 dispatch_async(dispatch_get_main_queue(), ^{
                     
@@ -133,13 +130,23 @@
 #pragma mark - private methods
 
 
-- (NSArray *)itemsWithData:(id)data templates:(NSDictionary<NSString *, VZMistTemplate *> *)templates
+- (NSArray *)itemsWithData:(id)data templates:(NSDictionary<NSString *, NSString *> *)templates
 {
     NSMutableArray *items = [NSMutableArray new];
-    VZMistTemplate* template = templates[@"WeiBo"];
+    
+    NSDictionary *tplDict = [NSJSONSerialization JSONObjectWithData:[templates[@"WeiBo"] dataUsingEncoding:NSUTF8StringEncoding]
+                                                            options:0
+                                                              error:nil];
+    if (!tplDict) {
+        return @[];
+    }
+    VZMistTemplate *tpl = [[VZMistTemplate alloc] initWithTemplateId:@"WeiBo"
+                                                                  content:tplDict
+                                                             mistInstance:[VZMist sharedInstance]];
+    
     
     for (NSDictionary *i in data) {
-        VZMistListItem *item = [[VZMistListItem alloc] initWithData:i customData:@{} template:template];
+        VZMistListItem *item = [[VZMistListItem alloc] initWithData:i customData:@{} template:tpl];
         [items addObject:item];
     }
     
@@ -149,7 +156,7 @@
 
 - (NSURL *)dataUrl
 {
-    return [NSURL URLWithString:@"https://api.weibo.com/2/statuses/home_timeline.json?access_token=2.008fWcBCtXRCEE94c0cac10cXmvzJE"];
+    return [NSURL URLWithString:@"https://api.weibo.com/2/statuses/home_timeline.json?access_token=2.008fWcBCtXRCEEda8555f52c041UWb"];
     //return [NSURL URLWithString:@"http://127.0.0.1:10001/wb_api.json"];
 }
 
@@ -158,17 +165,17 @@ typedef void (^MistFetchDataCompletionBlock)(id data, NSError *error);
 {
     
     NSAssert([self dataUrl], @"no data url specified!");
-
+    
     __block UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     indicator.center = CGPointMake(self.view.frame.size.width * 0.5, self.view.frame.size.height * 0.5);
     [indicator startAnimating];
     [self.view addSubview:indicator];
     [self.view bringSubviewToFront:indicator];
-
+    
     [[self.httpSession dataTaskWithURL:[self dataUrl] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
         dispatch_async(dispatch_get_main_queue(), ^{
-           
+            
             [indicator stopAnimating];
             [indicator removeFromSuperview];
             
@@ -194,7 +201,7 @@ typedef void (^MistFetchDataCompletionBlock)(id data, NSError *error);
             }
         });
         
-
+        
     }] resume];
 }
 

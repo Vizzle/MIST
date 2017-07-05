@@ -144,7 +144,7 @@
 
 - (NSURL *)dataUrl
 {
-    return [NSURL URLWithString:@"https://api.weibo.com/2/statuses/home_timeline.json?access_token=2.008fWcBCtXRCEE1cc4290de4ma5ZKD"];
+    return [NSURL URLWithString:@"https://api.weibo.com/2/statuses/home_timeline.json?access_token=2.008fWcBCtXRCEEda8555f52c041UWb"];
     //return [NSURL URLWithString:@"http://127.0.0.1:10001/wb_api.json"];
 }
 

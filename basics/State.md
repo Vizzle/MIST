@@ -4,7 +4,7 @@
 
 比如，如果要实现展开/收起的功能，每次点击时只需改变状态，即可自动重新生成视图。
 
-<video width="374px" autoplay loop>
+<video class="demo" width="374px" autoplay loop>
   <source src="state_1.mp4" type="video/mp4">
 Your browser does not support the video tag.
 </video>

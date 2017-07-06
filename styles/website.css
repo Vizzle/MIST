@@ -1,4 +1,8 @@
 
+.demo {
+    box-shadow: 2px 2px 8px #aaa;
+}
+
 /* Markdown */
 .markdown-section h1,h2,h3,h4,h5,h6,p {
     font-family: Consolas,'Liberation Mono',Menlo,Courier,monospace;

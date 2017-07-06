@@ -91,7 +91,9 @@
     NSMutableArray *invokedActions = objc_getAssociatedObject(_item, key);
     if (!invokedActions) {
         invokedActions = [NSMutableArray new];
-        objc_setAssociatedObject(_item, key, invokedActions, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        if (_item) {
+            objc_setAssociatedObject(_item, key, invokedActions, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        }
     }
     if (![invokedActions containsObject:_eventId]) {
         [_onceAction runWithSender:sender];

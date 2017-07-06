@@ -7,16 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <JavaScriptCore/JavaScriptCore.h>
 
-@protocol MistJSToastExports <NSObject, JSExport>
+@interface MistJSToast : NSObject
 
-+ (void)alert:(NSString *)title :(NSString *)content;
-
-@end
-
-@interface MistJSToast : NSObject <MistJSToastExports>
-
-+ (void)alert:(NSString *)title :(NSString *)content;
++ (void)alert:(NSString *)title content:(NSString *)content;
 
 @end

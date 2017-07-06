@@ -9,9 +9,6 @@
 #import "MistJSHttpRequestHelper.h"
 
 @interface MistJSHttpRequestHelper ()
-@property (nonatomic, strong) NSMutableDictionary *handlers;
-@property (nonatomic, strong) JSManagedValue *handler;
-@property (nonatomic, strong) JSValue *callback;
 @end
 
 @implementation MistJSHttpRequestHelper
@@ -26,28 +23,13 @@
     return sharedInstance;
 }
 
-- (instancetype)init {
-    if (self = [super init]) {
-        _handlers = [NSMutableDictionary dictionary];
-    }
-    
-    return self;
-}
-
-- (void)get:(NSString *)url :(JSValue *)handler {
-    [self.handlers setObject:handler forKey:url];
-
+- (void)get:(NSString *)url handler:(void (^)(NSDictionary *, NSError *))handler {
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:0 timeoutInterval:-1];
     request.HTTPMethod = @"GET";
     NSURLSession *session = [NSURLSession sharedSession];
-    __weak typeof(self) weakSelf = self;
     [[session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable err) {
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
-        JSValue *cb = weakSelf.handlers[url];
-        
-        if (cb) {
-            [cb callWithArguments:@[dict?:@{}, err?:@{}]];
-        }
+        handler(dict, err);
     }] resume];
 }
 

@@ -7,21 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <JavaScriptCore/JavaScriptCore.h>
 
-@protocol MistJSHttpRequestHelperExports <NSObject, JSExport>
-
-- (void)get:(NSString *)url :(JSValue *)handler;
-
-@end
-
-@interface MistJSHttpRequestHelper : NSObject <MistJSHttpRequestHelperExports>
+@interface MistJSHttpRequestHelper : NSObject
 
 + (instancetype)sharedInstance;
 
 /**
  模板里的 js 发请求
  */
-- (void)get:(NSString *)url :(JSValue *)handler;
+- (void)get:(NSString *)url handler:(void (^)(NSDictionary *, NSError *))handler;
 
 @end

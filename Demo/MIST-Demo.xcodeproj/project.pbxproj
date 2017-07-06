@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1F6E992F1F04F6F8004538CB /* MistJSHttpRequestHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6E992E1F04F6F8004538CB /* MistJSHttpRequestHelper.m */; };
 		1F6E995F1F093658004538CB /* MistJSToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6E995E1F093658004538CB /* MistJSToast.m */; };
+		1FF5735B1F0E2E78004AFE82 /* mist.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B19312E51EA9A63D0035331C /* mist.bundle */; };
 		455F94AA1EA63CC70050EFFE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F94A91EA63CC70050EFFE /* main.m */; };
 		455F94B31EA63CC70050EFFE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 455F94B11EA63CC70050EFFE /* Main.storyboard */; };
 		455F94B51EA63CC70050EFFE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 455F94B41EA63CC70050EFFE /* Assets.xcassets */; };
@@ -19,7 +20,6 @@
 		B193131F1EA9A63D0035331C /* MistDemoTemplateManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = B19312DC1EA9A63D0035331C /* MistDemoTemplateManager.mm */; };
 		B19313211EA9A63D0035331C /* MistDemoIndexViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = B19312E11EA9A63D0035331C /* MistDemoIndexViewController.mm */; };
 		B19313221EA9A63D0035331C /* MistDemoListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = B19312E31EA9A63D0035331C /* MistDemoListViewController.mm */; };
-		B19313231EA9A63D0035331C /* mist.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B19312E51EA9A63D0035331C /* mist.bundle */; };
 		B19313241EA9A63D0035331C /* wb.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B19312E71EA9A63D0035331C /* wb.bundle */; };
 		B19313261EA9A63D0035331C /* WBTimelineTemplateController.m in Sources */ = {isa = PBXBuildFile; fileRef = B19312EB1EA9A63D0035331C /* WBTimelineTemplateController.m */; };
 		B19313271EA9A63D0035331C /* CustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B19312EF1EA9A63D0035331C /* CustomButton.m */; };
@@ -354,6 +354,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 455F94BC1EA63CC70050EFFE /* Build configuration list for PBXNativeTarget "MIST-Demo" */;
 			buildPhases = (
+				701459C49AA132F6C92998EA /* [CP] Check Pods Manifest.lock */,
 				455F94A11EA63CC70050EFFE /* Sources */,
 				455F94A21EA63CC70050EFFE /* Frameworks */,
 				455F94A31EA63CC70050EFFE /* Resources */,
@@ -408,7 +409,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B19313231EA9A63D0035331C /* mist.bundle in Resources */,
+				1FF5735B1F0E2E78004AFE82 /* mist.bundle in Resources */,
 				455F94B81EA63CC70050EFFE /* LaunchScreen.storyboard in Resources */,
 				B19313241EA9A63D0035331C /* wb.bundle in Resources */,
 				455F94B51EA63CC70050EFFE /* Assets.xcassets in Resources */,
@@ -432,6 +433,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MIST-Demo/Pods-MIST-Demo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		701459C49AA132F6C92998EA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		CF93DB04D7F19FC734C49EFE /* [CP] Embed Pods Frameworks */ = {

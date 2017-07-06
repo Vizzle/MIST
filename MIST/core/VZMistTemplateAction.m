@@ -10,12 +10,10 @@
 #import "VZMistTemplateHelper.h"
 #import "VZDataStructure.h"
 #import "VZFDispatch.h"
-
+#import "VZMistJSEngine.h"
 #import <objc/runtime.h>
 
-
 #define kVZMistActionResultKey @"_result_"
-
 
 @implementation VZMistTemplateAction
 {
@@ -93,10 +91,13 @@
                 NSString *methodName = [sel substringFromIndex:3];
                 id param = _dict[sel];
                 param = [VZMistTemplateHelper extractValueForExpression:param withContext:_context];
-                JSContext *jsContext = _item.jsContext;
+                param = formatParamsToJS(param);
+                
+                JSContext *jsContext = [VZMistJSEngine context];
                 JSValue *method = jsContext[methodName];
-                if (method) {
-                    [method callWithArguments:@[param]];
+                
+                if (method && !method.isNull && !method.isUndefined) {
+                    [method callWithArguments:[param isKindOfClass:[NSArray class]] ? param : @[param]];
                 }
             } else {
                 VZMistTemplateController *controller = _item.tplController;

@@ -12,6 +12,7 @@
 #import "VZMistTemplateController.h"
 #import "VZMist.h"
 #import "VZMistError.h"
+#import "VZMistJSEngine.h"
 
 @implementation VZMistTemplate
 
@@ -34,6 +35,10 @@
 
         _tplId = tplId;
         _script = content[@"script"];
+        if (_script.length) {
+            [VZMistJSEngine evaluateScript:_script];
+        }
+        
         _tplRawContent = [content copy];
         _tplParsedResult = [VZMistTemplateHelper parseExpressionsInTemplate:layout mistInstance:mistInstance];
         _tplControllerClass = NSClassFromString(content[@"controller"]);

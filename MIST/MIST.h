@@ -19,3 +19,4 @@
 #import <MIST/VZMistTemplateEvent.h>
 #import <MIST/VZMistTemplateDownload.h>
 #import <MIST/VZMistTemplateController.h>
+#import <MIST/VZMistJSEngine.h>

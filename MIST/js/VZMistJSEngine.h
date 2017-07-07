@@ -13,6 +13,9 @@ id formatOCToJS(id obj);
 
 id formatJSToOC(JSValue *jsval);
 
+//Wrap params when call JSValue as Function directly
+NSArray* formatOCParamsToJS(NSArray *arr);
+
 @interface VZMistJSEngine : NSObject
 
 + (JSValue *)evaluateScript:(NSString *)script;

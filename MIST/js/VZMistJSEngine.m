@@ -1032,3 +1032,12 @@ id formatJSToOC(JSValue *jsval)
     }
     return obj;
 }
+
+NSArray* formatOCParamsToJS(NSArray *arr) {
+    NSCAssert(arr.count, @"VZMistJSEngine: nil params array passed in");
+    NSMutableArray *ret = [NSMutableArray arrayWithCapacity:arr.count];
+    for (id item in arr) {
+        [ret addObject:formatOCToJS(item)];
+    }
+    return ret;
+}

@@ -91,7 +91,7 @@
                 NSString *methodName = [sel substringFromIndex:3];
                 id param = _dict[sel];
                 param = [VZMistTemplateHelper extractValueForExpression:param withContext:_context];
-                param = formatOCToJS(param);
+                param = convertOCToJS(param);
                 
                 JSContext *jsContext = [VZMistJSEngine context];
                 JSValue *method = jsContext[methodName];

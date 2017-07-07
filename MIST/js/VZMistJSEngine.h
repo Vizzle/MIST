@@ -9,9 +9,9 @@
 #import <Foundation/Foundation.h>
 #import <JavaScriptCore/JavaScriptCore.h>
 
-id formatOCToJS(id obj);
+id convertOCToJS(id obj);
 
-id formatJSToOC(JSValue *jsval);
+id convertJSToOC(JSValue *jsval);
 
 //Wrap params when call JSValue as Function directly
 NSArray* formatOCParamsToJS(NSArray *arr);

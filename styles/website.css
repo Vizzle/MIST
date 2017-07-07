@@ -3,6 +3,35 @@
     box-shadow: 2px 2px 8px #aaa;
 }
 
+/* Summary */
+
+.chapter span {
+    color: #888 !important;
+}
+
+.summary>li>a, .summary>li>span {
+    font-size:16px;
+    padding-bottom: 6px !important;
+    padding-top: 12px !important;
+    padding-left: 30px !important;
+/*     background-color: rgba(226, 72, 16, 1) !important; */
+/*     color: white !important; */
+}
+
+.summary li.active>a {
+    font-weight: bold;
+}
+
+.summary li>a:hover {
+    text-decoration: none !important;
+    color: #008cff !important;
+}
+
+.summary>li>ul>li>a, .summary>li>ul>li>span {
+    padding: 6px 15px !important;
+    padding-left: 30px !important;
+}
+
 /* Markdown */
 .markdown-section h1,h2,h3,h4,h5,h6,p {
     font-family: Consolas,'Liberation Mono',Menlo,Courier,monospace;

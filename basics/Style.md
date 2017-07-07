@@ -37,3 +37,9 @@
 ## 阴影
 
 Mist 目前没有提供阴影的支持，但是可以使用 [properties](#properties) 来实现
+
+## 样式引用
+
+可以在 [`styles`](Property.md#styles) 属性中定义样式，并在元素的 [`class`](Property.md#class) 属性引用
+
+元素上定义的样式优先级高于 `class` 中引用的样式

@@ -23,3 +23,11 @@
 ] %}
 
 {% include "../templates/properties.md" %}
+
+## 事件
+
+{% set properties = [
+	{ "name": "on-switch", "desc": "（手动或自动）翻页时触发" }
+] %}
+
+{% include "../templates/properties.md" %}

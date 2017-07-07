@@ -54,4 +54,12 @@ Your browser does not support the video tag.
     ]
   }
 } %}
-{% include "../templates/code.md" %}
+{% include "../templates/code_folded.md" %}
+
+## 初始状态
+
+初始状态通过模版中的 [`state`](Property.md#state) 定义，或在对应 [`Controller`](Event.md#controller) 中重写 `initialState` 方法，模版中的 `state` 属性优先使用。
+
+## 状态更新
+
+调用 [`Controller`](Event.md#controller) 中的 [`updateState`](Event.md#updatestate) 方法更新状态。

@@ -10,7 +10,7 @@
 
 {% set properties = [
 	{ "name": "openUrl:", "desc": "打开指定的 URL" },
-    { "name": "updateState:", "desc": "更新状态。值应该为一个字典，将状态中对应的值更新。详见<a href='State.md'>状态</a>" }
+    { "name": "updateState:", "desc": "更新状态。值应该为一个字典，将状态中对应的值更新。注意不是替换整个状态，只是更改对应的 key。详见<a href='State.md'>状态</a>" }
 ] %}
 
 {% include "../templates/properties.md" %}

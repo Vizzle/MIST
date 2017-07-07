@@ -31,7 +31,7 @@
       {
         "type": "text",
         "style": {
-          "text": "Mist 中的 JS 支持借助 JavaScriptCore，你可以在 VZMist 中注册所需的方法、类，来支持控件点击逻辑、模板中发请求等等，开发调试过程：\n\n1、在 on-tap 中指定需要调用的 js 方法，需以\"js-\"开头，eg. \"js-getWeather\"\n2、在 Sublime 中，Command+Shift+M -> Jump To JS File，如果不存在，会自动新建模板同名 JS 文件\n3、编写 JS 代码，当你保存时，JS 代码会被自动格式化，同步至 .mist 文件的 script 标签中，并立即重新执行，上例中：function getWeather(city) {xxx}\n4、验证 JS 逻辑，如果出错，会在状态栏提示错误信息，点击可查看详细错误，在错误页空白处双击可关闭错误窗口",
+          "text": "Mist 中的 JS 借助 JavaScriptCore 完成模板中较复杂的控件点击逻辑、模板中发请求等，将这些原本要写在 native 代码里的逻辑动态化。开发调试过程：\n\n1、在 on-tap 中指定需要调用的 js 方法，需以\"js-\"开头，eg. \"js-getWeather\"\n2、在 Sublime 中，Command+Shift+M -> Jump To JS File，如果不存在，会自动新建模板同名 JS 文件\n3、编写 JS 代码，当你保存时，JS 代码会被自动格式化，同步至 .mist 文件的 script 标签中，并立即重新执行，上例中：function getWeather(city) {xxx}\n4、验证 JS 逻辑，如果出错，会在状态栏提示错误信息，点击可查看详细错误，在错误页空白处双击可关闭错误窗口",
           "font-size": 13,
           "padding": 30,
           "lines": 0,

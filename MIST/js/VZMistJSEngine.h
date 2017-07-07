@@ -9,7 +9,9 @@
 #import <Foundation/Foundation.h>
 #import <JavaScriptCore/JavaScriptCore.h>
 
-id formatParamsToJS(id param);
+id formatOCToJS(id obj);
+
+id formatJSToOC(JSValue *jsval);
 
 @interface VZMistJSEngine : NSObject
 

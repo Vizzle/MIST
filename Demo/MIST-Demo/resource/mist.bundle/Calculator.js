@@ -1,4 +1,5 @@
-function click(params) {
+function click(args) {
+    var params = args.toJS()
     var button = params.button;
     var state = params.state;
     var maxLength = 9;
@@ -84,5 +85,9 @@ function click(params) {
         });
     }) : '0';
     
-    setState(params.mistitem, state);
+    params.mistitem.updateState(block('NSDictionary *', function(oldState) {
+        return state
+    }))
 }
+
+global.export(click)

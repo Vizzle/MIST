@@ -12,10 +12,7 @@
 #import "VZMist.h"
 #import "VZMistListItem.h"
 #import "VZMistTemplate.h"
-#ifdef DEBUG
 #import <MISTDebug/MSTDebugger.h>
-#endif
-
 
 @interface WBTimelineListViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -51,15 +48,11 @@
     UIBarButtonItem *rightBarItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(load)];
     self.navigationItem.rightBarButtonItem = rightBarItem;
     
-    
-    
-#ifdef DEBUG
     //for mist debug use
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(load)
                                                  name:MISTDebugShouldReloadNotification
                                                object:nil];
-#endif
     
     [self load];
     

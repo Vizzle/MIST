@@ -16,10 +16,7 @@
 #import "MistCustomNodeDemoViewController.h"
 #import "MistJSHttpRequestHelper.h"
 #import "MistJSToast.h"
-
-#ifdef DEBUG
 #import <MISTDebug/MSTDebugger.h>
-#endif
 
 @interface AppDelegate ()
 
@@ -224,9 +221,7 @@ return [[MistSimpleTemplateViewController alloc] initWithTitle:NAME templates:@[
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-#ifdef DEBUG
     [[MSTDebugger defaultDebugger] startWithDownloader:NSClassFromString(@"MistDemoTemplateManager")];
-#endif
     
     // 完成初始化
     [VZMist sharedInstance];

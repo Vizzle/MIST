@@ -90,13 +90,11 @@
     self.tableView.frame = self.view.bounds;
     [self.view addSubview:self.tableView];
 
-#ifdef DEBUG
     //for mist debug use
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(load)
                                                  name:MISTDebugShouldReloadNotification
                                                object:nil];
-#endif
     [self load];
 }
 

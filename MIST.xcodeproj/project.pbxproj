@@ -9,11 +9,13 @@
 /* Begin PBXBuildFile section */
 		1F46A8A91F0E089900520AC0 /* VZMistJSContextBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F46A8A21F0E089900520AC0 /* VZMistJSContextBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1F46A8AA1F0E089900520AC0 /* VZMistJSContextBuilder.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1F46A8A31F0E089900520AC0 /* VZMistJSContextBuilder.mm */; };
-		1F46A8AB1F0E089900520AC0 /* VZMistJSEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F46A8A41F0E089900520AC0 /* VZMistJSEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1F46A8AC1F0E089900520AC0 /* VZMistJSEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F46A8A51F0E089900520AC0 /* VZMistJSEngine.m */; };
+		1F46A8AB1F0E089900520AC0 /* VZMistScriptEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F46A8A41F0E089900520AC0 /* VZMistScriptEngine.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1F46A8AC1F0E089900520AC0 /* VZMistScriptEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F46A8A51F0E089900520AC0 /* VZMistScriptEngine.m */; };
 		1F46A8AD1F0E089900520AC0 /* VZScriptErrorMsgViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F46A8A61F0E089900520AC0 /* VZScriptErrorMsgViewController.h */; };
 		1F46A8AE1F0E089900520AC0 /* VZScriptErrorMsgViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F46A8A71F0E089900520AC0 /* VZScriptErrorMsgViewController.m */; };
 		1F46A8B01F0E08D600520AC0 /* VZMistInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F46A8AF1F0E08D600520AC0 /* VZMistInternal.h */; };
+		1FF573901F1384EC004AFE82 /* VZMistScriptErrorWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 1FF5738E1F1384EC004AFE82 /* VZMistScriptErrorWindow.h */; };
+		1FF573911F1384EC004AFE82 /* VZMistScriptErrorWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF5738F1F1384EC004AFE82 /* VZMistScriptErrorWindow.m */; };
 		455F943D1EA601F80050EFFE /* NSArray+VZTExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = 455F93FF1EA601F80050EFFE /* NSArray+VZTExtension.h */; };
 		455F943E1EA601F80050EFFE /* NSArray+VZTExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F94001EA601F80050EFFE /* NSArray+VZTExtension.m */; };
 		455F943F1EA601F80050EFFE /* NSDate+VZTExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = 455F94011EA601F80050EFFE /* NSDate+VZTExtension.h */; };
@@ -120,11 +122,13 @@
 /* Begin PBXFileReference section */
 		1F46A8A21F0E089900520AC0 /* VZMistJSContextBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZMistJSContextBuilder.h; sourceTree = "<group>"; };
 		1F46A8A31F0E089900520AC0 /* VZMistJSContextBuilder.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZMistJSContextBuilder.mm; sourceTree = "<group>"; };
-		1F46A8A41F0E089900520AC0 /* VZMistJSEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZMistJSEngine.h; sourceTree = "<group>"; };
-		1F46A8A51F0E089900520AC0 /* VZMistJSEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZMistJSEngine.m; sourceTree = "<group>"; };
+		1F46A8A41F0E089900520AC0 /* VZMistScriptEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZMistScriptEngine.h; sourceTree = "<group>"; };
+		1F46A8A51F0E089900520AC0 /* VZMistScriptEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZMistScriptEngine.m; sourceTree = "<group>"; };
 		1F46A8A61F0E089900520AC0 /* VZScriptErrorMsgViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZScriptErrorMsgViewController.h; sourceTree = "<group>"; };
 		1F46A8A71F0E089900520AC0 /* VZScriptErrorMsgViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZScriptErrorMsgViewController.m; sourceTree = "<group>"; };
 		1F46A8AF1F0E08D600520AC0 /* VZMistInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZMistInternal.h; sourceTree = "<group>"; };
+		1FF5738E1F1384EC004AFE82 /* VZMistScriptErrorWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZMistScriptErrorWindow.h; sourceTree = "<group>"; };
+		1FF5738F1F1384EC004AFE82 /* VZMistScriptErrorWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZMistScriptErrorWindow.m; sourceTree = "<group>"; };
 		455F93FF1EA601F80050EFFE /* NSArray+VZTExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+VZTExtension.h"; sourceTree = "<group>"; };
 		455F94001EA601F80050EFFE /* NSArray+VZTExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+VZTExtension.m"; sourceTree = "<group>"; };
 		455F94011EA601F80050EFFE /* NSDate+VZTExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+VZTExtension.h"; sourceTree = "<group>"; };
@@ -239,8 +243,10 @@
 			children = (
 				1F46A8A21F0E089900520AC0 /* VZMistJSContextBuilder.h */,
 				1F46A8A31F0E089900520AC0 /* VZMistJSContextBuilder.mm */,
-				1F46A8A41F0E089900520AC0 /* VZMistJSEngine.h */,
-				1F46A8A51F0E089900520AC0 /* VZMistJSEngine.m */,
+				1F46A8A41F0E089900520AC0 /* VZMistScriptEngine.h */,
+				1F46A8A51F0E089900520AC0 /* VZMistScriptEngine.m */,
+				1FF5738E1F1384EC004AFE82 /* VZMistScriptErrorWindow.h */,
+				1FF5738F1F1384EC004AFE82 /* VZMistScriptErrorWindow.m */,
 				1F46A8A61F0E089900520AC0 /* VZScriptErrorMsgViewController.h */,
 				1F46A8A71F0E089900520AC0 /* VZScriptErrorMsgViewController.m */,
 			);
@@ -427,11 +433,12 @@
 				455F94471EA601F80050EFFE /* VZTArrayExpressionNode.h in Headers */,
 				1F46A8AD1F0E089900520AC0 /* VZScriptErrorMsgViewController.h in Headers */,
 				455F94631EA601F80050EFFE /* VZTParser.h in Headers */,
+				1FF573901F1384EC004AFE82 /* VZMistScriptErrorWindow.h in Headers */,
 				458FECCD1E9F3147004A44DB /* VZFNodeListItem.h in Headers */,
 				458FECD81E9F3147004A44DB /* VZMistTemplateController.h in Headers */,
 				458FECD41E9F3147004A44DB /* VZMistListItem.h in Headers */,
 				1F46A8A91F0E089900520AC0 /* VZMistJSContextBuilder.h in Headers */,
-				1F46A8AB1F0E089900520AC0 /* VZMistJSEngine.h in Headers */,
+				1F46A8AB1F0E089900520AC0 /* VZMistScriptEngine.h in Headers */,
 				458FECD31E9F3147004A44DB /* VZMistItem.h in Headers */,
 				458FECDB1E9F3147004A44DB /* VZMistTemplateEvent.h in Headers */,
 				458FECCF1E9F3147004A44DB /* VZMist.h in Headers */,
@@ -617,6 +624,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FF573911F1384EC004AFE82 /* VZMistScriptErrorWindow.m in Sources */,
 				455F94441EA601F80050EFFE /* NSString+VZTExtension.m in Sources */,
 				455F944C1EA601F80050EFFE /* VZTConditionalExpressionNode.m in Sources */,
 				455F94501EA601F80050EFFE /* VZTExpressionListNode.m in Sources */,
@@ -648,7 +656,7 @@
 				455F945E1EA601F80050EFFE /* VZTLiteralNode.m in Sources */,
 				1F46A8AA1F0E089900520AC0 /* VZMistJSContextBuilder.mm in Sources */,
 				455F946A1EA601F80050EFFE /* VZTUtils.m in Sources */,
-				1F46A8AC1F0E089900520AC0 /* VZMistJSEngine.m in Sources */,
+				1F46A8AC1F0E089900520AC0 /* VZMistScriptEngine.m in Sources */,
 				458FECDC1E9F3147004A44DB /* VZMistTemplateEvent.m in Sources */,
 				455F94721EA601F80050EFFE /* VZDataStructure.m in Sources */,
 				455F94401EA601F80050EFFE /* NSDate+VZTExtension.m in Sources */,

@@ -1,16 +1,17 @@
 //
-//  VZMistJSEngine.m
+//  VZMistScriptEngine.m
 //  MIST
 //
 //  Created by lingwan on 2017/7/6.
 //
 //
 
-#import "VZMistJSEngine.h"
+#import "VZMistScriptEngine.h"
 #import <UIKit/UIKit.h>
 #import <objc/runtime.h>
 #import <objc/message.h>
 #ifdef DEBUG
+#import "VZMistScriptErrorWindow.h"
 #import "VZScriptErrorMsgViewController.h"
 #endif
 
@@ -35,11 +36,11 @@ boxing._prop = obj;   \
 return boxing;  \
 }
 
+VZObjectWrapper_GEN(boxAssignObj, assignObj, id)
+VZObjectWrapper_GEN(boxWeakObj, weakObj, id)
+VZObjectWrapper_GEN(boxClass, cls, Class)
 VZObjectWrapper_GEN(boxObj, obj, id)
 VZObjectWrapper_GEN(boxPointer, pointer, void *)
-VZObjectWrapper_GEN(boxClass, cls, Class)
-VZObjectWrapper_GEN(boxWeakObj, weakObj, id)
-VZObjectWrapper_GEN(boxAssignObj, assignObj, id)
 
 - (id)unwrap
 {
@@ -60,22 +61,24 @@ VZObjectWrapper_GEN(boxAssignObj, assignObj, id)
 @end
 
 
-
 static JSContext *_context;
 static NSObject *_nullObj;
 static NSObject *_nilObj;
 static NSMutableDictionary *_TMPMemoryPool;
 static NSMutableArray      *_pointersToRelease;
-
 static NSMutableDictionary *_currentSuperClassName;
 static NSMutableDictionary *_MethodSignatureCache;
 static NSLock              *_MethodSignatureCacheLock;
 
 static void (^_exceptionBlock)(NSString *log) = ^void(NSString *log) {
-    //    NSCAssert(NO, log);
+#ifdef DEBUG
+    [VZMistScriptErrorWindow showWithErrorInfo:log];
+#else
+    NSCAssert(NO, log);
+#endif
 };
 
-@implementation VZMistJSEngine
+@implementation VZMistScriptEngine
 
 #pragma mark - APIS
 
@@ -87,28 +90,19 @@ static void (^_exceptionBlock)(NSString *log) = ^void(NSString *log) {
     
     JSContext *context = [[JSContext alloc] init];
     
-    //#ifdef DEBUG
-    //    context[@"po"] = ^JSValue*(JSValue *obj) {
-    //        id ocObject = convertJSToOC(obj);
-    //        return [JSValue valueWithObject:[ocObject description] inContext:_context];
-    //    };
-    //
-    //    context[@"bt"] = ^JSValue*() {
-    //        return [JSValue valueWithObject:_JSLastCallStack inContext:_context];
-    //    };
-    //#endif
-    
     context[@"callInstanceMethod"] = ^id(JSValue *obj, NSString *selectorName, JSValue *arguments, BOOL isSuper) {
         return executeMethod(nil, selectorName, arguments, obj, isSuper);
     };
+    
     context[@"callClassMethod"] = ^id(NSString *className, NSString *selectorName, JSValue *arguments) {
         return executeMethod(className, selectorName, arguments, nil, NO);
     };
-    context[@"_OC_convertJSToOC"] = ^id(JSValue *obj) {
+    
+    context[@"_MIST_JSToOC"] = ^id(JSValue *obj) {
         return convertJSToOC(obj);
     };
     
-    context[@"_OC_convertOCtoJS"] = ^id(JSValue *obj) {
+    context[@"_MIST_OCtoJS"] = ^id(JSValue *obj) {
         return convertOCToJS([obj toObject]);
     };
     
@@ -122,7 +116,7 @@ static void (^_exceptionBlock)(NSString *log) = ^void(NSString *log) {
         return [[JSContext currentContext][@"_convertOCtoJS"] callWithArguments:@[convertOCToJS(obj)]];
     };
     
-    context[@"_OC_superClsName"] = ^(NSString *clsName) {
+    context[@"_MIST_superClsName"] = ^(NSString *clsName) {
         Class cls = NSClassFromString(clsName);
         return NSStringFromClass([cls superclass]);
     };
@@ -165,7 +159,7 @@ static void (^_exceptionBlock)(NSString *log) = ^void(NSString *log) {
         }
     };
     
-    context[@"_OC_log"] = ^() {
+    context[@"_MIST_log"] = ^() {
         NSArray *args = [JSContext currentArguments];
         for (JSValue *jsVal in args) {
             id obj = convertJSToOC(jsVal);
@@ -173,7 +167,7 @@ static void (^_exceptionBlock)(NSString *log) = ^void(NSString *log) {
         }
     };
     
-    context[@"_OC_catch"] = ^(JSValue *msg, JSValue *stack) {
+    context[@"_MIST_catch"] = ^(JSValue *msg, JSValue *stack) {
         _exceptionBlock([NSString stringWithFormat:@"js exception, \nmsg: %@, \nstack: \n %@", [msg toObject], [stack toObject]]);
     };
     
@@ -181,40 +175,6 @@ static void (^_exceptionBlock)(NSString *log) = ^void(NSString *log) {
         NSLog(@"%@", exception);
         _exceptionBlock([NSString stringWithFormat:@"js exception: %@", exception]);
     };
-    
-#ifdef DEBUG
-    context.exceptionHandler = ^(JSContext *con, JSValue *exception) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            errorMessage = exception.description;
-            
-            if (!errorWindow) {
-                errorWindow = [[UIWindow alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 20)];
-                errorWindow.windowLevel = UIWindowLevelStatusBar + 1.0f;
-                errorWindow.backgroundColor = [UIColor colorWithRed:224/255.0 green:72/255.0 blue:32/255.0 alpha:1];
-                
-                UIButton *errBtn = [[UIButton alloc] initWithFrame:CGRectMake(15, 0, [UIScreen mainScreen].bounds.size.width - 30, 20)];
-                errBtn.titleLabel.font = [UIFont systemFontOfSize:10];
-                [errBtn setTitle:errorMessage forState:UIControlStateNormal];
-                [errBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-                errBtn.tag = 100;
-                [errBtn addTarget:self action:@selector(tapJsErrorView) forControlEvents:UIControlEventTouchDown];
-                [errorWindow addSubview:errBtn];
-                
-                UIButton *close = [[UIButton alloc] initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width - 18, 0, 16, 16)];
-                close.titleLabel.font = [UIFont systemFontOfSize:16];
-                [close setTitle:@"×" forState:UIControlStateNormal];
-                [close setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-                [close addTarget:self action:@selector(close) forControlEvents:UIControlEventTouchDown];
-                [errorWindow addSubview:close];
-            } else {
-                UIButton *errBtn = [errorWindow viewWithTag:100];
-                [errBtn setTitle:errorMessage forState:UIControlStateNormal];
-            }
-            
-            errorWindow.hidden = NO;
-        });
-    };
-#endif
     
     _nullObj = [[NSObject alloc] init];
     context[@"_OC_null"] = convertOCToJS(_nullObj);
@@ -225,51 +185,17 @@ static void (^_exceptionBlock)(NSString *log) = ^void(NSString *log) {
     _MethodSignatureCacheLock = [[NSLock alloc] init];
     _currentSuperClassName = [[NSMutableDictionary alloc] init];
     
-#if TARGET_OS_IPHONE
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleMemoryWarning) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
-#endif
     
-    NSString *jsCore = @"var global=this;(function(){var _ocCls={};var _jsCls={};var _convertOCtoJS=function(obj){if(obj===undefined||obj===null)return false\nif(typeof obj==\"object\"){if(obj.__obj)return obj\nif(obj.__isNil)return false}\nif(obj instanceof Array){var ret=[]\nobj.forEach(function(o){ret.push(_convertOCtoJS(o))})\nreturn ret}\nif(obj instanceof Function){return function(){var args=Array.prototype.slice.call(arguments)\nvar formatedArgs=_OC_convertJSToOC(args)\nfor(var i=0;i<args.length;i++){if(args[i]===null||args[i]===undefined||args[i]===false){formatedArgs.splice(i,1,undefined)}else if(args[i]==nsnull){formatedArgs.splice(i,1,null)}}\nreturn _OC_convertOCtoJS(obj.apply(obj,formatedArgs))}}\nif(obj instanceof Object){var ret={}\nfor(var key in obj){ret[key]=_convertOCtoJS(obj[key])}\nreturn ret}\nreturn obj}\nvar _methodFunc=function(instance,clsName,methodName,args,isSuper,isPerformSelector){var selectorName=methodName\nif(!isPerformSelector){methodName=methodName.replace(/__/g,\"-\")\nselectorName=methodName.replace(/_/g,\":\").replace(/-/g,\"_\")\nvar marchArr=selectorName.match(/:/g)\nvar numOfArgs=marchArr?marchArr.length:0\nif(args.length>numOfArgs){selectorName+=\":\"}}\nvar ret=instance?callInstanceMethod(instance,selectorName,args,isSuper):callClassMethod(clsName,selectorName,args)\nreturn _convertOCtoJS(ret)}\nvar _customMethods={__m:function(methodName){var slf=this\nif(slf instanceof Boolean){return function(){return false}}\nif(slf[methodName]){return slf[methodName].bind(slf);}\nif(!slf.__obj&&!slf.__clsName){throw new Error(slf+'.'+methodName+' is undefined')}\nif(slf.__isSuper&&slf.__clsName){slf.__clsName=_OC_superClsName(slf.__obj.__realClsName?slf.__obj.__realClsName:slf.__clsName);}\nvar clsName=slf.__clsName\nif(clsName&&_ocCls[clsName]){var methodType=slf.__obj?'instMethods':'clsMethods'\nif(_ocCls[clsName][methodType][methodName]){slf.__isSuper=0;return _ocCls[clsName][methodType][methodName].bind(slf)}}\nreturn function(){var args=Array.prototype.slice.call(arguments)\nreturn _methodFunc(slf.__obj,slf.__clsName,methodName,args,slf.__isSuper)}},super:function(){var slf=this\nif(slf.__obj){slf.__obj.__realClsName=slf.__realClsName;}\nreturn{__obj:slf.__obj,__clsName:slf.__clsName,__isSuper:1}},performSelectorInOC:function(){var slf=this\nvar args=Array.prototype.slice.call(arguments)\nreturn{__isPerformInOC:1,obj:slf.__obj,clsName:slf.__clsName,sel:args[0],args:args[1],cb:args[2]}},performSelector:function(){var slf=this\nvar args=Array.prototype.slice.call(arguments)\nreturn _methodFunc(slf.__obj,slf.__clsName,args[0],args.splice(1),slf.__isSuper,true)}}\nfor(var method in _customMethods){if(_customMethods.hasOwnProperty(method)){Object.defineProperty(Object.prototype,method,{value:_customMethods[method],configurable:false,enumerable:false})}}\nvar _require=function(clsName){if(!global[clsName]){global[clsName]={__clsName:clsName}}\nreturn global[clsName]}\nglobal.require=function(){var lastRequire\nfor(var i=0;i<arguments.length;i++){arguments[i].split(',').forEach(function(clsName){lastRequire=_require(clsName.trim())})}\nreturn lastRequire}\nglobal.block=function(args,cb){var that=this\nvar slf=global.self\nif(args instanceof Function){cb=args\nargs=''}\nvar callback=function(){var args=Array.prototype.slice.call(arguments)\nglobal.self=slf\nreturn cb.apply(that,_convertOCtoJS(args))}\nreturn{args:args,cb:callback,__isBlock:1}}\nif(global.console){var jsLogger=console.log;global.console.log=function(){global._OC_log.apply(global,arguments);if(jsLogger){jsLogger.apply(global.console,arguments);}}}else{global.console={log:global._OC_log}}\nglobal.export=function(){var args=Array.prototype.slice.call(arguments)\nargs.forEach(function(o){if(o instanceof Function){global[o.name]=o}else if(o instanceof Object){for(var property in o){if(o.hasOwnProperty(property)){global[property]=o[property]}}}})}\nglobal.YES=1\nglobal.NO=0\nglobal.nsnull=_OC_null\nglobal._convertOCtoJS=_convertOCtoJS})()";
-    
-    [_context evaluateScript:jsCore withSourceURL:[NSURL URLWithString:@"mist.js"]];
+    NSString *engine = @"var global=this;(function(){var _ocCls={};var _jsCls={};var _convertOCtoJS=function(obj){if(obj===undefined||obj===null)return false\nif(typeof obj==\"object\"){if(obj.__obj)return obj\nif(obj.__isNil)return false}\nif(obj instanceof Array){var ret=[]\nobj.forEach(function(o){ret.push(_convertOCtoJS(o))})\nreturn ret}\nif(obj instanceof Function){return function(){var args=Array.prototype.slice.call(arguments)\nvar formatedArgs=_MIST_JSToOC(args)\nfor(var i=0;i<args.length;i++){if(args[i]===null||args[i]===undefined||args[i]===false){formatedArgs.splice(i,1,undefined)}else if(args[i]==nsnull){formatedArgs.splice(i,1,null)}}\nreturn _MIST_OCtoJS(obj.apply(obj,formatedArgs))}}\nif(obj instanceof Object){var ret={}\nfor(var key in obj){ret[key]=_convertOCtoJS(obj[key])}\nreturn ret}\nreturn obj}\nvar _methodFunc=function(instance,clsName,methodName,args,isSuper,isPerformSelector){var selectorName=methodName\nif(!isPerformSelector){methodName=methodName.replace(/__/g,\"-\")\nselectorName=methodName.replace(/_/g,\":\").replace(/-/g,\"_\")\nvar marchArr=selectorName.match(/:/g)\nvar numOfArgs=marchArr?marchArr.length:0\nif(args.length>numOfArgs){selectorName+=\":\"}}\nvar ret=instance?callInstanceMethod(instance,selectorName,args,isSuper):callClassMethod(clsName,selectorName,args)\nreturn _convertOCtoJS(ret)}\nvar _customMethods={__m:function(methodName){var slf=this\nif(slf instanceof Boolean){return function(){return false}}\nif(slf[methodName]){return slf[methodName].bind(slf);}\nif(!slf.__obj&&!slf.__clsName){throw new Error(slf+'.'+methodName+' is undefined')}\nif(slf.__isSuper&&slf.__clsName){slf.__clsName=_MIST_superClsName(slf.__obj.__realClsName?slf.__obj.__realClsName:slf.__clsName);}\nvar clsName=slf.__clsName\nif(clsName&&_ocCls[clsName]){var methodType=slf.__obj?'instMethods':'clsMethods'\nif(_ocCls[clsName][methodType][methodName]){slf.__isSuper=0;return _ocCls[clsName][methodType][methodName].bind(slf)}}\nreturn function(){var args=Array.prototype.slice.call(arguments)\nreturn _methodFunc(slf.__obj,slf.__clsName,methodName,args,slf.__isSuper)}},super:function(){var slf=this\nif(slf.__obj){slf.__obj.__realClsName=slf.__realClsName;}\nreturn{__obj:slf.__obj,__clsName:slf.__clsName,__isSuper:1}},performSelectorInOC:function(){var slf=this\nvar args=Array.prototype.slice.call(arguments)\nreturn{__isPerformInOC:1,obj:slf.__obj,clsName:slf.__clsName,sel:args[0],args:args[1],cb:args[2]}},performSelector:function(){var slf=this\nvar args=Array.prototype.slice.call(arguments)\nreturn _methodFunc(slf.__obj,slf.__clsName,args[0],args.splice(1),slf.__isSuper,true)}}\nfor(var method in _customMethods){if(_customMethods.hasOwnProperty(method)){Object.defineProperty(Object.prototype,method,{value:_customMethods[method],configurable:false,enumerable:false})}}\nvar _require=function(clsName){if(!global[clsName]){global[clsName]={__clsName:clsName}}\nreturn global[clsName]}\nglobal.require=function(){var lastRequire\nfor(var i=0;i<arguments.length;i++){arguments[i].split(',').forEach(function(clsName){lastRequire=_require(clsName.trim())})}\nreturn lastRequire}\nglobal.block=function(args,cb){var that=this\nvar slf=global.self\nif(args instanceof Function){cb=args\nargs=''}\nvar callback=function(){var args=Array.prototype.slice.call(arguments)\nglobal.self=slf\nreturn cb.apply(that,_convertOCtoJS(args))}\nreturn{args:args,cb:callback,__isBlock:1}}\nif(global.console){var jsLogger=console.log;global.console.log=function(){global._MIST_log.apply(global,arguments);if(jsLogger){jsLogger.apply(global.console,arguments);}}}else{global.console={log:global._MIST_log}}\nglobal.export=function(){var args=Array.prototype.slice.call(arguments)\nargs.forEach(function(o){if(o instanceof Function){global[o.name]=o}else if(o instanceof Object){for(var property in o){if(o.hasOwnProperty(property)){global[property]=o[property]}}}})}\nglobal.YES=1\nglobal.NO=0\nglobal.nsnull=_OC_null\nglobal._convertOCtoJS=_convertOCtoJS})()";
+    [_context evaluateScript:engine];
 }
-
-
-#ifdef DEBUG
-
-static UIWindow *errorWindow = nil;
-static NSString *errorMessage = nil;
-
-+ (void)tapJsErrorView
-{
-    errorWindow.hidden = YES;
-    
-    VZScriptErrorMsgViewController *errorMsgVC = [[VZScriptErrorMsgViewController alloc] initWithMsg:errorMessage];
-    UIViewController *root = [UIApplication sharedApplication].keyWindow.rootViewController;
-    UINavigationController *nav = nil;
-    
-    if ([root isKindOfClass:[UINavigationController class]]) {
-        nav = (UINavigationController *)root;
-    } else {
-        nav = root.navigationController;
-    }
-    
-    NSAssert(nav, @"VZMistJSContextBuilder: 未能获取导航栏");
-    
-    [nav pushViewController:errorMsgVC animated:YES];
-}
-
-+ (void)close {
-    errorWindow.hidden = YES;
-}
-
-#endif
 
 static NSString *_regexStr = @"(?<!\\\\)\\.\\s*(\\w+)\\s*\\(";
 static NSRegularExpression* _regex;
 static NSString *_replaceStr = @".__m(\"$1\")(";
 
-+ (JSValue *)evaluateScript:(NSString *)script
++ (JSValue *)execute:(NSString *)script
 {
     if (!script || ![JSContext class]) {
         _exceptionBlock(@"script is nil");
@@ -281,13 +207,15 @@ static NSString *_replaceStr = @".__m(\"$1\")(";
     if (!_regex) {
         _regex = [NSRegularExpression regularExpressionWithPattern:_regexStr options:0 error:nil];
     }
-    NSString *formatedScript = [NSString stringWithFormat:@";(function(){try{\n%@\n}catch(e){_OC_catch(e.message, e.stack)}})();", [_regex stringByReplacingMatchesInString:script options:0 range:NSMakeRange(0, script.length) withTemplate:_replaceStr]];
+    NSString *formatedScript = [NSString stringWithFormat:@";(function(){try{\n%@\n}catch(e){_MIST_catch(e.message, e.stack)}})();", [_regex stringByReplacingMatchesInString:script options:0 range:NSMakeRange(0, script.length) withTemplate:_replaceStr]];
     @try {
-        if ([_context respondsToSelector:@selector(evaluateScript:withSourceURL:)]) {
-            return [_context evaluateScript:formatedScript withSourceURL:[NSURL URLWithString:@"main.js"]];
-        } else {
-            return [_context evaluateScript:formatedScript];
-        }
+        
+#ifdef DEBUG
+        return [_context evaluateScript:formatedScript withSourceURL:[NSURL URLWithString:@"main.js"]];
+#else
+        return [_context evaluateScript:formatedScript];
+#endif
+        
     }
     @catch (NSException *exception) {
         _exceptionBlock([NSString stringWithFormat:@"%@", exception]);
@@ -295,7 +223,7 @@ static NSString *_replaceStr = @".__m(\"$1\")(";
     return nil;
 }
 
-+ (JSContext *)context
++ (JSContext *)currentEngine
 {
     return _context;
 }
@@ -355,7 +283,6 @@ static id executeMethod(NSString *className, NSString *selectorName, JSValue *ar
         superClassName = NSStringFromClass(superCls);
     }
     
-    
     NSMutableArray *_markArray;
     
     NSInvocation *invocation;
@@ -392,13 +319,6 @@ static id executeMethod(NSString *className, NSString *selectorName, JSValue *ar
     [invocation setSelector:selector];
     
     NSUInteger numberOfArguments = methodSignature.numberOfArguments;
-    NSInteger inputArguments = [(NSArray *)argumentsObj count];
-    if (inputArguments > numberOfArguments - 2) {
-        // calling variable argument method, only support parameter type `id` and return type `id`
-        id sender = instance != nil ? instance : cls;
-        id result = invokeVariableParameterMethod(argumentsObj, methodSignature, sender, selector);
-        return convertOCToJS(result);
-    }
     
     for (NSUInteger i = 2; i < numberOfArguments; i++) {
         const char *argumentType = [methodSignature getArgumentTypeAtIndex:i];
@@ -412,18 +332,18 @@ _type value = [valObj _selector];                     \
 break; \
 }
                 
-                JP_CALL_ARG_CASE('c', char, charValue)
-                JP_CALL_ARG_CASE('C', unsigned char, unsignedCharValue)
-                JP_CALL_ARG_CASE('s', short, shortValue)
-                JP_CALL_ARG_CASE('S', unsigned short, unsignedShortValue)
-                JP_CALL_ARG_CASE('i', int, intValue)
-                JP_CALL_ARG_CASE('I', unsigned int, unsignedIntValue)
                 JP_CALL_ARG_CASE('l', long, longValue)
                 JP_CALL_ARG_CASE('L', unsigned long, unsignedLongValue)
                 JP_CALL_ARG_CASE('q', long long, longLongValue)
+                JP_CALL_ARG_CASE('c', char, charValue)
                 JP_CALL_ARG_CASE('Q', unsigned long long, unsignedLongLongValue)
                 JP_CALL_ARG_CASE('f', float, floatValue)
+                JP_CALL_ARG_CASE('s', short, shortValue)
+                JP_CALL_ARG_CASE('S', unsigned short, unsignedShortValue)
+                JP_CALL_ARG_CASE('i', int, intValue)
                 JP_CALL_ARG_CASE('d', double, doubleValue)
+                JP_CALL_ARG_CASE('C', unsigned char, unsignedCharValue)
+                JP_CALL_ARG_CASE('I', unsigned int, unsignedIntValue)
                 JP_CALL_ARG_CASE('B', BOOL, boolValue)
                 
             case ':': {
@@ -443,11 +363,18 @@ _type value = [val _methodName];  \
 [invocation setArgument:&value atIndex:i];  \
 break; \
 }
-                JP_CALL_ARG_STRUCT(CGRect, toRect)
-                JP_CALL_ARG_STRUCT(CGPoint, toPoint)
                 JP_CALL_ARG_STRUCT(CGSize, toSize)
+                JP_CALL_ARG_STRUCT(CGPoint, toPoint)
                 JP_CALL_ARG_STRUCT(NSRange, toRange)
+                JP_CALL_ARG_STRUCT(CGRect, toRect)
                 break;
+            }
+            case '#': {
+                if ([valObj isKindOfClass:[VZObjectWrapper class]]) {
+                    Class value = [((VZObjectWrapper *)valObj) unwrapClass];
+                    [invocation setArgument:&value atIndex:i];
+                    break;
+                }
             }
             case '*':
             case '^': {
@@ -469,13 +396,6 @@ break; \
                     break;
                 }
             }
-            case '#': {
-                if ([valObj isKindOfClass:[VZObjectWrapper class]]) {
-                    Class value = [((VZObjectWrapper *)valObj) unwrapClass];
-                    [invocation setArgument:&value atIndex:i];
-                    break;
-                }
-            }
             default: {
                 if (valObj == _nullObj) {
                     valObj = [NSNull null];
@@ -489,7 +409,7 @@ break; \
                     break;
                 }
                 if ([(JSValue *)arguments[i-2] hasProperty:@"__isBlock"]) {
-                    __autoreleasing id cb = genCallbackBlock(arguments[i-2]);
+                    __autoreleasing id cb = callBackBlockFromJSValue(arguments[i-2]);
                     [invocation setArgument:&cb atIndex:i];
                 } else {
                     [invocation setArgument:&valObj atIndex:i];
@@ -542,19 +462,19 @@ returnValue = @(tempResultSet); \
 break; \
 }
                     
-                    JP_CALL_RET_CASE('c', char)
-                    JP_CALL_RET_CASE('C', unsigned char)
-                    JP_CALL_RET_CASE('s', short)
-                    JP_CALL_RET_CASE('S', unsigned short)
-                    JP_CALL_RET_CASE('i', int)
-                    JP_CALL_RET_CASE('I', unsigned int)
-                    JP_CALL_RET_CASE('l', long)
                     JP_CALL_RET_CASE('L', unsigned long)
                     JP_CALL_RET_CASE('q', long long)
                     JP_CALL_RET_CASE('Q', unsigned long long)
+                    JP_CALL_RET_CASE('c', char)
+                    JP_CALL_RET_CASE('B', BOOL)
+                    JP_CALL_RET_CASE('S', unsigned short)
                     JP_CALL_RET_CASE('f', float)
                     JP_CALL_RET_CASE('d', double)
-                    JP_CALL_RET_CASE('B', BOOL)
+                    JP_CALL_RET_CASE('I', unsigned int)
+                    JP_CALL_RET_CASE('l', long)
+                    JP_CALL_RET_CASE('i', int)
+                    JP_CALL_RET_CASE('C', unsigned char)
+                    JP_CALL_RET_CASE('s', short)
                     
                 case '{': {
                     NSString *typeString = extractStructName([NSString stringWithUTF8String:returnType]);
@@ -565,9 +485,9 @@ _type result;   \
 return [JSValue _methodName:result inContext:_context];    \
 }
                     JP_CALL_RET_STRUCT(CGRect, valueWithRect)
-                    JP_CALL_RET_STRUCT(CGPoint, valueWithPoint)
-                    JP_CALL_RET_STRUCT(CGSize, valueWithSize)
                     JP_CALL_RET_STRUCT(NSRange, valueWithRange)
+                    JP_CALL_RET_STRUCT(CGSize, valueWithSize)
+                    JP_CALL_RET_STRUCT(CGPoint, valueWithPoint)
                     break;
                 }
                 case '*':
@@ -608,86 +528,9 @@ return [JSValue _methodName:result inContext:_context];    \
     return nil;
 }
 
-
-static id (*new_msgSend1)(id, SEL, id,...) = (id (*)(id, SEL, id,...)) objc_msgSend;
-static id (*new_msgSend2)(id, SEL, id, id,...) = (id (*)(id, SEL, id, id,...)) objc_msgSend;
-static id (*new_msgSend3)(id, SEL, id, id, id,...) = (id (*)(id, SEL, id, id, id,...)) objc_msgSend;
-static id (*new_msgSend4)(id, SEL, id, id, id, id,...) = (id (*)(id, SEL, id, id, id, id,...)) objc_msgSend;
-static id (*new_msgSend5)(id, SEL, id, id, id, id, id,...) = (id (*)(id, SEL, id, id, id, id, id,...)) objc_msgSend;
-static id (*new_msgSend6)(id, SEL, id, id, id, id, id, id,...) = (id (*)(id, SEL, id, id, id, id, id, id,...)) objc_msgSend;
-static id (*new_msgSend7)(id, SEL, id, id, id, id, id, id, id,...) = (id (*)(id, SEL, id, id, id, id, id, id,id,...)) objc_msgSend;
-static id (*new_msgSend8)(id, SEL, id, id, id, id, id, id, id, id,...) = (id (*)(id, SEL, id, id, id, id, id, id, id, id,...)) objc_msgSend;
-static id (*new_msgSend9)(id, SEL, id, id, id, id, id, id, id, id, id,...) = (id (*)(id, SEL, id, id, id, id, id, id, id, id, id, ...)) objc_msgSend;
-static id (*new_msgSend10)(id, SEL, id, id, id, id, id, id, id, id, id, id,...) = (id (*)(id, SEL, id, id, id, id, id, id, id, id, id, id,...)) objc_msgSend;
-
-static id invokeVariableParameterMethod(NSMutableArray *origArgumentsList, NSMethodSignature *methodSignature, id sender, SEL selector) {
-    
-    NSInteger inputArguments = [(NSArray *)origArgumentsList count];
-    NSUInteger numberOfArguments = methodSignature.numberOfArguments;
-    
-    NSMutableArray *argumentsList = [[NSMutableArray alloc] init];
-    for (NSUInteger j = 0; j < inputArguments; j++) {
-        NSInteger index = MIN(j + 2, numberOfArguments - 1);
-        const char *argumentType = [methodSignature getArgumentTypeAtIndex:index];
-        id valObj = origArgumentsList[j];
-        char argumentTypeChar = argumentType[0] == 'r' ? argumentType[1] : argumentType[0];
-        if (argumentTypeChar == '@') {
-            [argumentsList addObject:valObj];
-        } else {
-            return nil;
-        }
-    }
-    
-    id results = nil;
-    numberOfArguments = numberOfArguments - 2;
-    
-    //If you want to debug the macro code below, replace it to the expanded code:
-    //https://gist.github.com/bang590/ca3720ae1da594252a2e
-#define JP_G_ARG(_idx) getArgument(argumentsList[_idx])
-#define JP_CALL_MSGSEND_ARG1(_num) results = new_msgSend##_num(sender, selector, JP_G_ARG(0));
-#define JP_CALL_MSGSEND_ARG2(_num) results = new_msgSend##_num(sender, selector, JP_G_ARG(0), JP_G_ARG(1));
-#define JP_CALL_MSGSEND_ARG3(_num) results = new_msgSend##_num(sender, selector, JP_G_ARG(0), JP_G_ARG(1), JP_G_ARG(2));
-#define JP_CALL_MSGSEND_ARG4(_num) results = new_msgSend##_num(sender, selector, JP_G_ARG(0), JP_G_ARG(1), JP_G_ARG(2), JP_G_ARG(3));
-#define JP_CALL_MSGSEND_ARG5(_num) results = new_msgSend##_num(sender, selector, JP_G_ARG(0), JP_G_ARG(1), JP_G_ARG(2), JP_G_ARG(3), JP_G_ARG(4));
-#define JP_CALL_MSGSEND_ARG6(_num) results = new_msgSend##_num(sender, selector, JP_G_ARG(0), JP_G_ARG(1), JP_G_ARG(2), JP_G_ARG(3), JP_G_ARG(4), JP_G_ARG(5));
-#define JP_CALL_MSGSEND_ARG7(_num) results = new_msgSend##_num(sender, selector, JP_G_ARG(0), JP_G_ARG(1), JP_G_ARG(2), JP_G_ARG(3), JP_G_ARG(4), JP_G_ARG(5), JP_G_ARG(6));
-#define JP_CALL_MSGSEND_ARG8(_num) results = new_msgSend##_num(sender, selector, JP_G_ARG(0), JP_G_ARG(1), JP_G_ARG(2), JP_G_ARG(3), JP_G_ARG(4), JP_G_ARG(5), JP_G_ARG(6), JP_G_ARG(7));
-#define JP_CALL_MSGSEND_ARG9(_num) results = new_msgSend##_num(sender, selector, JP_G_ARG(0), JP_G_ARG(1), JP_G_ARG(2), JP_G_ARG(3), JP_G_ARG(4), JP_G_ARG(5), JP_G_ARG(6), JP_G_ARG(7), JP_G_ARG(8));
-#define JP_CALL_MSGSEND_ARG10(_num) results = new_msgSend##_num(sender, selector, JP_G_ARG(0), JP_G_ARG(1), JP_G_ARG(2), JP_G_ARG(3), JP_G_ARG(4), JP_G_ARG(5), JP_G_ARG(6), JP_G_ARG(7), JP_G_ARG(8), JP_G_ARG(9));
-#define JP_CALL_MSGSEND_ARG11(_num) results = new_msgSend##_num(sender, selector, JP_G_ARG(0), JP_G_ARG(1), JP_G_ARG(2), JP_G_ARG(3), JP_G_ARG(4), JP_G_ARG(5), JP_G_ARG(6), JP_G_ARG(7), JP_G_ARG(8), JP_G_ARG(9), JP_G_ARG(10));
-    
-#define JP_IF_REAL_ARG_COUNT(_num) if([argumentsList count] == _num)
-    
-#define JP_DEAL_MSGSEND(_realArgCount, _defineArgCount) \
-if(numberOfArguments == _defineArgCount) { \
-JP_CALL_MSGSEND_ARG##_realArgCount(_defineArgCount) \
-}
-    
-    JP_IF_REAL_ARG_COUNT(1) { JP_CALL_MSGSEND_ARG1(1) }
-    JP_IF_REAL_ARG_COUNT(2) { JP_DEAL_MSGSEND(2, 1) JP_DEAL_MSGSEND(2, 2) }
-    JP_IF_REAL_ARG_COUNT(3) { JP_DEAL_MSGSEND(3, 1) JP_DEAL_MSGSEND(3, 2) JP_DEAL_MSGSEND(3, 3) }
-    JP_IF_REAL_ARG_COUNT(4) { JP_DEAL_MSGSEND(4, 1) JP_DEAL_MSGSEND(4, 2) JP_DEAL_MSGSEND(4, 3) JP_DEAL_MSGSEND(4, 4) }
-    JP_IF_REAL_ARG_COUNT(5) { JP_DEAL_MSGSEND(5, 1) JP_DEAL_MSGSEND(5, 2) JP_DEAL_MSGSEND(5, 3) JP_DEAL_MSGSEND(5, 4) JP_DEAL_MSGSEND(5, 5) }
-    JP_IF_REAL_ARG_COUNT(6) { JP_DEAL_MSGSEND(6, 1) JP_DEAL_MSGSEND(6, 2) JP_DEAL_MSGSEND(6, 3) JP_DEAL_MSGSEND(6, 4) JP_DEAL_MSGSEND(6, 5) JP_DEAL_MSGSEND(6, 6) }
-    JP_IF_REAL_ARG_COUNT(7) { JP_DEAL_MSGSEND(7, 1) JP_DEAL_MSGSEND(7, 2) JP_DEAL_MSGSEND(7, 3) JP_DEAL_MSGSEND(7, 4) JP_DEAL_MSGSEND(7, 5) JP_DEAL_MSGSEND(7, 6) JP_DEAL_MSGSEND(7, 7) }
-    JP_IF_REAL_ARG_COUNT(8) { JP_DEAL_MSGSEND(8, 1) JP_DEAL_MSGSEND(8, 2) JP_DEAL_MSGSEND(8, 3) JP_DEAL_MSGSEND(8, 4) JP_DEAL_MSGSEND(8, 5) JP_DEAL_MSGSEND(8, 6) JP_DEAL_MSGSEND(8, 7) JP_DEAL_MSGSEND(8, 8) }
-    JP_IF_REAL_ARG_COUNT(9) { JP_DEAL_MSGSEND(9, 1) JP_DEAL_MSGSEND(9, 2) JP_DEAL_MSGSEND(9, 3) JP_DEAL_MSGSEND(9, 4) JP_DEAL_MSGSEND(9, 5) JP_DEAL_MSGSEND(9, 6) JP_DEAL_MSGSEND(9, 7) JP_DEAL_MSGSEND(9, 8) JP_DEAL_MSGSEND(9, 9) }
-    JP_IF_REAL_ARG_COUNT(10) { JP_DEAL_MSGSEND(10, 1) JP_DEAL_MSGSEND(10, 2) JP_DEAL_MSGSEND(10, 3) JP_DEAL_MSGSEND(10, 4) JP_DEAL_MSGSEND(10, 5) JP_DEAL_MSGSEND(10, 6) JP_DEAL_MSGSEND(10, 7) JP_DEAL_MSGSEND(10, 8) JP_DEAL_MSGSEND(10, 9) JP_DEAL_MSGSEND(10, 10) }
-    
-    return results;
-}
-
-static id getArgument(id valObj){
-    if (valObj == _nilObj ||
-        ([valObj isKindOfClass:[NSNumber class]] && strcmp([valObj objCType], "c") == 0 && ![valObj boolValue])) {
-        return nil;
-    }
-    return valObj;
-}
-
 #pragma mark -
 
-static id genCallbackBlock(JSValue *jsVal)
+static id callBackBlockFromJSValue(JSValue *jsVal)
 {
 #define BLK_TRAITS_ARG(_idx, _paramName) \
 if (_idx < argTypes.count) { \
@@ -824,7 +667,7 @@ id convertJSToOC(JSValue *jsval)
             return ocObj;
         }
         if (obj[@"__isBlock"]) {
-            return genCallbackBlock(jsval);
+            return callBackBlockFromJSValue(jsval);
         }
         NSMutableDictionary *newDict = [[NSMutableDictionary alloc] init];
         for (NSString *key in [obj allKeys]) {

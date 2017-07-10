@@ -1,5 +1,5 @@
 //
-//  VZMistJSEngine.h
+//  VZMistScriptEngine.h
 //  MIST
 //
 //  Created by lingwan on 2017/7/6.
@@ -16,10 +16,10 @@ id convertJSToOC(JSValue *jsval);
 //Wrap params when call JSValue as Function directly
 NSArray* formatOCParamsToJS(NSArray *arr);
 
-@interface VZMistJSEngine : NSObject
+@interface VZMistScriptEngine : NSObject
 
-+ (JSValue *)evaluateScript:(NSString *)script;
++ (JSValue *)execute:(NSString *)script;
 
-+ (JSContext *)context;
++ (JSContext *)currentEngine;
 
 @end

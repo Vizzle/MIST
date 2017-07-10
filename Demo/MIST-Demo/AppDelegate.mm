@@ -243,7 +243,7 @@ return [[MistSimpleTemplateViewController alloc] initWithTitle:NAME templates:@[
     _window.rootViewController = _navController;
     [_window makeKeyAndVisible];
     
-    [VZMistJSEngine evaluateScript:@"var a = 1"];
+//    [VZMistJSEngine evaluateScript:@"var a = 1"];
     
     return YES;
 }

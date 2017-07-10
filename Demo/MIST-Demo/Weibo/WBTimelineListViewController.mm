@@ -136,6 +136,10 @@
 
 - (NSArray *)itemsWithData:(id)data templates:(NSDictionary<NSString *, NSString *> *)templates
 {
+    if (!templates.count) {
+        return nil;
+    }
+    
     NSMutableArray *items = [NSMutableArray new];
     
     NSDictionary *tplDict = [NSJSONSerialization JSONObjectWithData:[templates[@"WeiBo"] dataUsingEncoding:NSUTF8StringEncoding]

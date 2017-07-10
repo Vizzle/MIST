@@ -36,7 +36,7 @@
         _tplId = tplId;
         _script = content[@"script"];
         if (_script.length) {
-            [VZMistScriptEngine execute:_script];
+            [[VZMistScriptEngine sharedEngine] execute:_script];
         }
         
         _tplRawContent = [content copy];

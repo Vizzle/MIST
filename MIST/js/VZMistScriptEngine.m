@@ -9,7 +9,7 @@
 #import "VZMistScriptEngine.h"
 #import <UIKit/UIKit.h>
 #import <objc/runtime.h>
-#import <objc/message.h>
+
 #ifdef DEBUG
 #import "VZMistScriptErrorWindow.h"
 #import "VZScriptErrorMsgViewController.h"
@@ -60,13 +60,10 @@ VZObjectWrapper_GEN(boxPointer, pointer, void *)
 }
 @end
 
-
-static JSContext *_context;
 static NSObject *_nullObj;
 static NSObject *_nilObj;
 static NSMutableDictionary *_TMPMemoryPool;
 static NSMutableArray      *_pointersToRelease;
-static NSMutableDictionary *_currentSuperClassName;
 static NSMutableDictionary *_MethodSignatureCache;
 static NSLock              *_MethodSignatureCacheLock;
 
@@ -78,24 +75,58 @@ static void (^_exceptionBlock)(NSString *log) = ^void(NSString *log) {
 #endif
 };
 
+@interface VZMistScriptEngine ()
+@property (nonatomic, strong) NSMutableDictionary *currentSuperClassName;
+@end
+
 @implementation VZMistScriptEngine
 
-#pragma mark - APIS
++ (instancetype)sharedEngine {
+    static VZMistScriptEngine *engine = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        engine = [[VZMistScriptEngine alloc] init];
+    });
+    
+    return engine;
+}
 
-+ (void)prepareJSContext
-{
-    if (![JSContext class] || _context) {
-        return;
+- (instancetype)init {
+    if (self = [super init]) {
+        _currentSuperClassName = [[NSMutableDictionary alloc] init];
+
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            _nilObj = [[NSObject alloc] init];
+            _nullObj = [[NSObject alloc] init];
+            _MethodSignatureCacheLock = [[NSLock alloc] init];
+        });
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleMemoryWarning) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
     }
     
+    return self;
+}
+
+- (JSContext *)context {
+    if (!_context) {
+        _context = [self prepareJSContext];
+    }
+    
+    return _context;
+}
+
+- (JSContext *)prepareJSContext
+{
     JSContext *context = [[JSContext alloc] init];
     
+    __weak VZMistScriptEngine *weakSelf = self;
     context[@"callInstanceMethod"] = ^id(JSValue *obj, NSString *selectorName, JSValue *arguments, BOOL isSuper) {
-        return executeMethod(nil, selectorName, arguments, obj, isSuper);
+        return executeMethod(weakSelf, nil, selectorName, arguments, obj, isSuper);
     };
     
     context[@"callClassMethod"] = ^id(NSString *className, NSString *selectorName, JSValue *arguments) {
-        return executeMethod(className, selectorName, arguments, nil, NO);
+        return executeMethod(weakSelf, className, selectorName, arguments, nil, NO);
     };
     
     context[@"_MIST_JSToOC"] = ^id(JSValue *obj) {
@@ -176,33 +207,31 @@ static void (^_exceptionBlock)(NSString *log) = ^void(NSString *log) {
         _exceptionBlock([NSString stringWithFormat:@"js exception: %@", exception]);
     };
     
-    _nullObj = [[NSObject alloc] init];
     context[@"_OC_null"] = convertOCToJS(_nullObj);
     
-    _context = context;
-    
-    _nilObj = [[NSObject alloc] init];
-    _MethodSignatureCacheLock = [[NSLock alloc] init];
-    _currentSuperClassName = [[NSMutableDictionary alloc] init];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleMemoryWarning) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
-    
     NSString *engine = @"var global=this;(function(){var _ocCls={};var _jsCls={};var _convertOCtoJS=function(obj){if(obj===undefined||obj===null)return false\nif(typeof obj==\"object\"){if(obj.__obj)return obj\nif(obj.__isNil)return false}\nif(obj instanceof Array){var ret=[]\nobj.forEach(function(o){ret.push(_convertOCtoJS(o))})\nreturn ret}\nif(obj instanceof Function){return function(){var args=Array.prototype.slice.call(arguments)\nvar formatedArgs=_MIST_JSToOC(args)\nfor(var i=0;i<args.length;i++){if(args[i]===null||args[i]===undefined||args[i]===false){formatedArgs.splice(i,1,undefined)}else if(args[i]==nsnull){formatedArgs.splice(i,1,null)}}\nreturn _MIST_OCtoJS(obj.apply(obj,formatedArgs))}}\nif(obj instanceof Object){var ret={}\nfor(var key in obj){ret[key]=_convertOCtoJS(obj[key])}\nreturn ret}\nreturn obj}\nvar _methodFunc=function(instance,clsName,methodName,args,isSuper,isPerformSelector){var selectorName=methodName\nif(!isPerformSelector){methodName=methodName.replace(/__/g,\"-\")\nselectorName=methodName.replace(/_/g,\":\").replace(/-/g,\"_\")\nvar marchArr=selectorName.match(/:/g)\nvar numOfArgs=marchArr?marchArr.length:0\nif(args.length>numOfArgs){selectorName+=\":\"}}\nvar ret=instance?callInstanceMethod(instance,selectorName,args,isSuper):callClassMethod(clsName,selectorName,args)\nreturn _convertOCtoJS(ret)}\nvar _customMethods={__m:function(methodName){var slf=this\nif(slf instanceof Boolean){return function(){return false}}\nif(slf[methodName]){return slf[methodName].bind(slf);}\nif(!slf.__obj&&!slf.__clsName){throw new Error(slf+'.'+methodName+' is undefined')}\nif(slf.__isSuper&&slf.__clsName){slf.__clsName=_MIST_superClsName(slf.__obj.__realClsName?slf.__obj.__realClsName:slf.__clsName);}\nvar clsName=slf.__clsName\nif(clsName&&_ocCls[clsName]){var methodType=slf.__obj?'instMethods':'clsMethods'\nif(_ocCls[clsName][methodType][methodName]){slf.__isSuper=0;return _ocCls[clsName][methodType][methodName].bind(slf)}}\nreturn function(){var args=Array.prototype.slice.call(arguments)\nreturn _methodFunc(slf.__obj,slf.__clsName,methodName,args,slf.__isSuper)}},super:function(){var slf=this\nif(slf.__obj){slf.__obj.__realClsName=slf.__realClsName;}\nreturn{__obj:slf.__obj,__clsName:slf.__clsName,__isSuper:1}},performSelectorInOC:function(){var slf=this\nvar args=Array.prototype.slice.call(arguments)\nreturn{__isPerformInOC:1,obj:slf.__obj,clsName:slf.__clsName,sel:args[0],args:args[1],cb:args[2]}},performSelector:function(){var slf=this\nvar args=Array.prototype.slice.call(arguments)\nreturn _methodFunc(slf.__obj,slf.__clsName,args[0],args.splice(1),slf.__isSuper,true)}}\nfor(var method in _customMethods){if(_customMethods.hasOwnProperty(method)){Object.defineProperty(Object.prototype,method,{value:_customMethods[method],configurable:false,enumerable:false})}}\nvar _require=function(clsName){if(!global[clsName]){global[clsName]={__clsName:clsName}}\nreturn global[clsName]}\nglobal.require=function(){var lastRequire\nfor(var i=0;i<arguments.length;i++){arguments[i].split(',').forEach(function(clsName){lastRequire=_require(clsName.trim())})}\nreturn lastRequire}\nglobal.block=function(args,cb){var that=this\nvar slf=global.self\nif(args instanceof Function){cb=args\nargs=''}\nvar callback=function(){var args=Array.prototype.slice.call(arguments)\nglobal.self=slf\nreturn cb.apply(that,_convertOCtoJS(args))}\nreturn{args:args,cb:callback,__isBlock:1}}\nif(global.console){var jsLogger=console.log;global.console.log=function(){global._MIST_log.apply(global,arguments);if(jsLogger){jsLogger.apply(global.console,arguments);}}}else{global.console={log:global._MIST_log}}\nglobal.export=function(){var args=Array.prototype.slice.call(arguments)\nargs.forEach(function(o){if(o instanceof Function){global[o.name]=o}else if(o instanceof Object){for(var property in o){if(o.hasOwnProperty(property)){global[property]=o[property]}}}})}\nglobal.YES=1\nglobal.NO=0\nglobal.nsnull=_OC_null\nglobal._convertOCtoJS=_convertOCtoJS})()";
-    [_context evaluateScript:engine];
+    [context evaluateScript:engine];
+    
+    return context;
+}
+
+- (void)handleMemoryWarning
+{
+    [_MethodSignatureCacheLock lock];
+    _MethodSignatureCache = nil;
+    [_MethodSignatureCacheLock unlock];
 }
 
 static NSString *_regexStr = @"(?<!\\\\)\\.\\s*(\\w+)\\s*\\(";
 static NSRegularExpression* _regex;
 static NSString *_replaceStr = @".__m(\"$1\")(";
 
-+ (JSValue *)execute:(NSString *)script
+- (JSValue *)execute:(NSString *)script
 {
     if (!script || ![JSContext class]) {
         _exceptionBlock(@"script is nil");
         return nil;
     }
-    
-    [self prepareJSContext];
     
     if (!_regex) {
         _regex = [NSRegularExpression regularExpressionWithPattern:_regexStr options:0 error:nil];
@@ -211,9 +240,9 @@ static NSString *_replaceStr = @".__m(\"$1\")(";
     @try {
         
 #ifdef DEBUG
-        return [_context evaluateScript:formatedScript withSourceURL:[NSURL URLWithString:@"main.js"]];
+        return [self.context evaluateScript:formatedScript withSourceURL:[NSURL URLWithString:@"main.js"]];
 #else
-        return [_context evaluateScript:formatedScript];
+        return [self.context evaluateScript:formatedScript];
 #endif
         
     }
@@ -223,22 +252,12 @@ static NSString *_replaceStr = @".__m(\"$1\")(";
     return nil;
 }
 
-+ (JSContext *)currentEngine
-{
-    return _context;
-}
-
-+ (void)handleMemoryWarning
-{
-    [_MethodSignatureCacheLock lock];
-    _MethodSignatureCache = nil;
-    [_MethodSignatureCacheLock unlock];
-}
-
 #pragma mark -
 
-static id executeMethod(NSString *className, NSString *selectorName, JSValue *arguments, JSValue *instance, BOOL isSuper)
+static id executeMethod(VZMistScriptEngine *engine, NSString *className, NSString *selectorName, JSValue *arguments, JSValue *instance, BOOL isSuper)
 {
+    JSContext *_context = engine.context;
+    
     NSString *realClsName = [[instance valueForProperty:@"__realClsName"] toString];
     
     if (instance) {
@@ -418,9 +437,9 @@ break; \
         }
     }
     
-    if (superClassName) _currentSuperClassName[selectorName] = superClassName;
+    if (superClassName) engine.currentSuperClassName[selectorName] = superClassName;
     [invocation invoke];
-    if (superClassName) [_currentSuperClassName removeObjectForKey:selectorName];
+    if (superClassName) [engine.currentSuperClassName removeObjectForKey:selectorName];
     if ([_markArray count] > 0) {
         for (VZObjectWrapper *box in _markArray) {
             void *pointer = [box unwrapPointer];

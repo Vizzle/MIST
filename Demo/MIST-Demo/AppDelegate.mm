@@ -21,7 +21,7 @@
 #import <MISTDebug/MSTDebugger.h>
 #endif
 
-#import <MIST/VZMistJSEngine.h>
+#import <MIST/VZMistScriptEngine.h>
 
 @interface AppDelegate ()
 

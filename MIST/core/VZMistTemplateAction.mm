@@ -12,6 +12,7 @@
 #import "VZFDispatch.h"
 #import "VZMistScriptEngine.h"
 #import <objc/runtime.h>
+#import "VZMist.h"
 
 #define kVZMistActionResultKey @"_result_"
 
@@ -93,7 +94,7 @@
                 param = [VZMistTemplateHelper extractValueForExpression:param withContext:_context];
                 param = convertOCToJS(param);
                 
-                JSContext *jsContext = [VZMistScriptEngine currentEngine];
+                JSContext *jsContext = [VZMistScriptEngine sharedEngine].context;
                 JSValue *method = jsContext[methodName];
                 
                 if (method && !method.isNull && !method.isUndefined) {

@@ -104,15 +104,19 @@ static NSString *const kImagePlaceholder = @"__mist__image_placeholder";
     else if ([@"b" isEqualToString:elementName] || [@"strong" isEqualToString:elementName]) {
         UIFont *oldFont = attrs[NSFontAttributeName] ?: [UIFont systemFontOfSize:[UIFont systemFontSize]];
         UIFontDescriptor *fontDescriptor = [oldFont.fontDescriptor fontDescriptorWithSymbolicTraits:oldFont.fontDescriptor.symbolicTraits | UIFontDescriptorTraitBold];
-        UIFont *font = [UIFont fontWithDescriptor:fontDescriptor size:0];
-        attrs[NSFontAttributeName] = font;
+        if (fontDescriptor) {
+            UIFont *font = [UIFont fontWithDescriptor:fontDescriptor size:0];
+            attrs[NSFontAttributeName] = font;
+        }
     }
     // 斜体
     else if ([@"i" isEqualToString:elementName] || [@"em" isEqualToString:elementName] || [@"dfn" isEqualToString:elementName] || [@"cite" isEqualToString:elementName]) {
         UIFont *oldFont = attrs[NSFontAttributeName] ?: [UIFont systemFontOfSize:[UIFont systemFontSize]];
         UIFontDescriptor *fontDescriptor = [oldFont.fontDescriptor fontDescriptorWithSymbolicTraits:oldFont.fontDescriptor.symbolicTraits | UIFontDescriptorTraitItalic];
-        UIFont *font = [UIFont fontWithDescriptor:fontDescriptor size:0];
-        attrs[NSFontAttributeName] = font;
+        if (fontDescriptor) {
+            UIFont *font = [UIFont fontWithDescriptor:fontDescriptor size:0];
+            attrs[NSFontAttributeName] = font;
+        }
     }
     // 等宽字体
     else if ([@"tt" isEqualToString:elementName]) {
@@ -140,7 +144,9 @@ static NSString *const kImagePlaceholder = @"__mist__image_placeholder";
         }
         if ((value = attributeDict[@"weight"]) && [@"bold" isEqualToString:value]) {
             UIFontDescriptor *fontDescriptor = [oldFont.fontDescriptor fontDescriptorWithSymbolicTraits:oldFont.fontDescriptor.symbolicTraits | UIFontDescriptorTraitBold];
-            oldFont = [UIFont fontWithDescriptor:fontDescriptor size:0];
+            if (fontDescriptor) {
+                oldFont = [UIFont fontWithDescriptor:fontDescriptor size:0];
+            }
         }
         if ((value = attributeDict[@"color"])) {
             attrs[NSForegroundColorAttributeName] = [VZMistTemplateHelper colorFromString:value];
@@ -156,10 +162,12 @@ static NSString *const kImagePlaceholder = @"__mist__image_placeholder";
         UIFont *oldFont = attrs[NSFontAttributeName] ?: [UIFont systemFontOfSize:[UIFont systemFontSize]];
         CGFloat fontSize = [UIFont systemFontSize] * sizes[n];
         UIFontDescriptor *fontDescriptor = [oldFont.fontDescriptor fontDescriptorWithSize:fontSize];
-        fontDescriptor = [fontDescriptor fontDescriptorWithSymbolicTraits:oldFont.fontDescriptor.symbolicTraits | UIFontDescriptorTraitBold];
-        attrs[NSFontAttributeName] = [UIFont fontWithDescriptor:fontDescriptor size:0];
-
-        NSMutableParagraphStyle *paragraphStyle = [(attrs[NSParagraphStyleAttributeName] ?: [NSParagraphStyle new])mutableCopy];
+        if (fontDescriptor) {
+            fontDescriptor = [fontDescriptor fontDescriptorWithSymbolicTraits:oldFont.fontDescriptor.symbolicTraits | UIFontDescriptorTraitBold];
+            attrs[NSFontAttributeName] = [UIFont fontWithDescriptor:fontDescriptor size:0];
+        }
+        
+        NSMutableParagraphStyle *paragraphStyle = [(attrs[NSParagraphStyleAttributeName] ?: [NSParagraphStyle new]) mutableCopy];
         paragraphStyle.paragraphSpacing = fontSize * margins[n];
         attrs[NSParagraphStyleAttributeName] = paragraphStyle;
 

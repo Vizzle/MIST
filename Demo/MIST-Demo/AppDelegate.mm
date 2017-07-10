@@ -78,14 +78,14 @@ return [[MistSimpleTemplateViewController alloc] initWithTitle:NAME templates:@[
                         return [[MistSimpleTemplateViewController alloc] initWithTitle:@"评价" templates:@[@"EventParam"]];
                     }
                 },
-                {
-                    .title = @"计算器",
-                    .block = ^{
-                        MistSimpleTemplateViewController *vc = [[MistSimpleTemplateViewController alloc] initWithTitle:nil templates:@[@"Calculator"]];
-                        vc.tableView.bounces = NO;
-                        return vc;
-                    }
-                },
+//                {
+//                    .title = @"计算器",
+//                    .block = ^{
+//                        MistSimpleTemplateViewController *vc = [[MistSimpleTemplateViewController alloc] initWithTitle:nil templates:@[@"Calculator"]];
+//                        vc.tableView.bounces = NO;
+//                        return vc;
+//                    }
+//                },
                 {
                     .title = @"天气",
                     .block = ^{
@@ -205,13 +205,13 @@ return [[MistSimpleTemplateViewController alloc] initWithTitle:NAME templates:@[
                 },
             }
         },
-        {
-            .title = @"JS Support",
-            .subtitle = @"在模板中使用 JS",
-            .block = ^{
-                return [[MistSimpleTemplateViewController alloc] initWithTitle:nil templates:@[@"JSDemo"]];
-            }
-        },
+//        {
+//            .title = @"JS Support",
+//            .subtitle = @"在模板中使用 JS",
+//            .block = ^{
+//                return [[MistSimpleTemplateViewController alloc] initWithTitle:nil templates:@[@"JSDemo"]];
+//            }
+//        },
         {
             .title = @"Playground",
             .subtitle = @"在这里尝试模版的编写",

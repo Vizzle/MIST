@@ -87,7 +87,8 @@
         }
     }
     else {
-        for (NSString *sel in _dict) {
+        for (NSString *obj in _dict) {
+            NSString *sel = __vzStringDefault([VZMistTemplateHelper extractValueForExpression:obj withContext:_context]);
             if ([sel hasPrefix:@"js-"]) {
                 NSString *methodName = [sel substringFromIndex:3];
                 id param = _dict[sel];

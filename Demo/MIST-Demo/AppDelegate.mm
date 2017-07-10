@@ -21,8 +21,6 @@
 #import <MISTDebug/MSTDebugger.h>
 #endif
 
-#import <MIST/VZMistScriptEngine.h>
-
 @interface AppDelegate ()
 
 @property (strong, nonatomic) UIViewController *viewController;
@@ -242,8 +240,6 @@ return [[MistSimpleTemplateViewController alloc] initWithTitle:NAME templates:@[
     _navController = [[UINavigationController alloc] initWithRootViewController:_viewController];
     _window.rootViewController = _navController;
     [_window makeKeyAndVisible];
-    
-//    [VZMistJSEngine evaluateScript:@"var a = 1"];
     
     return YES;
 }

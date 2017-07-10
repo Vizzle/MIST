@@ -73,7 +73,7 @@
     
     dispatch_async(dispatch_get_main_queue(), ^{
         
-        [self fetchDataWithCompletion:^(id data, NSError *error) {
+        void (^completion)(id, NSError*) = ^(id data, NSError *error) {
             
             if (error) {
                 NSString *errorMessage = error.localizedDescription ?: @"数据请求失败";
@@ -91,7 +91,18 @@
                     
                 });
             } options:nil];
-        }];
+        };
+
+#define PRODUCTION 1
+        
+#ifdef PRODUCTION
+        NSString *path = [NSString stringWithFormat:@"%@/mist.bundle/wb_api.json", [NSBundle bundleForClass:self].bundlePath];
+        NSData *data = [NSData dataWithContentsOfFile:path];
+        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+        completion(dict[@"statuses"], nil);
+#else
+        [self fetchDataWithCompletion:completion];
+#endif
         
     });
 }

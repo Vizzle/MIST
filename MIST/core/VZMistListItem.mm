@@ -96,8 +96,8 @@ static const void *kMistItemInCell = &kMistItemInCell;
     }
     Class tplClass = _tpl.tplControllerClass ?: [self templateControllerClass];
     _tplController = [[tplClass alloc] initWithItem:self];
-    _state = nil;
     _didLoad = NO;
+    _state = nil;
     [self _rebuild:YES];
 }
 
@@ -246,21 +246,22 @@ static const void *kMistItemInCell = &kMistItemInCell;
         
         [_expressionContext pushVariableWithKey:@"_data_" value:processedData];
         
+        if (_tplController && !_didLoad) {
+            [_tplController didLoadTemplate];
+            _didLoad = YES;
+        }
+
         if (useInitialState) {
             _state = _tpl.initialState ?: [_tplController initialState];
         }
         _state = [VZMistTemplateHelper extractValueForExpression:_state withContext:_expressionContext];
         [_expressionContext pushVariableWithKey:@"state" value:_state];
         
-        if (_tplController && !_didLoad) {
-            [_tplController didLoadTemplate];
-            _didLoad = YES;
-        }
 
-        [self updateModel:self.data
-            constrainedSize:CGSizeMake([UIScreen mainScreen].bounds.size.width, VZ::FlexValue::Auto())
-                    context:[[VZMistWeakObject alloc] initWithObject:self]];
-
+        [self updateModel:@{}
+          constrainedSize:CGSizeMake([UIScreen mainScreen].bounds.size.width, VZ::FlexValue::Auto())
+                  context:[[VZMistWeakObject alloc] initWithObject:self]];
+        
         if (_tplController) {
             [_tplController didReload];
         }

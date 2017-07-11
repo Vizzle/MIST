@@ -13,10 +13,7 @@
 #import "VZMistTemplate.h"
 #import "VZMistTemplateHelper.h"
 #import <MIST/VZMist.h>
-
-#if DEBUG
 #import <MISTDebug/MSTDebugger.h>
-#endif
 
 
 @interface MistSimpleTemplateBlock : NSObject

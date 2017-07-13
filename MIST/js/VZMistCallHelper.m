@@ -1,12 +1,12 @@
 //
-//  VZMistScriptEngine.m
+//  VZMistCallHelper.m
 //  MIST
 //
 //  Created by lingwan on 2017/7/6.
 //
 //
 
-#import "VZMistScriptEngine.h"
+#import "VZMistCallHelper.h"
 #import <UIKit/UIKit.h>
 #import <objc/runtime.h>
 
@@ -75,17 +75,17 @@ static void (^_exceptionBlock)(NSString *log) = ^void(NSString *log) {
 #endif
 };
 
-@interface VZMistScriptEngine ()
-@property (nonatomic, strong) NSMutableDictionary *currentSuperClassName;
+@interface VZMistCallHelper ()
+@property (nonatomic, strong) NSMutableDictionary *superClassName;
 @end
 
-@implementation VZMistScriptEngine
+@implementation VZMistCallHelper
 
-+ (instancetype)sharedEngine {
-    static VZMistScriptEngine *engine = nil;
++ (instancetype)shared {
+    static VZMistCallHelper *engine = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        engine = [[VZMistScriptEngine alloc] init];
+        engine = [[VZMistCallHelper alloc] init];
     });
     
     return engine;
@@ -93,7 +93,7 @@ static void (^_exceptionBlock)(NSString *log) = ^void(NSString *log) {
 
 - (instancetype)init {
     if (self = [super init]) {
-        _currentSuperClassName = [[NSMutableDictionary alloc] init];
+        _superClassName = [[NSMutableDictionary alloc] init];
 
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
@@ -102,7 +102,7 @@ static void (^_exceptionBlock)(NSString *log) = ^void(NSString *log) {
             _MethodSignatureCacheLock = [[NSLock alloc] init];
         });
         
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleMemoryWarning) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clear) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
     }
     
     return self;
@@ -110,17 +110,17 @@ static void (^_exceptionBlock)(NSString *log) = ^void(NSString *log) {
 
 - (JSContext *)context {
     if (!_context) {
-        _context = [self prepareJSContext];
+        _context = [self prepare];
     }
     
     return _context;
 }
 
-- (JSContext *)prepareJSContext
+- (JSContext *)prepare
 {
     JSContext *context = [[JSContext alloc] init];
     
-    __weak VZMistScriptEngine *weakSelf = self;
+    __weak VZMistCallHelper *weakSelf = self;
     context[@"callInstanceMethod"] = ^id(JSValue *obj, NSString *selectorName, JSValue *arguments, BOOL isSuper) {
         return executeMethod(weakSelf, nil, selectorName, arguments, obj, isSuper);
     };
@@ -215,7 +215,7 @@ static void (^_exceptionBlock)(NSString *log) = ^void(NSString *log) {
     return context;
 }
 
-- (void)handleMemoryWarning
+- (void)clear
 {
     [_MethodSignatureCacheLock lock];
     _MethodSignatureCache = nil;
@@ -226,7 +226,7 @@ static NSString *_regexStr = @"(?<!\\\\)\\.\\s*(\\w+)\\s*\\(";
 static NSRegularExpression* _regex;
 static NSString *_replaceStr = @".__m(\"$1\")(";
 
-- (JSValue *)execute:(NSString *)script
+- (id)run:(NSString *)script
 {
     if (!script || ![JSContext class]) {
         _exceptionBlock(@"script is nil");
@@ -254,7 +254,7 @@ static NSString *_replaceStr = @".__m(\"$1\")(";
 
 #pragma mark -
 
-static id executeMethod(VZMistScriptEngine *engine, NSString *className, NSString *selectorName, JSValue *arguments, JSValue *instance, BOOL isSuper)
+static id executeMethod(VZMistCallHelper *engine, NSString *className, NSString *selectorName, JSValue *arguments, JSValue *instance, BOOL isSuper)
 {
     JSContext *_context = engine.context;
     
@@ -437,9 +437,9 @@ break; \
         }
     }
     
-    if (superClassName) engine.currentSuperClassName[selectorName] = superClassName;
+    if (superClassName) engine.superClassName[selectorName] = superClassName;
     [invocation invoke];
-    if (superClassName) [engine.currentSuperClassName removeObjectForKey:selectorName];
+    if (superClassName) [engine.superClassName removeObjectForKey:selectorName];
     if ([_markArray count] > 0) {
         for (VZObjectWrapper *box in _markArray) {
             void *pointer = [box unwrapPointer];

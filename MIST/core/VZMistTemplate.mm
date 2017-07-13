@@ -12,7 +12,7 @@
 #import "VZMistTemplateController.h"
 #import "VZMist.h"
 #import "VZMistError.h"
-#import "VZMistScriptEngine.h"
+#import "VZMistCallHelper.h"
 
 @implementation VZMistTemplate
 
@@ -36,7 +36,7 @@
         _tplId = tplId;
         _script = content[@"script"];
         if (_script.length) {
-            [[VZMistScriptEngine sharedEngine] execute:_script];
+            [[VZMistCallHelper shared] run:_script];
         }
         
         _tplRawContent = [content copy];

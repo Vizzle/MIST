@@ -29,17 +29,5 @@
                    item:(id<VZMistItem>)item
                    data:(VZTExpressionContext *)data;
 
-
-/**
- 业务注册的 js 方法
- */
-@property (nonatomic, strong) NSMutableDictionary<NSString *, id> *registeredJSVariables;
-
-
-/**
- 业务注册的类型
- */
-@property (nonatomic, strong) NSArray<NSString *> *exportTypes;
-
 @end
 #endif /* VZMistInternal_h */

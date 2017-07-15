@@ -18,7 +18,6 @@
 #import <objc/runtime.h>
 #import "VZMist.h"
 #import "VZMistInternal.h"
-#import "VZMistJSContextBuilder.h"
 
 #ifdef DEBUG
 #import "VZScriptErrorMsgViewController.h"
@@ -65,8 +64,6 @@ static const void *kMistItemInCell = &kMistItemInCell;
     NSDictionary *_processedData;
     BOOL _didLoad;
 }
-
-@synthesize jsContext = _jsContext;
 
 - (instancetype)init
 {
@@ -341,20 +338,6 @@ static const void *kMistItemInCell = &kMistItemInCell;
     } else {
         return nil;
     }
-}
-
-# pragma mark - Javascript
-
-- (JSContext *)jsContext {
-    if (!_jsContext) {
-        NSString *script = self.tpl.script;
-        if (script.length) {
-            _jsContext = [VZMistJSContextBuilder newJSContext];
-            [_jsContext evaluateScript:script withSourceURL:[NSURL URLWithString:@"main.js"]];
-        }
-    }
-    
-    return _jsContext;
 }
 
 @end

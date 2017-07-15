@@ -10,7 +10,7 @@
 #import "VZMistTemplateHelper.h"
 #import "VZDataStructure.h"
 #import "VZFDispatch.h"
-#import "VZMistCallHelper.h"
+#import "VZMistJSEngine.h"
 #import <objc/runtime.h>
 #import "VZMist.h"
 
@@ -94,7 +94,7 @@
                 param = [VZMistTemplateHelper extractValueForExpression:param withContext:_context];
                 param = convertOCToJS(param);
                 
-                JSContext *jsContext = [VZMistCallHelper shared].context;
+                JSContext *jsContext = [VZMistJSEngine shared].context;
                 JSValue *method = jsContext[methodName];
                 
                 if (method && !method.isNull && !method.isUndefined) {

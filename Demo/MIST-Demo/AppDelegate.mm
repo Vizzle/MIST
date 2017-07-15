@@ -202,13 +202,6 @@ return [[MistSimpleTemplateViewController alloc] initWithTitle:NAME templates:@[
                 },
             }
         },
-//        {
-//            .title = @"JS Support",
-//            .subtitle = @"在模板中使用 JS",
-//            .block = ^{
-//                return [[MistSimpleTemplateViewController alloc] initWithTitle:nil templates:@[@"JSDemo"]];
-//            }
-//        },
         {
             .title = @"Playground",
             .subtitle = @"在这里尝试模版的编写",
@@ -225,10 +218,6 @@ return [[MistSimpleTemplateViewController alloc] initWithTitle:NAME templates:@[
     
     // 完成初始化
     [VZMist sharedInstance];
-    
-    //注册 js 全局对象
-    [[VZMist sharedInstance] registerJSGlobalVariable:@"http" object:[MistJSHttpRequestHelper sharedInstance]];
-    [[VZMist sharedInstance] registerJSGlobalVariable:@"toast" object:[MistJSToast class]];
     
     _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     _viewController = [[MistDemoIndexViewController alloc] initWithTitle:@"MIST" demoItems:self.demos];

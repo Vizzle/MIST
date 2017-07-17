@@ -2,6 +2,8 @@
 
 Mist 的 Sublime 插件提供属性提示、快速跳转等功能，提高开发效率。
 
+**已不再更新，推荐使用 [VSCode 插件](VSCode.md)**
+
 ## 安装
 
 1. 首先确保你使用的 Sublime Text 版本不低于 3092，如果不是请在[这里](http://www.sublimetext.com/3)安装最新版。

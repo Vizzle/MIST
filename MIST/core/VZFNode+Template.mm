@@ -999,7 +999,7 @@ static inline void vz_bindStatefulProperty(StatefulValue<T *> &prop, id value, i
                 for (NSString * key in body) {                                                        \
                     [event addEventParamWithName:key object:body[key]];                               \
                 }                                                                                     \
-                [event invokeWithSender:body[@"sender"]];                                             \
+                [event invokeWithSender:body];                                             \
             };                                                                                        \
         }                                                                                             \
     }

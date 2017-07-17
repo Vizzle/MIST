@@ -16,7 +16,7 @@ PODS:
     - SDWebImage (= 4.0.0)
   - MIST (0.0.3):
     - VZFlexLayout
-  - MISTDebug (0.2.1):
+  - MISTDebug (1.0.0):
     - CocoaAsyncSocket
     - CocoaHTTPServer
     - Tweaks
@@ -25,7 +25,7 @@ PODS:
     - SDWebImage/Core (= 4.0.0)
   - SDWebImage/Core (4.0.0)
   - Tweaks (2.0.0)
-  - VZFlexLayout (0.2.6)
+  - VZFlexLayout (0.2.7)
 
 DEPENDENCIES:
   - IDMPhotoBrowser
@@ -43,12 +43,12 @@ SPEC CHECKSUMS:
   CocoaLumberjack: 9b4aed7073d242f29cc2f62068d995faf67f703a
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
   IDMPhotoBrowser: b96159fe4adb991a844068eb17dab9c0b7d7e51a
-  MIST: '0656509ccc56a113e0d23253994a60c9e17d0d65'
-  MISTDebug: bf07dac69cc943ba09400b183349f9a168ee3317
+  MIST: 0656509ccc56a113e0d23253994a60c9e17d0d65
+  MISTDebug: 2845183b110e2e7e4375422cb633ceace43d78a9
   pop: 82ca6b068ce9278fd350fd9dd09482a0ce9492e6
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
   Tweaks: 524fa47636cce3bf3a4d9156e980f10ae9480e81
-  VZFlexLayout: 83c7eb34609038b5e07398771f4ed24fefce9761
+  VZFlexLayout: 3dd6c2aefe1aea1d2ddd6024732bff5b6f35412c
 
 PODFILE CHECKSUM: bb7c422f56a99a4f7a9783b503977a27cdeed2f9
 

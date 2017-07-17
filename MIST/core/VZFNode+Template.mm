@@ -1085,7 +1085,7 @@ static inline void vz_bindStatefulProperty(StatefulValue<T *> &prop, id value, i
     VZ_BIND_NUMBER_PROPERTY(bool, specs.paging, style[@"paging"], data, PagingNodeSpecsDefault::scrollEnabled);
     VZ_BIND_NUMBER_PROPERTY(float, specs.autoScroll, style[@"auto-scroll"], data);
     VZ_BIND_NUMBER_PROPERTY(bool, specs.infiniteLoop, style[@"infinite-loop"], data);
-    VZ_BIND_NUMBER_PROPERTY(float, specs.animationDuration, tpl[@"animation-duration"], data, PagingNodeSpecsDefault::animationDuration);
+    VZ_BIND_NUMBER_PROPERTY(float, specs.animationDuration, style[@"animation-duration"], data, PagingNodeSpecsDefault::animationDuration);
     VZ_BIND_NUMBER_PROPERTY(bool, specs.pageControl, style[@"page-control"], data);
     VZ_BIND_PROPERTY(FlexLength, specs.pageControlMarginLeft, style[@"page-control-margin-left"], data, PagingNodeSpecsDefault::margin);
     VZ_BIND_PROPERTY(FlexLength, specs.pageControlMarginRight, style[@"page-control-margin-right"], data, PagingNodeSpecsDefault::margin);

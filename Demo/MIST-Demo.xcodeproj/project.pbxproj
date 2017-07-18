@@ -381,7 +381,7 @@
 				TargetAttributes = {
 					455F94A41EA63CC70050EFFE = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 8EZ24DBNN4;
+						DevelopmentTeam = RMP5PV6R6N;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -617,11 +617,11 @@
 			baseConfigurationReference = 8077F1AE59CBBE2DD266CBD9 /* Pods-MIST-Demo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 8EZ24DBNN4;
+				DEVELOPMENT_TEAM = RMP5PV6R6N;
 				INFOPLIST_FILE = "MIST-Demo/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.vizlab.MIST-Demo";
+				PRODUCT_BUNDLE_IDENTIFIER = com.vizlab.MISTPlayground;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -632,11 +632,11 @@
 			baseConfigurationReference = B0B27EEA8EB467CC9F77B927 /* Pods-MIST-Demo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 8EZ24DBNN4;
+				DEVELOPMENT_TEAM = RMP5PV6R6N;
 				INFOPLIST_FILE = "MIST-Demo/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.vizlab.MIST-Demo";
+				PRODUCT_BUNDLE_IDENTIFIER = com.vizlab.MISTPlayground;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 			};

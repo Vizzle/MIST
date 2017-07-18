@@ -1,11 +1,11 @@
 PODS:
-  - VZFlexLayout (0.2.6)
+  - VZFlexLayout (0.2.7)
 
 DEPENDENCIES:
   - VZFlexLayout
 
 SPEC CHECKSUMS:
-  VZFlexLayout: 83c7eb34609038b5e07398771f4ed24fefce9761
+  VZFlexLayout: 3dd6c2aefe1aea1d2ddd6024732bff5b6f35412c
 
 PODFILE CHECKSUM: 490353be4c01890f098266944011e2bc92f4e164
 

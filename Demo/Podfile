@@ -6,6 +6,6 @@ target 'MIST-Demo' do
   pod 'SDWebImage'
   pod 'IDMPhotoBrowser'
   pod 'MIST', :path => '../'
-  pod 'MISTDebug', :configurations => ['Debug']
+  pod 'MISTDebug'
 
 end

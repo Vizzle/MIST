@@ -457,6 +457,7 @@
     } else {
         _lexer.pointer = pointer;
         _lexer.lookAheadStack = lookAheadStack;
+        return list;
     }
     return [self parseExpressionList2:list];
 }
@@ -509,7 +510,7 @@
 {
     if ([self parseOperator:@","]) {
         VZTExpressionNode *key = [self parseExpression];
-        if (!key) return list;
+        if (!key) return nil;
         VZT_REQUIRE_OPERATOR(@":");
         VZTExpressionNode *value = [self parseExpression];
         if (!value) return nil;

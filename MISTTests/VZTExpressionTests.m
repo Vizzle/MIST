@@ -281,6 +281,11 @@ static NSString *status;
     XCTAssertExpressionNotCompiled(@"'''");
     XCTAssertExpressionNotCompiled(@"[1,2,]");
     XCTAssertExpressionNotCompiled(@"{'a':b,}");
+    XCTAssertExpressionNotCompiled(@"lambda(a->)");
+    XCTAssertExpressionNotCompiled(@"lambda(->b)");
+    XCTAssertExpressionNotCompiled(@"lambda(a- >b)");
+    XCTAssertExpressionNotCompiled(@"a[]");
+    XCTAssertExpressionNotCompiled(@"a(,)");
 }
 
 - (NSArray *)expressions {

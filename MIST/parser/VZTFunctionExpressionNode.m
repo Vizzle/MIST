@@ -8,7 +8,6 @@
 
 #import "VZTFunctionExpressionNode.h"
 #import "VZTIdentifierNode.h"
-#import "VZTExpressionListNode.h"
 #import "VZTUtils.h"
 #import "VZTLambdaExpressionNode.h"
 #import "VZTGlobalFunctions.h"
@@ -17,7 +16,7 @@
 
 @implementation VZTFunctionExpressionNode
 
-- (instancetype)initWithTarget:(VZTExpressionNode *)target action:(VZTIdentifierNode *)action parameters:(VZTExpressionListNode *)parameters
+- (instancetype)initWithTarget:(VZTExpressionNode *)target action:(VZTIdentifierNode *)action parameters:(NSArray<VZTExpressionNode *> *)parameters
 {
     if (self = [super init]) {
         _target = target;
@@ -47,7 +46,7 @@
 
     NSString *identifier = _action.identifier;
 
-    if (!_parameters.expressionList && [target isKindOfClass:[NSDictionary class]]) {
+    if (!_parameters && [target isKindOfClass:[NSDictionary class]]) {
         id value = [target objectForKey:identifier];
         if (value) {
             return value;
@@ -55,11 +54,11 @@
     }
     
     if ([@"eval" isEqualToString:identifier] && target == [VZTGlobalFunctions class]) {
-        if (_parameters.expressionList.count != 1) {
-            NSLog(@"eval() requires one parameter, but %lu was provided", (unsigned long)_parameters.expressionList.count);
+        if (_parameters.count != 1) {
+            NSLog(@"eval() requires one parameter, but %lu was provided", (unsigned long)_parameters.count);
             return nil;
         }
-        NSString *exp = [_parameters.expressionList.firstObject compute:context];
+        NSString *exp = [_parameters.firstObject compute:context];
         if (![exp isKindOfClass:[NSString class]]) {
             NSLog(@"eval() requires string parameter, but %@ was provided", NSStringFromClass([exp class]));
             return nil;
@@ -76,8 +75,8 @@
     NSString *selectorName = [[[identifier stringByReplacingOccurrencesOfString:@"__" withString:@"$"] stringByReplacingOccurrencesOfString:@"_" withString:@":"] stringByReplacingOccurrencesOfString:@"$" withString:@"_"];
 
     NSUInteger numberOfColons = [self numberOfCharacter:':' inString:selectorName];
-    if (_parameters.expressionList.count > numberOfColons) {
-        selectorName = [selectorName stringByPaddingToLength:selectorName.length + _parameters.expressionList.count - numberOfColons withString:@":" startingAtIndex:0];
+    if (_parameters.count > numberOfColons) {
+        selectorName = [selectorName stringByPaddingToLength:selectorName.length + _parameters.count - numberOfColons withString:@":" startingAtIndex:0];
     }
 
     SEL selector = NSSelectorFromString(selectorName);
@@ -96,7 +95,7 @@
 {
     NSMutableArray *arguments = [NSMutableArray array];
     NSMutableArray *lambdaParameters = [NSMutableArray array];
-    for (VZTExpressionNode *expression in _parameters.expressionList) {
+    for (VZTExpressionNode *expression in _parameters) {
         if ([expression isKindOfClass:[VZTLambdaExpressionNode class]]) {
             NSString *parameter = ((VZTLambdaExpressionNode *)expression).parameter;
             [lambdaParameters addObject:parameter];

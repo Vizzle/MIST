@@ -8,13 +8,11 @@
 
 #import "VZTExpressionNode.h"
 
-@class VZTExpressionListNode;
-
 
 @interface VZTArrayExpressionNode : VZTExpressionNode
 
-@property (nonatomic, strong) VZTExpressionListNode *expressionList;
+@property (nonatomic, strong) NSArray<VZTExpressionNode *> *expressionList;
 
-- (instancetype)initWithExpressionList:(VZTExpressionListNode *)expressionList;
+- (instancetype)initWithExpressionList:(NSArray<VZTExpressionNode *> *)expressionList;
 
 @end

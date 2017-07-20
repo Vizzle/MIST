@@ -7,12 +7,11 @@
 //
 
 #import "VZTArrayExpressionNode.h"
-#import "VZTExpressionListNode.h"
 
 
 @implementation VZTArrayExpressionNode
 
-- (instancetype)initWithExpressionList:(VZTExpressionListNode *)expressionList
+- (instancetype)initWithExpressionList:(NSArray<VZTExpressionNode *> *)expressionList
 {
     if (self = [super init]) {
         _expressionList = expressionList;
@@ -23,7 +22,7 @@
 - (id)compute:(VZTExpressionContext *)context
 {
     NSMutableArray *array = [NSMutableArray array];
-    for (VZTExpressionNode *element in _expressionList.expressionList) {
+    for (VZTExpressionNode *element in _expressionList) {
         id obj = [element compute:context];
         if (obj) {
             [array addObject:obj];

@@ -10,7 +10,6 @@
 #import "VZTLexer.h"
 #import "VZTOperatorNode.h"
 #import "VZTExpressionNode.h"
-#import "VZTExpressionListNode.h"
 #import "VZTKeyValueListNode.h"
 #import "VZTLiteralNode.h"
 #import "VZTIdentifierNode.h"
@@ -427,7 +426,7 @@
     } else if ([self parseOperator:@"."]) {
         VZTIdentifierNode *action = [self parseIdentifier];
         if (!action) return nil;
-        VZTExpressionListNode *parameters;
+        NSArray<VZTExpressionNode *> *parameters;
         if ([self parseOperator:@"("]) {
             parameters = [self parseExpressionList];
             if (!parameters) return nil;
@@ -445,15 +444,15 @@
     | ε
 	;
  */
-- (VZTExpressionListNode *)parseExpressionList
+- (NSArray<VZTExpressionNode *> *)parseExpressionList
 {
     NSInteger pointer = _lexer.pointer;
     NSMutableArray *lookAheadStack = _lexer.lookAheadStack.mutableCopy;
-
-    VZTExpressionListNode *list = [[VZTExpressionListNode alloc] init];
+    
+    NSMutableArray<VZTExpressionNode *> *list = [[NSMutableArray alloc] init];
     VZTExpressionNode *expression = [self parseExpression];
     if (expression) {
-        [list.expressionList addObject:expression];
+        [list addObject:expression];
     } else {
         _lexer.pointer = pointer;
         _lexer.lookAheadStack = lookAheadStack;
@@ -468,12 +467,12 @@
 	| ε
 	;
  */
-- (VZTExpressionListNode *)parseExpressionList2:(VZTExpressionListNode *)list
+- (NSArray<VZTExpressionNode *> *)parseExpressionList2:(NSMutableArray<VZTExpressionNode *> *)list
 {
     if ([self parseOperator:@","]) {
         VZTExpressionNode *expression = [self parseExpression];
         if (expression) {
-            [list.expressionList addObject:expression];
+            [list addObject:expression];
             return [self parseExpressionList2:list];
         } else {
             return nil;
@@ -541,7 +540,7 @@
         VZT_REQUIRE_OPERATOR(@")");
         return expression;
     } else if ([self parseOperator:@"["]) {
-        VZTExpressionListNode *list = [self parseExpressionList];
+        NSArray *list = [self parseExpressionList];
         if (!list) return nil;
         VZT_REQUIRE_OPERATOR(@"]");
         return [[VZTArrayExpressionNode alloc] initWithExpressionList:list];
@@ -556,7 +555,7 @@
 
     VZTIdentifierNode *identifier = [self parseIdentifier];
     if ([self parseOperator:@"("]) {
-        VZTExpressionListNode *list = [self parseExpressionList];
+        NSArray *list = [self parseExpressionList];
         if (!list) return nil;
         VZT_REQUIRE_OPERATOR(@")");
         return [[VZTFunctionExpressionNode alloc] initWithTarget:nil action:identifier parameters:list];

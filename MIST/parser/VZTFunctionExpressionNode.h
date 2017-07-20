@@ -9,15 +9,14 @@
 #import "VZTExpressionNode.h"
 
 @class VZTIdentifierNode;
-@class VZTExpressionListNode;
 
 
 @interface VZTFunctionExpressionNode : VZTExpressionNode
 
 @property (nonatomic, strong) VZTExpressionNode *target;
 @property (nonatomic, strong) VZTIdentifierNode *action;
-@property (nonatomic, strong) VZTExpressionListNode *parameters;
+@property (nonatomic, strong) NSArray<VZTExpressionNode *> *parameters;
 
-- (instancetype)initWithTarget:(VZTExpressionNode *)target action:(VZTIdentifierNode *)action parameters:(VZTExpressionListNode *)parameters;
+- (instancetype)initWithTarget:(VZTExpressionNode *)target action:(VZTIdentifierNode *)action parameters:(NSArray<VZTExpressionNode *> *)parameters;
 
 @end

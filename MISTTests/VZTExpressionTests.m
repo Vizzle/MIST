@@ -7,6 +7,7 @@
 //
 
 #import <XCTest/XCTest.h>
+#import "VZTLexer.h"
 #import "VZTParser.h"
 #import "VZTExpressionNode.h"
 #import <JavaScriptCore/JavaScriptCore.h>
@@ -1330,6 +1331,29 @@ int fooC(int a) {
     XCTAssertEqualObjects(d1, d2);
     [self measureBlock:^{
         VZT_COMPUTE(json);
+    }];
+}
+
+- (void)testLexer {
+    NSString *text = @"0 1 10 0.1 12.34 1e10 1.230E-12";
+    VZTLexer *lexer = [[VZTLexer alloc] initWithString:text];
+    NSArray *numbers = [text componentsSeparatedByString:@" "];
+    for (NSString *n in numbers) {
+        XCTAssertEqual([lexer.nextToken.value doubleValue], [n doubleValue]);
+    }
+}
+
+- (void)testPerformanceLexer {
+    NSString *text = @"max(1 + (2 + 3) * 4, XX.xx.xx(xx, [1, 2, {'a': xxx, 'b': [], '中文', '\\u1234\\t': ''}], xxxx(xx, xx))).xxxx(xxx, aaa) ? xxx + assd : asdq.asda.asd(xxxx + asd / ads, asdd ? asds : asd + adasdasd / asdsad.asddq(xxas, asda) / asdasd.xxasd).asdad(xasd, asd + asdD) * adasd";
+    [self measureBlock:^{
+        for (int i=0; i < 1000; i++) {
+            VZTLexer *lexer = [[VZTLexer alloc] initWithString:text];
+            VZTToken *token;
+            while ((token = lexer.nextToken)) {
+                
+            }
+            XCTAssertNil(lexer.error);
+        }
     }];
 }
 

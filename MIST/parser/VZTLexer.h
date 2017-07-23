@@ -20,10 +20,11 @@ typedef NS_ENUM(NSUInteger, VZTTokenType) {
 @interface VZTToken : NSObject
 
 @property (nonatomic, strong, readonly) NSString *token;
+@property (nonatomic, strong, readonly) id value;
 @property (nonatomic, readonly) VZTTokenType type;
 @property (nonatomic, readonly) NSRange range;
 
-- (instancetype)initWithToken:(NSString *)token type:(VZTTokenType)type range:(NSRange)range;
+- (instancetype)initWithToken:(NSString *)token value:(id)value type:(VZTTokenType)type range:(NSRange)range;
 
 @end
 

@@ -125,9 +125,9 @@
 - (VZTLiteralNode *)parseLiteral
 {
     if (_lexer.lookAhead.type == VZTTokenTypeNumber) {
-        return [[VZTLiteralNode alloc] initWithValue:@(strtod(_lexer.nextToken.token.UTF8String, NULL))];
+        return [[VZTLiteralNode alloc] initWithValue:_lexer.nextToken.value];
     } else if (_lexer.lookAhead.type == VZTTokenTypeString) {
-        return [[VZTLiteralNode alloc] initWithValue:_lexer.nextToken.token];
+        return [[VZTLiteralNode alloc] initWithValue:_lexer.nextToken.value];
     } else if (_lexer.lookAhead.type == VZTTokenTypeId) {
         NSString *token = _lexer.lookAhead.token;
         if ([@"nil" isEqualToString:token] || [@"null" isEqualToString:token]) {

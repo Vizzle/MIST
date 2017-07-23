@@ -10,21 +10,29 @@
 
 typedef NS_ENUM(NSUInteger, VZTTokenType) {
     VZTTokenTypeUnknown,
-    VZTTokenTypeString,
+    VZTTokenTypeString = 256,
     VZTTokenTypeNumber,
+    VZTTokenTypeBoolean,
+    VZTTokenTypeNull,
     VZTTokenTypeId,
-    VZTTokenTypeOperator,
+    VZTTokenTypeAnd,
+    VZTTokenTypeOr,
+    VZTTokenTypeEqual,
+    VZTTokenTypeNotEqual,
+    VZTTokenTypeGreaterOrEqaul,
+    VZTTokenTypeLessOrEqaul,
+    VZTTokenTypeArrow,
 };
 
+NSString *vzt_tokenName(VZTTokenType type);
 
 @interface VZTToken : NSObject
 
-@property (nonatomic, strong, readonly) NSString *token;
 @property (nonatomic, strong, readonly) id value;
 @property (nonatomic, readonly) VZTTokenType type;
 @property (nonatomic, readonly) NSRange range;
 
-- (instancetype)initWithToken:(NSString *)token value:(id)value type:(VZTTokenType)type range:(NSRange)range;
+- (instancetype)initWithValue:(id)value type:(VZTTokenType)type range:(NSRange)range;
 
 @end
 
@@ -33,7 +41,6 @@ typedef NS_ENUM(NSUInteger, VZTTokenType) {
 
 @property (nonatomic, strong, readonly) NSString *error;
 @property (nonatomic, strong, readonly) VZTToken *lastToken;
-@property (nonatomic, strong, readonly) NSString *source;
 
 @property (nonatomic, assign) NSInteger pointer;
 @property (nonatomic, strong) NSMutableArray *lookAheadStack;

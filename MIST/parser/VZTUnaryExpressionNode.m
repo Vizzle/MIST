@@ -12,7 +12,7 @@
 
 @implementation VZTUnaryExpressionNode
 
-- (instancetype)initWithOperator:(NSString *) operator operand:(VZTExpressionNode *)operand
+- (instancetype)initWithOperator:(VZTTokenType) operator operand:(VZTExpressionNode *)operand
 {
     if (self = [super init]) {
         _operator = operator;
@@ -23,19 +23,22 @@
 
 - (id)compute:(VZTExpressionContext *)context
 {
-    if ([@"!" isEqualToString:_operator]) {
-        return vzt_boolValue([_operand compute:context]) ? @NO : @YES;
-    } else if ([@"-" isEqualToString:_operator]) {
-        id value = [_operand compute:context];
-        if (value && ![value isKindOfClass:[NSNumber class]]) {
-            NSLog(@"unary operator '-' only supports on number type");
-            return nil;
+    switch ((int)_operator) {
+        case '!':
+            return vzt_boolValue([_operand compute:context]) ? @NO : @YES;
+        case '-':
+        {
+            id value = [_operand compute:context];
+            if (value && ![value isKindOfClass:[NSNumber class]]) {
+                NSLog(@"unary operator '-' only supports on number type");
+                return nil;
+            }
+            return @(-[value doubleValue]);
         }
-        return @(-[value doubleValue]);
+        default:
+            NSAssert(NO, @"unknown unary operator '%@'", vzt_tokenName(_operator));
+            return nil;
     }
-
-    NSAssert(NO, @"unknown unary operator '%@'", _operator);
-    return nil;
 }
 
 @end

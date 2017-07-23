@@ -40,12 +40,40 @@ void VZTVector_push(VZTVector *vector, const char *data, size_t len) {
     vector = NULL;                  \
 } while(0)
 
+
+const char *const vzt_tokenNames[] = {
+    "string",   // VZTTokenTypeString = 256,
+    "number",   // VZTTokenTypeNumber,
+    "boolean",  // VZTTokenTypeBoolean,
+    "null",     // VZTTokenTypeNull,
+    "id",       // VZTTokenTypeId,
+    "&&",       // VZTTokenTypeAnd,
+    "||",       // VZTTokenTypeOr,
+    "==",       // VZTTokenTypeEqual,
+    "!=",       // VZTTokenTypeNotEqual,
+    ">=",       // VZTTokenTypeGreaterOrEqaul,
+    "<=",       // VZTTokenTypeLessOrEqaul,
+    "->",       // VZTTokenTypeArrow,
+};
+
+NSString *vzt_tokenName(VZTTokenType type) {
+    if (type == 0) {
+        return @"<unknown>";
+    }
+    else if (type < 256) {
+        return [NSString stringWithFormat:@"%c", (char)type];
+    }
+    else {
+        return [NSString stringWithFormat:@"%s", vzt_tokenNames[type - 256]];
+    }
+}
+
+
 @implementation VZTToken
 
-- (instancetype)initWithToken:(NSString *)token value:(id)value type:(VZTTokenType)type range:(NSRange)range
+- (instancetype)initWithValue:(id)value type:(VZTTokenType)type range:(NSRange)range
 {
     if (self = [super init]) {
-        _token = token;
         _value = value;
         _type = type;
         _range = range;
@@ -64,6 +92,14 @@ void VZTVector_push(VZTVector *vector, const char *data, size_t len) {
     NSInteger c_len;
 }
 
+#define next() _pointer++;
+
+#define VZF_JSON_ERROR(msg) \
+    do {                    \
+        _error = msg;       \
+        return nil;         \
+    } while (0)
+
 - (NSString *)error
 {
     return _error;
@@ -72,7 +108,6 @@ void VZTVector_push(VZTVector *vector, const char *data, size_t len) {
 - (instancetype)initWithString:(NSString *)str
 {
     if (self = [super init]) {
-        _source = str;
         c_str = str.UTF8String;
         c_len = strlen(c_str);
         _pointer = 0;
@@ -91,7 +126,7 @@ void VZTVector_push(VZTVector *vector, const char *data, size_t len) {
         } else if (!(c == ' ' || c == '\t' || c == '\r')) {
             return;
         }
-        _pointer++;
+        next();
     }
 }
 
@@ -122,12 +157,6 @@ void VZTVector_push(VZTVector *vector, const char *data, size_t len) {
 
     return _lastToken;
 }
-
-#define VZF_JSON_ERROR(msg) \
-    do {                    \
-        _error = msg;       \
-        return nil;         \
-    } while (0)
 
 - (NSString *)_readString:(char)quote {
     VZTVector *chars = NULL; // used for escaped string
@@ -241,7 +270,7 @@ if (segment_len > 0) {                                                      \
     if (!closed) {
         VZF_JSON_ERROR(@"unclosed string literal at end of file");
     }
-    _pointer++;
+    next();
     if (chars) {
         PUSH_CURRENT_SEGMENT
         NSString *str = [[NSString alloc] initWithBytes:chars->data length:chars->size encoding:NSUTF8StringEncoding];
@@ -250,8 +279,6 @@ if (segment_len > 0) {                                                      \
     else {
         return [[NSString alloc] initWithBytes:c_str + start length:segment_len encoding:NSUTF8StringEncoding];
     }
-    
-#undef PUSH_CURRENT_SEGMENT
 }
 
 - (NSNumber *)_readNumber {
@@ -279,11 +306,11 @@ if (segment_len > 0) {                                                      \
             case StateStart:
                 if (c == '0') {
                     state = StateDot;
-                    _pointer++;
+                    next();
                 }
                 else if (c >= '1' && c <= '9') {
                     state = StateNonzero;
-                    _pointer++;
+                    next();
                 }
                 else {
                     state = StateError;
@@ -291,7 +318,7 @@ if (segment_len > 0) {                                                      \
                 break;
             case StateNonzero:
                 if (c >= '0' && c <= '9') {
-                    _pointer++;
+                    next();
                 }
                 else {
                     state = StateDot;
@@ -300,7 +327,7 @@ if (segment_len > 0) {                                                      \
             case StateDot:
                 if (c == '.') {
                     state = StateFractionalStart;
-                    _pointer++;
+                    next();
                 }
                 else {
                     state = StateExponentMark;
@@ -309,7 +336,7 @@ if (segment_len > 0) {                                                      \
             case StateFractionalStart:
                 if (c >= '0' && c <= '9') {
                     state = StateFractional;
-                    _pointer++;
+                    next();
                 }
                 else {
                     state = StateError;
@@ -317,7 +344,7 @@ if (segment_len > 0) {                                                      \
                 break;
             case StateFractional:
                 if (c >= '0' && c <= '9') {
-                    _pointer++;
+                    next();
                 }
                 else {
                     state = StateExponentMark;
@@ -326,7 +353,7 @@ if (segment_len > 0) {                                                      \
             case StateExponentMark:
                 if (c == 'E' || c == 'e') {
                     state = StateExponentSign;
-                    _pointer++;
+                    next();
                 }
                 else {
                     state = StateSuccess;
@@ -335,7 +362,7 @@ if (segment_len > 0) {                                                      \
             case StateExponentSign:
                 if (c == '+' || c == '-') {
                     state = StateExponentValue;
-                    _pointer++;
+                    next();
                 }
                 else {
                     state = StateExponentValue;
@@ -344,7 +371,7 @@ if (segment_len > 0) {                                                      \
             case StateExponentValueStart:
                 if (c >= '0' && c <= '9') {
                     state = StateExponentValue;
-                    _pointer++;
+                    next();
                 }
                 else {
                     state = StateError;
@@ -352,7 +379,7 @@ if (segment_len > 0) {                                                      \
                 break;
             case StateExponentValue:
                 if (c >= '0' && c <= '9') {
-                    _pointer++;
+                    next();
                 }
                 else {
                     state = StateSuccess;
@@ -384,21 +411,36 @@ if (segment_len > 0) {                                                      \
     }
 
     VZTTokenType type;
-    NSString *text;
     id value;
 
     NSInteger start = _pointer;
     char c = c_str[_pointer];
 
     if (c == '_' || isalpha(c)) {
-        type = VZTTokenTypeId;
         while (++_pointer < c_len) {
             c = c_str[_pointer];
             if (!(c == '_' || isalpha(c) || isdigit(c))) {
                 break;
             }
         }
-        text = [[NSString alloc] initWithBytes:c_str + start length:_pointer - start encoding:NSUTF8StringEncoding];
+        size_t len = _pointer - start;
+        const char *idStart = c_str + start;
+        if ((len == 4 && memcmp(idStart, "null", 4) == 0)
+            || (len == 3 && memcmp(idStart, "nil", 4) == 0)) {
+            type = VZTTokenTypeNull;
+        }
+        else if (len == 4 && memcmp(idStart, "true", 4) == 0) {
+            type = VZTTokenTypeBoolean;
+            value = @YES;
+        }
+        else if (len == 5 && memcmp(idStart, "false", 5) == 0) {
+            type = VZTTokenTypeBoolean;
+            value = @NO;
+        }
+        else {
+            type = VZTTokenTypeId;
+            value = [[NSString alloc] initWithBytes:c_str + start length:_pointer - start encoding:NSUTF8StringEncoding];
+        }
     } else if (isdigit(c)) {
         type = VZTTokenTypeNumber;
         value = [self _readNumber];
@@ -412,61 +454,112 @@ if (segment_len > 0) {                                                      \
             return nil;
         }
     } else {
-        type = VZTTokenTypeOperator;
         switch (c) {
             case '&':
+                next();
+                if (c_str[_pointer] == '&') {
+                    type = VZTTokenTypeAnd;
+                    next();
+                }
+                else {
+                    type = VZTTokenTypeUnknown;
+                }
+                break;
             case '|':
+                next();
+                if (c_str[_pointer] == '|') {
+                    type = VZTTokenTypeOr;
+                    next();
+                }
+                else {
+                    type = VZTTokenTypeUnknown;
+                }
+                break;
             case '=':
-                if (++_pointer >= c_len || c_str[_pointer] != c) {
-                    _pointer--;
+                next();
+                if (c_str[_pointer] == '=') {
+                    type = VZTTokenTypeEqual;
+                    next();
+                }
+                else {
                     type = VZTTokenTypeUnknown;
                 }
                 break;
             case '!':
+                next();
+                if (c_str[_pointer] == '=') {
+                    type = VZTTokenTypeNotEqual;
+                    next();
+                }
+                else {
+                    type = '!';
+                }
+                break;
             case '>':
+                next();
+                if (c_str[_pointer] == '=') {
+                    type = VZTTokenTypeGreaterOrEqaul;
+                    next();
+                }
+                else {
+                    type = '>';
+                }
+                break;
             case '<':
-                if (++_pointer >= c_len || c_str[_pointer] != '=') {
-                    _pointer--;
+                next();
+                if (c_str[_pointer] == '=') {
+                    type = VZTTokenTypeLessOrEqaul;
+                    next();
+                }
+                else {
+                    type = '<';
                 }
                 break;
             case '/':
-                if (++_pointer < c_len) {
-                    c = c_str[_pointer];
-                    if (c == '/') { // single line comment
-                        while (++_pointer < c_len && c_str[_pointer] != '\n')
-                            ;
-                        return [self nextToken];
-                    } else if (c == '*') { // multi line comment
-                        bool closed = false;
-                        if (++_pointer < c_len && c_str[_pointer] == '\n') {
+                next();
+                c = c_str[_pointer];
+                if (c == '/') { // single line comment
+                    do {
+                        next();
+                        c = c_str[_pointer];
+                    } while (c != '\n' && c != 0);
+                    return [self nextToken];
+                } else if (c == '*') { // multi line comment
+                    bool closed = false;
+                    if (++_pointer < c_len && c_str[_pointer] == '\n') {
+                        _line++;
+                    }
+                    size_t start = _pointer;
+                    do {
+                        next();
+                        c = c_str[_pointer];
+                        if (c == '\n') {
                             _line++;
                         }
-                        while (++_pointer < c_len) {
-                            c = c_str[_pointer];
-                            if (c == '\n') {
-                                _line++;
-                            } else if (c == '/' && c_str[_pointer - 1] == '*') {
-                                _pointer++;
-                                closed = true;
-                                break;
-                            }
+                        else if (c == '/' && c_str[_pointer - 1] == '*' && _pointer - 2 >= start) {
+                            next();
+                            closed = true;
+                            break;
                         }
-                        if (!closed) {
-                            VZF_JSON_ERROR(@"unclosed comment block at end of file");
-                        }
-                        return [self nextToken];
-                    } else {
-                        _pointer--;
+                    } while (c != 0);
+                    if (!closed) {
+                        VZF_JSON_ERROR(@"unclosed comment block at end of file");
                     }
-                }
-                else {
-                    _pointer--;
+                    return [self nextToken];
+                } else {
+                    type = '/';
                 }
                 break;
             case '-':
-                if (++_pointer >= c_len || c_str[_pointer] != '>') {
-                    _pointer--;
+                next();
+                if (c_str[_pointer] == '>') {
+                    type = VZTTokenTypeArrow;
+                    next();
                 }
+                else {
+                    type = '-';
+                }
+                break;
             case '+':
             case '*':
             case '%':
@@ -480,18 +573,16 @@ if (segment_len > 0) {                                                      \
             case '?':
             case ':':
             case ',':
+                next();
+                type = c;
                 break;
             default:
                 type = VZTTokenTypeUnknown;
                 break;
         }
-        _pointer++;
-        text = [[NSString alloc] initWithBytes:c_str + start length:_pointer - start encoding:NSUTF8StringEncoding];
     }
 
-    return [[VZTToken alloc] initWithToken:text value:value type:type range:NSMakeRange(start, _pointer - start)];
+    return [[VZTToken alloc] initWithValue:value type:type range:NSMakeRange(start, _pointer - start)];
 }
 
 @end
-
-#undef VZF_JSON_ERROR

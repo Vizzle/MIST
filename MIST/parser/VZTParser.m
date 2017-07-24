@@ -122,18 +122,6 @@
     return nil;
 }
 
-- (VZTLiteralNode *)parseLiteral
-{
-    if (_lexer.lookAhead.type == VZTTokenTypeString
-        || _lexer.lookAhead.type == VZTTokenTypeNumber
-        || _lexer.lookAhead.type == VZTTokenTypeBoolean
-        || _lexer.lookAhead.type == VZTTokenTypeNull) {
-        return [[VZTLiteralNode alloc] initWithValue:_lexer.nextToken.value];
-    }
-    
-    return nil;
-}
-
 /*
  expression
     : conditional_expression
@@ -503,61 +491,65 @@
 
 /*
  primary_expression
-    : literal
+    : literal                           // string | number | boolean | null
     | ( expression )
     | [ expression_list ]
     | { key_value_list }
     | identifier ( expression_list )
     | identifier
-    | lambda_expression
+    | lambda_expression                 // identifier -> expression
     ;
  */
 - (VZTExpressionNode *)parsePrimaryExpression
 {
     VZTExpressionNode *expression;
-    if ((expression = [self parseLiteral])) {
-        return expression;
-    } else if ([self parseOperator:'(']) {
-        expression = [self parseExpression];
-        VZT_REQUIRE_OPERATOR(')');
-        return expression;
-    } else if ([self parseOperator:'[']) {
-        NSArray *list = [self parseExpressionList];
-        if (!list) return nil;
-        VZT_REQUIRE_OPERATOR(']');
-        return [[VZTArrayExpressionNode alloc] initWithExpressionList:list];
-    } else if ([self parseOperator:'{']) {
-        VZTKeyValueListNode *list = [self parseKeyValueList];
-        if (!list) return nil;
-        VZT_REQUIRE_OPERATOR('}');
-        return [[VZTObjectExpressionNode alloc] initWithKeyValueList:list];
-    } else if ([self lookTokenType:VZTTokenTypeArrow atIndex:1]) {
-        return [self parseLambdaExpression];
+    
+    switch ((int)_lexer.lookAhead.type) {
+        case VZTTokenTypeString:
+        case VZTTokenTypeNumber:
+        case VZTTokenTypeBoolean:
+        case VZTTokenTypeNull:
+            return [[VZTLiteralNode alloc] initWithValue:_lexer.nextToken.value];
+        case '(':
+            [_lexer nextToken];
+            expression = [self parseExpression];
+            VZT_REQUIRE_OPERATOR(')');
+            return expression;
+        case '[':
+        {
+            [_lexer nextToken];
+            NSArray *list = [self parseExpressionList];
+            if (!list) return nil;
+            VZT_REQUIRE_OPERATOR(']');
+            return [[VZTArrayExpressionNode alloc] initWithExpressionList:list];
+        }
+        case '{':
+        {
+            [_lexer nextToken];
+            VZTKeyValueListNode *list = [self parseKeyValueList];
+            if (!list) return nil;
+            VZT_REQUIRE_OPERATOR('}');
+            return [[VZTObjectExpressionNode alloc] initWithKeyValueList:list];
+        }
+        case VZTTokenTypeId:
+        {
+            VZTIdentifierNode *identifier = [self parseIdentifier];
+            if ([self parseOperator:'(']) {
+                NSArray *list = [self parseExpressionList];
+                if (!list) return nil;
+                VZT_REQUIRE_OPERATOR(')');
+                return [[VZTFunctionExpressionNode alloc] initWithTarget:nil action:identifier parameters:list];
+            }
+            else if ([self parseOperator:VZTTokenTypeArrow]) {
+                expression = [self parseExpression];
+                if (!expression) VZT_RETURE(@"expression is required after '->'");
+                return [[VZTLambdaExpressionNode alloc] initWithParameter:identifier.identifier expression:expression];
+            }
+            return identifier;
+        }
     }
-
-    VZTIdentifierNode *identifier = [self parseIdentifier];
-    if ([self parseOperator:'(']) {
-        NSArray *list = [self parseExpressionList];
-        if (!list) return nil;
-        VZT_REQUIRE_OPERATOR(')');
-        return [[VZTFunctionExpressionNode alloc] initWithTarget:nil action:identifier parameters:list];
-    }
-    return identifier;
-}
-
-/*
- lambda_expression
-    : identifier -> expression
-    ;
- */
-- (VZTLambdaExpressionNode *)parseLambdaExpression
-{
-    VZTIdentifierNode *parameter = [self parseIdentifier];
-    if (!parameter) VZT_RETURE(@"identifier is required before '->'");
-    VZT_REQUIRE_OPERATOR(VZTTokenTypeArrow);
-    VZTExpressionNode *expression = [self parseExpression];
-    if (!expression) VZT_RETURE(@"expression is required after '->'");
-    return [[VZTLambdaExpressionNode alloc] initWithParameter:parameter.identifier expression:expression];
+    
+    return nil;
 }
 
 @end

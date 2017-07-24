@@ -50,5 +50,6 @@ NSString *vzt_tokenName(VZTTokenType type);
 - (VZTToken *)nextToken;
 - (VZTToken *)lookAhead;
 - (VZTToken *)lookAhead:(NSInteger)number;
+- (NSString *)getTokenText:(VZTToken *)token;
 
 @end

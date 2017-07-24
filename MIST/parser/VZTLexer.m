@@ -162,15 +162,17 @@ NSString *vzt_tokenName(VZTTokenType type) {
     VZTVector *chars = NULL; // used for escaped string
     
     size_t start = _pointer + 1;
+    size_t segment_start = start;
     size_t segment_len = 0;
 #define PUSH_CURRENT_SEGMENT                                                \
 if (!chars) {                                                               \
     chars = VZTVector_new();                                                \
 }                                                                           \
 if (segment_len > 0) {                                                      \
-    VZTVector_push(chars, c_str + _pointer - segment_len, segment_len);     \
+    VZTVector_push(chars, c_str + segment_start, segment_len);              \
     segment_len = 0;                                                        \
-}
+}                                                                           \
+segment_start = _pointer + 1;
     
     char c;
     bool closed = false;
@@ -583,6 +585,10 @@ if (segment_len > 0) {                                                      \
     }
 
     return [[VZTToken alloc] initWithValue:value type:type range:NSMakeRange(start, _pointer - start)];
+}
+
+- (NSString *)getTokenText:(VZTToken *)token {
+    return [[NSString alloc] initWithBytes:c_str + token.range.location length:token.range.length encoding:NSUTF8StringEncoding];
 }
 
 @end

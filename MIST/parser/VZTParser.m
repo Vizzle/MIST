@@ -56,7 +56,7 @@
 
 - (NSString *)getTokenName:(VZTToken *)token
 {
-    return [_lexer.source substringWithRange:token.range];
+    return [_lexer getTokenText:token];
 }
 
 - (NSString *)errorDescriptionForRequireToken:(VZTTokenType)type beforeToken:(VZTToken *)token

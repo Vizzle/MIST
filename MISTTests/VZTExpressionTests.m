@@ -72,6 +72,10 @@ XCTAssertNotNil(error, @"'%@' expression parsed without error", EXP);           
     XCTAssertExpression(@"\"'\"", @"'");
     XCTAssertExpression(@"'\\r\\n\\t\\f\\b\\\"\\\'\\\\\\/'", @"\r\n\t\f\b\"\'\\/");
     XCTAssertExpression(@"'\\uface'", @"\uface");
+    XCTAssertExpression(@"'a\\nb'", @"a\nb");
+    XCTAssertExpression(@"'abc\\tdef\\\\\\n'", @"abc\tdef\\\n");
+    XCTAssertExpression(@"'\\nabcd\\u1234'", @"\nabcd\u1234");
+    XCTAssertExpression(@"'\\u1234abcd\\u1234ab'", @"\u1234abcd\u1234ab");
     
     // true / false / null
     XCTAssertExpression(@"true", @YES);
@@ -89,6 +93,17 @@ XCTAssertNotNil(error, @"'%@' expression parsed without error", EXP);           
     XCTAssertExpression(@"{}", @{});
     XCTAssertExpression(@"{1: 2, 3: 4}", (@{@1: @2, @3: @4}));
     XCTAssertExpression(@"{'a': true, 'b': {'c': 'd'}}", (@{@"a": @YES, @"b": @{@"c": @"d"}}));
+}
+
+- (void)testComments {
+    XCTAssertExpression(@"'abc' // comment", @"abc");
+    XCTAssertExpression(@"'abc' /* comment */", @"abc");
+    XCTAssertExpression(@"'abc'\n /* comment\ncomment\n */", @"abc");
+    XCTAssertExpression(@"'abc' //", @"abc");
+    XCTAssertExpression(@"'abc' /**/", @"abc");
+    XCTAssertExpression(@"/* comment */'abc'", @"abc");
+    XCTAssertExpression(@"/* comment */\n'abc'", @"abc");
+    XCTAssertExpression(@"1/* comment */ + /* comment */1", @2);
 }
 
 - (void)testOperators {
@@ -275,6 +290,8 @@ static NSString *status;
     XCTAssertExpressionNotCompiled(@"abc(a->)");
     XCTAssertExpressionNotCompiled(@"$abc");
     XCTAssertExpressionNotCompiled(@"'abc");
+    XCTAssertExpressionNotCompiled(@"'abc\n'");
+    XCTAssertExpressionNotCompiled(@"'abc\\");
     XCTAssertExpressionNotCompiled(@"'abc\\'");
     XCTAssertExpressionNotCompiled(@"'abc\\uag12'");
     XCTAssertExpressionNotCompiled(@"'abc\\q'");
@@ -1334,47 +1351,17 @@ int fooC(int a) {
     }];
 }
 
-- (void)testLexer {
-    NSString *text = @"0 1 10 0.1 12.34 1e10 1.230E-12";
-    VZTLexer *lexer = [[VZTLexer alloc] initWithString:text];
-    NSArray *numbers = [text componentsSeparatedByString:@" "];
-    for (NSString *n in numbers) {
-        XCTAssertEqual([lexer.nextToken.value doubleValue], [n doubleValue]);
-        XCTAssertEqualObjects([lexer getTokenText:lexer.lastToken], n);
-    }
-    
-    text = @"'abc' '\\t\\'\\u1234' abc true false null";
-    lexer = [[VZTLexer alloc] initWithString:text];
-    NSArray *tokens = [text componentsSeparatedByString:@" "];
-    for (NSString *s in tokens) {
-        XCTAssertEqualObjects([lexer getTokenText:lexer.nextToken], s);
-    }
-    
-    text = @"0 123 1.23 true false null 'abc' 'a\\nb' 'abc\\tdef\\\\\\n' '\\nabcd\\u1234' '\\u1234abcd\\u1234ab'";
-    lexer = [[VZTLexer alloc] initWithString:text];
-    XCTAssertEqualObjects(lexer.nextToken.value, @0);
-    XCTAssertEqualObjects(lexer.nextToken.value, @123);
-    XCTAssertEqualObjects(lexer.nextToken.value, @1.23);
-    XCTAssertEqualObjects(lexer.nextToken.value, @YES);
-    XCTAssertEqualObjects(lexer.nextToken.value, @NO);
-    XCTAssertEqualObjects(lexer.nextToken.value, nil);
-    XCTAssertEqualObjects(lexer.nextToken.value, @"abc");
-    XCTAssertEqualObjects(lexer.nextToken.value, @"a\nb");
-    XCTAssertEqualObjects(lexer.nextToken.value, @"abc\tdef\\\n");
-    XCTAssertEqualObjects(lexer.nextToken.value, @"\nabcd\u1234");
-    XCTAssertEqualObjects(lexer.nextToken.value, @"\u1234abcd\u1234ab");
-}
-
 - (void)testPerformanceLexer {
-    NSString *text = @"max(1 + (2 + 3) * 4, XX.xx.xx(xx, [1, 2, {'a': xxx, 'b': [], '中文', '\\u1234\\t': ''}], xxxx(xx, xx))).xxxx(xxx, aaa) ? xxx + assd : asdq.asda.asd(xxxx + asd / ads, asdd ? asds : asd + adasdasd / asdsad.asddq(xxas, asda) / asdasd.xxasd).asdad(xasd, asd + asdD) * adasd";
+    NSString *text = [self jsonString];
+    
     [self measureBlock:^{
-        for (int i=0; i < 1000; i++) {
-            VZTLexer *lexer = [[VZTLexer alloc] initWithString:text];
-            VZTToken *token;
-            while ((token = lexer.nextToken)) {
-                
+        for (int i=0;i<100;i++) {
+            VZTLexer *lexer = VZTLexer_new(text.UTF8String);
+            while (lexer->token.type) {
+                VZTLexer_next(lexer);
             }
-            XCTAssertNil(lexer.error);
+            XCTAssert(lexer->error == NULL);
+            VZTLexer_free(lexer);
         }
     }];
 }

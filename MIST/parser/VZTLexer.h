@@ -24,32 +24,31 @@ typedef NS_ENUM(NSUInteger, VZTTokenType) {
     VZTTokenTypeArrow,
 };
 
+typedef struct {
+    VZTTokenType type;
+    union {
+        const char* string;
+        double number;
+    };
+} VZTToken;
+
+//typedef struct VZTVector;
+
+typedef struct {
+    const char* source;
+    size_t length;
+    size_t pointer;
+    char c;
+    size_t line;
+    const char* error;
+    VZTToken token;
+    VZTToken lookAhead;
+    struct VZTVector* buffer;
+} VZTLexer;
+
+VZTLexer * VZTLexer_new(const char* source);
+void VZTLexer_free(VZTLexer *lexer);
+void VZTLexer_next(VZTLexer *lexer);
+void VZTLexer_lookAhead(VZTLexer *lexer);
+
 NSString *vzt_tokenName(VZTTokenType type);
-
-@interface VZTToken : NSObject
-
-@property (nonatomic, strong, readonly) id value;
-@property (nonatomic, readonly) VZTTokenType type;
-@property (nonatomic, readonly) NSRange range;
-
-- (instancetype)initWithValue:(id)value type:(VZTTokenType)type range:(NSRange)range;
-
-@end
-
-
-@interface VZTLexer : NSObject
-
-@property (nonatomic, strong, readonly) NSString *error;
-@property (nonatomic, strong, readonly) VZTToken *lastToken;
-
-@property (nonatomic, assign) NSInteger pointer;
-@property (nonatomic, strong) NSMutableArray *lookAheadStack;
-
-- (instancetype)initWithString:(NSString *)str;
-
-- (VZTToken *)nextToken;
-- (VZTToken *)lookAhead;
-- (VZTToken *)lookAhead:(NSInteger)number;
-- (NSString *)getTokenText:(VZTToken *)token;
-
-@end

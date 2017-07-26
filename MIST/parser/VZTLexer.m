@@ -9,7 +9,7 @@
 #include "VZTLexer.h"
 
 
-typedef struct {
+typedef struct VZTVector {
     char *data;
     size_t size;
     size_t capacity;
@@ -27,9 +27,11 @@ VZTVector *VZTVector_new() {
 void VZTVector_push(VZTVector *vector, const char *data, size_t len) {
     vector->size += len;
     if (vector->size > vector->capacity) {
-        free(vector->data);
-        vector->capacity *= 1.5;
-        vector->data = malloc(sizeof(vector->capacity));
+        char *oldData = vector->data;
+        vector->capacity = vector->size * 1.5;
+        vector->data = malloc(vector->capacity);
+        memcpy(vector->data, oldData, vector->size - len);
+        free(oldData);
     }
     memcpy(vector->data + vector->size - len, data, len);
 }
@@ -39,6 +41,51 @@ void VZTVector_push(VZTVector *vector, const char *data, size_t len) {
     free(vector);                   \
     vector = NULL;                  \
 } while(0)
+
+
+VZTVector * _vzt_format(const char *fmt, va_list args) {
+    VZTVector *dst = VZTVector_new();
+    for (;;) {
+        const char *pc = strchr(fmt, '%');
+        if (pc == NULL) {
+            break;
+        }
+        
+        VZTVector_push(dst, fmt, pc - fmt);
+        
+        switch (pc[1]) {
+            case 'c':
+            {
+                char c = va_arg(args, int);
+                VZTVector_push(dst, &c, 1);
+                break;
+            }
+            case 's':
+            {
+                const char* str = va_arg(args, char *);
+                VZTVector_push(dst, str, strlen(str));
+                break;
+            }
+            default:
+                continue;
+        }
+        
+        fmt = pc + 2;
+    }
+    
+    VZTVector_push(dst, fmt, strlen(fmt));
+    static const char zero = 0;
+    VZTVector_push(dst, &zero, 1);
+    return dst;
+}
+
+VZTVector * vzt_format(const char *fmt, ...) {
+    va_list args;
+    va_start(args, fmt);
+    VZTVector *ret = _vzt_format(fmt, args);
+    va_end(args);
+    return ret;
+}
 
 
 const char *const vzt_tokenNames[] = {
@@ -56,133 +103,55 @@ const char *const vzt_tokenNames[] = {
     "->",       // VZTTokenTypeArrow,
 };
 
-NSString *vzt_tokenName(VZTTokenType type) {
-    if (type == 0) {
-        return @"<unknown>";
+
+
+#define next(lexer)     (lexer->c = lexer->source[++lexer->pointer])
+#define isNewLine(c)    (c == '\r' || c == '\n')
+#define isQuote(c)    (c == '\'' || c == '"')
+
+void _newline(VZTLexer *lexer) {
+    char old = lexer->c;
+    assert(isNewLine(old));
+    next(lexer);
+    if (isNewLine(lexer->c) && lexer->c != old) {
+        next(lexer);
     }
-    else if (type < 256) {
-        return [NSString stringWithFormat:@"%c", (char)type];
-    }
-    else {
-        return [NSString stringWithFormat:@"%s", vzt_tokenNames[type - 256]];
-    }
+    lexer->line++;
 }
 
-
-@implementation VZTToken
-
-- (instancetype)initWithValue:(id)value type:(VZTTokenType)type range:(NSRange)range
-{
-    if (self = [super init]) {
-        _value = value;
-        _type = type;
-        _range = range;
-    }
-    return self;
-}
-
-@end
-
-
-@implementation VZTLexer
-{
-    NSInteger _line;
-    NSString *_error;
-    const char *c_str;
-    NSInteger c_len;
-}
-
-#define next() _pointer++;
-
-#define VZF_JSON_ERROR(msg) \
-    do {                    \
-        _error = msg;       \
-        return nil;         \
-    } while (0)
-
-- (NSString *)error
-{
-    return _error;
-}
-
-- (instancetype)initWithString:(NSString *)str
-{
-    if (self = [super init]) {
-        c_str = str.UTF8String;
-        c_len = strlen(c_str);
-        _pointer = 0;
-        _line = 0;
-        _lookAheadStack = [NSMutableArray array];
-    }
-    return self;
-}
-
-- (void)skipSpaces
-{
-    while (_pointer < c_len) {
-        char c = c_str[_pointer];
-        if (c == '\n') {
-            _line++;
-        } else if (!(c == ' ' || c == '\t' || c == '\r')) {
-            return;
-        }
-        next();
-    }
-}
-
-- (VZTToken *)lookAhead
-{
-    return [self lookAhead:0];
-}
-
-- (VZTToken *)lookAhead:(NSInteger)number
-{
-    while (_lookAheadStack.count <= number) {
-        VZTToken *token = [self _nextToken];
-        if (!token) return nil;
-        [_lookAheadStack addObject:token];
-    }
-    return [_lookAheadStack objectAtIndex:number];
-}
-
-- (VZTToken *)nextToken
-{
-    if (_lookAheadStack.count > 0) {
-        VZTToken *token = _lookAheadStack.firstObject;
-        [_lookAheadStack removeObjectAtIndex:0];
-        _lastToken = token;
-    } else {
-        _lastToken = [self _nextToken];
-    }
-
-    return _lastToken;
-}
-
-- (NSString *)_readString:(char)quote {
-    VZTVector *chars = NULL; // used for escaped string
+void _readString(VZTLexer *lexer, VZTToken *token) {
+    char quote = lexer->c;
+    assert(isQuote(quote));
     
-    size_t start = _pointer + 1;
+    next(lexer);
+    size_t start = lexer->pointer;
     size_t segment_start = start;
     size_t segment_len = 0;
-#define PUSH_CURRENT_SEGMENT                                                \
-if (!chars) {                                                               \
-    chars = VZTVector_new();                                                \
-}                                                                           \
-if (segment_len > 0) {                                                      \
-    VZTVector_push(chars, c_str + segment_start, segment_len);              \
-    segment_len = 0;                                                        \
-}                                                                           \
-segment_start = _pointer + 1;
+#define PUSH_CURRENT_SEGMENT                                                    \
+if (segment_len > 0) {                                                          \
+    VZTVector_push(lexer->buffer, lexer->source + segment_start, segment_len);  \
+    segment_len = 0;                                                            \
+}                                                                               \
+segment_start = lexer->pointer + 1;
+#define FREE_CHARS() lexer->buffer->size = 0;
     
-    char c;
-    bool closed = false;
-    while (++_pointer < c_len) {
-        c = c_str[_pointer];
-        if (c == '\\') {
-            char esc = 0;
-            bool failed = false;
-            if (++_pointer < c_len) {
-                switch (c_str[_pointer]) {
+    while (lexer->c != quote) {
+        switch (lexer->c) {
+            case 0:
+                lexer->error = "unclosed string literal at end of file";
+                return;
+            case '\t':
+                lexer->error = "tab character in string is not allowed";
+                return;
+            case '\n':
+            case '\r':
+                lexer->error = "unclosed string literal at end of line";
+                return;
+            case '\\':
+            {
+                next(lexer);
+                char esc = 0;
+                switch (lexer->c) {
                     case '"':
                         esc = '"';
                         break;
@@ -211,79 +180,66 @@ segment_start = _pointer + 1;
                         esc = '\t';
                         break;
                     case 'u':
-                        if (_pointer + 4 < c_len) {
-                            bool valid = true;
-                            unichar unicode = 0;
-                            for (int i = 0; i < 4; i++) {
-                                char c = c_str[_pointer + i + 1];
-                                int num;
-                                if (c >= '0' && c <='9') {
-                                    num = c - '0';
-                                }
-                                else if (c >= 'a' && c <= 'f') {
-                                    num = c - 'a' + 10;
-                                }
-                                else if (c >= 'A' && c <= 'F') {
-                                    num = c - 'A' + 10;
-                                }
-                                else {
-                                    valid = false;
-                                    break;
-                                }
-                                unicode = unicode * 16 + num;
+                    {
+                        int n = 4;
+                        unichar unicode = 0;
+                        do {
+                            next(lexer);
+                            char c = lexer->c;
+                            int num;
+                            if (c >= '0' && c <='9') {
+                                num = c - '0';
                             }
-                            if (valid) {
-                                _pointer += 4;
-                                NSString *unicodeStr = [NSString stringWithCharacters:&unicode length:1];
-                                PUSH_CURRENT_SEGMENT
-                                const char *unicodeChars = unicodeStr.UTF8String;
-                                VZTVector_push(chars, unicodeChars, strlen(unicodeChars));
-                                continue;
-                            } else {
-                                VZF_JSON_ERROR(@"illegal format of escaping unicode character");
+                            else if (c >= 'a' && c <= 'f') {
+                                num = c - 'a' + 10;
                             }
-                        } else {
-                            VZF_JSON_ERROR(@"illegal escaped character");
-                        }
-                        break;
+                            else if (c >= 'A' && c <= 'F') {
+                                num = c - 'A' + 10;
+                            }
+                            else {
+                                lexer->error = "illegal unicode sequence in string";
+                                FREE_CHARS();
+                                return;
+                            }
+                            unicode = unicode * 16 + num;
+                        } while (--n > 0);
+                        NSString *unicodeStr = [NSString stringWithCharacters:&unicode length:1];
+                        PUSH_CURRENT_SEGMENT
+                        const char *unicodeChars = unicodeStr.UTF8String;
+                        VZTVector_push(lexer->buffer, unicodeChars, strlen(unicodeChars));
+                        next(lexer);
+                        continue;
+                    }
                     default:
-                        failed = true;
+                        lexer->error = "illegal escaped character";
+                        FREE_CHARS();
+                        return;
                 }
-            } else {
-                failed = true;
+                
+                PUSH_CURRENT_SEGMENT
+                next(lexer);
+                VZTVector_push(lexer->buffer, &esc, 1);
+                break;
             }
-            
-            if (failed) {
-                VZF_JSON_ERROR(@"illegal escaped character");
-            }
-            PUSH_CURRENT_SEGMENT
-            VZTVector_push(chars, &esc, 1);
-        } else if (c == '\n') {
-            VZF_JSON_ERROR(@"unclosed string literal at end of line");
-        } else if (c == '\t') {
-            VZF_JSON_ERROR(@"tab character in string is not allowed");
-        } else if (c == quote) {
-            closed = true;
-            break;
-        } else {
-            segment_len++;
+            default:
+                segment_len++;
+                next(lexer);
+                break;
         }
     }
-    if (!closed) {
-        VZF_JSON_ERROR(@"unclosed string literal at end of file");
-    }
-    next();
-    if (chars) {
+    assert(lexer->c == quote);
+    next(lexer);
+    if (lexer->buffer) {
         PUSH_CURRENT_SEGMENT
-        NSString *str = [[NSString alloc] initWithBytes:chars->data length:chars->size encoding:NSUTF8StringEncoding];
-        return str;
+        token->string = strndup(lexer->buffer->data, lexer->buffer->size);
+        FREE_CHARS();
     }
     else {
-        return [[NSString alloc] initWithBytes:c_str + start length:segment_len encoding:NSUTF8StringEncoding];
+        token->string = strndup(lexer->source + start, segment_len);
     }
 }
 
-- (NSNumber *)_readNumber {
+void _readNumber(VZTLexer *lexer, VZTToken *token) {
     typedef enum {
         StateStart,
         StateNonzero,
@@ -299,89 +255,87 @@ segment_start = _pointer + 1;
     } NumberState;
     
     NumberState state = StateStart;
-    size_t start = _pointer;
+    size_t start = lexer->pointer;
     
     while (state != StateSuccess && state != StateError) {
-        char c = _pointer < c_len ? c_str[_pointer] : 0;
-        
         switch (state) {
             case StateStart:
-                if (c == '0') {
+                if (lexer->c == '0') {
                     state = StateDot;
-                    next();
+                    next(lexer);
                 }
-                else if (c >= '1' && c <= '9') {
+                else if (lexer->c >= '1' && lexer->c <= '9') {
                     state = StateNonzero;
-                    next();
+                    next(lexer);
                 }
                 else {
                     state = StateError;
                 }
                 break;
             case StateNonzero:
-                if (c >= '0' && c <= '9') {
-                    next();
+                if (lexer->c >= '0' && lexer->c <= '9') {
+                    next(lexer);
                 }
                 else {
                     state = StateDot;
                 }
                 break;
             case StateDot:
-                if (c == '.') {
+                if (lexer->c == '.') {
                     state = StateFractionalStart;
-                    next();
+                    next(lexer);
                 }
                 else {
                     state = StateExponentMark;
                 }
                 break;
             case StateFractionalStart:
-                if (c >= '0' && c <= '9') {
+                if (lexer->c >= '0' && lexer->c <= '9') {
                     state = StateFractional;
-                    next();
+                    next(lexer);
                 }
                 else {
                     state = StateError;
                 }
                 break;
             case StateFractional:
-                if (c >= '0' && c <= '9') {
-                    next();
+                if (lexer->c >= '0' && lexer->c <= '9') {
+                    next(lexer);
                 }
                 else {
                     state = StateExponentMark;
                 }
                 break;
             case StateExponentMark:
-                if (c == 'E' || c == 'e') {
+                if (lexer->c == 'E' || lexer->c == 'e') {
                     state = StateExponentSign;
-                    next();
+                    next(lexer);
                 }
                 else {
                     state = StateSuccess;
                 }
                 break;
             case StateExponentSign:
-                if (c == '+' || c == '-') {
+                if (lexer->c == '+' || lexer->c == '-') {
                     state = StateExponentValue;
-                    next();
+                    next(lexer);
                 }
                 else {
                     state = StateExponentValue;
                 }
                 break;
             case StateExponentValueStart:
-                if (c >= '0' && c <= '9') {
+                if (lexer->c >= '0' && lexer->c <= '9') {
                     state = StateExponentValue;
-                    next();
+                    next(lexer);
                 }
                 else {
                     state = StateError;
                 }
                 break;
             case StateExponentValue:
-                if (c >= '0' && c <= '9') {
-                    next();
+                if (lexer->c >= '0' && lexer->c <= '9') {
+                    next(lexer);
                 }
                 else {
                     state = StateSuccess;
@@ -395,173 +349,126 @@ segment_start = _pointer + 1;
     
     if (state == StateSuccess) {
         char *end;
-        double number = strtod(c_str + start, &end);
-        if (end - c_str == _pointer) {
-            return @(number);
+        double number = strtod(lexer->source + start, &end);
+        if (end == lexer->source + lexer->pointer) {
+            token->number = number;
+            return;
         }
     }
     
-    VZF_JSON_ERROR(@"illegal number format");
+    lexer->error = "illegal number format";
 }
 
-- (VZTToken *)_nextToken
-{
-    [self skipSpaces];
-
-    if (_pointer >= c_len) {
-        return nil;
-    }
-
-    VZTTokenType type;
-    id value;
-
-    NSInteger start = _pointer;
-    char c = c_str[_pointer];
-
-    if (c == '_' || isalpha(c)) {
-        while (++_pointer < c_len) {
-            c = c_str[_pointer];
-            if (!(c == '_' || isalpha(c) || isdigit(c))) {
-                break;
-            }
-        }
-        size_t len = _pointer - start;
-        const char *idStart = c_str + start;
-        if ((len == 4 && memcmp(idStart, "null", 4) == 0)
-            || (len == 3 && memcmp(idStart, "nil", 4) == 0)) {
-            type = VZTTokenTypeNull;
-        }
-        else if (len == 4 && memcmp(idStart, "true", 4) == 0) {
-            type = VZTTokenTypeBoolean;
-            value = @YES;
-        }
-        else if (len == 5 && memcmp(idStart, "false", 5) == 0) {
-            type = VZTTokenTypeBoolean;
-            value = @NO;
-        }
-        else {
-            type = VZTTokenTypeId;
-            value = [[NSString alloc] initWithBytes:c_str + start length:_pointer - start encoding:NSUTF8StringEncoding];
-        }
-    } else if (isdigit(c)) {
-        type = VZTTokenTypeNumber;
-        value = [self _readNumber];
-        if (!value) {
-            return nil;
-        }
-    } else if (c == '"' || c == '\'') {
-        type = VZTTokenTypeString;
-        value = [self _readString:c];
-        if (!value) {
-            return nil;
-        }
-    } else {
-        switch (c) {
+VZTTokenType _lexerNext(VZTLexer *lexer, VZTToken *token) {
+    for(;;) {
+        switch (lexer->c) {
+            case 0:
+                return 0;
+            case ' ':
+            case '\t':
+                next(lexer);
+                continue;
+            case '\n':
+            case '\r':
+                _newline(lexer);
+                continue;
             case '&':
-                next();
-                if (c_str[_pointer] == '&') {
-                    type = VZTTokenTypeAnd;
-                    next();
+                next(lexer);
+                if (lexer->c == '&') {
+                    next(lexer);
+                    return VZTTokenTypeAnd;
                 }
                 else {
-                    type = VZTTokenTypeUnknown;
+                    return VZTTokenTypeUnknown;
                 }
-                break;
             case '|':
-                next();
-                if (c_str[_pointer] == '|') {
-                    type = VZTTokenTypeOr;
-                    next();
+                next(lexer);
+                if (lexer->c == '|') {
+                    next(lexer);
+                    return VZTTokenTypeOr;
                 }
                 else {
-                    type = VZTTokenTypeUnknown;
+                    return VZTTokenTypeUnknown;
                 }
-                break;
             case '=':
-                next();
-                if (c_str[_pointer] == '=') {
-                    type = VZTTokenTypeEqual;
-                    next();
+                next(lexer);
+                if (lexer->c == '=') {
+                    next(lexer);
+                    return VZTTokenTypeEqual;
                 }
                 else {
-                    type = VZTTokenTypeUnknown;
+                    return VZTTokenTypeUnknown;
                 }
-                break;
             case '!':
-                next();
-                if (c_str[_pointer] == '=') {
-                    type = VZTTokenTypeNotEqual;
-                    next();
+                next(lexer);
+                if (lexer->c == '=') {
+                    next(lexer);
+                    return VZTTokenTypeNotEqual;
                 }
                 else {
-                    type = '!';
+                    return '!';
                 }
-                break;
             case '>':
-                next();
-                if (c_str[_pointer] == '=') {
-                    type = VZTTokenTypeGreaterOrEqaul;
-                    next();
+                next(lexer);
+                if (lexer->c == '=') {
+                    next(lexer);
+                    return VZTTokenTypeGreaterOrEqaul;
                 }
                 else {
-                    type = '>';
+                    return '>';
                 }
-                break;
             case '<':
-                next();
-                if (c_str[_pointer] == '=') {
-                    type = VZTTokenTypeLessOrEqaul;
-                    next();
+                next(lexer);
+                if (lexer->c == '=') {
+                    next(lexer);
+                    return VZTTokenTypeLessOrEqaul;
                 }
                 else {
-                    type = '<';
+                    return '<';
                 }
-                break;
             case '/':
-                next();
-                c = c_str[_pointer];
-                if (c == '/') { // single line comment
+                next(lexer);
+                if (lexer->c == '/') { // single line comment
                     do {
-                        next();
-                        c = c_str[_pointer];
-                    } while (c != '\n' && c != 0);
-                    return [self nextToken];
-                } else if (c == '*') { // multi line comment
+                        next(lexer);
+                    } while (!isNewLine(lexer->c) && lexer->c != 0);
+                    continue;
+                } else if (lexer->c == '*') { // multi line comment
                     bool closed = false;
-                    if (++_pointer < c_len && c_str[_pointer] == '\n') {
-                        _line++;
-                    }
-                    size_t start = _pointer;
                     do {
-                        next();
-                        c = c_str[_pointer];
-                        if (c == '\n') {
-                            _line++;
+                        next(lexer);
+                        if (isNewLine(lexer->c)) {
+                            _newline(lexer);
                         }
-                        else if (c == '/' && c_str[_pointer - 1] == '*' && _pointer - 2 >= start) {
-                            next();
-                            closed = true;
-                            break;
+                        else if (lexer->c == '*') {
+                            next(lexer);
+                            if (lexer->c == '/') {
+                                closed = true;
+                                next(lexer);
+                                break;
+                            }
+                            else {
+                                continue;
+                            }
                         }
-                    } while (c != 0);
+                    } while (lexer->c != 0);
                     if (!closed) {
-                        VZF_JSON_ERROR(@"unclosed comment block at end of file");
+                        lexer->error = "unclosed comment block at end of file";
+                        return 0;
                     }
-                    return [self nextToken];
+                    continue;
                 } else {
-                    type = '/';
+                    return '/';
                 }
-                break;
             case '-':
-                next();
-                if (c_str[_pointer] == '>') {
-                    type = VZTTokenTypeArrow;
-                    next();
+                next(lexer);
+                if (lexer->c == '>') {
+                    next(lexer);
+                    return VZTTokenTypeArrow;
                 }
                 else {
-                    type = '-';
+                    return '-';
                 }
-                break;
             case '+':
             case '*':
             case '%':
@@ -575,20 +482,113 @@ segment_start = _pointer + 1;
             case '?':
             case ':':
             case ',':
-                next();
-                type = c;
-                break;
+            {
+                char type = lexer->c;
+                next(lexer);
+                return type;
+            }
             default:
-                type = VZTTokenTypeUnknown;
-                break;
+                if (lexer->c == '_' || isalpha(lexer->c)) {
+                    size_t start = lexer->pointer;
+                    do {
+                        next(lexer);
+                        if (!(lexer->c == '_' || isalnum(lexer->c))) {
+                            break;
+                        }
+                    } while (lexer->c);
+                    size_t len = lexer->pointer - start;
+                    const char *idStart = lexer->source + start;
+                    if ((len == 4 && memcmp(idStart, "null", 4) == 0)
+                        || (len == 3 && memcmp(idStart, "nil", 4) == 0)) {
+                        return VZTTokenTypeNull;
+                    }
+                    else if (len == 4 && memcmp(idStart, "true", 4) == 0) {
+                        token->number = 1;
+                        return VZTTokenTypeBoolean;
+                    }
+                    else if (len == 5 && memcmp(idStart, "false", 5) == 0) {
+                        token->number = 0;
+                        return VZTTokenTypeBoolean;
+                    }
+                    else {
+                        token->string = strndup(idStart, len);
+                        return VZTTokenTypeId;
+                    }
+                } else if (isdigit(lexer->c)) {
+                    _readNumber(lexer, token);
+                    return VZTTokenTypeNumber;
+                } else if (isQuote(lexer->c)) {
+                    _readString(lexer, token);
+                    return VZTTokenTypeString;
+                } else {
+                    lexer->error = "unknown character";
+                    return 0;
+                }
         }
     }
-
-    return [[VZTToken alloc] initWithValue:value type:type range:NSMakeRange(start, _pointer - start)];
+    return 0;
 }
 
-- (NSString *)getTokenText:(VZTToken *)token {
-    return [[NSString alloc] initWithBytes:c_str + token.range.location length:token.range.length encoding:NSUTF8StringEncoding];
+void _freeTokenString(VZTToken *token) {
+    if (token->type == VZTTokenTypeId || token->type == VZTTokenTypeString) {
+        free((void*)token->string);
+        token->type = VZTTokenTypeUnknown;
+    }
 }
 
-@end
+void VZTLexer_next(VZTLexer *lexer) {
+    if (lexer->lookAhead.type) {
+        lexer->token = lexer->lookAhead;
+        lexer->lookAhead.type = 0;
+    }
+    else {
+        _freeTokenString(&lexer->token);
+        lexer->token.type = _lexerNext(lexer, &lexer->token);
+        if (lexer->error) {
+            lexer->token.type = 0;
+        }
+    }
+}
+
+void VZTLexer_lookAhead(VZTLexer *lexer) {
+    _freeTokenString(&lexer->lookAhead);
+    lexer->lookAhead.type = _lexerNext(lexer, &lexer->lookAhead);
+    if (lexer->error) {
+        lexer->lookAhead.type = 0;
+    }
+}
+
+VZTLexer * VZTLexer_new(const char* source) {
+    VZTLexer *lexer = (VZTLexer *)malloc(sizeof(VZTLexer));
+    lexer->source = source;
+    lexer->length = strlen(source);
+    lexer->line = 0;
+    lexer->error = NULL;
+    lexer->pointer = -1;
+    lexer->lookAhead.type = 0;
+    lexer->buffer = VZTVector_new();
+    next(lexer);
+    return lexer;
+}
+
+void VZTLexer_free(VZTLexer *lexer) {
+    if (lexer) {
+        VZTVector_free(lexer->buffer);
+        _freeTokenString(&lexer->token);
+        _freeTokenString(&lexer->lookAhead);
+        free(lexer);
+    }
+}
+
+
+NSString *vzt_tokenName(VZTTokenType type) {
+    if (type == 0) {
+        return @"<unknown>";
+    }
+    else if (type < 256) {
+        return [NSString stringWithFormat:@"%c", (char)type];
+    }
+    else {
+        return [NSString stringWithFormat:@"%s", vzt_tokenNames[type - 256]];
+    }
+}

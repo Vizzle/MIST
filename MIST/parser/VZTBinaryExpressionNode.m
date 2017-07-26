@@ -8,7 +8,6 @@
 
 #import "VZTBinaryExpressionNode.h"
 #import "VZTUtils.h"
-#import "VZTLexer.h"
 
 
 @implementation VZTBinaryExpressionNode
@@ -92,13 +91,13 @@
             return @([value1 integerValue] % v2);
         }
         case '>':
-            return @([value1 doubleValue] > [value2 doubleValue]);
+            return @((BOOL)([value1 doubleValue] > [value2 doubleValue]));
         case '<':
-            return @([value1 doubleValue] < [value2 doubleValue]);
+            return @((BOOL)([value1 doubleValue] < [value2 doubleValue]));
         case VZTTokenTypeGreaterOrEqaul:
-            return @([value1 doubleValue] >= [value2 doubleValue]);
+            return @((BOOL)([value1 doubleValue] >= [value2 doubleValue]));
         case VZTTokenTypeLessOrEqaul:
-            return @([value1 doubleValue] <= [value2 doubleValue]);
+            return @((BOOL)([value1 doubleValue] <= [value2 doubleValue]));
         default:
             NSAssert(NO, @"unknown binary operator '%@'", vzt_tokenName(_operator));
             return nil;

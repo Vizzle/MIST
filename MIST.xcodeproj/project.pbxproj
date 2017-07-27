@@ -36,8 +36,6 @@
 		455F944C1EA601F80050EFFE /* VZTConditionalExpressionNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F940E1EA601F80050EFFE /* VZTConditionalExpressionNode.m */; };
 		455F944D1EA601F80050EFFE /* VZTExpressionContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 455F940F1EA601F80050EFFE /* VZTExpressionContext.h */; };
 		455F944E1EA601F80050EFFE /* VZTExpressionContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F94101EA601F80050EFFE /* VZTExpressionContext.m */; };
-		455F944F1EA601F80050EFFE /* VZTExpressionListNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 455F94111EA601F80050EFFE /* VZTExpressionListNode.h */; };
-		455F94501EA601F80050EFFE /* VZTExpressionListNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F94121EA601F80050EFFE /* VZTExpressionListNode.m */; };
 		455F94511EA601F80050EFFE /* VZTExpressionNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 455F94131EA601F80050EFFE /* VZTExpressionNode.h */; };
 		455F94521EA601F80050EFFE /* VZTExpressionNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F94141EA601F80050EFFE /* VZTExpressionNode.m */; };
 		455F94531EA601F80050EFFE /* VZTFunctionExpressionNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 455F94151EA601F80050EFFE /* VZTFunctionExpressionNode.h */; };
@@ -104,7 +102,6 @@
 		B1A0AB561EF3E91B0019F8D9 /* VZTBinaryExpressionNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F940C1EA601F80050EFFE /* VZTBinaryExpressionNode.m */; };
 		B1A0AB571EF3E91B0019F8D9 /* VZTConditionalExpressionNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F940E1EA601F80050EFFE /* VZTConditionalExpressionNode.m */; };
 		B1A0AB581EF3E91B0019F8D9 /* VZTExpressionContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F94101EA601F80050EFFE /* VZTExpressionContext.m */; };
-		B1A0AB591EF3E91B0019F8D9 /* VZTExpressionListNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F94121EA601F80050EFFE /* VZTExpressionListNode.m */; };
 		B1A0AB5A1EF3E91B0019F8D9 /* VZTExpressionNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F94141EA601F80050EFFE /* VZTExpressionNode.m */; };
 		B1A0AB5B1EF3E91B0019F8D9 /* VZTFunctionExpressionNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F94161EA601F80050EFFE /* VZTFunctionExpressionNode.m */; };
 		B1A0AB5C1EF3E91B0019F8D9 /* VZTIdentifierNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F94181EA601F80050EFFE /* VZTIdentifierNode.m */; };
@@ -151,8 +148,6 @@
 		455F940E1EA601F80050EFFE /* VZTConditionalExpressionNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZTConditionalExpressionNode.m; sourceTree = "<group>"; };
 		455F940F1EA601F80050EFFE /* VZTExpressionContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZTExpressionContext.h; sourceTree = "<group>"; };
 		455F94101EA601F80050EFFE /* VZTExpressionContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZTExpressionContext.m; sourceTree = "<group>"; };
-		455F94111EA601F80050EFFE /* VZTExpressionListNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZTExpressionListNode.h; sourceTree = "<group>"; };
-		455F94121EA601F80050EFFE /* VZTExpressionListNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZTExpressionListNode.m; sourceTree = "<group>"; };
 		455F94131EA601F80050EFFE /* VZTExpressionNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZTExpressionNode.h; sourceTree = "<group>"; };
 		455F94141EA601F80050EFFE /* VZTExpressionNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZTExpressionNode.m; sourceTree = "<group>"; };
 		455F94151EA601F80050EFFE /* VZTFunctionExpressionNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZTFunctionExpressionNode.h; sourceTree = "<group>"; };
@@ -269,8 +264,6 @@
 				455F940E1EA601F80050EFFE /* VZTConditionalExpressionNode.m */,
 				455F940F1EA601F80050EFFE /* VZTExpressionContext.h */,
 				455F94101EA601F80050EFFE /* VZTExpressionContext.m */,
-				455F94111EA601F80050EFFE /* VZTExpressionListNode.h */,
-				455F94121EA601F80050EFFE /* VZTExpressionListNode.m */,
 				455F94131EA601F80050EFFE /* VZTExpressionNode.h */,
 				455F94141EA601F80050EFFE /* VZTExpressionNode.m */,
 				455F94151EA601F80050EFFE /* VZTFunctionExpressionNode.h */,
@@ -465,7 +458,6 @@
 				455F945F1EA601F80050EFFE /* VZTObjectExpressionNode.h in Headers */,
 				455F945B1EA601F80050EFFE /* VZTLexer.h in Headers */,
 				455F94511EA601F80050EFFE /* VZTExpressionNode.h in Headers */,
-				455F944F1EA601F80050EFFE /* VZTExpressionListNode.h in Headers */,
 				455F944D1EA601F80050EFFE /* VZTExpressionContext.h in Headers */,
 				455F945D1EA601F80050EFFE /* VZTLiteralNode.h in Headers */,
 				455F94731EA601F80050EFFE /* VZImageCache.h in Headers */,
@@ -634,7 +626,6 @@
 				1FF573911F1384EC004AFE82 /* VZMistScriptErrorWindow.m in Sources */,
 				455F94441EA601F80050EFFE /* NSString+VZTExtension.m in Sources */,
 				455F944C1EA601F80050EFFE /* VZTConditionalExpressionNode.m in Sources */,
-				455F94501EA601F80050EFFE /* VZTExpressionListNode.m in Sources */,
 				455F944E1EA601F80050EFFE /* VZTExpressionContext.m in Sources */,
 				455F94681EA601F80050EFFE /* VZTUnaryExpressionNode.m in Sources */,
 				458FECD91E9F3147004A44DB /* VZMistTemplateController.m in Sources */,
@@ -689,7 +680,6 @@
 				B1A0AB561EF3E91B0019F8D9 /* VZTBinaryExpressionNode.m in Sources */,
 				B1A0AB571EF3E91B0019F8D9 /* VZTConditionalExpressionNode.m in Sources */,
 				B1A0AB581EF3E91B0019F8D9 /* VZTExpressionContext.m in Sources */,
-				B1A0AB591EF3E91B0019F8D9 /* VZTExpressionListNode.m in Sources */,
 				B1A0AB5A1EF3E91B0019F8D9 /* VZTExpressionNode.m in Sources */,
 				B1A0AB5B1EF3E91B0019F8D9 /* VZTFunctionExpressionNode.m in Sources */,
 				B1A0AB5C1EF3E91B0019F8D9 /* VZTIdentifierNode.m in Sources */,

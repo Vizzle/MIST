@@ -14,29 +14,42 @@
 
 #define XCTAssertExpression(EXP, RESULT)                                                    \
 do {                                                                                        \
-NSError *error = nil;                                                                   \
-VZTExpressionNode *exp = [VZTParser parse:EXP error:&error];                            \
-XCTAssertNil(error, @"'%@' expression not valid: %@", EXP, error.localizedDescription); \
-XCTAssertEqualObjects([exp compute], RESULT, @"'%@' not equals to '%@'", EXP, RESULT);  \
+    NSError *error = nil;                                                                   \
+    VZTExpressionNode *exp = [VZTParser parse:EXP error:&error];                            \
+    XCTAssertNil(error, @"'%@' expression not valid: %@", EXP, error.localizedDescription); \
+    XCTAssertEqualObjects([exp compute], RESULT, @"'%@' not equals to '%@'", EXP, RESULT);  \
 } while (0)
 
 #define XCTAssertSameExpression(EXP) XCTAssertExpression(@"" #EXP, @(EXP))
 
 #define VZT_COMPUTE_WITH_CONTEXT(EXP, CXT) \
 ({                                                                                          \
-NSError *error = nil;                                                                   \
-VZTExpressionNode *exp = [VZTParser parse:EXP error:&error];                            \
-XCTAssertNil(error, @"'%@' expression not valid: %@", EXP, error.localizedDescription); \
-[exp compute:CXT];                                                                      \
+    NSError *error = nil;                                                                   \
+    VZTExpressionNode *exp = [VZTParser parse:EXP error:&error];                            \
+    XCTAssertNil(error, @"'%@' expression not valid: %@", EXP, error.localizedDescription); \
+    [exp compute:CXT];                                                                      \
 })
 
 #define VZT_COMPUTE(EXP) VZT_COMPUTE_WITH_CONTEXT(EXP, [VZTExpressionContext new])
 
 #define XCTAssertExpressionNotCompiled(EXP)                                                 \
 do {                                                                                        \
-NSError *error = nil;                                                                   \
-[VZTParser parse:EXP error:&error];                                                     \
-XCTAssertNotNil(error, @"'%@' expression parsed without error", EXP);                   \
+    NSError *error = nil;                                                                   \
+    [VZTParser parse:EXP error:&error];                                                     \
+    XCTAssertNotNil(error, @"'%@' expression parsed without error", EXP);                   \
+} while (0)
+#define XCTAssertExpressionCompiled(EXP)                                                    \
+do {                                                                                        \
+    NSError *error = nil;                                                                   \
+    [VZTParser parse:EXP error:&error];                                                     \
+    XCTAssertNil(error);                                                                    \
+} while (0)
+
+#define XCTAssertExpressionErrorDesc(EXP, desc)                                             \
+do {                                                                                        \
+    NSError *error = nil;                                                                   \
+    [VZTParser parse:EXP error:&error];                                                     \
+    XCTAssertEqualObjects(error.localizedDescription, desc);                                \
 } while (0)
 
 @interface ExpressionUnitTest : XCTestCase
@@ -239,6 +252,8 @@ static NSString *status;
 }
 
 - (void)testFunctionCall {
+    XCTAssertExpressionCompiled(@"a()");
+    
     XCTAssert([VZT_COMPUTE(@"NSObject.alloc.init") isMemberOfClass:[NSObject class]]);
     XCTAssertExpression(@"NSObject.class", NSObject.class);
     XCTAssertExpression(@"NSNumber.isSubclassOfClass(NSObject.class)", @([NSNumber isSubclassOfClass:NSObject.class]));
@@ -269,40 +284,43 @@ static NSString *status;
 }
 
 - (void)testErrors {
-    XCTAssertExpressionNotCompiled(@"1 +");
-    XCTAssertExpressionNotCompiled(@"+");
-    XCTAssertExpressionNotCompiled(@"(1+1");
-    XCTAssertExpressionNotCompiled(@"()");
+    XCTAssertExpressionErrorDesc(@"1 +", @"expression expected");
+    XCTAssertExpressionErrorDesc(@"+", @"expression expected");
+    XCTAssertExpressionErrorDesc(@"(1+1", @"')' expected");
+    XCTAssertExpressionErrorDesc(@"a,", @"unexpected token");
+    XCTAssertExpressionErrorDesc(@"a=", @"invalid character");
+    XCTAssertExpressionErrorDesc(@"a=1", @"invalid character");
+    XCTAssertExpressionErrorDesc(@"()", @"expression expected");
     XCTAssertExpressionNotCompiled(@".a");
-    XCTAssertExpressionNotCompiled(@"a.");
-    XCTAssertExpressionNotCompiled(@"a(");
+    XCTAssertExpressionErrorDesc(@"a.", @"identifier expected");
+    XCTAssertExpressionErrorDesc(@"a(", @"')' expected");
     XCTAssertExpressionNotCompiled(@"1+1)");
     XCTAssertExpressionNotCompiled(@"1.23.3");
     XCTAssertExpressionNotCompiled(@".123");
-    XCTAssertExpressionNotCompiled(@"/**");
-    XCTAssertExpressionNotCompiled(@"");
+    XCTAssertExpressionErrorDesc(@"/**", @"'*/' expected");
+    XCTAssertExpressionErrorDesc(@"", @"empty expression");
     XCTAssertExpressionNotCompiled(@"test.test(1, )");
     XCTAssertExpressionNotCompiled(@"test.()");
     XCTAssertExpressionNotCompiled(@"test(,123)");
-    XCTAssertExpressionNotCompiled(@"a ? 1");
+    XCTAssertExpressionErrorDesc(@"a ? 1", @"':' expected");
     XCTAssertExpressionNotCompiled(@"a 1 : 2");
     XCTAssertExpressionNotCompiled(@"2abc + 1");
-    XCTAssertExpressionNotCompiled(@"abc(a->)");
-    XCTAssertExpressionNotCompiled(@"$abc");
-    XCTAssertExpressionNotCompiled(@"'abc");
-    XCTAssertExpressionNotCompiled(@"'abc\n'");
-    XCTAssertExpressionNotCompiled(@"'abc\\");
-    XCTAssertExpressionNotCompiled(@"'abc\\'");
-    XCTAssertExpressionNotCompiled(@"'abc\\uag12'");
-    XCTAssertExpressionNotCompiled(@"'abc\\q'");
-    XCTAssertExpressionNotCompiled(@"'abc\\u123'");
+    XCTAssertExpressionErrorDesc(@"$abc", @"invalid character");
+    XCTAssertExpressionErrorDesc(@"'\t'", @"invalid characters in string. control characters must be escaped");
+    XCTAssertExpressionErrorDesc(@"'abc", @"unclosed string literal");
+    XCTAssertExpressionErrorDesc(@"'abc\n'", @"unclosed string literal");
+    XCTAssertExpressionErrorDesc(@"'abc\\", @"unclosed string literal");
+    XCTAssertExpressionErrorDesc(@"'abc\\'", @"unclosed string literal");
+    XCTAssertExpressionErrorDesc(@"'abc\\uag12'", @"invalid unicode sequence in string");
+    XCTAssertExpressionErrorDesc(@"'abc\\q'", @"invalid escaped character in string");
+    XCTAssertExpressionErrorDesc(@"'abc\\u123'", @"invalid unicode sequence in string");
     XCTAssertExpressionNotCompiled(@"'''");
     XCTAssertExpressionNotCompiled(@"[1,2,]");
     XCTAssertExpressionNotCompiled(@"{'a':b,}");
-    XCTAssertExpressionNotCompiled(@"lambda(a->)");
-    XCTAssertExpressionNotCompiled(@"lambda(->b)");
+    XCTAssertExpressionErrorDesc(@"lambda(a->)", @"expression expected");
+    XCTAssertExpressionErrorDesc(@"lambda(->b)", @"argument identifier expected");
     XCTAssertExpressionNotCompiled(@"lambda(a- >b)");
-    XCTAssertExpressionNotCompiled(@"a[]");
+    XCTAssertExpressionErrorDesc(@"a[]", @"expression expected");
     XCTAssertExpressionNotCompiled(@"a(,)");
 }
 

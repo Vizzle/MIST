@@ -138,14 +138,10 @@ segment_start = lexer->pointer + 1;
     while (lexer->c != quote) {
         switch (lexer->c) {
             case 0:
-                lexer->error = "unclosed string literal at end of file";
-                return;
-            case '\t':
-                lexer->error = "tab character in string is not allowed";
-                return;
             case '\n':
             case '\r':
-                lexer->error = "unclosed string literal at end of line";
+                lexer->error = "unclosed string literal";
+                FREE_CHARS();
                 return;
             case '\\':
             {
@@ -197,7 +193,7 @@ segment_start = lexer->pointer + 1;
                                 num = c - 'A' + 10;
                             }
                             else {
-                                lexer->error = "illegal unicode sequence in string";
+                                lexer->error = "invalid unicode sequence in string";
                                 FREE_CHARS();
                                 return;
                             }
@@ -211,7 +207,12 @@ segment_start = lexer->pointer + 1;
                         continue;
                     }
                     default:
-                        lexer->error = "illegal escaped character";
+                        if (lexer->c == '\n' || lexer->c == 0) {
+                            lexer->error = "unclosed string literal";
+                        }
+                        else {
+                            lexer->error = "invalid escaped character in string";
+                        }
                         FREE_CHARS();
                         return;
                 }
@@ -222,6 +223,11 @@ segment_start = lexer->pointer + 1;
                 break;
             }
             default:
+                if (iscntrl(lexer->c)) {
+                    lexer->error = "invalid characters in string. control characters must be escaped";
+                    FREE_CHARS();
+                    return;
+                }
                 segment_len++;
                 next(lexer);
                 break;
@@ -360,6 +366,11 @@ void _readNumber(VZTLexer *lexer, VZTToken *token) {
 }
 
 VZTTokenType _lexerNext(VZTLexer *lexer, VZTToken *token) {
+    
+#define UNKNOWN_TOKEN                       \
+    lexer->error = "invalid character";     \
+    return VZTTokenTypeUnknown;
+    
     for(;;) {
         switch (lexer->c) {
             case 0:
@@ -379,7 +390,7 @@ VZTTokenType _lexerNext(VZTLexer *lexer, VZTToken *token) {
                     return VZTTokenTypeAnd;
                 }
                 else {
-                    return VZTTokenTypeUnknown;
+                    UNKNOWN_TOKEN
                 }
             case '|':
                 next(lexer);
@@ -388,7 +399,7 @@ VZTTokenType _lexerNext(VZTLexer *lexer, VZTToken *token) {
                     return VZTTokenTypeOr;
                 }
                 else {
-                    return VZTTokenTypeUnknown;
+                    UNKNOWN_TOKEN
                 }
             case '=':
                 next(lexer);
@@ -397,7 +408,7 @@ VZTTokenType _lexerNext(VZTLexer *lexer, VZTToken *token) {
                     return VZTTokenTypeEqual;
                 }
                 else {
-                    return VZTTokenTypeUnknown;
+                    UNKNOWN_TOKEN
                 }
             case '!':
                 next(lexer);
@@ -453,7 +464,7 @@ VZTTokenType _lexerNext(VZTLexer *lexer, VZTToken *token) {
                         }
                     } while (lexer->c != 0);
                     if (!closed) {
-                        lexer->error = "unclosed comment block at end of file";
+                        lexer->error = "'*/' expected";
                         return 0;
                     }
                     continue;
@@ -521,8 +532,7 @@ VZTTokenType _lexerNext(VZTLexer *lexer, VZTToken *token) {
                     _readString(lexer, token);
                     return VZTTokenTypeString;
                 } else {
-                    lexer->error = "unknown character";
-                    return 0;
+                    UNKNOWN_TOKEN
                 }
         }
     }

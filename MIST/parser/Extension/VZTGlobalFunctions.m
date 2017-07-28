@@ -8,7 +8,9 @@
 
 #import "VZTGlobalFunctions.h"
 
+#if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
+#endif
 
 
 @implementation VZTGlobalFunctions
@@ -148,6 +150,13 @@
 
 @implementation VZTGlobalFunctions (NSValue)
 
++ (NSValue *)range:(double)loc :(double)len
+{
+    return [NSValue valueWithRange:NSMakeRange(loc, len)];
+}
+
+#if TARGET_OS_IPHONE
+
 + (NSValue *)size:(double)width :(double)height
 {
     return [NSValue valueWithCGSize:CGSizeMake(width, height)];
@@ -163,15 +172,34 @@
     return [NSValue valueWithCGRect:CGRectMake(x, y, width, height)];
 }
 
-+ (NSValue *)range:(double)loc :(double)len
-{
-    return [NSValue valueWithRange:NSMakeRange(loc, len)];
-}
-
 + (NSValue *)inset:(double)top :(double)left :(double)bottom :(double)right
 {
     return [NSValue valueWithUIEdgeInsets:UIEdgeInsetsMake(top, left, bottom, right)];
 }
+
+#else
+
++ (NSValue *)size:(double)width :(double)height
+{
+    return [NSValue valueWithSize:CGSizeMake(width, height)];
+}
+
++ (NSValue *)point:(double)x :(double)y
+{
+    return [NSValue valueWithPoint:CGPointMake(x, y)];
+}
+
++ (NSValue *)rect:(double)x :(double)y :(double)width :(double)height
+{
+    return [NSValue valueWithRect:CGRectMake(x, y, width, height)];
+}
+
++ (NSValue *)inset:(double)top :(double)left :(double)bottom :(double)right
+{
+    return [NSValue valueWithEdgeInsets:NSEdgeInsetsMake(top, left, bottom, right)];
+}
+
+#endif
 
 @end
 

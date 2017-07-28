@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 
 typedef NS_ENUM(NSUInteger, VZTTokenType) {
-    VZTTokenTypeUnknown,
     VZTTokenTypeString = 256,
     VZTTokenTypeNumber,
     VZTTokenTypeBoolean,
@@ -22,6 +21,7 @@ typedef NS_ENUM(NSUInteger, VZTTokenType) {
     VZTTokenTypeGreaterOrEqaul,
     VZTTokenTypeLessOrEqaul,
     VZTTokenTypeArrow,
+    VZTTokenTypeUnknown,
 };
 
 typedef struct {

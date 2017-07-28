@@ -7,7 +7,10 @@
 //
 
 #import "VZTUtils.h"
+
+#if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
+#endif
 
 #import <objc/runtime.h>
 

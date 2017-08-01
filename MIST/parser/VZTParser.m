@@ -94,6 +94,11 @@ VZTKeyValueListNode *vzt_parseKeyValueList2(VZTLexer *lexer, const char** error,
 	;
  */
 VZTKeyValueListNode *vzt_parseKeyValueList(VZTLexer *lexer, const char** error) {
+    if (lexer->token.type == ',') {
+        *error = "unexpected ','";
+        return nil;
+    }
+    
     VZTKeyValueListNode *list = [[VZTKeyValueListNode alloc] init];
     VZTExpressionNode *key = vzt_parseExpression(lexer, error);
     if (!key) return list;
@@ -127,16 +132,19 @@ NSArray<VZTExpressionNode *> * vzt_parseExpressionList2(VZTLexer *lexer, const c
 	;
  */
 NSArray<VZTExpressionNode *> * vzt_parseExpressionList(VZTLexer *lexer, const char** error) {
-    NSInteger pointer = lexer->pointer;
-    VZTToken lookAhead = lexer->lookAhead;
+    if (lexer->token.type == ',') {
+        *error = "unexpected ','";
+        return nil;
+    }
     
     NSMutableArray<VZTExpressionNode *> *list = [[NSMutableArray alloc] init];
     VZTExpressionNode *expression = vzt_parseExpression(lexer, error);
     if (expression) {
         [list addObject:expression];
     } else {
-        lexer->pointer = pointer;
-        lexer->lookAhead = lookAhead;
+        if (*error) {
+            return nil;
+        }
         return list;
     }
     return vzt_parseExpressionList2(lexer, error, list);
@@ -413,6 +421,10 @@ VZTExpressionNode *vzt_parsePrimaryExpression(VZTLexer *lexer, const char** erro
                 if (!list) {
                     ERROR_EXP_EXPECTED();
                 }
+                if (lexer->token.type == ',' && *error == NULL) {
+                    *error = "argument expression expected";
+                    return nil;
+                }
                 VZT_REQUIRE_OPERATOR(')', "')' expected");
                 return [[VZTFunctionExpressionNode alloc] initWithTarget:nil action:identifier parameters:list];
             }
@@ -442,6 +454,7 @@ VZTExpressionNode *vzt_parsePrimaryExpression(VZTLexer *lexer, const char** erro
         case VZTTokenTypeNotEqual:
         case VZTTokenTypeAnd:
         case VZTTokenTypeOr:
+        case '.':
         {
             *error = "expression expected";
             return nil;
@@ -456,26 +469,42 @@ VZTExpressionNode *vzt_parse(const char* code, const char** error) {
     if (!error) {
         error = &unusedError;
     }
-    if (code == NULL || code[0] == 0) {
-        *error = "empty expression";
-        return nil;
+    
+    VZTExpressionNode *expression = nil;
+    
+    if (code == NULL) {
+        code = "";
     }
+    
     VZTLexer *lexer = VZTLexer_new(code);
     VZTLexer_next(lexer);
-    VZTExpressionNode *expression = vzt_parseExpression(lexer, error);
-    if (lexer->error) {
-        *error = lexer->error;
-        expression = nil;
+    if (!lexer->error && !lexer->token.type) {
+        *error = "empty expression";
     }
-    if (!*error && lexer->token.type) {
-        *error = "unexpected token";//[NSString stringWithFormat:expression ? @"parse expression failure with redundant token '%@'" : @"unexpected token '%@'", [parser getTokenName:&parser->lexer->lookAhead]];
-        expression = nil;
-    }
-    if (!*error && !expression) {
-        *error = "parse expression failure";//[NSString stringWithFormat:@"expression failure near token '%@'", [parser getTokenName:&parser->lexer->lookAhead ?: &parser->lexer->token]];
+    else {
+        expression = vzt_parseExpression(lexer, error);
+        if (lexer->error) {
+            *error = lexer->error;
+            expression = nil;
+        }
+        if (!*error && lexer->token.type) {
+            *error = "unexpected token";//[NSString stringWithFormat:expression ? @"parse expression failure with redundant token '%@'" : @"unexpected token '%@'", [parser getTokenName:&parser->lexer->lookAhead]];
+            expression = nil;
+        }
+        if (!*error && !expression) {
+            *error = "parse expression failure";//[NSString stringWithFormat:@"expression failure near token '%@'", [parser getTokenName:&parser->lexer->lookAhead ?: &parser->lexer->token]];
+        }
     }
     
     VZTLexer_free(lexer);
+    
+    //if (*error) {
+    //    VZTToken *token = lexer->lookAhead.type ? &lexer->lookAhead : &lexer->token;
+    //    NSString *spaces = @"                                                           ";
+    //    NSString *minus = @"------------------------------------------------------------";
+    //    NSLog(@"parse error: (%zu, %zu, %zu) %s\n%s\n%@%@", lexer->line, token->offset, token->length, *error, code, [spaces substringToIndex:token->offset], [minus substringToIndex:fmax(token->length, 1)]);
+    //}
+    
     return expression;
 }
 

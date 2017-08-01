@@ -26,6 +26,8 @@ typedef NS_ENUM(NSUInteger, VZTTokenType) {
 
 typedef struct {
     VZTTokenType type;
+    size_t offset;
+    size_t length;
     union {
         const char* string;
         double number;

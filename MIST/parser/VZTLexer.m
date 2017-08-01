@@ -138,8 +138,12 @@ segment_start = lexer->pointer + 1;
     while (lexer->c != quote) {
         switch (lexer->c) {
             case 0:
+                lexer->error = "unclosed string literal";
+                FREE_CHARS();
+                return;
             case '\n':
             case '\r':
+                _newline(lexer);
                 lexer->error = "unclosed string literal";
                 FREE_CHARS();
                 return;
@@ -179,6 +183,7 @@ segment_start = lexer->pointer + 1;
                     {
                         int n = 4;
                         unichar unicode = 0;
+                        bool valid = true;
                         do {
                             next(lexer);
                             char c = lexer->c;
@@ -193,12 +198,17 @@ segment_start = lexer->pointer + 1;
                                 num = c - 'A' + 10;
                             }
                             else {
-                                lexer->error = "invalid unicode sequence in string";
-                                FREE_CHARS();
-                                return;
+                                valid = false;
+                                break;
                             }
                             unicode = unicode * 16 + num;
-                        } while (--n > 0);
+                        } while (--n > 0 && lexer->c);
+                        if (!valid) {
+                            lexer->error = "invalid unicode sequence in string";
+                            lexer->pointer -= 4 - n + 1;
+                            lexer->c = 'u';
+                            continue;
+                        }
                         NSString *unicodeStr = [NSString stringWithCharacters:&unicode length:1];
                         PUSH_CURRENT_SEGMENT
                         const char *unicodeChars = unicodeStr.UTF8String;
@@ -213,8 +223,7 @@ segment_start = lexer->pointer + 1;
                         else {
                             lexer->error = "invalid escaped character in string";
                         }
-                        FREE_CHARS();
-                        return;
+                        continue;
                 }
                 
                 PUSH_CURRENT_SEGMENT
@@ -225,8 +234,6 @@ segment_start = lexer->pointer + 1;
             default:
                 if (iscntrl(lexer->c)) {
                     lexer->error = "invalid characters in string. control characters must be escaped";
-                    FREE_CHARS();
-                    return;
                 }
                 segment_len++;
                 next(lexer);
@@ -372,6 +379,8 @@ VZTTokenType _lexerNext(VZTLexer *lexer, VZTToken *token) {
     return VZTTokenTypeUnknown;
     
     for(;;) {
+        lexer->token.offset = lexer->pointer;
+        
         switch (lexer->c) {
             case 0:
                 return 0;
@@ -465,7 +474,6 @@ VZTTokenType _lexerNext(VZTLexer *lexer, VZTToken *token) {
                     } while (lexer->c != 0);
                     if (!closed) {
                         lexer->error = "'*/' expected";
-                        return 0;
                     }
                     continue;
                 } else {
@@ -554,6 +562,7 @@ void VZTLexer_next(VZTLexer *lexer) {
     else {
         _freeTokenString(&lexer->token);
         lexer->token.type = _lexerNext(lexer, &lexer->token);
+        lexer->token.length = lexer->pointer - lexer->token.offset;
         if (lexer->error) {
             lexer->token.type = 0;
         }
@@ -563,6 +572,7 @@ void VZTLexer_next(VZTLexer *lexer) {
 void VZTLexer_lookAhead(VZTLexer *lexer) {
     _freeTokenString(&lexer->lookAhead);
     lexer->lookAhead.type = _lexerNext(lexer, &lexer->lookAhead);
+    lexer->lookAhead.length = lexer->pointer - lexer->lookAhead.offset;
     if (lexer->error) {
         lexer->lookAhead.type = 0;
     }

@@ -1,0 +1,624 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>事件处理 · MIST Document</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.2">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-anchor-navigation-ex/style/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search-plus/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-sectionx/sectionx.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+        <link rel="stylesheet" href="../styles/website.css">
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="DataBinding.html" />
+    
+    
+    <link rel="prev" href="Property.html" />
+    
+
+    </head>
+    <body>
+        
+    
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" >
+            
+                <span>
+            
+                    
+                    基本
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="Tutorial.html">
+            
+                <a href="Tutorial.html">
+            
+                    
+                    快速上手
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="State.html">
+            
+                <a href="State.html">
+            
+                    
+                    State
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="Layout.html">
+            
+                <a href="Layout.html">
+            
+                    
+                    布局
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" data-path="Style.html">
+            
+                <a href="Style.html">
+            
+                    
+                    样式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5" data-path="Property.html">
+            
+                <a href="Property.html">
+            
+                    
+                    属性
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.2.6" data-path="Event.html">
+            
+                <a href="Event.html">
+            
+                    
+                    事件处理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7" data-path="DataBinding.html">
+            
+                <a href="DataBinding.html">
+            
+                    
+                    数据绑定
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" >
+            
+                <span>
+            
+                    
+                    工具
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../tools/VSCode.html">
+            
+                <a href="../tools/VSCode.html">
+            
+                    
+                    VSCode 插件
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../tools/Sublime.html">
+            
+                <a href="../tools/Sublime.html">
+            
+                    
+                    Sublime 插件
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" >
+            
+                <span>
+            
+                    
+                    组件
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../components/node.html">
+            
+                <a href="../components/node.html">
+            
+                    
+                    node
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../components/stack.html">
+            
+                <a href="../components/stack.html">
+            
+                    
+                    stack
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../components/text.html">
+            
+                <a href="../components/text.html">
+            
+                    
+                    text
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="../components/image.html">
+            
+                <a href="../components/image.html">
+            
+                    
+                    image
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="../components/button.html">
+            
+                <a href="../components/button.html">
+            
+                    
+                    button
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.6" data-path="../components/scroll.html">
+            
+                <a href="../components/scroll.html">
+            
+                    
+                    scroll
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.7" data-path="../components/paging.html">
+            
+                <a href="../components/paging.html">
+            
+                    
+                    paging
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.8" data-path="../components/indicator.html">
+            
+                <a href="../components/indicator.html">
+            
+                    
+                    indicator
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.9" data-path="../components/line.html">
+            
+                <a href="../components/line.html">
+            
+                    
+                    line
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.10" data-path="../components/CustomNode.html">
+            
+                <a href="../components/CustomNode.html">
+            
+                    
+                    自定义组件
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >事件处理</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div class="search-plus" id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-anchor"></i><ul><li><span class="title-icon "></span><a href="#&#x4E8B;&#x4EF6;&#x5904;&#x7406;"><b></b>&#x4E8B;&#x4EF6;&#x5904;&#x7406;</a></li><ul><li><span class="title-icon "></span><a href="#&#x9884;&#x7F6E;&#x65B9;&#x6CD5;"><b></b>&#x9884;&#x7F6E;&#x65B9;&#x6CD5;</a></li><li><span class="title-icon "></span><a href="#&#x6269;&#x5C55;"><b></b>&#x6269;&#x5C55;</a></li><li><span class="title-icon "></span><a href="#once-&#x4E8B;&#x4EF6;"><b></b>once &#x4E8B;&#x4EF6;</a></li><li><span class="title-icon "></span><a href="#controller"><b></b>Controller</a></li></ul></ul></div><a href="#&#x4E8B;&#x4EF6;&#x5904;&#x7406;" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><h1 id="&#x4E8B;&#x4EF6;&#x5904;&#x7406;"><a name="&#x4E8B;&#x4EF6;&#x5904;&#x7406;" class="anchor-navigation-ex-anchor" href="#&#x4E8B;&#x4EF6;&#x5904;&#x7406;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x4E8B;&#x4EF6;&#x5904;&#x7406;</h1>
+<p>&#x6A21;&#x7248;&#x4E2D;&#x9884;&#x7F6E;&#x4E86;&#x4E00;&#x4E9B;&#x5E38;&#x7528;&#x4E8B;&#x4EF6;&#xFF0C;&#x5982; <a href="Property.html#on-tap">on-tap</a>, <a href="Property.html#on-display">on-display</a> &#x7B49;&#x3002;</p>
+<p>&#x4E8B;&#x4EF6;&#x89E6;&#x53D1;&#x65F6;&#x53EF;&#x4EE5;&#x8C03;&#x7528;&#x82E5;&#x5E72;&#x4E2A;&#x5173;&#x8054;&#x7684; <a href="#controller"><code>Controller</code></a> &#x4E0A;&#x7684;&#x65B9;&#x6CD5;&#x3002;&#x4F7F;&#x7528;&#x5B57;&#x5178;&#x63CF;&#x8FF0;&#xFF0C;key &#x4E3A;&#x65B9;&#x6CD5;&#x540D;&#xFF0C;&#x503C;&#x4E3A;&#x65B9;&#x6CD5;&#x53C2;&#x6570;&#xFF08;&#x65B9;&#x6CD5;&#x7684;&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#xFF09;&#xFF0C;&#x5982;&#xFF1A;<code>&quot;on-tap&quot;: { &quot;onTap:&quot;: &quot;param&quot; }</code> &#x76F8;&#x5F53;&#x4E8E;&#x6389;&#x7528; <code>Controller</code> &#x7684; <code>[Controller onTap:@&quot;param&quot;]</code>&#x3002;&#x65B9;&#x6CD5;&#x7B2C;&#x4E8C;&#x4E2A;&#x53C2;&#x6570;&#x4E3A;&#x4E8B;&#x4EF6;&#x7684;&#x89E6;&#x53D1;&#x8005;&#xFF0C;&#x53EF;&#x80FD;&#x662F; view &#x6216; node &#x7B49;&#x3002;</p>
+<h2 id="&#x9884;&#x7F6E;&#x65B9;&#x6CD5;"><a name="&#x9884;&#x7F6E;&#x65B9;&#x6CD5;" class="anchor-navigation-ex-anchor" href="#&#x9884;&#x7F6E;&#x65B9;&#x6CD5;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x9884;&#x7F6E;&#x65B9;&#x6CD5;</h2>
+<p>&#x5728; <code>controller</code> &#x7684;&#x57FA;&#x7C7B;&#x4E0A;&#x9884;&#x7F6E;&#x4E86;&#x5982;&#x4E0B;&#x51E0;&#x4E2A;&#x5E38;&#x7528;&#x65B9;&#x6CD5;&#xFF1A;</p>
+<style type="text/css">
+.prop {
+    background-color: rgba(226, 72, 16, 0.05);
+    word-wrap: break-word;
+    padding: 20px 10px;
+}
+.prop:nth-child(2n) {
+    background-color: rgba(226, 72, 16, 0.08);
+}
+.hash-link {
+    visibility: hidden;
+}
+h1:hover .hash-link, h2:hover .hash-link, h3:hover .hash-link, h4:hover .hash-link, h5:hover .hash-link, h6:hover .hash-link {
+    visibility: visible;
+}
+.prop code {
+    background-color: white;
+}
+.prop pre {
+    background-color: white;
+}
+</style>
+
+
+
+<div class="prop"><h4 class="propTitle" style="font-size:17px; font-weight: bold !important; margin-top:0; margin-bottom:0" id="openurl"><a name="openurl" class="anchor-navigation-ex-anchor" href="#openurl"><i class="fa fa-link" aria-hidden="true"></i></a>openUrl:</h4><div style="margin-top:-5px; margin-bottom: 5px;">
+
+</div><div style="margin-top:0.5em;margin-left:2em">&#x6253;&#x5F00;&#x6307;&#x5B9A;&#x7684; URL</div></div>
+
+
+
+<div class="prop"><h4 class="propTitle" style="font-size:17px; font-weight: bold !important; margin-top:0; margin-bottom:0" id="updatestate"><a name="updatestate" class="anchor-navigation-ex-anchor" href="#updatestate"><i class="fa fa-link" aria-hidden="true"></i></a>updateState:</h4><div style="margin-top:-5px; margin-bottom: 5px;">
+
+</div><div style="margin-top:0.5em;margin-left:2em">&#x66F4;&#x65B0;&#x72B6;&#x6001;&#x3002;&#x503C;&#x5E94;&#x8BE5;&#x4E3A;&#x4E00;&#x4E2A;&#x5B57;&#x5178;&#xFF0C;&#x5C06;&#x72B6;&#x6001;&#x4E2D;&#x5BF9;&#x5E94;&#x7684;&#x503C;&#x66F4;&#x65B0;&#x3002;&#x6CE8;&#x610F;&#x4E0D;&#x662F;&#x66FF;&#x6362;&#x6574;&#x4E2A;&#x72B6;&#x6001;&#xFF0C;&#x53EA;&#x662F;&#x66F4;&#x6539;&#x5BF9;&#x5E94;&#x7684; key&#x3002;&#x8BE6;&#x89C1;<a href="State.html">&#x72B6;&#x6001;</a></div></div>
+
+
+
+
+<!--
+- `openUrl:`  
+    打开指定的 URL
+
+- `updateState:`  
+    更新状态。值应该为一个字典，将状态中对应的值更新。注意不是替换整个状态，只是更改对应的 key。详见<a href='State.md'>状态</a>
+-->
+<h2 id="&#x6269;&#x5C55;"><a name="&#x6269;&#x5C55;" class="anchor-navigation-ex-anchor" href="#&#x6269;&#x5C55;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x6269;&#x5C55;</h2>
+<p>&#x73B0;&#x6709;&#x7684;&#x65B9;&#x6CD5;&#x4E0D;&#x80FD;&#x6EE1;&#x8DB3;&#x65F6;&#xFF0C;&#x53EF;&#x4EE5;&#x5728;&#x6A21;&#x7248;&#x5BF9;&#x5E94;&#x7684; <code>controller</code> &#x4E0A;&#x6DFB;&#x52A0;&#x65B9;&#x6CD5;&#xFF0C;&#x4F7F;&#x7528;&#x65B9;&#x6CD5;&#x540D;&#x5373;&#x53EF;&#x8C03;&#x7528;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x60F3;&#x4E3A;&#x6240;&#x6709;&#x6A21;&#x7248;&#x589E;&#x52A0;&#x65B9;&#x6CD5;&#xFF0C;&#x6216;&#x8986;&#x76D6;&#x73B0;&#x6709;&#x65B9;&#x6CD5;&#x3002;&#x9700;&#x8981;&#x7EE7;&#x627F;&#x73B0;&#x6709; controller &#x548C; item &#x5E76;&#x91CD;&#x5199; item &#x7684; tplControllerClass &#x65B9;&#x6CD5;&#x8FD4;&#x56DE;&#x65B0;&#x7684; controller &#x7C7B;&#xFF0C;&#x7136;&#x540E;&#x6240;&#x6709;&#x7684; controller &#x548C; item &#x90FD;&#x4ECE;&#x8FD9;&#x91CC;&#x521B;&#x5EFA;&#x7684;&#x7EE7;&#x627F;&#x3002;</p>
+<h2 id="once-&#x4E8B;&#x4EF6;"><a name="once-&#x4E8B;&#x4EF6;" class="anchor-navigation-ex-anchor" href="#once-&#x4E8B;&#x4EF6;"><i class="fa fa-link" aria-hidden="true"></i></a>once &#x4E8B;&#x4EF6;</h2>
+<p>&#x6240;&#x6709;&#x4E8B;&#x4EF6;&#x90FD;&#x6709;&#x5BF9;&#x5E94;&#x7684; -once &#x4E8B;&#x4EF6;&#xFF0C;&#x8868;&#x793A;&#x53EA;&#x5728;&#x7B2C;&#x4E00;&#x6B21;&#x89E6;&#x53D1;&#x8BE5;&#x4E8B;&#x4EF6;&#x65F6;&#x54CD;&#x5E94;&#xFF0C;&#x5982; <code>on-display-once</code>&#x3002;</p>
+<p>&#x6CE8;&#x610F;&#xFF0C;once &#x4E8B;&#x4EF6;&#x662F;&#x901A;&#x8FC7;&#x5143;&#x7D20;&#x7684;&#x7D22;&#x5F15;&#xFF08;<a href="Property.html#gone"><code>gone</code></a> &#x4E3A; <code>true</code> &#x7684;&#x5143;&#x7D20;&#x4E5F;&#x6709;&#x7D22;&#x5F15;&#xFF09;&#x6765;&#x533A;&#x5206;&#x7684;&#x3002;</p>
+<h2 id="controller"><a name="controller" class="anchor-navigation-ex-anchor" href="#controller"><i class="fa fa-link" aria-hidden="true"></i></a>Controller</h2>
+<p>&#x6BCF;&#x4E2A;&#x6A21;&#x5757;&#x90FD;&#x4F1A;&#x521B;&#x5EFA;&#x4E00;&#x4E2A; Controller&#xFF0C;&#x7528;&#x4E8E;&#x5904;&#x7406;&#x4E00;&#x4E9B; native &#x903B;&#x8F91;&#xFF0C;Controller &#x6839;&#x636E;&#x6A21;&#x7248;&#x7684; <a href="Property.html#controller"><code>controller</code></a> &#x5C5E;&#x6027;&#x81EA;&#x52A8;&#x521B;&#x5EFA;&#x3002;</p>
+<p>&#x540C;&#x4E00;&#x6A21;&#x7248;&#x6839;&#x636E;&#x4E0D;&#x540C;&#x6570;&#x636E;&#x751F;&#x6210;&#x7684;&#x4E0D;&#x540C;&#x6A21;&#x5757;&#x90FD;&#x6709;&#x5404;&#x81EA;&#x7684; Controller &#x5B9E;&#x4F8B;&#x3002;</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="Property.html" class="navigation navigation-prev " aria-label="Previous page: 属性">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="DataBinding.html" class="navigation navigation-next " aria-label="Next page: 数据绑定">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"事件处理","level":"1.2.6","depth":2,"next":{"title":"数据绑定","level":"1.2.7","depth":2,"path":"basics/DataBinding.md","ref":"basics/DataBinding.md","articles":[]},"previous":{"title":"属性","level":"1.2.5","depth":2,"path":"basics/Property.md","ref":"basics/Property.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchor-navigation-ex","-lunr","-search","search-plus","sectionx"],"styles":{"website":"styles/website.css"},"pluginsConfig":{"sectionx":{"tag":"b"},"anchor-navigation-ex":{"associatedWithSummary":true,"float":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"mode":"float","multipleH1":true,"pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"printLog":false,"showLevel":false},"search-plus":{},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"introduction.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"MIST Document","gitbook":">= 3.0.0","description":"A declarative framework for building efficient UIs on iOS."},"file":{"path":"basics/Event.md","mtime":"2017-07-07T10:28:14.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-08-06T15:52:24.637Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+    <script src="https://cdn.bootcss.com/ace/1.2.6/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://cdn.bootcss.com/ace/1.2.6/mode-json.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+    function prepareEditors() {
+        var nodes = document.getElementsByClassName("editor");
+        for (i=0;i<nodes.length;i++) {
+            var node = nodes.item(i);
+            node.innerHTML = JSON.stringify(JSON.parse(node.innerHTML), null, 2);
+            node.style.display = "block";
+        }
+        for (i=0;i<nodes.length;i++) {
+            var node = nodes.item(i);
+            var editor = ace.edit(node);
+            var JsonMode = ace.require("ace/mode/json").Mode;
+            editor.session.setMode(new JsonMode());
+            editor.setDisplayIndentGuides(false);
+            editor.setShowPrintMargin(false);
+            editor.setReadOnly(true);
+            editor.setAutoScrollEditorIntoView(true);
+            editor.setOptions({ maxLines: Infinity, scrollPastEnd: false, wrap: 'free' });
+            editor.resize();
+            editor.clearSelection();
+        }
+    }
+    </script>
+    <img src style="display: none;" onerror="prepareEditors()"/>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search-plus/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search-plus/search.js"></script>
+        
+    
+        
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sectionx/sectionx.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

@@ -1,4 +1,4 @@
-# Tutorial
+# 快速上手
 
 ## Hello World
 

@@ -1,5 +1,7 @@
 # 样式
 
+样式是所有元素（[自定义组件](/components/CustomNode.md)除外）都可以使用的属性，写在 `style` 里。
+
 {% set properties = [
 	{ "name": "background-color", "desc": "背景<a href='#颜色'>颜色</a>，默认为透明。" },
 	{ "name": "border-width", "desc": "边框宽度，默认为 0。可以用 `\"1px\"`表示 1 像素的边框" },

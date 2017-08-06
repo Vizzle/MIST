@@ -12,9 +12,12 @@
 	{ "name": "font-name", "desc": "字体名。默认为系统字体。" },
 	{ "name": "font-style", "desc": "字体样式。", "enum": ["ultra-light", "thin", "light", "normal", "medium", "bold", "heavy", "black", "italic", "bold-italic"] },
 	{ "name": "alignment", "desc": "文字水平对齐方式。默认为 <code>left</code>。", "enum": ["left", "center", "right", "natural", "justify"] },
+	{ "name": "vertical-alignment", "desc": "文字竖直对齐方式。默认为 <code>center</code>。", "enum": ["top", "center", "bottom"] },
 	{ "name": "line-break-mode", "desc": "文字换行方式。默认为 <code>word</code>。", "enum": ["word", "char"] },
 	{ "name": "truncation-mode", "desc": "文字省略方式。默认为 <code>truncating-tail</code>。", "enum": ["truncating-head", "truncating-middle", "truncating-tail", "none"] },
 	{ "name": "lines", "desc": "最大行数。为 0 时，不限制行数。默认为 1。" },
+	{ "name": "line-spacing", "desc": "行间距。" },
+	{ "name": "kern", "desc": "字间距。需要注意文字的最右边也会有一个字距大小的空白，一般可以通过设置 <code>margin-right</code> 来修正。如：  <pre><code>\"kern\": 5,\n\"margin-right\": -5</code></pre>" },
 	{ "name": "adjusts-font-size", "desc": "是否调整字号以适应控件的宽度，默认为<code>false</code>。" },
 	{ "name": "mini-scale-factor", "desc": "与<code>adjusts-font-size</code>配合使用，设置一个字号调整的最小系数，设置为0时，字号会调整至内容能完全展示。" }
 ] %}

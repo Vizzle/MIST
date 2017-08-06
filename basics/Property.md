@@ -10,7 +10,7 @@
 	{ "name": "state", "desc": "模版的初始<a href='State.md'>状态</a>" },
 	{ "name": "data", "desc": "值为字典，用于对数据做一些处理或适配，这里的计算结果会追加到数据" },
   { "name": "styles", "desc": "样式表，定义一些可以被重复使用的样式，在元素中通过 <a href='#class'><code>class</code></a> 属性引用" },
-	{ "name": "id", "desc": "给模版指定一个 id" },
+	{ "name": "identifier", "desc": "给模版指定一个 id" },
 	{ "name": "async-display", "desc": "是否启用异步渲染" }
 ] %}
 
@@ -21,11 +21,13 @@
 所有元素都支持如下的属性（自定义元素不能使用[样式](Style.md)属性）
 
 {% set properties = [
+	{ "name": "type", "desc": "元素类型，除预置的基本类型外，也可注册自定义组件，见[`自定义组件`](/components/CustomNode.md)。" },
 	{ "name": "gone", "desc": "为 <code>true</code> 时，元素不显示，且不加入布局。" },
 	{ "name": "repeat", "desc": "模版衍生机制。<code>repeat</code> 为元素重复的次数或重复的数组。注意：根节点元素使用 <code>repeat</code> 无效！<br><a href='#repeat属性'>详细说明</a>" },
 	{ "name": "vars", "desc": "定义变量（宏），详见<a href='DataBinding.md#定义变量（宏）'>这里</a>。" },
   { "name": "class", "desc": "引用在 <a href='#styles'><code>styles</code></a> 中定义的样式。可以引用多个样式，用空格分开，靠后的样式覆盖前面的样式。" },
-	{ "name": "style", "desc": "元素的<a href='Style.md'>样式</a>和<a href='Layout.md'>布局</a>属性" }
+	{ "name": "style", "desc": "元素的<a href='Style.md'>样式</a>和<a href='Layout.md'>布局</a>属性" },
+	{ "name": "children", "desc": "容器的子元素。目前支持的容器有 [`stack`](/components/stack.md), [`scroll`](/components/scroll.md), [`paging`](/components/paging.md)" }
 ] %}
 
 {% include "../templates/properties.md" %}

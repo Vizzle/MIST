@@ -10,6 +10,7 @@
 #import "VZMistTemplateHelper.h"
 #import "VZMistTemplateEvent.h"
 #import "VZTExpressionNode.h"
+#import "VZTParser.h"
 #import "VZMist.h"
 #import "VZMacros.h"
 #import "VZDataStructure.h"
@@ -862,10 +863,52 @@ static const void *displayEventKey = &displayEventKey;
                 }
 
                 if (obj[@"repeat"]) {
+                    NSString *indexKey = kVZTemplateLoopIndex;
+                    NSString *itemKey = kVZTemplateLoopItem;
                     id repeat = [VZMistTemplateHelper extractValueForExpression:obj[@"repeat"] withContext:data];
 
                     NSArray *items = nil;
                     NSInteger count = 0;
+
+                    if ([repeat isKindOfClass:[NSString class]]) {
+                        // item in array
+                        // item, i in array
+                        // i in 10
+                        static NSRegularExpression *regex;
+                        static dispatch_once_t onceToken;
+                        dispatch_once(&onceToken, ^{
+                            regex = [NSRegularExpression regularExpressionWithPattern:@"^\\s*(\\w+(?:\\s*,\\s*\\w+)?)\\s+in\\s+(.+)$" options:0 error:nil];
+                        });
+                        NSTextCheckingResult *match = [regex firstMatchInString:repeat options:0 range:NSMakeRange(0, [repeat length])];
+                        if (match) {
+                            NSArray *keys = [[repeat substringWithRange:[match rangeAtIndex:1]] componentsSeparatedByString:@","];
+                            NSString *expression = [repeat substringWithRange:[match rangeAtIndex:2]];
+                            VZTExpressionNode *expressionNode = [VZTParser parse:expression error:nil];
+                            repeat = [expressionNode compute:data];
+                            NSString *(^getIdentifier)(NSString *) = ^NSString *(NSString *str) {
+                                str = [str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                                static NSRegularExpression *identifierRegex;
+                                static dispatch_once_t onceToken;
+                                dispatch_once(&onceToken, ^{
+                                    identifierRegex = [NSRegularExpression regularExpressionWithPattern:@"^[A-Za-z_]\\w*$" options:0 error:nil];
+                                });
+                                if ([identifierRegex firstMatchInString:str options:0 range:NSMakeRange(0, str.length)]) {
+                                    return str;
+                                }
+                                return nil;
+                            };
+                            if ([repeat isKindOfClass:[NSNumber class]]) {
+                                indexKey = getIdentifier(keys.firstObject) ?: indexKey;
+                            }
+                            else {
+                                itemKey = getIdentifier(keys.firstObject) ?: itemKey;
+                                if (keys.count >= 2) {
+                                    indexKey = getIdentifier(keys[1]) ?: indexKey;
+                                }
+                            }
+                        }
+                    }
+
                     if ([repeat isKindOfClass:[NSArray class]]) {
                         items = repeat;
                         count = items.count;
@@ -876,12 +919,12 @@ static const void *displayEventKey = &displayEventKey;
                         NSLog(@"%@: 'repeat' must be a number or an array, but '%@' is provided", self.class, repeat);
                     }
 
-                    [data pushVariableWithKey:kVZTemplateLoopIndex value:nil];
-                    [data pushVariableWithKey:kVZTemplateLoopItem value:nil];
+                    [data pushVariableWithKey:indexKey value:nil];
+                    [data pushVariableWithKey:itemKey value:nil];
                     for (int i = 0; i < count; i++) {
-                        [data setValue:@(i) forKey:kVZTemplateLoopIndex];
+                        [data setValue:@(i) forKey:indexKey];
                         if (items) {
-                            [data setValue:items[i] forKey:kVZTemplateLoopItem];
+                            [data setValue:items[i] forKey:itemKey];
                         }
                         VZFNode *childNode = [self nodeFromTemplate:obj
                                                                data:data
@@ -893,8 +936,8 @@ static const void *displayEventKey = &displayEventKey;
                                                        asyncDisplay:asyncDisplay];
                         list.push_back(childNode);
                     }
-                    [data popVariableWithKey:kVZTemplateLoopIndex];
-                    [data popVariableWithKey:kVZTemplateLoopItem];
+                    [data popVariableWithKey:indexKey];
+                    [data popVariableWithKey:itemKey];
                 } else {
                     VZFNode *childNode = [self nodeFromTemplate:obj
                                                            data:data

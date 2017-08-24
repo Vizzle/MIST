@@ -43,7 +43,7 @@
 // deprecated: use `replace` instead
 - (NSString *)vzt_replace:(NSString *)replace with:(NSString *)with
 {
-    return [self vzt_replace:replace with:with];
+    return [self vzt_replace:replace :with];
 }
 
 - (NSString *)vzt_replace:(NSString *)replace :(NSString *)with

@@ -794,9 +794,16 @@ static const void *displayEventKey = &displayEventKey;
 
     VZMistTemplateEvent *tapEvent = [VZMistTemplateEvent eventWithName:@"on-tap" dict:tpl expressionContext:data item:item];
     if (tapEvent) {
-        specs.gesture = [VZFBlockGesture tapGesture:^(id sender) {
+        specs.gestures.push_back([VZFBlockGesture tapGesture:^(id sender) {
             [tapEvent invokeWithSender:sender];
-        }];
+        }]);
+    }
+
+    VZMistTemplateEvent *longPressEvent = [VZMistTemplateEvent eventWithName:@"on-long-press" dict:tpl expressionContext:data item:item];
+    if (longPressEvent) {
+        specs.gestures.push_back([VZFBlockGesture longPressGesture:^(id sender) {
+            [longPressEvent invokeWithSender:sender];
+        }]);
     }
     
     NSString *classStr = __vzString(__extractValue(tpl[@"class"], data), nil);

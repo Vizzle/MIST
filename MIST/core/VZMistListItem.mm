@@ -20,6 +20,8 @@
 #import "VZMistInternal.h"
 #import "VZMistJSContextBuilder.h"
 
+#import <VZFlexLayout/YogaBridge.h>
+
 #ifdef DEBUG
 #import "VZScriptErrorMsgViewController.h"
 #endif
@@ -40,6 +42,21 @@
     }
     return self;
 }
+@end
+
+
+@interface VZMistListItemDebugInfo : NSObject
+@property (nonatomic) CGFloat renderTime;
+@property (nonatomic) CGFloat createTime;
+@property (nonatomic) CGFloat attatchTime;
+@end
+@implementation VZMistListItemDebugInfo
+
+- (NSString *)description {
+    NSString *layoutEngine = isUseYoga() ? @"yoga" : @"flex";
+    return [NSString stringWithFormat:@"create: %.2f ms, %@ layout: %.2f ms, attatch: %.2f ms", _createTime, layoutEngine, _renderTime - _createTime, _attatchTime];
+}
+
 @end
 
 
@@ -64,6 +81,7 @@ static const void *kMistItemInCell = &kMistItemInCell;
     NSDictionary *_rawData;
     NSDictionary *_processedData;
     BOOL _didLoad;
+    VZMistListItemDebugInfo *_debugInfo;
 }
 
 @synthesize jsContext = _jsContext;
@@ -82,6 +100,7 @@ static const void *kMistItemInCell = &kMistItemInCell;
         _rawData = data;
         _customData = customData ? [customData mutableCopy] : [NSMutableDictionary dictionary];
         _stateUpdatesQueue = [NSMutableArray new];
+        _debugInfo = [VZMistListItemDebugInfo new];
 
         _tpl = tpl;
         [self render];
@@ -144,12 +163,34 @@ static const void *kMistItemInCell = &kMistItemInCell;
  */
 - (void)attachToView:(UIView *)view
 {
+    CFAbsoluteTime t1 = CFAbsoluteTimeGetCurrent();
     VZMistWeakObject *preItemWrapper = objc_getAssociatedObject(view, kMistItemInCell);
     if (preItemWrapper.object && preItemWrapper.object != self) {
         [preItemWrapper.object detachFromView];
     }
     [super attachToView:view];
     objc_setAssociatedObject(view, kMistItemInCell, [[VZMistWeakObject alloc] initWithObject:self], OBJC_ASSOCIATION_RETAIN);
+    CFAbsoluteTime t2 = CFAbsoluteTimeGetCurrent();
+    _debugInfo.attatchTime = (t2 - t1) * 1000;
+
+    [self addDebugInfoLabelToView:view];
+}
+
+- (void)addDebugInfoLabelToView:(UIView *)view {
+    static const NSInteger tag = 1011;
+    UILabel *label = [view viewWithTag:tag];
+    if (!label) {
+        label = [[UILabel alloc] initWithFrame:CGRectZero];
+        label.tag = tag;
+        [view addSubview:label];
+    }
+    else {
+        [view bringSubviewToFront:label];
+    }
+    label.text = _debugInfo.description;
+    label.font = [UIFont systemFontOfSize:10];
+    label.textColor = [UIColor orangeColor];
+    [label sizeToFit];
 }
 
 - (void)detachFromView
@@ -226,6 +267,7 @@ static const void *kMistItemInCell = &kMistItemInCell;
 - (void)_rebuild:(BOOL)useInitialState
 {
     if (_tpl && _rawData) {
+        CFAbsoluteTime t1 = CFAbsoluteTimeGetCurrent();
         _expressionContext = [VZTExpressionContext new];
         [_expressionContext pushVariables:_rawData];
         [_expressionContext pushVariableWithKey:@"_width_" value:@([UIScreen mainScreen].bounds.size.width)];
@@ -265,6 +307,8 @@ static const void *kMistItemInCell = &kMistItemInCell;
         if (_tplController) {
             [_tplController didReload];
         }
+        CFAbsoluteTime t2 = CFAbsoluteTimeGetCurrent();
+        _debugInfo.renderTime = (t2 - t1) * 1000;
     }
 }
 
@@ -331,7 +375,11 @@ static const void *kMistItemInCell = &kMistItemInCell;
 
     if (context.tpl && context.data) {
         @try {
-            return [VZFNode nodeFromTemplate:context->_tpl data:context->_expressionContext item:context mistInstance:context.mistInstance];
+            CFAbsoluteTime t1 = CFAbsoluteTimeGetCurrent();
+            VZFNode *node = [VZFNode nodeFromTemplate:context->_tpl data:context->_expressionContext item:context mistInstance:context.mistInstance];
+            CFAbsoluteTime t2 = CFAbsoluteTimeGetCurrent();
+            context->_debugInfo.createTime = (t2 - t1) * 1000;
+            return node;
         } @catch (NSException *exception) {
             NSAssert(YES, @"%@: node is nil", self.class);
 

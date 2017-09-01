@@ -14,6 +14,7 @@
 #import "VZMistTemplateHelper.h"
 #import <MIST/VZMist.h>
 #import <MISTDebug/MSTDebugger.h>
+#import <VZFlexLayout/YogaBridge.h>
 
 
 @interface MistSimpleTemplateBlock : NSObject
@@ -47,9 +48,16 @@
 
 @implementation MistSimpleTemplateViewController
 
+- (instancetype)init {
+    if (self = [super init]) {
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:isUseYoga() ? @"Flex" : @"Yoga" style:UIBarButtonItemStylePlain target:self action:@selector(refresh)];
+    }
+    return self;
+}
+
 - (instancetype)initWithTitle:(NSString *)title templates:(NSArray<NSString *> *)names
 {
-    if (self = [super init]) {
+    if (self = [self init]) {
         NSMutableArray *blocks = [NSMutableArray new];
         for (NSString *name in names) {
             [blocks addObject:[[MistSimpleTemplateBlock alloc] initWithTemplateName:name data:nil]];
@@ -60,9 +68,15 @@
     return self;
 }
 
+- (void)refresh {
+    setUseYoga(!isUseYoga());
+    self.navigationItem.rightBarButtonItem.title = isUseYoga() ? @"Flex" : @"Yoga";
+    [self load];
+}
+
 - (instancetype)initWithTitle:(NSString *)title data:(NSString *)data
 {
-    if (self = [super init]) {
+    if (self = [self init]) {
         NSString *dataPath = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"mist.bundle/%@", data] ofType:nil];
         NSDictionary *result = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfFile:dataPath]
                                                                options:NSJSONReadingAllowFragments

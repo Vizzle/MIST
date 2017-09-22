@@ -1,0 +1,25 @@
+{
+  "layout": {
+    "vars": {
+      "article": "Abstract\n\nThe specification describes a CSS box model optimized for user interface design. In the flex layout model, the children of a flex container can be laid out in any direction, and can “flex” their sizes, either growing to fill unused space or shrinking to avoid overflowing the parent. Both horizontal and vertical alignment of the children can be easily manipulated. Nesting of these boxes (horizontal inside vertical, or vertical inside horizontal) can be used to build layouts in two dimensions.\n\nCSS is a language for describing the rendering of structured documents (such as HTML and XML) on screen, on paper, in speech, etc.\nStatus of this document\n\nThis section describes the status of this document at the time of its publication. Other documents may supersede this document. A list of current W3C publications and the latest revision of this technical report can be found in the W3C technical reports index at http://www.w3.org/TR/.\n\nThis document was produced by the CSS Working Group (part of the Style Activity) as a Candidate Recommendation. This document is intended to become a W3C Recommendation. This document will remain a Candidate Recommendation at least until 1 September 2016 in order to ensure the opportunity for wide review.\n\nThe (archived) public mailing list www-style@w3.org (see instructions) is preferred for discussion of this specification. When sending e-mail, please put the text “css-flexbox” in the subject, preferably like this: “[css-flexbox] …summary of comment…”\n\nPublication as a Candidate Recommendation does not imply endorsement by the W3C Membership. This is a draft document and may be updated, replaced or obsoleted by other documents at any time. It is inappropriate to cite this document as other than work in progress.\n\nThis document was produced by a group operating under the 5 February 2004 W3C Patent Policy. W3C maintains a public list of any patent disclosures made in connection with the deliverables of the group; that page also includes instructions for disclosing a patent. An individual who has actual knowledge of a patent which the individual believes contains Essential Claim(s) must disclose the information in accordance with section 6 of the W3C Patent Policy.\n\nThis document is governed by the 1 September 2015 W3C Process Document.\n\nFor changes since the last draft, see the Changes section."
+    },
+    "children": [
+      {
+        "style": {
+          "wrap": "wrap",
+          "padding": 5
+        },
+        "children": [
+          {
+            "repeat": "${article.replace('\\n', ' ').split(' ').filter(s -> s.length > 0)}",
+            "type": "text",
+            "style": {
+              "margin": 5,
+              "text": "${_item_}"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

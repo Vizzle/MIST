@@ -585,6 +585,7 @@ VZTLexer * VZTLexer_new(const char* source) {
     lexer->line = 0;
     lexer->error = NULL;
     lexer->pointer = -1;
+    lexer->token.type = 0;
     lexer->lookAhead.type = 0;
     lexer->buffer = VZTVector_new();
     next(lexer);

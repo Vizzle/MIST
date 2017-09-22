@@ -548,12 +548,12 @@ UIColor *colorFromHex(const char *hex)
     return [VZMistTemplateHelper colorFromString:str].CGColor;
 }
 
-+ (UIColor *)rgb:(double)r:(double)g:(double)b
++ (UIColor *)rgb:(double)r :(double)g :(double)b
 {
-    return [self rgba:r:g:b:1];
+    return [self rgba:r :g :b :1];
 }
 
-+ (UIColor *)rgba:(double)r:(double)g:(double)b:(double)a
++ (UIColor *)rgba:(double)r :(double)g :(double)b :(double)a
 {
     return [UIColor colorWithRed:r / 255 green:g / 255 blue:b / 255 alpha:a];
 }

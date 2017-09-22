@@ -1,0 +1,23 @@
+{
+  "layout": {
+    "children": [
+      {
+        "repeat": 50,
+        "style": {
+          "flex-grow": 1,
+          "height": "${_width_}",
+          "direction": "vertical"
+        },
+        "children": [
+          {
+            "repeat": 50,
+            "style": {
+              "flex-grow": 1,
+              "background-color": "#${for(6).select(n->'0123456789abcdef'.substring(randomInt(0,16), 1)).join('')}"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -7,6 +7,10 @@ target 'MIST' do
 
   # Pods for MIST
 
-  pod 'VZFlexLayout'
+  pod 'VZFlexLayout', '~> 0.3.0'
+
+  target 'MISTTests' do
+    inherit! :search_paths
+  end
 
 end

@@ -1,0 +1,144 @@
+{
+  "layout": {
+    "style": {
+      "background-color": "#02ff0000",
+      "padding": 1
+    },
+    "children": [
+      {
+        "style": {
+          "background-color": "#02ff0000",
+          "padding": 1
+        },
+        "children": [
+          {
+            "style": {
+              "background-color": "#02ff0000",
+              "padding": 1
+            },
+            "children": [
+              {
+                "style": {
+                  "background-color": "#02ff0000",
+                  "padding": 1
+                },
+                "children": [
+                  {
+                    "style": {
+                      "background-color": "#02ff0000",
+                      "padding": 1
+                    },
+                    "children": [
+                      {
+                        "style": {
+                          "background-color": "#02ff0000",
+                          "padding": 1
+                        },
+                        "children": [
+                          {
+                            "style": {
+                              "background-color": "#02ff0000",
+                              "padding": 1
+                            },
+                            "children": [
+                              {
+                                "style": {
+                                  "background-color": "#02ff0000",
+                                  "padding": 1
+                                },
+                                "children": [
+                                  {
+                                    "style": {
+                                      "background-color": "#02ff0000",
+                                      "padding": 1
+                                    },
+                                    "children": [
+                                      {
+                                        "style": {
+                                          "background-color": "#02ff0000",
+                                          "padding": 1
+                                        },
+                                        "children": [
+                                          {
+                                            "style": {
+                                              "background-color": "#02ff0000",
+                                              "padding": 1
+                                            },
+                                            "children": [
+                                              {
+                                                "style": {
+                                                  "background-color": "#02ff0000",
+                                                  "padding": 1
+                                                },
+                                                "children": [
+                                                  {
+                                                    "style": {
+                                                      "background-color": "#02ff0000",
+                                                      "padding": 1
+                                                    },
+                                                    "children": [
+                                                      {
+                                                        "style": {
+                                                          "background-color": "#02ff0000",
+                                                          "padding": 1
+                                                        },
+                                                        "children": [
+                                                          {
+                                                            "style": {
+                                                              "background-color": "#02ff0000",
+                                                              "padding": 1
+                                                            },
+                                                            "children": [
+                                                              {
+                                                                "style": {
+                                                                  "background-color": "#02ff0000",
+                                                                  "padding": 1
+                                                                },
+                                                                "children": [
+                                                                  {
+                                                                    "style": {
+                                                                      "background-color": "#02ff0000",
+                                                                      "padding": 1
+                                                                    },
+                                                                    "children": [
+                                                                      {
+                                                                        "style": {
+                                                                          "background-color": "#02ff0000",
+                                                                          "padding": 1
+                                                                        }
+                                                                      }
+                                                                    ]
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

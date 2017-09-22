@@ -210,6 +210,51 @@ return [[MistSimpleTemplateViewController alloc] initWithTitle:NAME templates:@[
 //            }
 //        },
         {
+            .title = @"Performance",
+            .items = {
+                {
+                    .title = @"Test1",
+                    .block = ^{
+                        MistSimpleTemplateViewController *vc = [[MistSimpleTemplateViewController alloc] initWithTitle:nil templates:@[@"Performance1"]];
+                        vc.tableView.bounces = NO;
+                        return vc;
+                    }
+                },
+                {
+                    .title = @"1000 Cubes",
+                    .block = ^{
+                        MistSimpleTemplateViewController *vc = [[MistSimpleTemplateViewController alloc] initWithTitle:nil templates:@[@"Performance_Cubes_1000"]];
+                        vc.tableView.bounces = NO;
+                        return vc;
+                    }
+                },
+                {
+                    .title = @"50 x 50 Cubes",
+                    .block = ^{
+                        MistSimpleTemplateViewController *vc = [[MistSimpleTemplateViewController alloc] initWithTitle:nil templates:@[@"Performance_Cubes_50_50"]];
+                        vc.tableView.bounces = NO;
+                        return vc;
+                    }
+                },
+                {
+                    .title = @"Many Labels",
+                    .block = ^{
+                        MistSimpleTemplateViewController *vc = [[MistSimpleTemplateViewController alloc] initWithTitle:nil templates:@[@"Performance_Labels"]];
+                        vc.tableView.bounces = NO;
+                        return vc;
+                    }
+                },
+                {
+                    .title = @"Nested",
+                    .block = ^{
+                        MistSimpleTemplateViewController *vc = [[MistSimpleTemplateViewController alloc] initWithTitle:nil templates:@[@"Performance_Nested"]];
+                        vc.tableView.bounces = NO;
+                        return vc;
+                    }
+                },
+            }
+        },
+        {
             .title = @"Playground",
             .subtitle = @"在这里尝试模版的编写",
             .block = ^{

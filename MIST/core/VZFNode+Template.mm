@@ -63,50 +63,33 @@ inline FlexLength __value(id obj, id data, FlexLength defaultValue)
             static NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"^-?(0|[1-9]\\d*)(\\.\\d+)?([eE][+-]?\\d+)?" options:0 error:nil];
             NSTextCheckingResult *result = [regex firstMatchInString:obj options:0 range:NSMakeRange(0, [obj length])];
             if (result) {
+                float value = [[obj substringWithRange:result.range] doubleValue];
+
                 NSString *suffix = [obj substringFromIndex:result.range.length];
-                FlexLengthType type;
                 if ([@"%" isEqualToString:suffix]) {
-                    type = FlexLengthTypePercent;
+                    return (FlexLength){value, FlexLengthTypePercent};
                 } else if ([@"px" isEqualToString:suffix]) {
-                    type = FlexLengthTypePx;
+                    value /= [UIScreen mainScreen].scale;
                 } else if ([@"cm" isEqualToString:suffix]) {
-                    type = FlexLengthTypeCm;
+                    value *= 96 / 2.54;
                 } else if ([@"mm" isEqualToString:suffix]) {
-                    type = FlexLengthTypeMm;
+                    value *= 96 / 2.54 / 10;
                 } else if ([@"q" isEqualToString:suffix]) {
-                    type = FlexLengthTypeQ;
+                    value *= 96 / 2.54 / 40;
                 } else if ([@"in" isEqualToString:suffix]) {
-                    type = FlexLengthTypeIn;
+                    value *= 96;
                 } else if ([@"pc" isEqualToString:suffix]) {
-                    type = FlexLengthTypePc;
+                    value *= 96 / 6;
                 } else if ([@"pt" isEqualToString:suffix]) {
-                    type = FlexLengthTypePt;
-                    //                } else if ([@"em" isEqualToString:suffix]) {
-                    //                    type = FlexLengthTypeEm;
-                    //                } else if ([@"ex" isEqualToString:suffix]) {
-                    //                    type = FlexLengthTypeEx;
-                    //                } else if ([@"ch" isEqualToString:suffix]) {
-                    //                    type = FlexLengthTypeCh;
-                    //                } else if ([@"rem" isEqualToString:suffix]) {
-                    //                    type = FlexLengthTypeRem;
-                } else if ([@"vw" isEqualToString:suffix]) {
-                    type = FlexLengthTypeVw;
-                } else if ([@"vh" isEqualToString:suffix]) {
-                    type = FlexLengthTypeVh;
-                } else if ([@"vmin" isEqualToString:suffix]) {
-                    type = FlexLengthTypeVmin;
-                } else if ([@"vmax" isEqualToString:suffix]) {
-                    type = FlexLengthTypeVmax;
-                } else {
-                    type = FlexLengthTypeDefault;
+                    value *= 96 / 72;
                 }
                 
-                return flexLength([[obj substringWithRange:result.range] doubleValue], type);
+                return (FlexLength){value, FlexLengthTypePoint};
             }
         }
     }
     if ([obj isKindOfClass:[NSNumber class]]) {
-        return flexLength([obj floatValue], FlexLengthTypeDefault);
+        return (FlexLength){[obj floatValue], FlexLengthTypePoint};
     }
     return defaultValue;
 }

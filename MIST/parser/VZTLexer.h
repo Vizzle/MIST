@@ -6,6 +6,10 @@
 //  Copyright © 2016年 O2O. All rights reserved.
 //
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #import <Foundation/Foundation.h>
 
 typedef NS_ENUM(NSUInteger, VZTTokenType) {
@@ -54,3 +58,7 @@ void VZTLexer_next(VZTLexer *lexer);
 void VZTLexer_lookAhead(VZTLexer *lexer);
 
 NSString *vzt_tokenName(VZTTokenType type);
+
+#ifdef __cplusplus
+}
+#endif

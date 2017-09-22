@@ -1,0 +1,20 @@
+{
+  "layout": {
+    "style": {
+      "wrap": "wrap",
+      "align-items": "center",
+      "justify-content": "space-between"
+    },
+    "children": [
+      {
+        "repeat": "${for(1000).select(n->randomInt(20,60))}",
+        "style": {
+          "width": "${_item_}",
+          "height": "${_item_}",
+          "background-color": "blue",
+          "margin": 2
+        }
+      }
+    ]
+  }
+}

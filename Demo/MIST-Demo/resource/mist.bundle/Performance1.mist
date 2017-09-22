@@ -1,0 +1,1556 @@
+{
+  "identifier": "home_pop_eye",
+  "controller": "O2OIndexPopEyeTemplateController",
+  "layout": {
+    "vars": [{
+        "subTitle": "此时此刻，你身边最火的店",
+        "titleImage": "BAzWmbhyRyOukR1iGXOo_gAAACMAAQED",
+        "tabList": [
+          {
+            "active": false,
+            "catId": "cat1",
+            "extendInfo": {},
+            "showTitle": "商家秀",
+            "title": "此时此刻，「西溪印象城」发现不一样的Mall",
+            "modelList": [
+              {
+                "bodyColor": "#EF3A3A",
+                "cardData": [
+                  {
+                    "blockId": "M28",
+                    "data": {
+                      "imgs": [
+                        "CMHMXWtrRwielGtRVKyPVAAAACMAAQED",
+                        "I2HYBt2JQRKANJlMNTzHegAAACMAAQED",
+                        "ldBidMHkRQ2zPyz9YEU4vAAAACMAAQED",
+                        "3Jg4EZQLRp20WyEOaGbvjgAAACMAAQED"
+                      ]
+                    },
+                    "type": "show"
+                  }
+                ],
+                "objId": "2016110400077000000003446012",
+                "score": 93,
+                "mark1": "https://zos.alipayobjects.com/cdp/xDORIARqiGZaJCnhiRaO.png",
+                "title": "弄堂里1(西溪印象城店)弄堂里1(西溪印象城店)",
+                "titleColor": "#E51C23"
+              },
+              {
+                "bodyColor": "#EF3A3A",
+                "sub1": "人均100元",
+                "sub2": "100m",
+                "cardData": [
+                  {
+                    "blockId": "M11",
+                    "data": {
+                      "img": "BAzWmbhyRyOukR1iGXOo_gAAACMAAQED"
+                    },
+                    "type": "pic"
+                  },
+                  {
+                    "blockId": "M22",
+                    "data": {
+                      "tags": [
+                        "味道很吃不错",
+                        "聚会好地",
+                        "方便",
+                        "超好吃",
+                        "一起去",
+                        "美味"
+                      ],
+                      "icon": "B1mJ-8SiRHGpgzyQ6sIrkgAAACMAAQED",
+                      "desc": "食客推荐"
+                    }
+                  }
+                ],
+                "objId": "2016110400077000000003446012",
+                "score": 92,
+                "title": "外婆家1(西溪印象城店)",
+                "titleColor": "#E51C23"
+              },
+              {
+                "bodyColor": "#EF3A3A",
+                "cardData": [
+                  {
+                    "blockId": "M11",
+                    "data": {
+                      "img": "BAzWmbhyRyOukR1iGXOo_gAAACMAAQED"
+                    },
+                    "type": "pic"
+                  },
+                  {
+                    "blockId": "M23",
+                    "data": {
+                      "icon": "B1mJ-8SiRHGpgzyQ6sIrkgAAACMAAQED",
+                      "desc": "优惠预订",
+                      "cnt": "周末黄金档时段，当前可预订"
+                    }
+                  }
+                ],
+                "objId": "2016110400077000000003446012",
+                "score": 89,
+                "title": "网鱼网咖1(西溪印象城店)",
+                "titleColor": "#E51C23"
+              },
+              {
+                "bodyColor": "#EF3A3A",
+                "cardData": [
+                  {
+                    "blockId": "M11",
+                    "data": {
+                      "img": "BAzWmbhyRyOukR1iGXOo_gAAACMAAQED"
+                    },
+                    "type": "pic"
+                  },
+                  {
+                    "blockId": "M27",
+                    "data": {
+                      "icon": "B1mJ-8SiRHGpgzyQ6sIrkgAAACMAAQED",
+                      "title": "进店优惠",
+                      "digit": "9.5",
+                      "desc": "折",
+                      "name": "全场折扣券"
+                    }
+                  }
+                ],
+                "objId": "2016110400077000000003446012",
+                "score": 87,
+                "title": "麦当劳1(西溪印象城店)",
+                "titleColor": "#E51C23"
+              },
+              {
+                "bodyColor": "#EF3A3A",
+                "cardData": [
+                  {
+                    "blockId": "M11",
+                    "data": {
+                      "img": "BAzWmbhyRyOukR1iGXOo_gAAACMAAQED"
+                    },
+                    "type": "pic"
+                  },
+                  {
+                    "blockId": "M27",
+                    "data": {
+                      "icon": "B1mJ-8SiRHGpgzyQ6sIrkgAAACMAAQED",
+                      "title": "进店优惠",
+                      "digit": "9.5",
+                      "desc": "折",
+                      "name": "全场折扣券"
+                    }
+                  }
+                ],
+                "objId": "2016110400077000000003446012",
+                "score": 84,
+                "title": "屈臣氏1(西溪印象城店)",
+                "titleColor": "#E51C23"
+              }
+            ],
+            "name": "商圈"
+          },
+          {
+            "active": false,
+            "catId": "cat2",
+            "extendInfo": {},
+            "title": "此时此刻，美食不可负",
+            "modelList": [
+              {
+                "cardData": [
+                  {
+                    "blockId": "M29",
+                    "data": {
+                      "img": "CMHMXWtrRwielGtRVKyPVAAAACMAAQED"
+                    }
+                  }
+                ]
+              },
+              {
+                "bodyColor": "#EF3A3A",
+                "cardData": [
+                  {
+                    "blockId": "M11",
+                    "data": {
+                      "img": "BAzWmbhyRyOukR1iGXOo_gAAACMAAQED"
+                    },
+                    "type": "pic"
+                  },
+                  {
+                    "blockId": "M22",
+                    "data": {
+                      "tags": [
+                        "味道很吃不错",
+                        "聚会好地",
+                        "方便",
+                        "超好吃",
+                        "一起去",
+                        "美味"
+                      ],
+                      "icon": "B1mJ-8SiRHGpgzyQ6sIrkgAAACMAAQED",
+                      "desc": "食客推荐"
+                    }
+                  }
+                ],
+                "objId": "2016110400077000000003446012",
+                "score": 92,
+                "title": "外婆家2(西溪印象城店)",
+                "titleColor": "#E51C23"
+              },
+              {
+                "bodyColor": "#EF3A3A",
+                "cardData": [
+                  {
+                    "blockId": "M11",
+                    "data": {
+                      "img": "BAzWmbhyRyOukR1iGXOo_gAAACMAAQED"
+                    },
+                    "type": "pic"
+                  },
+                  {
+                    "blockId": "M23",
+                    "data": {
+                      "icon": "B1mJ-8SiRHGpgzyQ6sIrkgAAACMAAQED",
+                      "desc": "优惠预订",
+                      "cnt": "周末黄金档时段，当前可预订"
+                    }
+                  }
+                ],
+                "objId": "2016110400077000000003446012",
+                "score": 89,
+                "title": "网鱼网咖2(西溪印象城店)",
+                "titleColor": "#E51C23"
+              },
+              {
+                "bodyColor": "#EF3A3A",
+                "cardData": [
+                  {
+                    "blockId": "M11",
+                    "data": {
+                      "img": "BAzWmbhyRyOukR1iGXOo_gAAACMAAQED"
+                    },
+                    "type": "pic"
+                  },
+                  {
+                    "blockId": "M27",
+                    "data": {
+                      "icon": "B1mJ-8SiRHGpgzyQ6sIrkgAAACMAAQED",
+                      "title": "进店优惠",
+                      "digit": "9.5",
+                      "desc": "折",
+                      "name": "全场折扣券"
+                    }
+                  }
+                ],
+                "objId": "2016110400077000000003446012",
+                "score": 87,
+                "title": "麦当劳2(西溪印象城店)",
+                "titleColor": "#E51C23"
+              },
+              {
+                "bodyColor": "#EF3A3A",
+                "cardData": [
+                  {
+                    "blockId": "M11",
+                    "data": {
+                      "img": "BAzWmbhyRyOukR1iGXOo_gAAACMAAQED"
+                    },
+                    "type": "pic"
+                  },
+                  {
+                    "blockId": "M27",
+                    "data": {
+                      "icon": "B1mJ-8SiRHGpgzyQ6sIrkgAAACMAAQED",
+                      "title": "进店优惠",
+                      "digit": "9.5",
+                      "desc": "折",
+                      "name": "全场折扣券"
+                    }
+                  }
+                ],
+                "objId": "2016110400077000000003446012",
+                "score": 84,
+                "title": "屈臣氏2(西溪印象城店)",
+                "titleColor": "#E51C23"
+              }
+            ],
+            "name": "美食"
+          },
+          {
+            "active": false,
+            "catId": "cat3",
+            "extendInfo": {},
+            "title": "",
+            "modelList": [
+              {
+                "bodyColor": "#EF3A3A",
+                "cardData": [
+                  {
+                    "blockId": "M11",
+                    "data": {
+                      "img": "BAzWmbhyRyOukR1iGXOo_gAAACMAAQED"
+                    },
+                    "type": "pic"
+                  },
+                  {
+                    "sub1": "人均100元",
+                    "sub2": "100m",
+                    "blockId": "M25",
+                    "data": {
+                      "tags": [
+                        "味道很吃不错",
+                        "聚会好地",
+                        "方便",
+                        "超好吃",
+                        "一起去",
+                        "美味"
+                      ],
+                      "icon": "TvuWkJ29T9CjzLJeuEchggAAACMAAQED",
+                      "desc": "商家印象"
+                    }
+                  }
+                ],
+                "objId": "2016110400077000000003446012",
+                "score": 93,
+                "title": "弄堂里2(西溪印象城店)",
+                "titleColor": "#E51C23"
+              },
+              {
+                "bodyColor": "#EF3A3A",
+                "cardData": [
+                  {
+                    "blockId": "M11",
+                    "data": {
+                      "img": "BAzWmbhyRyOukR1iGXOo_gAAACMAAQED"
+                    },
+                    "type": "pic"
+                  },
+                  {
+                    "blockId": "M22",
+                    "data": {
+                      "tags": [
+                        "味道很吃不错",
+                        "聚会好地",
+                        "方便",
+                        "超好吃",
+                        "一起去",
+                        "美味"
+                      ],
+                      "icon": "B1mJ-8SiRHGpgzyQ6sIrkgAAACMAAQED",
+                      "desc": "食客推荐"
+                    }
+                  }
+                ],
+                "objId": "2016110400077000000003446012",
+                "score": 92,
+                "title": "外婆家2(西溪印象城店)",
+                "titleColor": "#E51C23"
+              },
+              {
+                "bodyColor": "#EF3A3A",
+                "cardData": [
+                  {
+                    "blockId": "M11",
+                    "data": {
+                      "img": "BAzWmbhyRyOukR1iGXOo_gAAACMAAQED"
+                    },
+                    "type": "pic"
+                  },
+                  {
+                    "blockId": "M23",
+                    "data": {
+                      "icon": "B1mJ-8SiRHGpgzyQ6sIrkgAAACMAAQED",
+                      "desc": "优惠预订",
+                      "cnt": "周末黄金档时段，当前可预订"
+                    }
+                  }
+                ],
+                "objId": "2016110400077000000003446012",
+                "score": 89,
+                "title": "网鱼网咖2(西溪印象城店)",
+                "titleColor": "#E51C23"
+              },
+              {
+                "bodyColor": "#EF3A3A",
+                "cardData": [
+                  {
+                    "blockId": "M11",
+                    "data": {
+                      "img": "BAzWmbhyRyOukR1iGXOo_gAAACMAAQED"
+                    },
+                    "type": "pic"
+                  },
+                  {
+                    "blockId": "M27",
+                    "data": {
+                      "icon": "B1mJ-8SiRHGpgzyQ6sIrkgAAACMAAQED",
+                      "title": "进店优惠",
+                      "digit": "9.5",
+                      "desc": "折",
+                      "name": "全场折扣券"
+                    }
+                  }
+                ],
+                "objId": "2016110400077000000003446012",
+                "score": 87,
+                "title": "麦当劳2(西溪印象城店)",
+                "titleColor": "#E51C23"
+              },
+              {
+                "bodyColor": "#EF3A3A",
+                "cardData": [
+                  {
+                    "blockId": "M11",
+                    "data": {
+                      "img": "BAzWmbhyRyOukR1iGXOo_gAAACMAAQED"
+                    },
+                    "type": "pic"
+                  },
+                  {
+                    "blockId": "M27",
+                    "data": {
+                      "icon": "B1mJ-8SiRHGpgzyQ6sIrkgAAACMAAQED",
+                      "title": "进店优惠",
+                      "digit": "9.5",
+                      "desc": "折",
+                      "name": "全场折扣券"
+                    }
+                  }
+                ],
+                "objId": "2016110400077000000003446012",
+                "score": 84,
+                "title": "屈臣氏2(西溪印象城店)",
+                "titleColor": "#E51C23"
+              }
+            ],
+            "name": "玩乐"
+          }
+        ]
+      },{
+      "smallScreen1": "${O2OPopEyeSize.deviceSmallScreen}",
+      "defalutShowTitle": "此刻，你身边最火的店"
+    }],
+    "on-tap": {
+      "clickPopEye": ""
+    },
+    "on-display-once": {
+      "exposureLog:": {
+        "seed": "a13.b42.c4105_1"
+      }
+    },
+    "style": {
+      "direction": "vertical",
+      "background-color": "white",
+      "align-items": "center"
+    },
+    "children": [
+      {
+        "style": {
+          "is-accessibility-element": true,
+          "accessibility-label": "人气眼",
+          "margin-top": 10,
+          "spacing": 5,
+          "align-items": "center"
+        },
+        "children": [
+          {
+            "type": "image",
+            "style": {
+              "image": "O2O.bundle/home_hot_sight",
+              "width": 15,
+              "height": 15,
+              "content-mode": "scale-aspect-fit"
+            }
+          },
+          {
+            "type": "text",
+            "style": {
+              "color": "#333",
+              "font-style": "bold",
+              "font-size": 16,
+              "text": "人气眼"
+            }
+          }
+        ]
+      },
+      {
+        "tag": 2001,
+        "type": "text",
+        "style": {
+          "is-accessibility-element": true,
+          "margin-top": 3,
+          "font-size": 13,
+          "color": "#888888",
+          "align-self": "stretch",
+          "alignment": "center",
+          "text": "${subTitle.length == 0 ? defalutShowTitle : subTitle}"
+        }
+      },
+      {
+        "vars": {
+          "smallScreenSize": "${tabList.count <=1 ? 235 : 245}",
+          "bigScreenSize": "${tabList.count <=1 ? 254 : 282}"
+        },
+        "animation-duration": 0.5,
+        "on-display": {
+          "display:pagingview:": {
+            "page-control": "${tabList.count <=1 ? false : true}",
+            "pageViewNumber": 5,
+            "tabList": "${tabList}",
+            "page-control-titles": "${tabList.select(tab -> tab.name)}",
+            "page-show-titles": "${tabList.select(tab -> tab.title)}",
+            "page-default-show-title": "${defalutShowTitle}",
+            "page-show-main-title": "${subTitle}"
+          }
+        },
+        "on-switch": {
+          "didScroll:pagingView:": ""
+        },
+        "style": {
+          "is-accessibility-element": false,
+          "margin-top": 10,
+          "margin-bottom": 10,
+          "margin-left": 15,
+          "margin-right": 15,
+          "height": "${smallScreen?smallScreenSize:bigScreenSize}",
+          "align-self": "stretch",
+          "page-control": false,
+          "page-control-color": "#cccccc",
+          "page-control-selected-color": "#fb6165",
+          "page-control-scale": 0.6,
+          "page-control-margin-bottom": 0,
+          "auto-scroll": 6,
+          "infinite-loop": true
+        },
+        "children": [
+          {
+            "repeat": "${tabList.count}",
+            "vars": {
+              "showTitle": "${tabList[_index_].showTitle}",
+              "modelList": "${tabList[_index_].modelList}",
+              "shopCount": "${tabList[_index_].modelList.count}",
+              "pageIndex": "${_index_}"
+            },
+            "style": {
+              "fixed": true,
+              "properties": {
+              }
+            },
+            "children": [
+              {
+                "vars": {
+                  "topShops": "${shopCount > 2 ? modelList.sub_array(0,2) : modelList}",
+                  "bottomShops": "${shopCount > 2 ? modelList.sub_array(2,shopCount - 2) : nil}",
+                  "tag": "${1000 + (pageIndex + 1) *100}"
+                },
+                "tag": "${tag}",
+                "style": {
+                  "direction": "vertical",
+                  "spacing": 3,
+                  "properties": {
+                  }
+                },
+                "children": [
+                  {
+                    "repeat": 2,
+                    "vars": {
+                      "shops": "${_index_ == 0 ? topShops : bottomShops}",
+                      "isTopShop": "${_index_ == 0 ? 1 : 0}",
+                      "hasLightShow": "${_index_ == 0 ? (topShops.count > 0 ? (topShops[0].cardData.count > 0 ? ((topShops[0].cardData[0].type == 'show' || topShops[0].cardData[0].blockId == 'M29')  ? 1 : 0): 0) : 0):0}"
+                    },
+                    "style": {
+                      "direction": "horizontal",
+                      "spacing": 3
+                    },
+                    "children": [
+                      {
+                        "repeat": "${shops.count}",
+                        "vars": {
+                          "shopInfo": "${shops[_index_]}",
+                          "topWidth": "${hasLightShow ? (_index_ == 0 ? (_width_ - 3 - 30) * 2/3 + 1 : (_width_ - 3 - 30)/3):(_width_-3 -30)/2 }"
+                        },
+                        "children": [
+                          {
+                            "vars": {
+                              "titleColor": "${shopInfo.titleColor}",
+                              "bodyColor": "${shopInfo.bodyColor}",
+                              "score": "${shopInfo.score.intValue}",
+                              "title": "${shopInfo.title}",
+                              "mark1": "${shopInfo.mark1}",
+                              "firstCardData": "${shopInfo.cardData.count > 0 ? shopInfo.cardData[0] : nil }",
+                              "secondCardData": "${shopInfo.cardData.count > 1 ? shopInfo.cardData[1] : nil }",
+                              "cardData": "${shopInfo.cardData.count > 1 ? shopInfo.cardData[1]:shopInfo.cardData[0]}",
+                              "cardTag": "${tag + ( isTopShop ? (_index_ + 1) : ( 2 +_index_ + 1)) * 10 }"
+                            },
+                            "tag": "${cardTag}",
+                            "style": {
+                              "width": "${isTopShop ? topWidth : (_width_-6 - 30)/3}",
+                              "height": "${smallScreen?105:125}",
+                              "direction": "horizontal",
+                              "is-accessibility-element": true,
+                              "accessibility-label": "人气${score}店名${title}"
+                            },
+                            "children": [
+                              {
+                                "gone": "${ !(firstCardData && firstCardData.blockId == 'M29')}",
+                                "tag": "${cardTag + 1}",
+                                "style": {
+                                  "fixed": true
+                                },
+                                "children": [
+                                  {
+                                    "type": "image",
+                                    "style": {
+                                      "image-url": "${firstCardData.data.img}",
+                                      "image": "O2O.bundle/imageLoading_one_second",
+                                      "clip": true,
+                                      "content-mode": "scale-aspect-fill",
+                                      "flex-grow": "1"
+                                    }
+                                  },
+                                  {
+                                    "style": {
+                                      "fixed": true,
+                                      "background-color": "black",
+                                      "alpha": 0.03
+                                    }
+                                  },
+                                  {
+                                    "type": "image",
+                                    "style": {
+                                      "fixed": true,
+                                      "content-mode": "scale-to-fill",
+                                      "image": "O2O.bundle/index-hot-sight-big-mask"
+                                    }
+                                  }]
+                              },
+                              {
+                                "gone": "${ !(firstCardData && firstCardData.blockId == 'M28')}",
+                                "tag": "${cardTag + 3}",
+                                "style": {
+                                  "fixed": true
+                                },
+                                "children": [
+                                  {
+                                    "type": "O2OImageManagerView",
+                                    "tag": 10001,
+                                    "config": {
+                                      "imgs": "${firstCardData.data.imgs}",
+                                      "width": "${topWidth}",
+                                      "height": "${smallScreen?105:125}"
+                                    },
+                                    "style": {
+                                      "fixed": true
+                                    }
+                                  },
+                                  {
+                                    "type": "image",
+                                    "style": {
+                                      "fixed": true,
+                                      "content-mode": "scale-to-fill",
+                                      "image": "O2O.bundle/index-hot-sight-big-mask"
+                                    }
+                                  },
+                                  {
+                                    "gone":"${score <= 0}",
+                                    "style": {
+                                      "fixed": true,
+                                      "margin-left": 6,
+                                      "margin-top": 5,
+                                      "width": 40,
+                                      "height": 57,
+                                      "background-color": "#c0000000",
+                                      "direction": "vertical",
+                                      "align-items": "center"
+                                    },
+                                    "children": [
+                                      {
+                                        "gone": "${score < 100}",
+                                        "type": "image",
+                                        "style": {
+                                          "fixed": true,
+                                          "height": 18,
+                                          "image": "O2O.bundle/index-hot-sight-score-bg",
+                                          "content-mode": "scale-to-fill"
+                                        }
+                                      },
+                                      {
+                                        "type": "text",
+                                        "style": {
+                                          "color": "white",
+                                          "height": 18,
+                                          "width": "100%",
+                                          "font-size": 9,
+                                          "flex-shrink": 0,
+                                          "alignment": "center",
+                                          "text": "${score < 100? '此刻人气' : '人气火爆'}"
+                                        }
+                                      },
+                                      {
+                                        "gone": "${score >= 100}",
+                                        "style": {
+                                          "width": "31",
+                                          "height": "1px",
+                                          "flex-shrink": 0,
+                                          "background-color": "white"
+                                        }
+                                      },
+                                      {
+                                        "type": "text",
+                                        "style": {
+                                          "font-size": "${score < 100? 32 : 27}",
+                                          "color": "white",
+                                          "font-name": "DINCondensedC",
+                                          "margin-top": 2,
+                                          "alignment": "center",
+                                          "text": "${score}"
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "gone": "${mark1.length == 0}",
+                                    "type": "image",
+                                    "style": {
+                                      "fixed": true,
+                                      "margin-top": 0,
+                                      "margin-right": 0,
+                                      "margin-left": "auto",
+                                      "margin-bottom": "auto",
+                                      "width": 40,
+                                      "height": 40,
+                                      "image-url": "${mark1}"
+                                    }
+                                  },
+                                  {
+                                    "style": {
+                                      "fixed": true,
+                                      "margin-top": "auto",
+                                      "margin-bottom": 8,
+                                      "margin-right": 6,
+                                      "margin-left": 6,
+                                      "direction": "horizontal"
+                                    },
+                                    "children": [
+                                      {
+                                        "type": "text",
+                                        "style": {
+                                          "text": "${title}",
+                                          "font-size": 13,
+                                          "lines": 1,
+                                          "font-style": "medium",
+                                          "color": "white",
+                                          "margin-right": 2
+                                        }
+                                      },
+                                      {
+                                        "gone": "${showTitle.length == 0 || score <=0}",
+                                        "tag": 10002,
+                                        "style": {
+                                          "direction": "horizontal",
+                                          "align-items": "center",
+                                          "spacing": 4,
+                                          "flex-shrink": 0,
+                                          "height": "${smallScreen?16:18}",
+                                          "margin-right": 0,
+                                          "margin-left": "auto",
+                                          "background-color": "${UIColor.colorWithRGB_alpha(0, 0.6)}"
+                                        },
+                                        "children": [
+                                          {
+                                            "type": "node",
+                                            "tag": 100021,
+                                            "style": {
+                                              "width": 3,
+                                              "height": 3,
+                                              "corner-radius": 1.5,
+                                              "background-color": "#4a90e2",
+                                              "margin-left": 4
+                                            }
+                                          },
+                                          {
+                                            "type": "text",
+                                            "style": {
+                                              "text": "${ showTitle.length >0 ? showTitle : 'LIVE'}",
+                                              "color": "#ffffff",
+                                              "font-size": "${smallScreen?10:11}"
+                                            }
+                                          },
+                                          {
+                                            "type": "O2OAnimateImageView",
+                                            "tag": 100022,
+                                            "style": {
+                                              "width": "${smallScreen?11:12}",
+                                              "height": "${smallScreen?11:12}",
+                                              "margin-right": 4
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "gone": "${ !(firstCardData && firstCardData.blockId == 'M11')}",
+                                "tag": "${cardTag +  1}",
+                                "style": {
+                                  "fixed": true
+                                },
+                                "children": [
+                                  {
+                                    "type": "image",
+                                    "style": {
+                                      "image-url": "${firstCardData.data.img}",
+                                      "image": "${isTopShop?'O2O.bundle/imageLoading_one_second':'O2O.bundle/imageLoading_one_third'}",
+                                      "clip": true,
+                                      "content-mode": "scale-aspect-fill",
+                                      "flex-grow": "1"
+                                    }
+                                  },
+                                  {
+                                    "style": {
+                                      "fixed": true,
+                                      "background-color": "black",
+                                      "alpha": 0.03
+                                    }
+                                  },
+                                  {
+                                    "type": "image",
+                                    "style": {
+                                      "fixed": true,
+                                      "content-mode": "scale-to-fill",
+                                      "image": "O2O.bundle/index-hot-sight-big-mask"
+                                    }
+                                  },
+                                  {
+                                    "style": {
+                                      "fixed": true,
+                                      "margin-left": 6,
+                                      "margin-top": 5,
+                                      "width": 40,
+                                      "height": 57,
+                                      "background-color": "#c0000000",
+                                      "direction": "vertical",
+                                      "align-items": "center"
+                                    },
+                                    "children": [
+                                      {
+                                        "gone": "${score < 100}",
+                                        "type": "image",
+                                        "style": {
+                                          "fixed": true,
+                                          "height": 18,
+                                          "image": "O2O.bundle/index-hot-sight-score-bg",
+                                          "content-mode": "scale-to-fill"
+                                        }
+                                      },
+                                      {
+                                        "type": "text",
+                                        "style": {
+                                          "color": "white",
+                                          "height": 18,
+                                          "width": "100%",
+                                          "font-size": 9,
+                                          "flex-shrink": 0,
+                                          "alignment": "center",
+                                          "text": "${score < 100? '此刻人气' : '人气火爆'}"
+                                        }
+                                      },
+                                      {
+                                        "gone": "${score >= 100}",
+                                        "style": {
+                                          "width": "31",
+                                          "height": "1px",
+                                          "flex-shrink": 0,
+                                          "background-color": "white"
+                                        }
+                                      },
+                                      {
+                                        "type": "text",
+                                        "style": {
+                                          "font-size": "${score < 100? 32 : 27}",
+                                          "color": "white",
+                                          "font-name": "DINCondensedC",
+                                          "margin-top": 2,
+                                          "alignment": "center",
+                                          "text": "${score}"
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "gone": "${mark1.length == 0}",
+                                    "type": "image",
+                                    "style": {
+                                      "fixed": true,
+                                      "margin-top": 0,
+                                      "margin-right": 0,
+                                      "margin-left": "auto",
+                                      "margin-bottom": "auto",
+                                      "width": 40,
+                                      "height": 40,
+                                      "image-url": "${mark1}"
+                                    }
+                                  },
+                                  {
+                                    "style": {
+                                      "fixed": true,
+                                      "margin-top": "auto",
+                                      "margin-bottom": 8,
+                                      "margin-right": 6,
+                                      "margin-left": 6,
+                                      "direction": "vertical"
+                                    },
+                                    "children": [
+                                      {
+                                        "type": "text",
+                                        "style": {
+                                          "text": "${title}",
+                                          "font-size": 13,
+                                          "lines": 1,
+                                          "font-style": "medium",
+                                          "color": "white"
+                                        }
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "gone": "${ !(cardData && cardData.blockId == 'M22')}",
+                                "tag": "${cardTag+  2}",
+                                "style": {
+                                  "fixed": true,
+                                  "direction": "vertical",
+                                  "background-color": "${bodyColor}"
+                                },
+                                "children": [
+                                  {
+                                    "style": {
+                                      "background-color": "${titleColor}",
+                                      "width": "100%",
+                                      "height": "${smallScreen?38:45}",
+                                      "flex-shrink": 0
+                                    },
+                                    "children": [
+                                      {
+                                        "type": "text",
+                                        "style": {
+                                          "width": 36,
+                                          "font-size": "${score < 100? 32 : 27}",
+                                          "color": "white",
+                                          "font-name": "DINCondensedC",
+                                          "alignment": "center",
+                                          "text": "${score}",
+                                          "flex-shrink": 0
+                                        }
+                                      },
+                                      {
+                                        "style": {
+                                          "direction": "vertical",
+                                          "margin-left": "${smallScreen?0:3}",
+                                          "margin-right": 3,
+                                          "spacing": 1
+                                        },
+                                        "children": [
+                                          {
+                                            "type": "text",
+                                            "style": {
+                                              "text": "${title}",
+                                              "margin-top": 6,
+                                              "font-size": 13,
+                                              "color": "white",
+                                              "font-style": "medium",
+                                              "lines": "${(isTopShop&&!hasLightShow)?1:2}"
+                                            }
+                                          },
+                                          {
+                                            "gone": "${!isTopShop||hasLightShow||(shopInfo.sub1.length==0&&shopInfo.sub2.length==0)}",
+                                            "style": {
+                                              "wrap": true,
+                                              "height": 15,
+                                              "line-spacing": 10,
+                                              "clip": true,
+                                              "align-content": "end"
+                                            },
+                                            "children": [
+                                              {
+                                                "gone": "${shopInfo.sub1.length==0}",
+                                                "type": "text",
+                                                "style": {
+                                                  "text": "${shopInfo.sub1 + (shopInfo.sub2.length>0 ? ' | ':'')}",
+                                                  "font-size": 12,
+                                                  "color": "${UIColor.colorWithRed_green_blue_alpha(1,1,1,0.7)}"
+                                                }
+                                              },
+                                              {
+                                                "gone": "${shopInfo.sub2.length==0}",
+                                                "type": "text",
+                                                "style": {
+                                                  "text": "${shopInfo.sub2}",
+                                                  "font-size": 12,
+                                                  "color": "${UIColor.colorWithRed_green_blue_alpha(1,1,1,0.7)}"
+                                                }
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "style": {
+                                      "margin-left": 6,
+                                      "margin-right": 6,
+                                      "direction": "vertical"
+                                    },
+                                    "children": [
+                                      {
+                                        "style": {
+                                          "margin-top": 6,
+                                          "flex-shrink": 0,
+                                          "align-items": "center"
+                                        },
+                                        "children": [
+                                          {
+                                            "type": "image",
+                                            "style": {
+                                              "image-url": "${cardData.data.icon}",
+                                              "width": 13,
+                                              "height": 13,
+                                              "margin-right": 3,
+                                              "flex-shrink": 0,
+                                              "clip": true
+                                            }
+                                          },
+                                          {
+                                            "type": "text",
+                                            "style": {
+                                              "text": "${cardData.data.desc}",
+                                              "color": "white",
+                                              "font-size": 13,
+                                              "font-style": "medium"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "style": {
+                                          "margin-top": 5,
+                                          "margin-bottom": 5
+                                        },
+                                        "children": [
+                                          {
+                                            "style": {
+                                              "spacing": 3,
+                                              "line-spacing": 3,
+                                              "align-items": "center",
+                                              "align-content": "start",
+                                              "wrap": true,
+                                              "clip": true
+                                            },
+                                            "children": [
+                                              {
+                                                "repeat": "${cardData.data.tags.count}",
+                                                "style": {
+                                                  "background-color": "${titleColor}",
+                                                  "padding": 4
+                                                },
+                                                "children": [
+                                                  {
+                                                    "type": "text",
+                                                    "style": {
+                                                      "color": "white",
+                                                      "font-size": 12,
+                                                      "text": "${cardData.data.tags[_index_]}"
+                                                    }
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "gone": "${ !(cardData && cardData.blockId == 'M23')}",
+                                "tag": "${cardTag+  2}",
+                                "style": {
+                                  "fixed": true,
+                                  "direction": "vertical",
+                                  "background-color": "${bodyColor}"
+                                },
+                                "children": [
+                                  {
+                                    "style": {
+                                      "background-color": "${titleColor}",
+                                      "width": "100%",
+                                      "height": "${smallScreen?38:45}",
+                                      "flex-shrink": 0
+                                    },
+                                    "children": [
+                                      {
+                                        "type": "text",
+                                        "style": {
+                                          "width": 36,
+                                          "font-size": "${score < 100? 32 : 27}",
+                                          "color": "white",
+                                          "font-name": "DINCondensedC",
+                                          "alignment": "center",
+                                          "text": "${score}",
+                                          "flex-shrink": 0
+                                        }
+                                      },
+                                      {
+                                        "style": {
+                                          "direction": "vertical",
+                                          "margin-left": "${smallScreen?0:3}",
+                                          "margin-right": 3,
+                                          "spacing": 1
+                                        },
+                                        "children": [
+                                          {
+                                            "type": "text",
+                                            "style": {
+                                              "margin-top": 6,
+                                              "text": "${title}",
+                                              "font-size": 13,
+                                              "color": "white",
+                                              "font-style": "medium",
+                                              "lines": "${(isTopShop&&!hasLightShow)?1:2}"
+                                            }
+                                          },
+                                          {
+                                            "gone": "${!isTopShop||hasLightShow||(shopInfo.sub1.length==0&&shopInfo.sub2.length==0)}",
+                                            "style": {
+                                              "wrap": true,
+                                              "height": 15,
+                                              "line-spacing": 10,
+                                              "clip": true,
+                                              "align-content": "end"
+                                            },
+                                            "children": [
+                                              {
+                                                "gone": "${shopInfo.sub1.length==0}",
+                                                "type": "text",
+                                                "style": {
+                                                  "text": "${shopInfo.sub1 + (shopInfo.sub2.length>0 ? ' | ':'')}",
+                                                  "font-size": 12,
+                                                  "color": "${UIColor.colorWithRed_green_blue_alpha(1,1,1,0.7)}"
+                                                }
+                                              },
+                                              {
+                                                "gone": "${shopInfo.sub2.length==0}",
+                                                "type": "text",
+                                                "style": {
+                                                  "text": "${shopInfo.sub2}",
+                                                  "font-size": 12,
+                                                  "color": "${UIColor.colorWithRed_green_blue_alpha(1,1,1,0.7)}"
+                                                }
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "style": {
+                                      "margin-left": 6,
+                                      "margin-right": 6,
+                                      "height": 80,
+                                      "direction": "vertical"
+                                    },
+                                    "children": [
+                                      {
+                                        "style": {
+                                          "margin-top": 6,
+                                          "flex-shrink": 0,
+                                          "align-items": "center"
+                                        },
+                                        "children": [
+                                          {
+                                            "type": "image",
+                                            "style": {
+                                              "image-url": "${cardData.data.icon}",
+                                              "width": 13,
+                                              "height": 13,
+                                              "margin-right": 3,
+                                              "flex-shrink": 0,
+                                              "clip": true
+                                            }
+                                          },
+                                          {
+                                            "type": "text",
+                                            "style": {
+                                              "text": "${cardData.data.desc}",
+                                              "color": "white",
+                                              "font-size": 13,
+                                              "font-style": "medium"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "type": "text",
+                                        "style": {
+                                          "margin-top": 8,
+                                          "margin-bottom": 15,
+                                          "text": "${cardData.data.cnt}",
+                                          "font-size": 12,
+                                          "color": "white",
+                                          "wrap": true,
+                                          "line-spacing": 2,
+                                          "lines": 2
+                                        }
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "gone": "${ !(cardData && cardData.blockId == 'M25')}",
+                                "tag": "${cardTag+  2}",
+                                "style": {
+                                  "fixed": true,
+                                  "direction": "vertical",
+                                  "background-color": "${bodyColor}"
+                                },
+                                "children": [
+                                  {
+                                    "style": {
+                                      "background-color": "${titleColor}",
+                                      "width": "100%",
+                                      "height": "${smallScreen?38:45}",
+                                      "flex-shrink": 0
+                                    },
+                                    "children": [
+                                      {
+                                        "type": "text",
+                                        "style": {
+                                          "width": 36,
+                                          "font-size": "${score < 100? 32 : 27}",
+                                          "color": "white",
+                                          "font-name": "DINCondensedC",
+                                          "alignment": "center",
+                                          "text": "${score}",
+                                          "flex-shrink": 0
+                                        }
+                                      },
+                                      {
+                                        "style": {
+                                          "direction": "vertical",
+                                          "margin-left": "${smallScreen?0:3}",
+                                          "margin-right": 3,
+                                          "spacing": 1
+                                        },
+                                        "children": [
+                                          {
+                                            "type": "text",
+                                            "style": {
+                                              "margin-top": 6,
+                                              "text": "${title}",
+                                              "font-size": 13,
+                                              "color": "white",
+                                              "font-style": "medium",
+                                              "lines": "${(isTopShop&&!hasLightShow)?1:2}"
+                                            }
+                                          },
+                                          {
+                                            "gone": "${!isTopShop||hasLightShow||(shopInfo.sub1.length==0&&shopInfo.sub2.length==0)}",
+                                            "style": {
+                                              "wrap": true,
+                                              "height": 15,
+                                              "line-spacing": 10,
+                                              "clip": true,
+                                              "align-content": "end"
+                                            },
+                                            "children": [
+                                              {
+                                                "gone": "${shopInfo.sub1.length==0}",
+                                                "type": "text",
+                                                "style": {
+                                                  "text": "${shopInfo.sub1 + (shopInfo.sub2.length>0 ? ' | ':'')}",
+                                                  "font-size": 12,
+                                                  "color": "${UIColor.colorWithRed_green_blue_alpha(1,1,1,0.7)}"
+                                                }
+                                              },
+                                              {
+                                                "gone": "${shopInfo.sub2.length==0}",
+                                                "type": "text",
+                                                "style": {
+                                                  "text": "${shopInfo.sub2}",
+                                                  "font-size": 12,
+                                                  "color": "${UIColor.colorWithRed_green_blue_alpha(1,1,1,0.7)}"
+                                                }
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "style": {
+                                      "margin-left": 6,
+                                      "margin-right": 6,
+                                      "direction": "vertical"
+                                    },
+                                    "children": [
+                                      {
+                                        "style": {
+                                          "margin-top": 6,
+                                          "flex-shrink": 0,
+                                          "align-items": "center"
+                                        },
+                                        "children": [
+                                          {
+                                            "type": "image",
+                                            "style": {
+                                              "image-url": "${cardData.data.icon}",
+                                              "width": 13,
+                                              "height": 13,
+                                              "margin-right": 3,
+                                              "flex-shrink": 0,
+                                              "clip": true
+                                            }
+                                          },
+                                          {
+                                            "type": "text",
+                                            "style": {
+                                              "text": "${cardData.data.desc}",
+                                              "color": "white",
+                                              "font-size": 13,
+                                              "font-style": "medium"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "style": {
+                                          "margin-top": 6,
+                                          "margin-bottom": 7
+                                        },
+                                        "children": [
+                                          {
+                                            "style": {
+                                              "spacing": 3,
+                                              "line-spacing": 3,
+                                              "align-items": "center",
+                                              "align-content": "start",
+                                              "wrap": true,
+                                              "clip": true
+                                            },
+                                            "children": [
+                                              {
+                                                "repeat": "${cardData.data.tags.count}",
+                                                "style": {
+                                                  "corner-radius": 10,
+                                                  "border-width": "${O2OPopEyeSize.deviceIphone6p?0.6666:'1px'}",
+                                                  "border-color": "#66ffffff",
+                                                  "padding-top": 3,
+                                                  "padding-bottom": 3,
+                                                  "padding-left": 6,
+                                                  "padding-right": 6
+                                                },
+                                                "children": [
+                                                  {
+                                                    "type": "text",
+                                                    "style": {
+                                                      "color": "white",
+                                                      "font-size": 12,
+                                                      "text": "${cardData.data.tags[_index_]}"
+                                                    }
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "gone": "${ !(cardData && cardData.blockId == 'M27')}",
+                                "tag": "${cardTag+  2}",
+                                "style": {
+                                  "fixed": true,
+                                  "direction": "vertical",
+                                  "background-color": "${bodyColor}"
+                                },
+                                "children": [
+                                  {
+                                    "style": {
+                                      "background-color": "${titleColor}",
+                                      "width": "100%",
+                                      "height": "${smallScreen?38:45}"
+                                    },
+                                    "children": [
+                                      {
+                                        "type": "text",
+                                        "style": {
+                                          "width": 36,
+                                          "font-size": "${score < 100? 32 : 27}",
+                                          "color": "white",
+                                          "font-name": "DINCondensedC",
+                                          "alignment": "center",
+                                          "text": "${score}",
+                                          "flex-shrink": 0
+                                        }
+                                      },
+                                      {
+                                        "style": {
+                                          "direction": "vertical",
+                                          "margin-left": "${smallScreen?0:3}",
+                                          "margin-right": 3,
+                                          "spacing": 1
+                                        },
+                                        "children": [
+                                          {
+                                            "type": "text",
+                                            "style": {
+                                              "text": "${title}",
+                                              "margin-top": 6,
+                                              "font-size": 13,
+                                              "color": "white",
+                                              "font-style": "medium",
+                                              "lines": "${(isTopShop&&!hasLightShow)?1:2}"
+                                            }
+                                          },
+                                          {
+                                            "gone": "${!isTopShop||hasLightShow||(shopInfo.sub1.length==0&&shopInfo.sub2.length==0)}",
+                                            "style": {
+                                              "wrap": true,
+                                              "height": 15,
+                                              "line-spacing": 10,
+                                              "clip": true,
+                                              "align-content": "end"
+                                            },
+                                            "children": [
+                                              {
+                                                "gone": "${shopInfo.sub1.length==0}",
+                                                "type": "text",
+                                                "style": {
+                                                  "text": "${shopInfo.sub1 + (shopInfo.sub2.length>0 ? ' | ':'')}",
+                                                  "font-size": 12,
+                                                  "color": "${UIColor.colorWithRed_green_blue_alpha(1,1,1,0.7)}"
+                                                }
+                                              },
+                                              {
+                                                "gone": "${shopInfo.sub2.length==0}",
+                                                "type": "text",
+                                                "style": {
+                                                  "text": "${shopInfo.sub2}",
+                                                  "font-size": 12,
+                                                  "color": "${UIColor.colorWithRed_green_blue_alpha(1,1,1,0.7)}"
+                                                }
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "style": {
+                                      "margin-top": 6,
+                                      "margin-left": 6,
+                                      "margin-right": 6,
+                                      "flex-shrink": 0,
+                                      "align-items": "center"
+                                    },
+                                    "children": [
+                                      {
+                                        "gone": "${!cardData.data.icon}",
+                                        "type": "image",
+                                        "style": {
+                                          "image-url": "${cardData.data.icon}",
+                                          "width": 13,
+                                          "height": 13,
+                                          "margin-right": 3,
+                                          "flex-shrink": 0,
+                                          "clip": true
+                                        }
+                                      },
+                                      {
+                                        "type": "text",
+                                        "style": {
+                                          "text": "${cardData.data.title}",
+                                          "color": "white",
+                                          "font-size": 13,
+                                          "font-style": "medium"
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "style": {
+                                      "margin-top": 5,
+                                      "margin-left": 6,
+                                      "margin-right": 9
+                                    },
+                                    "children": [
+                                      {
+                                        "type": "text",
+                                        "style": {
+                                          "text": "${cardData.data.tptl}",
+                                          "font-size": 14,
+                                          "color": "white",
+                                          "font-style": "medium",
+                                          "margin-top": 8,
+                                          "flex-shrink": 0
+                                        }
+                                      },
+                                      {
+                                        "type": "text",
+                                        "style": {
+                                          "font-size": "${smallScreen?20:23}",
+                                          "color": "white",
+                                          "font-style": "bold",
+                                          "flex-shrink": 0,
+                                          "text": "${cardData.data.digit}"
+                                        }
+                                      },
+                                      {
+                                        "type": "text",
+                                        "style": {
+                                          "margin-bottom": 3,
+                                          "font-size": 11,
+                                          "margin-top": 8,
+                                          "color": "white",
+                                          "text": "${cardData.data.desc}"
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "text",
+                                    "style": {
+                                      "margin-left": 6,
+                                      "text": "${cardData.data.name}",
+                                      "font-size": "12",
+                                      "color": "white",
+                                      "margin-top": "auto",
+                                      "margin-bottom": 9
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

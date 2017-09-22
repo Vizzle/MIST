@@ -93,6 +93,7 @@
 		45C9C3531EA786A2001015CD /* VZMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 45C9C3521EA786A2001015CD /* VZMacros.h */; };
 		B1878DDC1F5E7DC200834ABF /* VZTExpressionPerformanceTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = B1878DDA1F5E7DC200834ABF /* VZTExpressionPerformanceTests.mm */; };
 		B1878DDD1F5E7DC200834ABF /* VZTExpressionTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = B1878DDB1F5E7DC200834ABF /* VZTExpressionTests.mm */; };
+		B1878DE11F5E7E7F00834ABF /* LayoutPerformanceTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = B1878DE01F5E7E7F00834ABF /* LayoutPerformanceTests.mm */; };
 		B1878DE41F5E7F2A00834ABF /* MIST.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45C497911E8F9D55009BD7AA /* MIST.framework */; };
 		B1878DE61F5E82AA00834ABF /* libVZFlexLayout.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B1A0AB4C1EF3E89E0019F8D9 /* libVZFlexLayout.a */; };
 		B1878DE71F5E878E00834ABF /* VZTLexer.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F941E1EA601F80050EFFE /* VZTLexer.m */; };
@@ -208,6 +209,7 @@
 		B1878DDA1F5E7DC200834ABF /* VZTExpressionPerformanceTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZTExpressionPerformanceTests.mm; sourceTree = "<group>"; };
 		B1878DDB1F5E7DC200834ABF /* VZTExpressionTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZTExpressionTests.mm; sourceTree = "<group>"; };
 		B1878DDE1F5E7DE700834ABF /* VZTExpressionHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VZTExpressionHelper.h; sourceTree = "<group>"; };
+		B1878DE01F5E7E7F00834ABF /* LayoutPerformanceTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LayoutPerformanceTests.mm; sourceTree = "<group>"; };
 		B1878DE81F5E887600834ABF /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		B1878DEA1F5E888100834ABF /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		B1878DEC1F5E88BC00834ABF /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
@@ -421,10 +423,19 @@
 			path = expression;
 			sourceTree = "<group>";
 		};
+		B1878DDF1F5E7E7100834ABF /* layout */ = {
+			isa = PBXGroup;
+			children = (
+				B1878DE01F5E7E7F00834ABF /* LayoutPerformanceTests.mm */,
+			);
+			path = layout;
+			sourceTree = "<group>";
+		};
 		B1A0AB401EF3E5EC0019F8D9 /* MISTTests */ = {
 			isa = PBXGroup;
 			children = (
 				B1878DD91F5E7DC200834ABF /* expression */,
+				B1878DDF1F5E7E7100834ABF /* layout */,
 				B1A0AB431EF3E5ED0019F8D9 /* Info.plist */,
 			);
 			path = MISTTests;
@@ -748,6 +759,7 @@
 			files = (
 				B1878DDD1F5E7DC200834ABF /* VZTExpressionTests.mm in Sources */,
 				B1878DDC1F5E7DC200834ABF /* VZTExpressionPerformanceTests.mm in Sources */,
+				B1878DE11F5E7E7F00834ABF /* LayoutPerformanceTests.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

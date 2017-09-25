@@ -57,7 +57,6 @@ static const void *kMistItemInCell = &kMistItemInCell;
 
 @implementation VZMistListItem
 {
-    VZTExpressionContext *_expressionContext;
     NSMutableArray *_stateUpdatesQueue;
     __weak UITableView *_tableView;
     __weak UIViewController *_viewController;

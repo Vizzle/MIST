@@ -11,6 +11,8 @@
 #import "VZFNodeListItem.h"
 #import "VZFDispatch.h"
 #import "VZDataStructure.h"
+#import "VZMistTemplate.h"
+#import "VZMistTemplateAction.h"
 
 #import <UIKit/UIKit.h>
 
@@ -23,10 +25,16 @@
 {
     if (self = [super init]) {
         _item = item;
+        for (NSString *key in _item.tpl.notifications) {
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onNotification:) name:key object:nil];
+        }
     }
     return self;
 }
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 - (void)didLoadTemplate {}
 - (void)didReload {}
@@ -45,6 +53,45 @@
 
     return [attachedView viewWithTag:tag];
 }
+
+    // actions or notifications
+- (void)_runAction:(id)action actions:(NSDictionary *)actions {
+    NSString *actionName;
+    NSDictionary *actionParams;
+    if ([action isKindOfClass:[NSString class]]) {
+        actionName = action;
+    }
+    else if ([action isKindOfClass:[NSDictionary class]]) {
+        actionName = action[@"name"];
+        actionParams = __vzDictionary(action[@"params"], nil);
+    }
+    else {
+        return;
+    }
+
+    NSDictionary *actionDict = actions[actionName];
+    if (actionDict) {
+        VZTExpressionContext *context;
+        if (actionParams) {
+            context = self.item.expressionContext.copy;
+            [context pushVariables:actionParams];
+        }
+        else {
+            context = self.item.expressionContext;
+        }
+        VZMistTemplateAction *action = [VZMistTemplateAction actionWithDictionary:actionDict expressionContext:context item:self.item];
+        [action runWithSender:nil];
+    }
+}
+
+- (void)onNotification:(NSNotification *)notification {
+    NSMutableDictionary *actionDict = [NSMutableDictionary new];
+    actionDict[@"name"] = notification.name;
+    actionDict[@"params"] = notification.userInfo;
+    [self _runAction:actionDict actions:self.item.tpl.notifications];
+}
+
+#pragma mark - build-in actions
 
 - (void)updateState:(NSDictionary *)stateChanges
 {
@@ -78,6 +125,26 @@
         [alertView addButtonWithTitle:@"OK"];
         [alertView show];
     });
+}
+
+- (void)runAction:(id)action {
+    [self _runAction:action actions:self.item.tpl.actions];
+}
+
+- (void)postNotification:(id)notification {
+    NSString *name;
+    NSDictionary *userInfo;
+    if ([notification isKindOfClass:[NSString class]]) {
+        name = notification;
+    }
+    else if ([notification isKindOfClass:[NSDictionary class]]) {
+        name = notification[@"name"];
+        userInfo = __vzDictionary(notification[@"userInfo"], nil);
+    }
+    else {
+        return;
+    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:name object:nil userInfo:userInfo];
 }
 
 @end

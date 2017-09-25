@@ -11,6 +11,7 @@
 
 @class VZMistTemplate;
 @class VZMistTemplateController;
+@class VZTExpressionContext;
 
 @protocol VZMistItem <NSObject>
 
@@ -38,6 +39,10 @@
  模板中UI组件的的state,理解state参考Reacthttps://facebook.github.io/react-native/docs/state.html
  */
 @property (nonatomic, strong, readonly) NSDictionary *state;
+/**
+ 执行表达式的 context
+ */
+@property (nonatomic, strong, readonly) VZTExpressionContext *expressionContext;
 /**
  执行js、调用js方法的JSContext
  */

@@ -68,7 +68,6 @@
     [VZMistTemplateAction registerActionWithName:@"url" block:^(VZMistTemplateAction *action) {
         NSString *url = __vzStringDefault(action.params[@"url"]);
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
-        [[NSNotificationCenter defaultCenter] postNotificationName:<#(nonnull NSNotificationName)#> object:<#(nullable id)#> userInfo:<#(nullable NSDictionary *)#>]
         action.success(nil);
     }];
 }

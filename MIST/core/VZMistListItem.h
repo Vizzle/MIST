@@ -60,6 +60,10 @@
  */
 @property (nonatomic, strong, readonly) NSDictionary *state;
 /**
+ 执行表达式的 context
+ */
+@property (nonatomic, strong, readonly) VZTExpressionContext *expressionContext;
+/**
  自定义数据，修改后，可调用 render 刷新布局
  */
 @property (nonatomic, strong) NSMutableDictionary *customData;

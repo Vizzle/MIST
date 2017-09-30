@@ -13,6 +13,7 @@
 #import "VZMist.h"
 #import "VZMistError.h"
 #import "VZMistCallHelper.h"
+#import "VZMistTemplateAction.h"
 
 @implementation VZMistTemplate
 
@@ -48,10 +49,12 @@
         }
         _initialState = [VZMistTemplateHelper parseExpressionsInTemplate:content[@"state"] mistInstance:mistInstance];
         _data = [VZMistTemplateHelper parseExpressionsInTemplate:content[@"data"] mistInstance:mistInstance];
-        _tplReuseIdentifier = content[@"reuse-identifier"];
+        _actions = [VZMistTemplateHelper parseExpressionsInTemplate:__vzDictionary(content[@"actions"], nil) mistInstance:mistInstance];
+        _notifications = [VZMistTemplateHelper parseExpressionsInTemplate:__vzDictionary(content[@"notifications"], nil) mistInstance:mistInstance];
         _identifier = content[@"identifier"];
         _styles = __vzDictionary([VZMistTemplateHelper parseExpressionsInTemplate:content[@"styles"] mistInstance:mistInstance], nil);
         _asyncDisplay = __vzBool(content[@"async-display"], NO);
+        _tplReuseIdentifier = content[@"reuse-identifier"];
     }
     return self;
 }

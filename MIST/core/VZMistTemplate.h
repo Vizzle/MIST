@@ -37,9 +37,16 @@
 @property (nonatomic, strong, readonly) NSDictionary *initialState;
 /**
  对数据进行一些处理或适配
- 理解state参考Reacthttps://facebook.github.io/react-native/docs/state.html
  */
 @property (nonatomic, strong, readonly) NSDictionary *data;
+/**
+ 定义一些 action，可以在 native 或别的 action 中通过 runAction: 调用
+ */
+@property (nonatomic, strong, readonly) NSDictionary *actions;
+/**
+ 模版中接收的通知
+ */
+@property (nonatomic, strong, readonly) NSDictionary *notifications;
 /**
  模板对应的controller类
  */

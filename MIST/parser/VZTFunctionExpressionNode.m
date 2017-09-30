@@ -53,7 +53,7 @@
         }
     }
     
-    if ([@"eval" isEqualToString:identifier] && target == [VZTGlobalFunctions class]) {
+    if (target == [VZTGlobalFunctions class] && [@"eval" isEqualToString:identifier]) {
         if (_parameters.count != 1) {
             NSLog(@"eval() requires one parameter, but %lu was provided", (unsigned long)_parameters.count);
             return nil;
@@ -72,20 +72,26 @@
         return [node compute:context];
     }
 
-    NSString *selectorName = [[[identifier stringByReplacingOccurrencesOfString:@"__" withString:@"$"] stringByReplacingOccurrencesOfString:@"_" withString:@":"] stringByReplacingOccurrencesOfString:@"$" withString:@"_"];
+    NSString *selectorName = identifier;
+    if ([selectorName rangeOfString:@"_"].length > 0) {
+        selectorName = [[selectorName stringByReplacingOccurrencesOfString:@"_" withString:@":"] stringByReplacingOccurrencesOfString:@"::" withString:@"_"];
+    }
 
     NSUInteger numberOfColons = [self numberOfCharacter:':' inString:selectorName];
     if (_parameters.count > numberOfColons) {
         selectorName = [selectorName stringByPaddingToLength:selectorName.length + _parameters.count - numberOfColons withString:@":" startingAtIndex:0];
     }
 
-    SEL selector = NSSelectorFromString(selectorName);
+    SEL selector;
     SEL vzt_selector = NSSelectorFromString([@"vzt_" stringByAppendingString:selectorName]);
     if ([target respondsToSelector:vzt_selector]) {
         selector = vzt_selector;
-    } else if (![target respondsToSelector:selector]) {
-        //        NSLog(@"unrecognized selector '%@' sent to instance of '%@'", selectorName, NSStringFromClass([target class]));
-        return nil;
+    } else {
+        selector = NSSelectorFromString(selectorName);
+        if (![target respondsToSelector:selector]) {
+//            NSLog(@"unrecognized selector '%@' sent to instance of '%@'", selectorName, NSStringFromClass([target class]));
+            return nil;
+        }
     }
 
     return [self invokeMethodWithTarget:target selector:selector context:context];

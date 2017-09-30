@@ -14,6 +14,19 @@
 
 #import <objc/runtime.h>
 
+@interface VZTSystemVersion : NSObject
++ (CGFloat)systemVersion;
+@end
+@implementation VZTSystemVersion
+static CGFloat vzt_systemVersion;
++ (void)load {
+    vzt_systemVersion = [UIDevice currentDevice].systemVersion.floatValue;
+}
++ (CGFloat)systemVersion {
+    return vzt_systemVersion;
+}
+@end
+
 NSString *vzt_stringValue(id obj)
 {
     if (!obj) {
@@ -56,7 +69,7 @@ NSMethodSignature *_vzt_fixSignature(NSMethodSignature *signature)
         float f;
     } vzt_float;
 
-    if ([[UIDevice currentDevice].systemVersion floatValue] < 7.1) {
+    if (VZTSystemVersion.systemVersion < 7.1) {
         BOOL isReturnDouble = (strcmp([signature methodReturnType], "d") == 0);
         BOOL isReturnFloat = (strcmp([signature methodReturnType], "f") == 0);
 

@@ -484,6 +484,8 @@
         }
       },
       {
+        "repeat": 5,
+        "type": "paging",
         "vars": {
           "smallScreenSize": "${tabList.count <=1 ? 235 : 245}",
           "bigScreenSize": "${tabList.count <=1 ? 254 : 282}"

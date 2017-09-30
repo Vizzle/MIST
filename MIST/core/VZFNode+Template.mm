@@ -1104,6 +1104,7 @@ static inline void vz_bindStatefulProperty(StatefulValue<T *> &prop, id value, i
     /* gencode start ScrollNodeSpecs */
     VZ_BIND_PROPERTY(ScrollDirection, specs.scrollDirection, style[@"scroll-direction"], data, DefaultFlexAttributesValue::scrollDirection);
     VZ_BIND_NUMBER_PROPERTY(bool, specs.scrollEnabled, style[@"scroll-enabled"], data, DefaultFlexAttributesValue::scrollEnabled);
+    VZ_BIND_NUMBER_PROPERTY(bool, specs.scrollsToTop, style[@"scroll-to-top"], data, DefaultFlexAttributesValue::scrollsToTop);
     VZ_BIND_NUMBER_PROPERTY(bool, specs.paging, style[@"paging"], data);
 
     /* gencode end */

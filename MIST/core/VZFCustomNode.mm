@@ -15,7 +15,8 @@
 
 + (nonnull instancetype)newWithViewFactory:(nonnull ViewFactory)factory NodeSpecs:(const NodeSpecs &)specs Measure:(nullable CGSize (^)(CGSize constrainedSize))measure
 {
-    VZFCustomNode *node = [super newWithView:{ factory, nil } NodeSpecs:specs];
+    NSString *identifier = specs.identifier.empty() ? nil : [NSString stringWithUTF8String:specs.identifier.c_str()];
+    VZFCustomNode *node = [super newWithView:{ factory, identifier } NodeSpecs:specs];
     node.flexNode.measure = measure;
     return node;
 }

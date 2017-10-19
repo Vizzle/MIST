@@ -18,6 +18,7 @@
 #import <VZFlexLayout/VZFScrollView.h>
 #import <objc/runtime.h>
 #import "VZMistInternal.h"
+#import <VZFlexLayout/VZFNodeInternal.h>
 
 #define kVZTemplateLoopIndex    @"_index_"
 #define kVZTemplateLoopItem     @"_item_"
@@ -788,7 +789,19 @@ static const void *displayEventKey = &displayEventKey;
             [longPressEvent invokeWithSender:sender];
         }]);
     }
-    
+
+#define VZMistEventDef(name, prop) \
+    VZMistTemplateEvent *prop##Event = [VZMistTemplateEvent eventWithName:name dict:tpl expressionContext:data item:item]; \
+    if (prop##Event) { \
+        specs.prop = [VZFBlockAction action:^(id sender) { \
+            [prop##Event invokeWithSender:sender]; \
+        }]; \
+    }
+
+    VZMistEventDef(@"on-update-appear", updateAppear);
+    VZMistEventDef(@"on-update-disappear", updateDisappear);
+    VZMistEventDef(@"on-update-reuse", updateReuse);
+
     NSString *classStr = __vzString(__extractValue(tpl[@"class"], data), nil);
     NSArray *classes = [classStr componentsSeparatedByString:@" "];
     if (classes.count > 0) {
@@ -822,6 +835,10 @@ static const void *displayEventKey = &displayEventKey;
                                item:item
                                data:data];
 
+    if (node && specs.identifier.empty()) {
+        node.specs.identifier = nodeId.UTF8String;
+    }
+
     if (node) {
     } else if ([type isEqualToString:@"node"]) {
         Class viewClass = nil;
@@ -837,7 +854,8 @@ static const void *displayEventKey = &displayEventKey;
         vector<VZFNode *> list = {};
         if ([childTpl isKindOfClass:[NSArray class]]) {
             // 模版衍生
-            for (__strong NSDictionary *obj in childTpl) {
+            for (int i = 0; i < childTpl.count; i++) {
+                NSDictionary *obj = childTpl[i];
                 // node本身可以是表达式
                 if ([obj isKindOfClass:[VZTExpressionNode class]]) {
                     obj = __vzDictionary(__extractValue(obj, data), @{});
@@ -911,17 +929,17 @@ static const void *displayEventKey = &displayEventKey;
 
                     [data pushVariableWithKey:indexKey value:nil];
                     [data pushVariableWithKey:itemKey value:nil];
-                    for (int i = 0; i < count; i++) {
-                        [data setValue:@(i) forKey:indexKey];
+                    for (int j = 0; j < count; j++) {
+                        [data setValue:@(j) forKey:indexKey];
                         if (items) {
-                            [data setValue:items[i] forKey:itemKey];
+                            [data setValue:items[j] forKey:itemKey];
                         }
                         VZFNode *childNode = [self nodeFromTemplate:obj
                                                                data:data
                                                                item:item
                                                        mistInstance:mistInstance
                                                          templateId:tplId
-                                                             nodeId:[nodeId stringByAppendingFormat:@">%lu", list.size()]
+                                                             nodeId:[nodeId stringByAppendingFormat:@">%d-%d", i, j]
                                                          isRootNode:NO
                                                        asyncDisplay:asyncDisplay];
                         list.push_back(childNode);
@@ -934,7 +952,7 @@ static const void *displayEventKey = &displayEventKey;
                                                            item:item
                                                    mistInstance:mistInstance
                                                      templateId:tplId
-                                                         nodeId:[nodeId stringByAppendingFormat:@">%lu", list.size()]
+                                                         nodeId:[nodeId stringByAppendingFormat:@">%d", i]
                                                      isRootNode:NO
                                                    asyncDisplay:asyncDisplay];
 
@@ -1173,8 +1191,10 @@ static inline void vz_bindStatefulProperty(StatefulValue<T *> &prop, id value, i
     NSDictionary *style = tpl[@"style"];
     /* gencode start NodeSpecs */
     VZ_BIND_PROPERTY(std::string, specs.identifier, tpl[@"identifier"], data);
+    VZ_BIND_PROPERTY(std::string, specs.globalIdentifier, tpl[@"global-identifier"], data);
     VZ_BIND_NUMBER_PROPERTY(NSInteger, specs.tag, tpl[@"tag"], data);
     VZ_BIND_NUMBER_PROPERTY(BOOL, specs.clip, style[@"clip"], data);
+    VZ_BIND_NUMBER_PROPERTY(BOOL, specs.hidden, style[@"hidden"], data);
     VZ_BIND_NUMBER_PROPERTY(float, specs.alpha, style[@"alpha"], data, DefaultAttributesValue::alpha);
     VZ_BIND_NUMBER_PROPERTY(int, specs.userInteractionEnabled, style[@"user-interaction-enabled"], data, DefaultAttributesValue::userInteractionEnabled);
     VZ_BIND_PROPERTY(UIColor *, specs.backgroundColor, style[@"background-color"], data, DefaultAttributesValue::backgroundColor);
@@ -1186,6 +1206,8 @@ static inline void vz_bindStatefulProperty(StatefulValue<T *> &prop, id value, i
     VZ_BIND_NUMBER_PROPERTY(CGFloat, specs.cornerRadiusBottomRight, style[@"corner-radius-bottom-right"], data, DefaultAttributesValue::cornerRadiusUndefined);
     VZ_BIND_NUMBER_PROPERTY(CGFloat, specs.borderWidth, style[@"border-width"], data);
     VZ_BIND_PROPERTY(UIColor *, specs.borderColor, style[@"border-color"], data);
+    VZ_BIND_NUMBER_PROPERTY(CGFloat, specs.anchorX, style[@"anchor-x"], data, DefaultAttributesValue::anchorX);
+    VZ_BIND_NUMBER_PROPERTY(CGFloat, specs.anchorY, style[@"anchor-y"], data, DefaultAttributesValue::anchorX);
     VZ_BIND_PROPERTY(UIImage *, specs.contents, style[@"contents"], data);
     VZ_BIND_PROPERTY(FlexLength, specs.width, style[@"width"], data, DefaultAttributesValue::width);
     VZ_BIND_PROPERTY(FlexLength, specs.height, style[@"height"], data, DefaultAttributesValue::height);
@@ -1230,6 +1252,15 @@ static inline void vz_bindStatefulProperty(StatefulValue<T *> &prop, id value, i
                 [view setValue:value forKeyPath:key];
             }
         };
+    }
+
+    // 隐式动画
+    NSDictionary *animDict = __extractValue(style[@"auto-animation"], data);
+    if (animDict) {
+        if (![animDict isKindOfClass:[NSDictionary class]]) {
+            animDict = @{@"enabled": animDict};
+        }
+        specs.autoAnimationAttributes = animDict;
     }
 }
 

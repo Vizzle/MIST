@@ -88,6 +88,48 @@ static const void *kMistItemInCell = &kMistItemInCell;
     return self;
 }
 
++ (NSDictionary *)builtinVars {
+    static NSDictionary *vars;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        __block UIEdgeInsets safeArea;
+        if (@available(iOS 11.0, *)) {
+            if (![NSThread isMainThread]) {
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    safeArea = [UIApplication sharedApplication].keyWindow.safeAreaInsets;
+                });
+            }
+        }
+        else {
+            safeArea = UIEdgeInsetsZero;
+        }
+
+        vars = @{
+                 @"system": @{
+                         @"name": [UIDevice currentDevice].systemName ?: @"",
+                         @"version": [UIDevice currentDevice].systemVersion ?: @"",
+                         @"deviceName": [UIDevice currentDevice].name,
+                         },
+                 @"screen": @{
+                         @"width": @([UIScreen mainScreen].bounds.size.width),
+                         @"height": @([UIScreen mainScreen].bounds.size.height),
+                         @"scale": @([UIScreen mainScreen].scale),
+                         @"isPlus": @([UIScreen mainScreen].bounds.size.width > 375),
+                         @"isSmall": @([UIScreen mainScreen].bounds.size.width < 375),
+                         @"isX": @([UIScreen mainScreen].bounds.size.height == 812),
+                         @"safeArea": @{
+                                 @"top": @(safeArea.top),
+                                 @"left": @(safeArea.left),
+                                 @"bottom": @(safeArea.bottom),
+                                 @"right": @(safeArea.right),
+                                 }
+                         }
+                 };
+    });
+
+    return vars;
+}
+
 - (void)render
 {
     if (!_tpl) {
@@ -229,6 +271,7 @@ static const void *kMistItemInCell = &kMistItemInCell;
         [_expressionContext pushVariables:_rawData];
         [_expressionContext pushVariableWithKey:@"_width_" value:@([UIScreen mainScreen].bounds.size.width)];
         [_expressionContext pushVariableWithKey:@"_height_" value:@([UIScreen mainScreen].bounds.size.height)];
+        [_expressionContext pushVariables:[VZMistListItem builtinVars]];
         
         if (_customData) {
             [_expressionContext pushVariables:_customData];

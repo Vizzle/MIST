@@ -56,7 +56,7 @@
     },
     "style": {
       "direction": "vertical",
-      "height": "${_height_ - 64}"
+      "height": "${_height_ - 44 - screen.statusBarHeight - screen.safeArea.bottom}"
     },
     "children": [
       {
@@ -139,7 +139,10 @@
           "spacing": "${spacing}",
           "line-spacing": "${spacing}",
           "wrap": "wrap",
-          "items-per-line": "${values.maxCountPerLine}"
+          "items-per-line": "${values.maxCountPerLine}",
+          "background-color": "white",
+          "margin-bottom": "${-screen.safeArea.bottom}",
+          "padding-bottom": "${screen.safeArea.bottom + 10}"
         },
         "children": [
           {

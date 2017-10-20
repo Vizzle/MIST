@@ -105,7 +105,7 @@
     },
     "style": {
       "direction": "vertical",
-      "height": "${_height_ - 64}",
+      "height": "${_height_ - 44 - screen.statusBarHeight - screen.safeArea.bottom}",
       "background-color": "#ddd"
     },
     "children": [
@@ -226,77 +226,112 @@
       },
       {
         "tag": 2,
+        "on-tap": {
+          "updateState:": {
+            "try": "${!state.try}"
+          }
+        },
         "style": {
+          "auto-animation": true,
           "margin-top": "auto",
           "background-color": "#E24810",
           "direction": "vertical",
-          "height": "${state.try ? 'auto' : 40}"
+          "padding-bottom": "${screen.safeArea.bottom}",
+          "margin-bottom": "${-screen.safeArea.bottom}"
         },
         "children": [
           {
             "type": "text",
-            "on-tap": {
-              "updateState:": {
-                "try": "${!state.try}"
-              }
-            },
             "style": {
               "flex-grow": "${state.try ? 0 : 1}",
               "text": "试一试",
               "color": "white",
               "font-size": "${state.try ? 12 : 15}",
               "font-style": "bold",
-              "alignment": "${state.try ? 'left' : 'center'}",
-              "padding-left": 7,
-              "padding-right": 7,
-              "padding-top": 3,
-              "padding-bottom": 3
+              "margin-right": "auto",
+              "margin-left": "${state.try ? 7 : 'auto'}",
+              "margin-top": "${state.try ? 3 : 8}",
+              "margin-bottom": "${state.try ? 3 : 8}"
             }
           },
           {
             "gone": "${!state.try}",
-            "type": "textview",
-            "on-display": {
-              "onDisplay:sender:": ""
+            "on-update-appear": {
+              "type": "animation",
+              "params": {
+                "delay": 0.2,
+                "duration": 0.2,
+                "fill-mode": "backwards",
+                "key-path": "opacity",
+                "from": 0
+              }
             },
-            "on-change": {
-              "onTextChange:body:": ""
+            "on-update-disappear": {
+              "type": "animation",
+              "params": {
+                "duration": 0.2,
+                "animations": [
+                  {
+                    "key-path": "hidden",
+                    "from": false,
+                    "duration": 0.4
+                  },
+                  {
+                    "key-path": "opacity",
+                    "to": 0
+                  }
+                ]
+              }
             },
+            "tag": 1,
             "style": {
-              "height": 60,
-              "background-color": "white",
-              "corner-radius-top-left": 3,
-              "corner-radius-top-right": 3,
-              "text": "${state.exp}",
-              "placeholder": "在此输入表达式",
-              "keyboard-type": "ascii-capable",
-              "font-size": 12,
-              "font-name": "Courier New",
-              "lines": 0,
-              "line-spacing": 1,
-              "padding": 4,
-              "padding-left": -1,
-              "padding-right": -1,
-              "margin-left": 5,
-              "margin-right": 5
-            }
-          },
-          {
-            "gone": "${!state.try}",
-            "type": "text",
-            "style": {
-              "background-color": "white",
-              "corner-radius-bottom-left": 3,
-              "corner-radius-bottom-right": 3,
-              "html-text": "<font color='#aaa' size='12'>结果：</font>${MistExpressionDemoController.toString(eval(state.exp))}",
-              "font-name": "Courier New",
-              "font-size": 12,
-              "line-spacing": 1,
-              "lines": 0,
-              "padding": 4,
-              "margin": 5,
-              "margin-top": "1px"
-            }
+              "direction": "vertical"
+            },
+            "children": [
+              {
+                "type": "textview",
+                "on-display": {
+                  "onDisplay:sender:": ""
+                },
+                "on-change": {
+                  "onTextChange:body:": ""
+                },
+                "style": {
+                  "height": 60,
+                  "background-color": "white",
+                  "corner-radius-top-left": 3,
+                  "corner-radius-top-right": 3,
+                  "text": "${state.exp}",
+                  "placeholder": "在此输入表达式",
+                  "keyboard-type": "ascii-capable",
+                  "font-size": 12,
+                  "font-name": "Courier New",
+                  "lines": 0,
+                  "line-spacing": 1,
+                  "padding": 4,
+                  "padding-left": -1,
+                  "padding-right": -1,
+                  "margin-left": 5,
+                  "margin-right": 5
+                }
+              },
+              {
+                "type": "text",
+                "style": {
+                  "background-color": "white",
+                  "corner-radius-bottom-left": 3,
+                  "corner-radius-bottom-right": 3,
+                  "html-text": "<font color='#aaa' size='12'>结果：</font>${MistExpressionDemoController.toString(eval(state.exp))}",
+                  "font-name": "Courier New",
+                  "font-size": 12,
+                  "line-spacing": 1,
+                  "lines": 0,
+                  "padding": 4,
+                  "margin": 5,
+                  "margin-top": "1px"
+                }
+              }
+            ]
           }
         ]
       }

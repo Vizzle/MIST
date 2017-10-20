@@ -75,7 +75,7 @@
     "style": {
       "direction": "vertical",
       "background-color": "black",
-      "height": "${_height_ - 64}"
+      "height": "${_height_ - 44 - screen.statusBarHeight - screen.safeArea.bottom}"
     },
     "children": [
       {

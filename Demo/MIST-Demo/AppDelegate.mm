@@ -95,6 +95,14 @@ return [[MistSimpleTemplateViewController alloc] initWithTitle:NAME templates:@[
                         return [[MistSimpleTemplateViewController alloc] initWithTitle:nil templates:@[@"ToDo"]];
                     }
                 },
+                {
+                    .title = @"Calculator",
+                    .block = ^{
+                        MistSimpleTemplateViewController *vc = [[MistSimpleTemplateViewController alloc] initWithTitle:nil templates:@[@"Calculator"]];
+                        vc.tableView.bounces = NO;
+                        return vc;
+                    }
+                },
             }
         },
         {

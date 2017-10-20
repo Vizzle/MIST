@@ -4,7 +4,7 @@
       "items": "${'点菜 外卖 集点 排号 游戏 预订 打赏 聊天室 签到'.split(' ')}"
     },
     "style": {
-      "height": "${_height_ - 44 - (screen.isX ? screen.safeArea.top + screen.safeArea.bottom : 20)}",
+      "height": "${_height_ - 44 - screen.statusBarHeight - screen.safeArea.bottom}",
       "background-color": "white"
     },
     "children": [

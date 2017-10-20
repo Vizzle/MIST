@@ -69,7 +69,7 @@
 - (void)updateFrame {
     UIView *tryView = [self viewWithTag:2];
     CGRect frame = tryView.frame;
-    frame.origin.y = _keyboardTop - frame.size.height - 64;
+    frame.origin.y = _keyboardTop - frame.size.height - 44 - [UIApplication sharedApplication].statusBarFrame.size.height;
     tryView.frame = frame;
     
     UIView *scrollView = [self viewWithTag:1];

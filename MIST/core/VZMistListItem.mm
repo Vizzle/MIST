@@ -99,6 +99,9 @@ static const void *kMistItemInCell = &kMistItemInCell;
                     safeArea = [UIApplication sharedApplication].keyWindow.safeAreaInsets;
                 });
             }
+            else {
+                safeArea = [UIApplication sharedApplication].keyWindow.safeAreaInsets;
+            }
         }
         else {
             safeArea = UIEdgeInsetsZero;
@@ -114,6 +117,7 @@ static const void *kMistItemInCell = &kMistItemInCell;
                          @"width": @([UIScreen mainScreen].bounds.size.width),
                          @"height": @([UIScreen mainScreen].bounds.size.height),
                          @"scale": @([UIScreen mainScreen].scale),
+                         @"statusBarHeight": @([UIApplication sharedApplication].statusBarFrame.size.height),
                          @"isPlus": @([UIScreen mainScreen].bounds.size.width > 375),
                          @"isSmall": @([UIScreen mainScreen].bounds.size.width < 375),
                          @"isX": @([UIScreen mainScreen].bounds.size.height == 812),

@@ -58,6 +58,17 @@
               "margin-bottom": 10,
               "align-self": "center"
             }
+          },
+          {
+            "type": "custom-button",
+            "on-tap": {
+              "alert:": "哈哈哈"
+            },
+            "style": {
+              "title": "哈哈哈",
+              "margin-bottom": 10,
+              "align-self": "center"
+            }
           }
         ]
       },

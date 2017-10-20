@@ -189,6 +189,9 @@ static const void *kMistItemInCell = &kMistItemInCell;
     if (preItemWrapper.object && preItemWrapper.object != self) {
         [preItemWrapper.object detachFromView];
     }
+    if (self.attachedView) {
+        objc_setAssociatedObject(self.attachedView, kMistItemInCell, nil, OBJC_ASSOCIATION_RETAIN);
+    }
     [super attachToView:view];
     objc_setAssociatedObject(view, kMistItemInCell, [[VZMistWeakObject alloc] initWithObject:self], OBJC_ASSOCIATION_RETAIN);
 }

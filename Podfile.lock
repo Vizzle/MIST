@@ -1,12 +1,12 @@
 PODS:
-  - VZFlexLayout (0.3.0)
+  - VZFlexLayout (0.3.1)
 
 DEPENDENCIES:
-  - VZFlexLayout (~> 0.3.0)
+  - VZFlexLayout (~> 0.3.1)
 
 SPEC CHECKSUMS:
-  VZFlexLayout: 09e0ab6ece30f88b2b68853a120ec35efcc4d8a7
+  VZFlexLayout: 81bac86b04db12ac2b6c89fbf39370bb98d76cfb
 
-PODFILE CHECKSUM: af12216288ff7a011260bf512f3405305fdb16b3
+PODFILE CHECKSUM: 39d36d97c7052066d9c3c97e944ed05d834aa633
 
 COCOAPODS: 1.2.1

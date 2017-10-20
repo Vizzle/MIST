@@ -54,6 +54,7 @@
         _identifier = content[@"identifier"];
         _styles = __vzDictionary([VZMistTemplateHelper parseExpressionsInTemplate:content[@"styles"] mistInstance:mistInstance], nil);
         _asyncDisplay = __vzBool(content[@"async-display"], NO);
+        _cellHeightAnimation = __vzBool(content[@"cell-height-animation"], NO);
         _tplReuseIdentifier = content[@"reuse-identifier"];
     }
     return self;

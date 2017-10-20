@@ -64,6 +64,10 @@
  */
 @property (nonatomic, assign, readonly) BOOL asyncDisplay;
 /**
+ 高度变化时是否需要动画
+ */
+@property (nonatomic, assign) BOOL cellHeightAnimation;
+/**
  模板中脚本内容
  */
 @property (nonatomic, strong, readonly) NSString *script;

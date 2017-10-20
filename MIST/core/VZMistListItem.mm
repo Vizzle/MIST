@@ -247,6 +247,11 @@ static const void *kMistItemInCell = &kMistItemInCell;
                 //如果高度不变，刷新当前cell
                 if (self.itemHeight == oldHeight) {
                     [self attachToView:cell.contentView];
+                } else if (self.tpl.cellHeightAnimation) {
+                    NSAssert(self.tableView.estimatedRowHeight== 0, @"请设置 tableview 的estimatedRowHeight, estimatedSectionHeaderHeight, estimatedSectionFooterHeight 为 0");
+                    [self attachToView:cell.contentView];
+                    [self.tableView beginUpdates];
+                    [self.tableView endUpdates];
                 } else {
                     [self _reloadTableView];
                 }

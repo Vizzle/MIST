@@ -1,0 +1,46 @@
+{
+  "layout": {
+    "vars": {
+      "likeNum": 15
+    },
+    "on-tap": {
+      "type": "animation",
+      "params": {
+        "tag": 11,
+        "key-path": "transform.scale",
+        "to": 1.4,
+        "auto-reverses": true,
+        "duration": 0.15,
+        "end": {
+          "updateState:": {
+            "liked": "${!state.liked}"
+          }
+        }
+      }
+    },
+    "style": {
+      "margin": 15,
+      "padding": 5
+    },
+    "children": [
+      {
+        "type": "image",
+        "tag": 11,
+        "style": {
+          "backing-view": "MistDemoImageView",
+          "width": 16,
+          "height": 16,
+          "image-url": "${state.liked ? 'https://gw.alipayobjects.com/zos/rmsportal/GtGqhvIIlblYjtsTxYWD.png' : 'https://gw.alipayobjects.com/zos/rmsportal/xajKkMheOVRlcDchTbiq.png'}"
+        }
+      },
+      {
+        "type": "text",
+        "style": {
+          "text": "${state.liked ? likeNum + 1 : likeNum}",
+          "color": "#666",
+          "margin-left": 5
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "layout": {
+    "style": {
+      "margin-left": 15,
+      "margin-right": 15,
+      "margin-top": 5,
+      "margin-bottom": 5,
+      "height": 80,
+      "corner-radius": 4,
+      "padding": 8,
+      "background-color": "#f5f5f5",
+      "align-items": "center"
+    },
+    "children": [
+      {
+        "type": "text",
+        "style": {
+          "text": "${name}",
+          "color": "#444",
+          "font-size": 16
+        }
+      },
+      {
+        "gone": "${state.buyed}",
+        "type": "text",
+        "on-tap": {
+          "updateState:": {
+            "buyed": true
+          }
+        },
+        "style": {
+          "text": "领取",
+          "border-color": "#fb6165",
+          "border-width": 1,
+          "color": "#fb6165",
+          "alignment": "center",
+          "width": 65,
+          "height": 30,
+          "corner-radius": 15,
+          "margin-left": "auto"
+        }
+      },
+      {
+        "gone": "${!state.buyed}",
+        "type": "text",
+        "on-update-appear": {
+          "type": "animation",
+          "params": {
+            "timing-function": "easeInEaseOut",
+            "animations": [
+              {
+                "key-path": "transform.scale.y",
+                "from": 0.4
+              },
+              {
+                "key-path": "transform.translation",
+                "from": "${point(-20, 30)}"
+              },
+              {
+                "key-path": "opacity",
+                "from": 0
+              }
+            ]
+          }
+        },
+        "style": {
+          "fixed": true,
+          "margin-left": "auto",
+          "margin-bottom": "auto",
+          "color": "#888",
+          "text": "已领取",
+          "properties": {
+            "layer.transform": "${translate(makeRotation(PI()/10), 0, 10)}"
+          }
+        }
+      }
+    ]
+  }
+}

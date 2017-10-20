@@ -1,0 +1,196 @@
+{
+  "state": {
+    "todos": [],
+    "filter": 0
+  },
+  "cell-height-animation": true,
+  "layout": {
+    "style": {
+      "auto-animation": {
+        "enabled": true,
+        "duration": 0.3
+      },
+      "direction": "vertical",
+      "padding": 15,
+      "background-color": "#ddd"
+    },
+    "children": [
+      {
+        "vars": {
+          "newItem": "{'text': _mistitem_.tplController.viewWithTag(1).text.trim, 'index':state.todos.count}"
+        },
+        "style": {
+          "background-color": "white",
+          "padding": 5,
+          "corner-radius": 3
+        },
+        "children": [
+          {
+            "type": "textfield",
+            "tag": 1,
+            "style": {
+              "flex-grow": 1,
+              "font-size": 16,
+              "placeholder": "Input Here..."
+            },
+            "on-submit": {
+              "updateState:": {
+                "todos": "${eval(newItem).text.length > 0 ? state.todos.arrayByAddingObject(eval(newItem)) : state.todos}"
+              }
+            }
+          },
+          {
+            "type": "line",
+            "style": {
+              "width": 1,
+              "color": "#ccc",
+              "margin-left": 5,
+              "margin-right": 5
+            }
+          },
+          {
+            "type": "button",
+            "style": {
+              "title": "Add",
+              "width": 50,
+              "font-size": 16
+            },
+            "on-tap": {
+              "updateState:": {
+                "todos": "${eval(newItem).text.length > 0 ? state.todos.arrayByAddingObject(eval(newItem)) : state.todos}"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "gone": "${state.todos.count > 0}",
+        "type": "text",
+        "style": {
+          "margin-top": 20,
+          "text": "Nothing to do",
+          "alignment": "center",
+          "color": "#333",
+          "font-size": 16
+        }
+      },
+      {
+        "gone": "${state.todos.count == 0}",
+        "type": "segmentedcontrol",
+        "style": {
+          "margin-top": 20,
+          "width": 200,
+          "align-self": "center",
+          "height": 25,
+          "items": [
+            "All",
+            "Active",
+            "Done"
+          ],
+          "selected-segmented-index": "${state.filter ?: 0}"
+        },
+        "on-change": {
+          "updateState:": {
+            "filter": "${_event_.selectedSegmentedIndex}"
+          }
+        }
+      },
+      {
+        "gone": "${state.todos.count == 0}",
+        "vars": {
+          "filters": [
+            "t -> true",
+            "t -> !t.done",
+            "t -> t.done"
+          ]
+        },
+        "style": {
+          "direction": "vertical",
+          "margin-top": 15,
+          "background-color": "white",
+          "flex-grow": 1,
+          "corner-radius": 3,
+          "clip": true
+        },
+        "children": [
+          {
+            "repeat": "${eval('state.todos.filter(' + filters[state.filter] + ')')}",
+            "identifier": "${_item_.index}",
+            "on-update-appear": {
+              "type": "animation",
+              "params": {
+                "key-path": "opacity",
+                "duration": 0.4,
+                "from": 0
+              }
+            },
+            "on-tap": {
+              "updateState:": {
+                "todos": "${state.todos.select(todo -> todo == _item_ ? todo.set_value('done', !todo.done) : todo)}"
+              }
+            },
+            "style": {
+              "direction": "vertical",
+              "padding-left": 10,
+              "padding-right": 10
+            },
+            "children": [
+              {
+                "gone": "${_index_ == 0}",
+                "type": "line",
+                "style": {
+                  "color": "#ccc",
+                  "height": "1px"
+                }
+              },
+              {
+                "gone": true,
+                "type": "text",
+                "vars": {
+                  "doneText": "<font size='17' color='#888'><s>${_item_.text}</s></font>"
+                },
+                "on-tap": {
+                  "updateState:": {
+                    "todos": "${state.todos.select(todo -> todo == _item_ ? todo.set_value('done', !todo.done) : todo)}"
+                  }
+                },
+                "style": {
+                  "html-text": "${_item_.done ? doneText : _item_.text}",
+                  "font-size": 17,
+                  "height": 36
+                }
+              },
+              {
+                "style": {
+                  "align-self": "start"
+                },
+                "children": [
+                  {
+                    "type": "text",
+                    "style": {
+                      "text": "${_item_.text}",
+                      "color": "${_item_.done ? '#888' : 'black'}",
+                      "font-size": 17,
+                      "height": 36
+                    }
+                  },
+                  {
+                    "type": "line",
+                    "style": {
+                      "fixed": true,
+                      "margin-top": "auto",
+                      "margin-bottom": "auto",
+                      "width": "${_item_.done ? 'auto' : 0}",
+                      "color": "#888",
+                      "height": 1
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,201 @@
+{
+  "layout": {
+    "style": {
+      "auto-animation": true,
+      "direction": "vertical",
+      "padding": 15,
+      "spacing": 10
+    },
+    "children": [
+      {
+        "on-tap": {
+          "actions": [
+            {
+              "updateState:": {
+                "loading1": true
+              }
+            },
+            {
+              "delay": 2,
+              "type": "update-state",
+              "params": {
+                "loading1": false
+              }
+            }
+          ]
+        },
+        "style": {
+          "background-color": "${state.loading1 ? '#aaf' : '#33f'}",
+          "width": 120,
+          "height": 40,
+          "corner-radius": 20,
+          "align-items": "center",
+          "justify-content": "center",
+          "spacing": 5
+        },
+        "children": [
+          {
+            "type": "text",
+            "style": {
+              "text": "立即领取",
+              "font-size": 15,
+              "color": "white"
+            }
+          },
+          {
+            "gone": "${!state.loading1}",
+            "type": "indicator",
+            "style": {
+              "color": "white",
+              "width": 16,
+              "height": 16
+            }
+          }
+        ]
+      },
+      {
+        "on-tap": {
+          "actions": [
+            {
+              "updateState:": {
+                "loading2": true
+              }
+            },
+            {
+              "delay": 2,
+              "type": "update-state",
+              "params": {
+                "loading2": false
+              }
+            }
+          ]
+        },
+        "style": {
+          "background-color": "${state.loading2 ? '#aaf' : '#33f'}",
+          "width": 120,
+          "height": 40,
+          "corner-radius": 20,
+          "align-items": "center",
+          "justify-content": "center",
+          "spacing": 5
+        },
+        "children": [
+          {
+            "gone": "${state.loading2}",
+            "type": "text",
+            "style": {
+              "text": "立即领取",
+              "font-size": 15,
+              "color": "white"
+            }
+          },
+          {
+            "gone": "${!state.loading2}",
+            "type": "indicator",
+            "style": {
+              "color": "white",
+              "width": 16,
+              "height": 16
+            }
+          }
+        ]
+      },
+      {
+        "on-tap": {
+          "actions": [
+            {
+              "updateState:": {
+                "loading3": true
+              }
+            },
+            {
+              "delay": 2,
+              "type": "update-state",
+              "params": {
+                "loading3": false
+              }
+            }
+          ]
+        },
+        "style": {
+          "background-color": "${state.loading3 ? '#aaf' : '#33f'}",
+          "padding-left": 20,
+          "padding-right": 20,
+          "align-self": "start",
+          "height": 40,
+          "corner-radius": 20,
+          "align-items": "center",
+          "justify-content": "center",
+          "spacing": 5
+        },
+        "children": [
+          {
+            "type": "text",
+            "style": {
+              "text": "立即领取",
+              "font-size": 15,
+              "color": "white"
+            }
+          },
+          {
+            "gone": "${!state.loading3}",
+            "type": "indicator",
+            "style": {
+              "color": "white",
+              "width": 16,
+              "height": 16
+            }
+          }
+        ]
+      },
+      {
+        "on-tap": {
+          "actions": [
+            {
+              "updateState:": {
+                "loading4": true
+              }
+            },
+            {
+              "delay": 2,
+              "type": "update-state",
+              "params": {
+                "loading4": false
+              }
+            }
+          ]
+        },
+        "style": {
+          "background-color": "${state.loading4 ? '#aaf' : '#33f'}",
+          "align-self": "start",
+          "width": "${state.loading4 ? 40 : 120}",
+          "height": 40,
+          "corner-radius": 20,
+          "align-items": "center",
+          "justify-content": "center",
+          "spacing": 5
+        },
+        "children": [
+          {
+            "gone": "${state.loading4}",
+            "type": "text",
+            "style": {
+              "text": "立即领取",
+              "font-size": 15,
+              "color": "white"
+            }
+          },
+          {
+            "gone": "${!state.loading4}",
+            "type": "indicator",
+            "style": {
+              "color": "white",
+              "width": 16,
+              "height": 16
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

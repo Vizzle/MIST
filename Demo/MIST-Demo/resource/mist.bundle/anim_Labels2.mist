@@ -1,0 +1,187 @@
+{
+  "state": {
+    "selected": []
+  },
+  "cell-height-animation": true,
+  "layout": {
+    "vars": {
+      "labels": [
+        "味道不错",
+        "环境不错",
+        "上菜快",
+        "价格实惠",
+        "好吃",
+        "服务还不错",
+        "卫生还可以",
+        "方便快捷",
+        "很热情",
+        "特别棒",
+        "开心",
+        "还打折"
+      ],
+      "labels2": [
+        "菜品",
+        "口味",
+        "服务",
+        "环境",
+        "价格",
+        "其它"
+      ]
+    },
+    "style": {
+      "auto-animation": {
+        "enabled": true,
+        "duration": 0.3
+      },
+      "direction": "vertical",
+      "padding": 15,
+      "spacing": 20
+    },
+    "children": [
+      {
+        "style": {
+          "wrap": "wrap",
+          "spacing": 5,
+          "line-spacing": 5,
+          "background-color": "#fcd",
+          "padding": 10,
+          "corner-radius": 3
+        },
+        "children": [
+          {
+            "gone": "${state.selected.count > 0}",
+            "type": "text",
+            "style": {
+              "text": "未选择标签",
+              "color": "#666"
+            }
+          },
+          {
+            "repeat": "${state.selected}",
+            "type": "text",
+            "identifier": "${_item_}",
+            "on-tap": {
+              "updateState:": {
+                "selected": "${state.selected.filter(i -> i != _item_)}"
+              }
+            },
+            "on-update-appear": {
+              "type": "animation",
+              "params": {
+                "animations": [
+                  {
+                    "key-path": "opacity",
+                    "from": 0
+                  },
+                  {
+                    "key-path": "transform.scale",
+                    "from": 0.8
+                  }
+                ]
+              }
+            },
+            "on-update-disappear": {
+              "type": "animation",
+              "params": {
+                "animations": [
+                  {
+                    "key-path": "hidden",
+                    "from": false
+                  },
+                  {
+                    "key-path": "opacity",
+                    "to": 0
+                  },
+                  {
+                    "key-path": "transform.scale",
+                    "to": 0.4
+                  }
+                ]
+              }
+            },
+            "style": {
+              "text": "${_item_}",
+              "padding": 4,
+              "corner-radius": 3,
+              "background-color": "#f78",
+              "color": "white"
+            }
+          }
+        ]
+      },
+      {
+        "style": {
+          "wrap": "wrap",
+          "spacing": 5,
+          "line-spacing": 5
+        },
+        "children": [
+          {
+            "repeat": "${labels}",
+            "vars": {
+              "isSelected": "${state.selected.indexOf(_item_) >= 0}"
+            },
+            "on-tap": {
+              "updateState:": {
+                "selected": "${isSelected ? state.selected.filter(i -> i != _item_) : state.selected.arrayByAddingObject(_item_)}"
+              }
+            },
+            "style": {
+              "background-color": "${isSelected ? '#fcc' : '#eee'}",
+              "corner-radius": 3
+            },
+            "children": [
+              {
+                "type": "text",
+                "style": {
+                  "text": "${_item_}",
+                  "padding": 6,
+                  "color": "${isSelected ? '#f33' : '#888'}"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "style": {
+          "wrap": "wrap",
+          "spacing": 20,
+          "line-spacing": 8,
+          "items-per-line": 3
+        },
+        "children": [
+          {
+            "repeat": "${labels2}",
+            "vars": {
+              "isSelected": "${state.selected2 == _index_}"
+            },
+            "on-tap": {
+              "updateState:": {
+                "selected2": "${_index_}"
+              }
+            },
+            "style": {
+              "background-color": "${isSelected ? '#f33' : '#f5f5f5'}",
+              "border-width": "${isSelected ? 0 : '1px'}",
+              "border-color": "#ddd",
+              "flex-grow": 1,
+              "height": 30,
+              "corner-radius": 15,
+              "justify-content": "center"
+            },
+            "children": [
+              {
+                "type": "text",
+                "style": {
+                  "text": "${_item_}",
+                  "color": "${isSelected ? 'white' : '#888'}"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

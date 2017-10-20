@@ -89,6 +89,12 @@ return [[MistSimpleTemplateViewController alloc] initWithTitle:NAME templates:@[
                         return [[MistSimpleTemplateViewController alloc] initWithTitle:nil templates:@[@"Weather"]];
                     }
                 },
+                {
+                    .title = @"ToDo List",
+                    .block = ^{
+                        return [[MistSimpleTemplateViewController alloc] initWithTitle:nil templates:@[@"ToDo"]];
+                    }
+                },
             }
         },
         {
@@ -202,6 +208,92 @@ return [[MistSimpleTemplateViewController alloc] initWithTitle:NAME templates:@[
                 },
             }
         },
+        {
+            .title = @"Animation",
+            .subtitle = @"",
+            .items = {
+                {
+                    .title = @"Properties",
+                    .block = ^{
+                        return [[MistSimpleTemplateViewController alloc] initWithTitle:nil templates:@[@"anim_Properties"]];
+                    }
+                },
+                {
+                    .title = @"Switch",
+                    .block = ^{
+                        return [[MistSimpleTemplateViewController alloc] initWithTitle:nil templates:@[@"anim_Switch"]];
+                    }
+                },
+                {
+                    .title = @"Tab",
+                    .block = ^{
+                        return [[MistSimpleTemplateViewController alloc] initWithTitle:nil templates:@[@"anim_Tab"]];
+                    }
+                },
+                {
+                    .title = @"Labels",
+                    .block = ^{
+                        return [[MistSimpleTemplateViewController alloc] initWithTitle:nil templates:@[@"anim_Labels"]];
+                    }
+                },
+                {
+                    .title = @"Labels2",
+                    .block = ^{
+                        return [[MistSimpleTemplateViewController alloc] initWithTitle:nil templates:@[@"anim_Labels2"]];
+                    }
+                },
+                {
+                    .title = @"Expand",
+                    .block = ^{
+                        MistSimpleTemplateViewController *vc = [[MistSimpleTemplateViewController alloc] initWithTitle:nil templates:@[@"anim_Expand"]];
+                        vc.tableView.bounces = NO;
+                        return vc;
+                    }
+                },
+                {
+                    .title = @"Loading",
+                    .block = ^{
+                        return [[MistSimpleTemplateViewController alloc] initWithTitle:nil templates:@[@"anim_Loading"]];
+                    }
+                },
+                {
+                    .title = @"Progress",
+                    .block = ^{
+                        return [[MistSimpleTemplateViewController alloc] initWithTitle:nil templates:@[@"anim_Progress"]];
+                    }
+                },
+                {
+                    .title = @"Like",
+                    .block = ^{
+                        return [[MistSimpleTemplateViewController alloc] initWithTitle:nil templates:@[@"anim_Like"]];
+                    }
+                },
+                {
+                    .title = @"List",
+                    .block = ^{
+                        return [[MistSimpleTemplateViewController alloc] initWithTitle:@"List" data:@"anim_List.json"];
+                    }
+                },
+                {
+                    .title = @"List2",
+                    .block = ^{
+                        return [[MistSimpleTemplateViewController alloc] initWithTitle:@"List" data:@"anim_List2.json"];
+                    }
+                },
+                {
+                    .title = @"Demo",
+                    .block = ^{
+                        return [[MistSimpleTemplateViewController alloc] initWithTitle:nil templates:@[@"anim_Demo"]];
+                    }
+                },
+                {
+                    .title = @"Demo2",
+                    .block = ^{
+                        return [[MistSimpleTemplateViewController alloc] initWithTitle:nil templates:@[@"anim_Demo2"]];
+                    }
+                },
+            }
+        },
 //        {
 //            .title = @"JS Support",
 //            .subtitle = @"在模板中使用 JS",
@@ -215,41 +307,31 @@ return [[MistSimpleTemplateViewController alloc] initWithTitle:NAME templates:@[
                 {
                     .title = @"Test1",
                     .block = ^{
-                        MistSimpleTemplateViewController *vc = [[MistSimpleTemplateViewController alloc] initWithTitle:nil templates:@[@"Performance1"]];
-                        vc.tableView.bounces = NO;
-                        return vc;
+                        return [[MistSimpleTemplateViewController alloc] initWithTitle:nil templates:@[@"Performance1"]];
                     }
                 },
                 {
                     .title = @"1000 Cubes",
                     .block = ^{
-                        MistSimpleTemplateViewController *vc = [[MistSimpleTemplateViewController alloc] initWithTitle:nil templates:@[@"Performance_Cubes_1000"]];
-                        vc.tableView.bounces = NO;
-                        return vc;
+                        return [[MistSimpleTemplateViewController alloc] initWithTitle:nil templates:@[@"Performance_Cubes_1000"]];
                     }
                 },
                 {
                     .title = @"50 x 50 Cubes",
                     .block = ^{
-                        MistSimpleTemplateViewController *vc = [[MistSimpleTemplateViewController alloc] initWithTitle:nil templates:@[@"Performance_Cubes_50_50"]];
-                        vc.tableView.bounces = NO;
-                        return vc;
+                        return [[MistSimpleTemplateViewController alloc] initWithTitle:nil templates:@[@"Performance_Cubes_50_50"]];
                     }
                 },
                 {
                     .title = @"Many Labels",
                     .block = ^{
-                        MistSimpleTemplateViewController *vc = [[MistSimpleTemplateViewController alloc] initWithTitle:nil templates:@[@"Performance_Labels"]];
-                        vc.tableView.bounces = NO;
-                        return vc;
+                        return [[MistSimpleTemplateViewController alloc] initWithTitle:nil templates:@[@"Performance_Labels"]];
                     }
                 },
                 {
                     .title = @"Nested",
                     .block = ^{
-                        MistSimpleTemplateViewController *vc = [[MistSimpleTemplateViewController alloc] initWithTitle:nil templates:@[@"Performance_Nested"]];
-                        vc.tableView.bounces = NO;
-                        return vc;
+                        return [[MistSimpleTemplateViewController alloc] initWithTitle:nil templates:@[@"Performance_Nested"]];
                     }
                 },
             }

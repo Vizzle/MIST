@@ -1,0 +1,52 @@
+{
+  "layout": {
+    "vars": {
+      "size": 30,
+      "border": 2
+    },
+    "style": {
+      "auto-animation": true,
+      "margin": 20,
+      "width": 60,
+      "height": "${size}"
+    },
+    "on-tap": {
+      "updateState:": {
+        "on": "${!state.on}"
+      }
+    },
+    "children": [
+      {
+        "style": {
+          "fixed": true,
+          "corner-radius": "${size / 2}",
+          "border-width": "${border}",
+          "border-color": "${state.on ? '#4cd864' : '#e4e4e4'}",
+          "background-color": "${state.on ? '#4cd864' : 'white'}"
+        }
+      },
+      {
+        "style": {
+          "background-color": "white",
+          "border-color": "#e4e4e4",
+          "border-width": "1px",
+          "width": "${size - border * 2}",
+          "height": "${size - border * 2}",
+          "corner-radius": "${size / 2 - border}",
+          "margin": "${border}",
+          "margin-left": "${state.on ? 'auto' : 2}",
+          "margin-right": "${!state.on ? 'auto' : 2}",
+          "properties": {
+            "layer.shadowOpacity": 0.25,
+            "layer.shadowRadius": 2,
+            "layer.shouldRasterize": true,
+            "layer.rasterizationScale": "${UIScreen.mainScreen.scale}",
+            "layer.shadowColor": "${cgcolor('#000')}",
+            "layer.shadowOffset": "${size(0, 2)}",
+            "layer.shadowPath": null
+          }
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,304 @@
+{
+  "layout": {
+    "style": {
+      "padding": 15,
+      "spacing": 10,
+      "line-spacing": 10,
+      "wrap": "wrap"
+    },
+    "children": [
+      {
+        "on-tap": {
+          "updateState:": {
+            "a": "${!state.a}"
+          }
+        },
+        "style": {
+          "auto-animation": true,
+          "background-color": "${state.a ? 'blue' : 'black'}",
+          "height": 100,
+          "width": 100
+        },
+        "children": [
+          {
+            "type": "text",
+            "style": {
+              "text": "CLICK ME!",
+              "color": "white",
+              "font-size": 15,
+              "margin": "auto"
+            }
+          }
+        ]
+      },
+      {
+        "on-tap": {
+          "updateState:": {
+            "b": "${!state.b}"
+          }
+        },
+        "style": {
+          "auto-animation": true,
+          "height": 100,
+          "width": 100
+        },
+        "children": [
+          {
+            "identifier": "${state.b ? 'blue' : 'black'}",
+            "on-update-appear": {
+              "type": "animation",
+              "params": {
+                "animations": [
+                  {
+                    "key-path": "transform.scale",
+                    "to": 1.1,
+                    "auto-reverses": true,
+                    "duration": 0.1
+                  },
+                  {
+                    "key-path": "backgroundColor",
+                    "from": "${state.b ? cgcolor('black') : cgcolor('blue')}"
+                  }
+                ]
+              }
+            },
+            "style": {
+              "fixed": true,
+              "background-color": "${state.b ? 'blue' : 'black'}"
+            },
+            "children": [
+              {
+                "type": "text",
+                "style": {
+                  "text": "CLICK ME!",
+                  "color": "white",
+                  "font-size": 15,
+                  "margin": "auto"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "on-tap": {
+          "updateState:": {
+            "c": "${!state.c}"
+          }
+        },
+        "style": {
+          "height": 100,
+          "width": 100,
+          "clip": true
+        },
+        "children": [
+          {
+            "identifier": "${state.c ? 'blue' : 'black'}",
+            "on-update-appear": {
+              "type": "animation",
+              "params": {
+                "key-path": "transform.translation.x",
+                "from": 100,
+                "timing-function": "easeInEaseOut"
+              }
+            },
+            "on-update-disappear": {
+              "type": "execute",
+              "params": {
+                "exp": "${_event_.sender.setHidden(false)}"
+              },
+              "success": {
+                "type": "animation",
+                "params": {
+                  "key-path": "transform.translation.x",
+                  "to": -100,
+                  "fill-mode": "both",
+                  "removed-on-completion": false,
+                  "timing-function": "easeInEaseOut"
+                }
+              }
+            },
+            "style": {
+              "fixed": true,
+              "background-color": "${state.c ? 'blue' : 'black'}"
+            },
+            "children": [
+              {
+                "type": "text",
+                "style": {
+                  "text": "CLICK ME!",
+                  "color": "white",
+                  "font-size": 15,
+                  "margin": "auto"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "on-tap": {
+          "updateState:": {
+            "d": "${!state.d}"
+          }
+        },
+        "style": {
+          "height": 100,
+          "width": 100
+        },
+        "children": [
+          {
+            "identifier": "${state.d ? 'blue' : 'black'}",
+            "on-update-appear": {
+              "type": "animation",
+              "params": {
+                "key": "aa",
+                "key-path": "transform.rotation.y",
+                "from": "${-PI()/2}",
+                "delay": 0.25,
+                "duration": 0.25,
+                "fill-mode": "both"
+              }
+            },
+            "on-update-disappear": {
+              "type": "animation",
+              "params": {
+                "key": "aa",
+                "duration": 0.25,
+                "animations": [
+                  {
+                    "duration": 1,
+                    "key-path": "hidden",
+                    "from": false
+                  },
+                  {
+                    "key-path": "transform.rotation.y",
+                    "to": "${PI() / 2}"
+                  }
+                ]
+              }
+            },
+            "style": {
+              "fixed": true,
+              "background-color": "${state.d ? 'blue' : 'black'}",
+              "properties": {
+                "layer.transform": "${m34(-1/500)}"
+              }
+            },
+            "children": [
+              {
+                "type": "text",
+                "style": {
+                  "text": "CLICK ME!",
+                  "color": "white",
+                  "font-size": 15,
+                  "margin": "auto"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "on-tap": {
+          "updateState:": {
+            "e": "${!state.e}"
+          }
+        },
+        "style": {
+          "height": 100,
+          "width": 100
+        },
+        "children": [
+          {
+            "identifier": "${state.e ? 'blue' : 'black'}",
+            "on-update-appear": {
+              "type": "animation",
+              "params": {
+                "timing-function": "easeInEaseOut",
+                "duration": 0.4,
+                "key-path": "transform.rotation.x",
+                "from": "${PI() / 2}"
+              }
+            },
+            "on-update-disappear": {
+              "type": "animation",
+              "params": {
+                "timing-function": "easeInEaseOut",
+                "duration": 0.4,
+                "animations": [
+                  {
+                    "key-path": "hidden",
+                    "from": false
+                  },
+                  {
+                    "key-path": "transform.rotation.x",
+                    "to": "${-PI() / 2}"
+                  }
+                ]
+              }
+            },
+            "style": {
+              "fixed": true,
+              "anchor-y": 0,
+              "background-color": "${state.e ? 'blue' : 'black'}",
+              "properties": {
+                "layer.transform": "${m34(-1/500)}"
+              }
+            },
+            "children": [
+              {
+                "type": "text",
+                "style": {
+                  "text": "CLICK ME!",
+                  "color": "white",
+                  "font-size": 15,
+                  "margin": "auto"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "identifier": "${state.on ? 'ON' : 'OFF'}",
+        "type": "text",
+        "on-tap": {
+          "type": "animation",
+          "params": {
+            "key-path": "transform.translation.x",
+            "to": 40,
+            "fill-mode": "both",
+            "removed-on-completion": false,
+            "end": {
+              "updateState:": {
+                "on": "${!state.on}"
+              }
+            }
+          }
+        },
+        "on-update-appear": {
+          "type": "animation",
+          "params": {
+            "key-path": "transform.translation.x",
+            "from": 40,
+            "fill-mode": "both"
+          }
+        },
+        "style": {
+          "fixed": true,
+          "margin": "auto",
+          "margin-right": 0,
+          "text": "${state.on ? 'ON' : 'OFF'}",
+          "color": "white",
+          "background-color": "${state.on ? '#0c0' : 'red'}",
+          "width": 40,
+          "height": 30,
+          "alignment": "center",
+          "corner-radius-top-left": 15,
+          "corner-radius-bottom-left": 15
+        }
+      }
+    ]
+  }
+}

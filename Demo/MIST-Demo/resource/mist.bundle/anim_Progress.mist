@@ -1,0 +1,86 @@
+{
+  "layout": {
+    "style": {
+      "margin": 15
+    },
+    "children": [
+      {
+        "vars": {
+          "color": "#fb6165",
+          "width": 100,
+          "height": 20,
+          "total": 690,
+          "value": 500
+        },
+        "style": {
+          "background-color": "${color(color).colorWithAlphaComponent(0.05)}",
+          "border-color": "${color}",
+          "border-width": 1,
+          "width": "${width}",
+          "height": "${height}",
+          "corner-radius": "${height / 2}"
+        },
+        "children": [
+          {
+            "type": "text",
+            "style": {
+              "fixed": true,
+              "text": "已抢${value}/${total}",
+              "font-size": 12,
+              "color": "${color}",
+              "alignment": "center"
+            }
+          },
+          {
+            "on-display": {
+              "type": "animation",
+              "params": {
+                "duration": 0.5,
+                "key-path": "bounds.size.width",
+                "from": 0,
+                "timing-function": "easeInEaseOut"
+              }
+            },
+            "style": {
+              "fixed": true,
+              "clip": true,
+              "anchor-x": 0,
+              "width": "${width * value / total}",
+              "background-color": "${color}",
+              "corner-radius": "${height / 2}"
+            },
+            "children": [
+              {
+                "type": "text",
+                "style": {
+                  "fixed": true,
+                  "width": "${width}",
+                  "text": "已抢${value}/${total}",
+                  "font-size": 12,
+                  "color": "white",
+                  "alignment": "center"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "on-tap": {
+          "updateState:": {}
+        },
+        "style": {
+          "text": "Refresh",
+          "margin-left": "auto",
+          "padding-left": 5,
+          "padding-right": 5,
+          "border-width": 1,
+          "corner-radius": 3,
+          "border-color": "#aaf",
+          "color": "#66f"
+        }
+      }
+    ]
+  }
+}

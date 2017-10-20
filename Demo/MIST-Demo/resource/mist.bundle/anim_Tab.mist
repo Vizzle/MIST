@@ -1,0 +1,256 @@
+{
+  "layout": {
+    "style": {
+      "direction": "vertical",
+      "spacing": 20,
+      "background-color": "#ddd"
+    },
+    "children": [
+      {
+        "style": {
+          "align-items": "center",
+          "justify-content": "center",
+          "background-color": "white"
+        },
+        "children": [
+          {
+            "repeat": ["推荐", "问答", "探店", "玩乐", "订阅"],
+            "vars": {
+              "selected": "${state.selectedIndex == _index_}"
+            },
+            "on-tap": {
+              "updateState:": {
+                "selectedIndex": "${_index_}"
+              }
+            },
+            "style": {
+              "align-items": "center",
+              "justify-content": "center",
+              "height": 44,
+              "flex-grow1": "${selected ? 2 : 1}",
+              "flex-grow": 1
+            },
+            "children": [
+              {
+                "type": "text",
+                "style": {
+                  "text": "${_item_}",
+                  "font-size1": "${selected ? 16 : 13}",
+                  "font-size": 14,
+                  "color": "${selected ? '#ff5500' : '#333'}"
+                }
+              },
+              {
+                "gone": "${!selected}",
+                "type": "line",
+                "global-identifier": "abc",
+                "style": {
+                  "auto-animation": true,
+                  "fixed": true,
+                  "height": 2,
+                  "color": "#ff5500",
+                  "margin-top": "auto",
+                  "margin-bottom": "1px"
+                }
+              }
+            ]
+          },
+          {
+            "type": "line",
+            "style": {
+              "fixed": true,
+              "margin-top": "auto",
+              "height": "1px",
+              "color": "#ccc"
+            }
+          }
+        ]
+      },
+      {
+        "style": {
+          "align-items": "center",
+          "justify-content": "center",
+          "background-color": "white"
+        },
+        "children": [
+          {
+            "repeat": ["推荐", "问答", "探店", "玩乐", "订阅"],
+            "vars": {
+              "selected": "${state.selectedIndex2 == _index_}"
+            },
+            "on-tap": {
+              "updateState:": {
+                "selectedIndex2": "${_index_}"
+              }
+            },
+            "style": {
+              "align-items": "center",
+              "justify-content": "center",
+              "height": 44,
+              "flex-grow": 1
+            },
+            "children": [
+              {
+                "gone": "${!selected}",
+                "global-identifier": "abc",
+                "style": {
+                  "auto-animation": true,
+                  "fixed": true,
+                  "margin": 10,
+                  "corner-radius": 12,
+                  "background-color": "#ff5500"
+                }
+              },
+              {
+                "type": "text",
+                "style": {
+                  "text": "${_item_}",
+                  "font-size": 14,
+                  "color": "${selected ? 'white' : '#333'}"
+                }
+              }
+            ]
+          },
+          {
+            "type": "line",
+            "style": {
+              "fixed": true,
+              "margin-top": "auto",
+              "height": "1px",
+              "color": "#ccc"
+            }
+          }
+        ]
+      },
+      {
+        "style": {
+          "align-items": "center",
+          "justify-content": "center",
+          "background-color": "white"
+        },
+        "children": [
+          {
+            "repeat": ["推荐", "问答", "探店", "玩乐", "订阅"],
+            "vars": {
+              "selected": "${state.selectedIndex3 == _index_}"
+            },
+            "on-tap": {
+              "updateState:": {
+                "selectedIndex3": "${_index_}"
+              }
+            },
+            "style": {
+              "align-items": "center",
+              "justify-content": "center",
+              "height": 44,
+              "flex-grow": 1
+            },
+            "children": [
+              {
+                "style": {
+                  "auto-animation": true,
+                  "fixed": true,
+                  "height": "${selected ? 44 : 2}",
+                  "background-color": "#ff5500",
+                  "margin-top": "auto"
+                }
+              },
+              {
+                "type": "text",
+                "style": {
+                  "text": "${_item_}",
+                  "font-size": 14,
+                  "color": "${selected ? 'white' : '#333'}"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "vars": {
+          "tabs": ["推荐", "问答", "探店", "玩乐", "订阅"]
+        },
+        "children": [
+          {
+            "style": {
+              "justify-content": "center",
+              "background-color": "white",
+              "direction": "vertical",
+              "align-items": "start",
+              "padding-top": 10,
+              "padding-bottom": 10
+            },
+            "children": [
+              {
+                "repeat": "${tabs}",
+                "vars": {
+                  "selected": "${state.selectedIndex4 == _index_}"
+                },
+                "on-tap": {
+                  "updateState:": {
+                    "selectedIndex4": "${_index_}"
+                  }
+                },
+                "style": {
+                  "align-items": "center",
+                  "justify-content": "center",
+                  "height": 40,
+                  "padding-left": 30,
+                  "padding-right": 10,
+                  "flex-grow": 1
+                },
+                "children": [
+                  {
+                    "type": "text",
+                    "style": {
+                      "text": "${_item_}",
+                      "font-size": 14,
+                      "color": "${selected ? '#ff5500' : '#333'}"
+                    }
+                  },
+                  {
+                    "style": {
+                      "auto-animation": true,
+                      "fixed": true,
+                      "height": 1,
+                      "background-color": "#ff5500",
+                      "margin-top": "auto",
+                      "margin-bottom": 5,
+                      "margin-right": "${selected ? 0 : 'auto'}"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paging",
+            "style": {
+              "flex-grow": 1,
+              "background-color": "white",
+              "direction": "vertical",
+              "scroll-enabled": false
+            },
+            "on-display": {
+              "description": "${_event_.sender.scrollToPage(state.selectedIndex4)}"
+            },
+            "children": [
+              {
+                "repeat": "${tabs}",
+                "type": "text",
+                "style": {
+                  "text": "${_item_}",
+                  "text1": "${tabs[state.selectedIndex4?:0]}",
+                  "font-size": 30,
+                  "font-style": "thin",
+                  "alignment": "center"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

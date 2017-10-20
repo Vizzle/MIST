@@ -1,0 +1,239 @@
+{
+  "styles": {
+    "button": {
+      "border-width": 1,
+      "align-self": "start",
+      "padding": 6,
+      "height": 30,
+      "corner-radius": 15
+    }
+  },
+  "layout": {
+    "style": {
+      "direction": "vertical",
+      "spacing": 10,
+      "margin": 15
+    },
+    "children": [
+      {
+        "type": "image",
+        "tag": 1,
+        "style": {
+          "clip": true,
+          "width": 100,
+          "height": 100,
+          "margin": "auto",
+          "image": "mist.bundle/pic${_index_ + 1}.jpg",
+          "content-mode": "scale-aspect-fill",
+          "background-color": "white"
+        }
+      },
+      {
+        "style": {
+          "wrap": "wrap",
+          "spacing": 8,
+          "line-spacing": 8
+        },
+        "children": [
+          {
+            "on-tap": {
+              "type": "animation",
+              "params": {
+                "tag": 1,
+                "key-path": "transform.translation.x",
+                "timing-function": "easeOut",
+                "to": 100,
+                "auto-reverses": true
+              }
+            },
+            "type": "text",
+            "class": "button",
+            "style": {
+              "text": "Translate"
+            }
+          },
+          {
+            "on-tap": {
+              "type": "animation",
+              "params": {
+                "tag": 1,
+                "key-path": "transform.scale",
+                "to": 1.4,
+                "auto-reverses": true
+              }
+            },
+            "type": "text",
+            "class": "button",
+            "style": {
+              "text": "Scale"
+            }
+          },
+          {
+            "on-tap": {
+              "type": "animation",
+              "params": {
+                "tag": 1,
+                "key-path": "transform.rotation",
+                "to": "${PI() / 2}",
+                "duration": 0.6,
+                "auto-reverses": true
+              }
+            },
+            "type": "text",
+            "class": "button",
+            "style": {
+              "text": "Rotate"
+            }
+          },
+          {
+            "on-tap": {
+              "type": "animation",
+              "params": {
+                "tag": 1,
+                "key-path": "opacity",
+                "to": 0,
+                "auto-reverses": true
+              }
+            },
+            "type": "text",
+            "class": "button",
+            "style": {
+              "text": "Alpha"
+            }
+          },
+          {
+            "on-tap": {
+              "type": "animation",
+              "params": {
+                "tag": 1,
+                "key-path": "bounds.size.width",
+                "to": "${_width_}",
+                "duration": 0.6,
+                "auto-reverses": true
+              }
+            },
+            "type": "text",
+            "class": "button",
+            "style": {
+              "text": "Width"
+            }
+          },
+          {
+            "on-tap": {
+              "type": "animation",
+              "params": {
+                "tag": 1,
+                "key-path": "borderWidth",
+                "to": 50,
+                "auto-reverses": true
+              }
+            },
+            "type": "text",
+            "class": "button",
+            "style": {
+              "text": "Border Width"
+            }
+          },
+          {
+            "on-tap": {
+              "type": "animation",
+              "params": {
+                "tag": 1,
+                "key-path": "cornerRadius",
+                "to": 50,
+                "auto-reverses": true
+              }
+            },
+            "type": "text",
+            "class": "button",
+            "style": {
+              "text": "Corner Radius"
+            }
+          },
+          {
+            "on-tap": {
+              "type": "animation",
+              "params": {
+                "key-path": "borderColor",
+                "to": "${cgcolor('green')}",
+                "auto-reverses": true
+              }
+            },
+            "type": "button",
+            "class": "button",
+            "style": {
+              "title": "Border Color"
+            }
+          },
+          {
+            "on-tap": {
+              "type": "animation",
+              "params": {
+                "key-path": "backgroundColor",
+                "to": "${cgcolor('blue')}",
+                "auto-reverses": true
+              }
+            },
+            "type": "button",
+            "class": "button",
+            "style": {
+              "title": "Background Color"
+            }
+          },
+          {
+            "on-tap": {
+              "type": "animation",
+              "params": {
+                "auto-reverses": true,
+                "animations": [
+                  {
+                    "key-path": "shadowOffset",
+                    "to": "${size(3,3)}"
+                  },
+                  {
+                    "key-path": "shadowRadius",
+                    "to": 2
+                  },
+                  {
+                    "key-path": "transform.translation",
+                    "to": "${size(-1, -1)}"
+                  }
+                ]
+              }
+            },
+            "type": "button",
+            "class": "button",
+            "style": {
+              "title": "Shadow",
+              "background-color": "white",
+              "properties": {
+                "layer.shadowOpacity": 0.5,
+                "layer.shadowOffset": "${size(0, 0)}",
+                "layer.shadowRadius": 0
+              }
+            }
+          },
+          {
+            "on-tap": {
+              "type": "animation",
+              "params": {
+                "key-path": "transform.rotation.y",
+                "by": "${PI()*2}",
+                "duration": 1,
+                "timing-function": "easeInEaseOut"
+              }
+            },
+            "type": "button",
+            "class": "button",
+            "style": {
+              "title": "3D Rotate",
+              "properties": {
+                "layer.transform": "${m34(-1/200)}"
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

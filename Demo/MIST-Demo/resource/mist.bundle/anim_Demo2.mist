@@ -1,0 +1,165 @@
+{
+  "layout": {
+    "style": {
+      "height": 150,
+      "direction": "vertical",
+      "align-items": "center",
+      "justify-content": "center",
+      "background-color": "#212b54",
+      "auto-animation": {
+        "enabled": true,
+        "duration": 0.3
+      }
+    },
+    "children": [
+      {
+        "style": {
+          "height": 65,
+          "justify-content": "center",
+          "align-items": "end"
+        },
+        "children": [
+          {
+            "type": "image",
+            "on-display-once": {
+              "type": "animation",
+              "params": {
+                "delay": 0.5,
+                "duration": 0.3,
+                "fill-mode": "backwards",
+                "timing-function": "easeOut",
+                "animations": [
+                  {
+                    "key-path": "transform.translation.x",
+                    "from": -15
+                  },
+                  {
+                    "key-path": "opacity",
+                    "from": 0
+                  }
+                ],
+                "end": {
+                  "updateState:": {
+                    "shown": true
+                  }
+                }
+              }
+            },
+            "style": {
+              "backing-view": "MistDemoImageView",
+              "clip": true,
+              "width": 75,
+              "height": 62.5,
+              "image-url": "https://gw.alipayobjects.com/zos/rmsportal/SkpYOmfOyGXXAyBQJjzN.png",
+              "content-mode": "scale-aspect-fill",
+              "properties": {
+                "spmTag": "${seedId}"
+              }
+            }
+          },
+          {
+            "gone": "${!state.shown}",
+            "type": "image",
+            "on-update-appear": {
+              "type": "animation",
+              "params": {
+                "duration": 0.6,
+                "animations": [
+                  {
+                    "key-path": "transform.scale.x",
+                    "key-frames": {
+                      "0": 0,
+                      "0.5": 1.1,
+                      "1": 1
+                    },
+                    "from": 0,
+                    "to": 1.5,
+                    "fill-mode": "forwards",
+                    "timing-functions": [
+                      "easeInEaseOut",
+                      "easeInEaseOut"
+                    ]
+                  },
+                  {
+                    "key-path": "transform.scale.y",
+                    "key-frames": {
+                      "0": 0,
+                      "0.5": 1
+                    },
+                    "from": 0,
+                    "timing-functions": [
+                      "easeInEaseOut"
+                    ]
+                  }
+                ]
+              }
+            },
+            "style": {
+              "backing-view": "MistDemoImageView",
+              "clip": true,
+              "width": 200,
+              "height": 65,
+              "margin-left": 5,
+              "margin-right": 5,
+              "margin-bottom": -5,
+              "image-url": "https://gw.alipayobjects.com/zos/rmsportal/dHweDUuuXHJwdTsFcbqJ.png",
+              "content-mode": "scale-aspect-fit",
+              "properties": {
+                "spmTag": "${seedId}"
+              }
+            }
+          },
+          {
+            "type": "image",
+            "on-display-once": {
+              "type": "animation",
+              "params": {
+                "delay": 0.5,
+                "duration": 0.3,
+                "fill-mode": "backwards",
+                "timing-function": "easeOut",
+                "animations": [
+                  {
+                    "key-path": "transform.translation.x",
+                    "from": 15
+                  },
+                  {
+                    "key-path": "opacity",
+                    "from": 0
+                  }
+                ]
+              }
+            },
+            "style": {
+              "backing-view": "MistDemoImageView",
+              "clip": true,
+              "width": 75,
+              "height": 62.5,
+              "image-url": "https://gw.alipayobjects.com/zos/rmsportal/qXXPOIjLQYPtvYIREusm.png",
+              "content-mode": "scale-aspect-fill",
+              "properties": {
+                "spmTag": "${seedId}"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "style": {
+          "alpha": "${state.shown ? 1 : 0}",
+          "auto-animation": {
+            "delay": 0.6,
+            "duration": 0.4
+          },
+          "font-size": 12,
+          "margin-right": 15,
+          "margin-left": 15,
+          "margin-top": 5,
+          "color": "#d1d9ef",
+          "text": "晚上好，征服完世界，记得征服自己的胃"
+        }
+      }
+    ]
+  }
+}

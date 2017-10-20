@@ -1,0 +1,93 @@
+{
+  "state": {
+    "selected": []
+  },
+  "cell-height-animation": true,
+  "layout": {
+    "vars": {
+      "labels": ["味道不错", "环境不错", "上菜快", "价格实惠", "好吃", "服务还不错", "卫生还可以", "方便快捷", "很热情", "特别棒", "开心", "还打折"]
+    },
+    "style": {
+      "auto-animation": {
+        "enabled": true,
+        "duration": 0.3
+      },
+      "direction": "vertical",
+      "margin": 15
+    },
+    "children": [
+      {
+        "style": {
+          "wrap": "wrap",
+          "spacing": 5,
+          "line-spacing": 5,
+          "background-color": "#fcd",
+          "padding": 10,
+          "corner-radius": 3
+        },
+        "children": [
+          {
+            "gone": "${state.selected.count > 0}",
+            "type": "text",
+            "style": {
+              "text": "未选择标签",
+              "color": "#666"
+            }
+          },
+          {
+            "repeat": "${state.selected}",
+            "type": "text",
+            "global-identifier": "${_item_}",
+            "on-tap": {
+              "updateState:": {
+                "selected": "${state.selected.filter(i -> i != _item_)}"
+              }
+            },
+            "style": {
+              "text": "${_item_}",
+              "padding": 4,
+              "corner-radius": 3,
+              "background-color": "#f78",
+              "color": "white"
+            }
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "style": {
+          "text": "选择标签",
+          "color": "#888",
+          "margin-top": 10,
+          "margin-bottom": 3
+        }
+      },
+      {
+        "style": {
+          "wrap": "wrap",
+          "spacing": 5,
+          "line-spacing": 5
+        },
+        "children": [
+          {
+            "repeat": "${labels.filter(l -> state.selected.indexOf(l) < 0)}",
+            "type": "text",
+            "global-identifier": "${_item_}",
+            "on-tap": {
+              "updateState:": {
+                "selected": "${state.selected.arrayByAddingObject(_item_)}"
+              }
+            },
+            "style": {
+              "text": "${_item_}",
+              "padding": 4,
+              "corner-radius": 3,
+              "background-color": "#f78",
+              "color": "white"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

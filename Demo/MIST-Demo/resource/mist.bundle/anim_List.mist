@@ -1,0 +1,53 @@
+{
+  "cell-height-animation": true,
+  "layout": {
+    "style": {
+      "auto-animation": {
+        "enabled": true,
+        "duration": 0.3
+      },
+      "clip": true,
+      "direction": "vertical"
+    },
+    "children": [
+      {
+        "on-tap": {
+          "updateState:": {
+            "expanded": "${!state.expanded}"
+          }
+        },
+        "type": "text",
+        "style": {
+          "text": "${name}",
+          "padding-left": 15,
+          "height": 35
+        }
+      },
+      {
+        "gone": "${!state.expanded}",
+        "repeat": "${cities}",
+        "type": "text",
+        "on-update-disappear": {
+          "type": "animation",
+          "params": {
+            "key-path": "hidden",
+            "from": false,
+            "duration": 0.6
+          }
+        },
+        "style": {
+          "text": "${_item_}",
+          "padding-left": 15,
+          "height": 25,
+          "background-color": "#f5f5f5"
+        }
+      },
+      {
+        "style": {
+          "height": "1px",
+          "background-color": "#ddd"
+        }
+      }
+    ]
+  }
+}

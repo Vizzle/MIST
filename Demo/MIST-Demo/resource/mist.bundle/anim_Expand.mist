@@ -1,0 +1,116 @@
+{
+  "layout": {
+    "vars": {
+      "items": "${'点菜 外卖 集点 排号 游戏 预订 打赏 聊天室 签到'.split(' ')}"
+    },
+    "style": {
+      "height": "${_height_ - 44 - (screen.isX ? screen.safeArea.top + screen.safeArea.bottom : 20)}",
+      "background-color": "white"
+    },
+    "children": [
+      {
+        "style": {
+          "auto-animation": true,
+          "background-color": "#444",
+          "direction": "vertical",
+          "flex-grow": 1,
+          "margin-top": "auto",
+          "padding-bottom": "${screen.safeArea.bottom}",
+          "margin-bottom": "${-screen.safeArea.bottom}"
+        },
+        "children": [
+          {
+            "gone": "${items.count <= 3}",
+            "type": "text",
+            "on-tap": {
+              "updateState:": {
+                "expanded": "${!state.expanded}"
+              }
+            },
+            "style": {
+              "height": 24,
+              "text": "${state.expanded ? '▼' : '▲'}",
+              "alignment": "center",
+              "color": "#ddd"
+            }
+          },
+          {
+            "gone": "${items.count <= 3}",
+            "style": {
+              "margin-left": 15,
+              "margin-right": 15,
+              "background-color": "#666",
+              "height": "1px"
+            }
+          },
+          {
+            "gone": "${!state.expanded}",
+            "on-update-disappear": {
+              "type": "animation",
+              "params": {
+                "animations": [
+                  {
+                    "key-path": "hidden",
+                    "from": false
+                  },
+                  {
+                    "duration": 0.1,
+                    "key-path": "opacity",
+                    "fill-mode": "both",
+                    "to": 0
+                  }
+                ]
+              }
+            },
+            "style": {
+              "wrap": "wrap-reverse",
+              "items-per-line": 3
+            },
+            "tag": 1,
+            "children": [
+              {
+                "on-display": {
+                  "type": "animation",
+                  "params": {
+                    "key-path": "opacity",
+                    "delay": "${(_index_ + 1) * 0.08}",
+                    "fill-mode": "both",
+                    "from": 0
+                  }
+                },
+                "repeat": "${items.sub_array(3, items.count - 3)}",
+                "type": "text",
+                "style": {
+                  "text": "${_item_}",
+                  "alignment": "center",
+                  "flex-grow": 1,
+                  "width": "${_width_ / 3}",
+                  "color": "#ddd",
+                  "padding": 18
+                }
+              }
+            ]
+          },
+          {
+            "style": {
+              "background-color1": "#444"
+            },
+            "children": [
+              {
+                "repeat": "${items.sub_array(0, min(items.count, 3))}",
+                "type": "text",
+                "style": {
+                  "text": "${_item_}",
+                  "flex-grow": 1,
+                  "alignment": "center",
+                  "color": "#ddd",
+                  "padding": 18
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

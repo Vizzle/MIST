@@ -13,6 +13,7 @@
 #import "VZMistActionResponse.h"
 #import "VZMistActionAlertDelegate.h"
 #import "VZMistActionBlockTarget.h"
+#import "VZMistTemplateAnimation.h"
 #import <JavaScriptCore/JavaScriptCore.h>
 
 #import <objc/runtime.h>
@@ -24,6 +25,7 @@
     [self location];
     [self url];
     [self update_state];
+    [self set_state];
     [self alert];
     [self delay];
     [self timer];
@@ -31,6 +33,8 @@
     [self pop];
     [self notify];
     [self js];
+    [self execute];
+    [self animation];
 }
 
 + (void)http_request {
@@ -79,6 +83,16 @@
             NSMutableDictionary *state = [oldState ?: @{} mutableCopy];
             [state setValuesForKeysWithDictionary:change];
             return state;
+        }];
+        action.success(nil);
+    }];
+}
+
++ (void)set_state {
+    [VZMistTemplateAction registerActionWithName:@"set-state" block:^(VZMistTemplateAction *action) {
+        NSDictionary *newState = __vzDictionary(action.params, nil);
+        [action.item updateState:^NSDictionary *(NSDictionary *oldState) {
+            return newState;
         }];
         action.success(nil);
     }];
@@ -141,7 +155,7 @@
         }];
         NSTimer *timer = [NSTimer timerWithTimeInterval:time target:target selector:@selector(invoke) userInfo:nil repeats:repeat];
         weakTimer = timer;
-        [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+        [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
     }];
 }
 
@@ -194,6 +208,20 @@
         } @catch (id error) {
             action.error(error);
         }
+    }];
+}
+
++ (void)execute {
+    [VZMistTemplateAction registerActionWithName:@"execute" block:^(VZMistTemplateAction *action) {
+        action.success(action.params[@"exp"]);
+    }];
+}
+
++ (void)animation {
+    [VZMistTemplateAction registerActionWithName:@"animation" block:^(VZMistTemplateAction *action) {
+        VZMistTemplateAnimation *anim = [VZMistTemplateAnimation animationWithDict:__vzDictionary(action.params, nil) item:action.item];
+        [anim runWithView:action.sender];
+        action.success(nil);
     }];
 }
 

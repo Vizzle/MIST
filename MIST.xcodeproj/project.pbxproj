@@ -97,6 +97,8 @@
 		B1878DE61F5E82AA00834ABF /* libVZFlexLayout.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B1A0AB4C1EF3E89E0019F8D9 /* libVZFlexLayout.a */; };
 		B1878DE71F5E878E00834ABF /* VZTLexer.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F941E1EA601F80050EFFE /* VZTLexer.m */; };
 		B1878DED1F5E88BC00834ABF /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1878DEC1F5E88BC00834ABF /* ImageIO.framework */; };
+		B1AB9AFE1F99F17F00606DE9 /* VZMistTemplateAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = B1AB9AFC1F99F17F00606DE9 /* VZMistTemplateAnimation.h */; };
+		B1AB9AFF1F99F17F00606DE9 /* VZMistTemplateAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = B1AB9AFD1F99F17F00606DE9 /* VZMistTemplateAnimation.m */; };
 		CF7197A3190B60E2B5BFF99E /* libPods-MISTTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E560FFD888ED23A8B43A380E /* libPods-MISTTests.a */; };
 		D0C2F8F02AC964485E4BDA3F /* libPods-MIST.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A296F92AB5C0B3819173F3D /* libPods-MIST.a */; };
 /* End PBXBuildFile section */
@@ -215,6 +217,8 @@
 		B1A0AB431EF3E5ED0019F8D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B1A0AB4C1EF3E89E0019F8D9 /* libVZFlexLayout.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libVZFlexLayout.a; path = "../../../../Library/Developer/Xcode/DerivedData/MIST-cdwrhaqwmoofypdwpuvikzkwozhp/Build/Products/Debug-iphonesimulator/VZFlexLayout/libVZFlexLayout.a"; sourceTree = "<group>"; };
 		B1A0AB4E1EF3E8A00019F8D9 /* libPods-MIST.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-MIST.a"; path = "../../../../Library/Developer/Xcode/DerivedData/MIST-cdwrhaqwmoofypdwpuvikzkwozhp/Build/Products/Debug-iphonesimulator/libPods-MIST.a"; sourceTree = "<group>"; };
+		B1AB9AFC1F99F17F00606DE9 /* VZMistTemplateAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZMistTemplateAnimation.h; sourceTree = "<group>"; };
+		B1AB9AFD1F99F17F00606DE9 /* VZMistTemplateAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZMistTemplateAnimation.m; sourceTree = "<group>"; };
 		E560FFD888ED23A8B43A380E /* libPods-MISTTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MISTTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAC95C24E4767BC5EBA4558D /* Pods-MISTTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MISTTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MISTTests/Pods-MISTTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -369,6 +373,8 @@
 				458FEC821E9F3147004A44DB /* VZMistTemplate.mm */,
 				1F2DC7201F178B9C008D5B72 /* VZMistTemplateAction.h */,
 				1F2DC7211F178B9C008D5B72 /* VZMistTemplateAction.mm */,
+				B1AB9AFC1F99F17F00606DE9 /* VZMistTemplateAnimation.h */,
+				B1AB9AFD1F99F17F00606DE9 /* VZMistTemplateAnimation.m */,
 				458FEC831E9F3147004A44DB /* VZMistTemplateController.h */,
 				458FEC841E9F3147004A44DB /* VZMistTemplateController.m */,
 				458FEC851E9F3147004A44DB /* VZMistTemplateDownload.h */,
@@ -468,6 +474,7 @@
 				458FECD61E9F3147004A44DB /* VZMistTemplate.h in Headers */,
 				455F94651EA601F80050EFFE /* VZTSyntaxNode.h in Headers */,
 				455F943F1EA601F80050EFFE /* NSDate+VZTExtension.h in Headers */,
+				B1AB9AFE1F99F17F00606DE9 /* VZMistTemplateAnimation.h in Headers */,
 				455F94411EA601F80050EFFE /* NSDictionary+VZTExtension.h in Headers */,
 				455F94431EA601F80050EFFE /* NSString+VZTExtension.h in Headers */,
 				455F94571EA601F80050EFFE /* VZTKeyValueListNode.h in Headers */,
@@ -728,6 +735,7 @@
 				458FECCC1E9F3147004A44DB /* VZFNode+Template.mm in Sources */,
 				455F945E1EA601F80050EFFE /* VZTLiteralNode.m in Sources */,
 				1F46A8AA1F0E089900520AC0 /* VZMistJSContextBuilder.mm in Sources */,
+				B1AB9AFF1F99F17F00606DE9 /* VZMistTemplateAnimation.m in Sources */,
 				455F946A1EA601F80050EFFE /* VZTUtils.m in Sources */,
 				1F46A8AC1F0E089900520AC0 /* VZMistCallHelper.m in Sources */,
 				458FECDC1E9F3147004A44DB /* VZMistTemplateEvent.m in Sources */,

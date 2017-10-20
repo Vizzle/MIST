@@ -19,6 +19,7 @@ typedef void(^VZMistTemplateActionRegisterBlock)(VZMistTemplateAction *action);
 
 @property (nonatomic, strong, readonly) NSString *type;
 @property (nonatomic, weak, readonly) id<VZMistItem> item;
+@property (nonatomic, weak, readonly) id sender;
 @property (nonatomic, strong, readonly) VZMistTemplateActionBlock success;
 @property (nonatomic, strong, readonly) VZMistTemplateActionBlock error;
 @property (nonatomic, strong, readonly) NSDictionary *params;

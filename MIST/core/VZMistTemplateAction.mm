@@ -47,6 +47,7 @@
     action->_context = context;
     action->_dict = dictionary;
     action->_type = __vzStringDefault(dictionary[@"type"]);
+    action->_resultName = __vzString(dictionary[@"result"], kVZMistActionResultKey);
     NSArray *actionsArray = __vzArray(dictionary[@"actions"], nil);
     if (actionsArray) {
         NSMutableArray *actions = [NSMutableArray new];
@@ -62,7 +63,6 @@
         action->_successAction = dictionary[@"success"];
         action->_errorAction = dictionary[@"error"];
         action->_finishAction = dictionary[@"finish"];
-        action->_resultName = __vzString(dictionary[@"result"], kVZMistActionResultKey);
         action->_delay = __vzDouble([VZMistTemplateHelper extractValueForExpression:dictionary[@"delay"] withContext:context], 0);
         action->_mainThread = __vzBool([VZMistTemplateHelper extractValueForExpression:dictionary[@"main-thread"] withContext:context], NO);
         action->_params = dictionary[@"params"];
@@ -75,10 +75,10 @@
     return ^(id value) {
         [_context pushVariableWithKey:_resultName value:value];
         if (_finishAction) {
-            [[self.class actionWithDictionary:_finishAction expressionContext:_context item:_item] runWithSender:_sender];
+            [[self.class actionWithDictionary:_finishAction expressionContext:_context.copy item:_item] runWithSender:_sender];
         }
         if (_successAction) {
-            [[self.class actionWithDictionary:_successAction expressionContext:_context item:_item] runWithSender:_sender];
+            [[self.class actionWithDictionary:_successAction expressionContext:_context.copy item:_item] runWithSender:_sender];
         }
         [_context popVariableWithKey:_resultName];
 
@@ -92,10 +92,10 @@
     return ^(id error) {
         [_context pushVariableWithKey:_resultName value:error];
         if (_finishAction) {
-            [[self.class actionWithDictionary:_finishAction expressionContext:_context item:_item] runWithSender:nil];
+            [[self.class actionWithDictionary:_finishAction expressionContext:_context.copy item:_item] runWithSender:nil];
         }
         if (_errorAction) {
-            [[self.class actionWithDictionary:_errorAction expressionContext:_context item:_item] runWithSender:nil];
+            [[self.class actionWithDictionary:_errorAction expressionContext:_context.copy item:_item] runWithSender:nil];
         }
         [_context popVariableWithKey:_resultName];
 
@@ -114,7 +114,7 @@
         VZMistTemplateActionRegisterBlock actionBlock;
         if (_actions) {
             actionBlock = ^(VZMistTemplateAction *action) {
-                __weak VZMistTemplateAction *weakAction = action;
+                VZMistTemplateAction *weakAction = action;
                 NSMutableArray *array = [NSMutableArray new];
                 for (int i = 0; i < _actions.count; i++) {
                     [array addObject:NSNull.null];
@@ -129,11 +129,17 @@
 
                     if (count == 0) {
                         if (success) {
-                            weakAction.success(array);
+                            if (weakAction.success) {
+                                weakAction.success(array);
+                            }
                         }
                         else {
-                            weakAction.error(nil);
+                            if (weakAction.error) {
+                                weakAction.error(nil);
+                            }
                         }
+                        // break the retain cycle
+                        weakAction->_actions = nil;
                     }
                 };
                 for (int i = 0; i < _actions.count; i++) {
@@ -207,6 +213,7 @@
                 }
             }
         }
+        self.success(nil);
     }
 }
 

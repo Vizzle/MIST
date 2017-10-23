@@ -71,6 +71,10 @@
  模板中脚本内容
  */
 @property (nonatomic, strong, readonly) NSString *script;
+/**
+ 模板中脚本内容
+ */
+@property (nonatomic, strong, readonly) NSDictionary *onStateUpdated;
 
 /**
  创建Template实体

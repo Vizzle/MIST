@@ -19,6 +19,7 @@
 #import "VZMist.h"
 #import "VZMistInternal.h"
 #import "VZMistJSContextBuilder.h"
+#import "VZMistTemplateAction.h"
 
 #ifdef DEBUG
 #import "VZScriptErrorMsgViewController.h"
@@ -265,6 +266,8 @@ static const void *kMistItemInCell = &kMistItemInCell;
             } else if (self.attachedView) {
                 [self attachToView:self.attachedView];
             }
+
+            [[VZMistTemplateAction actionWithDictionary:self.tpl.onStateUpdated expressionContext:_expressionContext item:self] runWithSender:self.attachedView];
 
             if (self.updateStateCompletion) {
                 self.updateStateCompletion();

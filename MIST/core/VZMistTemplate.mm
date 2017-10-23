@@ -56,6 +56,7 @@
         _asyncDisplay = __vzBool(content[@"async-display"], NO);
         _cellHeightAnimation = __vzBool(content[@"cell-height-animation"], NO);
         _tplReuseIdentifier = content[@"reuse-identifier"];
+        _onStateUpdated = __vzDictionary([VZMistTemplateHelper parseExpressionsInTemplate:content[@"on-state-updated"] mistInstance:mistInstance], nil);
     }
     return self;
 }

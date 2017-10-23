@@ -202,4 +202,69 @@
     return arrays;
 }
 
+// [1, [2, [3, 4]], 5].flatten(false)      =>      [1, 2, [3, 4], 5]
+- (NSArray *)vzt_flatten:(BOOL)recursive
+{
+    NSMutableArray *array = [NSMutableArray array];
+    for (id value in self) {
+        if ([value isKindOfClass:[NSArray class]]) {
+            [array addObjectsFromArray:recursive ? [value vzt_flatten:YES] : value];
+        }
+        else {
+            [array addObject:value];
+        }
+    }
+    return array;
+}
+
+// [1, [2, [3, 4]], 5].flatten()      =>      [1, 2, 3, 4, 5]
+- (NSArray *)vzt_flatten
+{
+    return [self vzt_flatten:YES];
+}
+
+// [1, 2].concat([3])      =>      [1, 2, 3]
+- (NSArray *)vzt_concat:(NSArray *)array
+{
+    return [self arrayByAddingObjectsFromArray:array];
+}
+
+// [1, 2, 3].splice(1, 0, 5)      =>      [1, 2, 5, 3]
+// [1, 2, 3].splice(1, 1, 5)      =>      [1, 5, 3]
+- (NSArray *)vzt_splice:(NSInteger)start :(NSUInteger)deleteCount :(id)insertValue
+{
+    if (deleteCount == 0 && !insertValue) {
+        return self;
+    }
+    if (start < 0) {
+        start = self.count + start;
+    }
+    NSMutableArray *array = self.mutableCopy;
+    if (start < 0 || start + deleteCount > self.count) {
+        // index out of bounds
+        return nil;
+    }
+    if (deleteCount) {
+        [array removeObjectsInRange:NSMakeRange(start, deleteCount)];
+    }
+    if (insertValue) {
+        [array insertObject:insertValue atIndex:start];
+    }
+    return array;
+}
+
+// [1, 2, 3].splice(1, 1)      =>      [1, 3]
+- (NSArray *)vzt_splice:(NSInteger)start :(NSUInteger)deleteCount
+{
+    return [self vzt_splice:start :deleteCount :nil];
+}
+
+// [1, 2, 3].splice(1)      =>      [1]
+// [1, 2, 3].splice(-2)      =>      [1]
+- (NSArray *)vzt_splice:(NSInteger)start
+{
+    NSInteger deleteCount = self.count - (start < 0 ? self.count + start : start);
+    return [self vzt_splice:start :deleteCount :nil];
+}
+
 @end

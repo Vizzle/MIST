@@ -167,6 +167,32 @@
           ]
         },
         {
+          "title": "<tt><b>flatten</b></tt>",
+          "desc": "展开数组",
+          "exps": [
+            "[1, [2, [3, 4]], 5].flatten()",
+            "[1, [2, [3, 4]], 5].flatten(false)"
+          ]
+        },
+        {
+          "title": "<tt><b>concat</b></tt>",
+          "desc": "合并数组",
+          "exps": [
+            "[1, 2].concat([3])"
+          ]
+        },
+        {
+          "title": "<tt><b>splice</b></tt>",
+          "desc": "删除/增加/修改元素",
+          "exps": [
+            "[1, 2, 3].splice(1, 0, 5)",
+            "[1, 2, 3].splice(1, 1, 5)",
+            "[1, 2, 3].splice(1, 1)",
+            "[1, 2, 3].splice(1)",
+            "[1, 2, 3].splice(-1)"
+          ]
+        },
+        {
           "title": "<tt><b>set_value</b></tt>",
           "desc": "字典设置一个值并返回新的字典",
           "exps": [

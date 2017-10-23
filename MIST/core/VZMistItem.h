@@ -62,6 +62,15 @@
  */
 - (void)updateState:(NSDictionary * (^)(NSDictionary *oldState))block;
 
+/**
+ 更新 state
+
+ @param block state block
+ @param completion 更新完成回调
+ */
+- (void)updateState:(NSDictionary * (^)(NSDictionary * oldState))block completion:(void (^)())completion;
+
+
 @end
 
 @protocol VZMistAsyncDisplayItem <NSObject>

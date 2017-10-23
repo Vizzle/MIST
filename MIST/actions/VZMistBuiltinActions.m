@@ -83,8 +83,9 @@
             NSMutableDictionary *state = [oldState ?: @{} mutableCopy];
             [state setValuesForKeysWithDictionary:change];
             return state;
+        } completion:^{
+            action.success(nil);
         }];
-        action.success(nil);
     }];
 }
 

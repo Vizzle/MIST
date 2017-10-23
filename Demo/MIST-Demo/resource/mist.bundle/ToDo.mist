@@ -1,7 +1,14 @@
 {
   "state": {
-    "todos": [],
-    "filter": 0
+    "todos": "${NSUserDefaults.standardUserDefaults.objectForKey('todos') ?: []}",
+    "filter": "${NSUserDefaults.standardUserDefaults.objectForKey('filter') ?: 0}"
+  },
+  "on-state-updated": {
+    "type": "set-cache",
+    "params": {
+      "todos": "${state.todos}",
+      "filter": "${state.filter}"
+    }
   },
   "cell-height-animation": true,
   "layout": {
@@ -17,7 +24,7 @@
     "children": [
       {
         "vars": {
-          "newItem": "{'text': _mistitem_.tplController.viewWithTag(1).text.trim, 'index':state.todos.count}"
+          "newItem": "{'text': _mistitem_.tplController.viewWithTag(1).text.trim, 'id':randomInt()}"
         },
         "style": {
           "background-color": "white",
@@ -35,7 +42,7 @@
             },
             "on-submit": {
               "updateState:": {
-                "todos": "${eval(newItem).text.length > 0 ? state.todos.arrayByAddingObject(eval(newItem)) : state.todos}"
+                "todos": "${eval(newItem).text.length > 0 ? state.todos.concat([eval(newItem)]) : state.todos}"
               }
             }
           },
@@ -57,7 +64,7 @@
             },
             "on-tap": {
               "updateState:": {
-                "todos": "${eval(newItem).text.length > 0 ? state.todos.arrayByAddingObject(eval(newItem)) : state.todos}"
+                "todos": "${eval(newItem).text.length > 0 ? state.todos.concat([eval(newItem)]) : state.todos}"
               }
             }
           }
@@ -115,7 +122,7 @@
         "children": [
           {
             "repeat": "${eval('state.todos.filter(' + filters[state.filter] + ')')}",
-            "identifier": "${_item_.index}",
+            "identifier": "${_item_.id}",
             "on-update-appear": {
               "type": "animation",
               "params": {
@@ -124,13 +131,29 @@
                 "from": 0
               }
             },
+            "on-update-disappear": {
+              "type": "animation",
+              "params": {
+                "animations": [
+                  {
+                    "key-path": "hidden",
+                    "duration": 0.5,
+                    "from": false
+                  },
+                  {
+                    "key-path": "opacity",
+                    "to": 0
+                  }
+                ]
+              }
+            },
             "on-tap": {
               "updateState:": {
-                "todos": "${state.todos.select(todo -> todo == _item_ ? todo.set_value('done', !todo.done) : todo)}"
+                "todos1": "${state.todos.select(todo -> todo == _item_ ? todo.set_value('done', !todo.done) : todo)}",
+                "todos": "${state.todos.splice(state.todos.indexOf(_item_), 1, _item_.set_value('done', !_item_.done))}"
               }
             },
             "style": {
-              "direction": "vertical",
               "padding-left": 10,
               "padding-right": 10
             },
@@ -139,25 +162,9 @@
                 "gone": "${_index_ == 0}",
                 "type": "line",
                 "style": {
+                  "fixed": true,
                   "color": "#ccc",
                   "height": "1px"
-                }
-              },
-              {
-                "gone": true,
-                "type": "text",
-                "vars": {
-                  "doneText": "<font size='17' color='#888'><s>${_item_.text}</s></font>"
-                },
-                "on-tap": {
-                  "updateState:": {
-                    "todos": "${state.todos.select(todo -> todo == _item_ ? todo.set_value('done', !todo.done) : todo)}"
-                  }
-                },
-                "style": {
-                  "html-text": "${_item_.done ? doneText : _item_.text}",
-                  "font-size": 17,
-                  "height": 36
                 }
               },
               {
@@ -186,6 +193,22 @@
                     }
                   }
                 ]
+              },
+              {
+                "type": "text",
+                "on-tap": {
+                  "updateState:": {
+                    "todos": "${state.todos.splice(state.todos.indexOf(_item_), 1)}"
+                  }
+                },
+                "style": {
+                  "margin-left": "auto",
+                  "margin-right": 5,
+                  "padding": 10,
+                  "text": "✕",
+                  "font-size": "16",
+                  "color": "red"
+                }
               }
             ]
           }

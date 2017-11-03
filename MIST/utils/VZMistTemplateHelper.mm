@@ -559,3 +559,29 @@ UIColor *colorFromHex(const char *hex)
 }
 
 @end
+
+
+#ifdef DEBUG
+
+@implementation VZTGlobalFunctions (Debug)
+
++ (id)print:(id)obj {
+    NSLog(@"Mist Debug: %@", obj);
+    return obj;
+}
+
++ (id)alert:(id)obj {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Mist Debug"
+                                                            message:[NSString stringWithFormat:@"%@", obj]
+                                                           delegate:nil
+                                                  cancelButtonTitle:nil
+                                                  otherButtonTitles:@"OK", nil];
+        [alertView show];
+    });
+    return obj;
+}
+
+@end
+
+#endif

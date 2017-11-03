@@ -91,6 +91,8 @@
 		458FECDC1E9F3147004A44DB /* VZMistTemplateEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 458FEC871E9F3147004A44DB /* VZMistTemplateEvent.m */; };
 		45C497961E8F9D55009BD7AA /* MIST.h in Headers */ = {isa = PBXBuildFile; fileRef = 45C497941E8F9D55009BD7AA /* MIST.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45C9C3531EA786A2001015CD /* VZMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 45C9C3521EA786A2001015CD /* VZMacros.h */; };
+		B155807A1FAC54A600DC2AE4 /* NSValue+VZTExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = B15580741FAC54A500DC2AE4 /* NSValue+VZTExtension.h */; };
+		B155807B1FAC54A600DC2AE4 /* NSValue+VZTExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B15580751FAC54A600DC2AE4 /* NSValue+VZTExtension.m */; };
 		B1878DDC1F5E7DC200834ABF /* VZTExpressionPerformanceTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = B1878DDA1F5E7DC200834ABF /* VZTExpressionPerformanceTests.mm */; };
 		B1878DDD1F5E7DC200834ABF /* VZTExpressionTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = B1878DDB1F5E7DC200834ABF /* VZTExpressionTests.mm */; };
 		B1878DE41F5E7F2A00834ABF /* MIST.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45C497911E8F9D55009BD7AA /* MIST.framework */; };
@@ -207,6 +209,8 @@
 		77255C84052463794133E6C9 /* Pods-MIST.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MIST.release.xcconfig"; path = "Pods/Target Support Files/Pods-MIST/Pods-MIST.release.xcconfig"; sourceTree = "<group>"; };
 		9EE5849A55CA64866909D96F /* Pods-MISTTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MISTTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MISTTests/Pods-MISTTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9FC5F8E9C2F6C9CFA25B88D3 /* Pods-MIST.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MIST.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MIST/Pods-MIST.debug.xcconfig"; sourceTree = "<group>"; };
+		B15580741FAC54A500DC2AE4 /* NSValue+VZTExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSValue+VZTExtension.h"; sourceTree = "<group>"; };
+		B15580751FAC54A600DC2AE4 /* NSValue+VZTExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSValue+VZTExtension.m"; sourceTree = "<group>"; };
 		B1878DDA1F5E7DC200834ABF /* VZTExpressionPerformanceTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZTExpressionPerformanceTests.mm; sourceTree = "<group>"; };
 		B1878DDB1F5E7DC200834ABF /* VZTExpressionTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZTExpressionTests.mm; sourceTree = "<group>"; };
 		B1878DDE1F5E7DE700834ABF /* VZTExpressionHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VZTExpressionHelper.h; sourceTree = "<group>"; };
@@ -306,6 +310,8 @@
 		455F93FE1EA601F80050EFFE /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				B15580741FAC54A500DC2AE4 /* NSValue+VZTExtension.h */,
+				B15580751FAC54A600DC2AE4 /* NSValue+VZTExtension.m */,
 				455F93FF1EA601F80050EFFE /* NSArray+VZTExtension.h */,
 				455F94001EA601F80050EFFE /* NSArray+VZTExtension.m */,
 				455F94011EA601F80050EFFE /* NSDate+VZTExtension.h */,
@@ -498,6 +504,7 @@
 				455F94711EA601F80050EFFE /* VZDataStructure.h in Headers */,
 				455F944B1EA601F80050EFFE /* VZTConditionalExpressionNode.h in Headers */,
 				45C9C3531EA786A2001015CD /* VZMacros.h in Headers */,
+				B155807A1FAC54A600DC2AE4 /* NSValue+VZTExtension.h in Headers */,
 				455F94611EA601F80050EFFE /* VZTOperatorNode.h in Headers */,
 				45C497961E8F9D55009BD7AA /* MIST.h in Headers */,
 			);
@@ -746,6 +753,7 @@
 				455F94761EA601F80050EFFE /* VZMistHTMLStringParser.m in Sources */,
 				455F94581EA601F80050EFFE /* VZTKeyValueListNode.m in Sources */,
 				1F2DC7231F178B9C008D5B72 /* VZMistTemplateAction.mm in Sources */,
+				B155807B1FAC54A600DC2AE4 /* NSValue+VZTExtension.m in Sources */,
 				455F945A1EA601F80050EFFE /* VZTLambdaExpressionNode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

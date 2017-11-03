@@ -14,6 +14,9 @@
 
 #import <objc/runtime.h>
 
+#if TARGET_OS_IPHONE
+#ifdef __LP64__
+
 @interface VZTSystemVersion : NSObject
 + (CGFloat)systemVersion;
 @end
@@ -26,6 +29,9 @@ static CGFloat vzt_systemVersion;
     return vzt_systemVersion;
 }
 @end
+
+#endif
+#endif
 
 NSString *vzt_stringValue(id obj)
 {
@@ -95,13 +101,6 @@ id vzt_invokeMethod(id target, SEL selector, NSArray *parameters)
     } else {
         method = class_getInstanceMethod([target class], selector);
     }
-    char returnType[2];
-    method_getReturnType(method, returnType, 2);
-    // void 函数也执行
-//    if (returnType[0] == 'v') {
-//        NSLog(@"return type of '%@' is void", NSStringFromSelector(selector));
-//        return nil;
-//    }
 
     NSMethodSignature *signature = [target methodSignatureForSelector:selector];
     signature = _vzt_fixSignature(signature);
@@ -116,8 +115,7 @@ id vzt_invokeMethod(id target, SEL selector, NSArray *parameters)
     for (int i = 0; i < parameters.count; i++) {
         id value = parameters[i];
         if (value == [VZTNull null]) value = nil;
-        char paramType[2];
-        method_getArgumentType(method, i + 2, paramType, 2);
+        const char *paramType = [signature getArgumentTypeAtIndex:i + 2];
         char prefix = paramType[0];
         if (prefix == 'r' || prefix == 'n' || prefix == 'N' || prefix == 'o' || prefix == 'O' || prefix == 'R' || prefix == 'V') {
             prefix = paramType[1];
@@ -150,8 +148,41 @@ id vzt_invokeMethod(id target, SEL selector, NSArray *parameters)
                 [invocation setArgument:&value atIndex:i + 2];
                 break;
             case ':': // :        A method selector (SEL)
-            case '[': // [array type]        An array
+            {
+                SEL sel = NSSelectorFromString(value);
+                [invocation setArgument:&sel atIndex:i + 2];
+                break;
+            }
             case '{': // {name=type...}        A structure
+                if ([value isKindOfClass:[NSValue class]]) {
+                    if (strcmp(paramType, [value objCType]) == 0) {
+#define VZT_FORWARD_NSVALUE_PARAM(type, selector) \
+                        if (strncmp(#type, paramType + 1, sizeof(#type) - 1) == 0) { \
+                            struct type v = [value selector]; \
+                            [invocation setArgument:&v atIndex:i + 2]; \
+                            break; \
+                        }
+#define VZT_FORWARD_NSVALUE_PARAM1(type) VZT_FORWARD_NSVALUE_PARAM(type, type##Value)
+#if TARGET_OS_IPHONE
+                        VZT_FORWARD_NSVALUE_PARAM1(CGPoint);
+                        VZT_FORWARD_NSVALUE_PARAM1(CGRect);
+                        VZT_FORWARD_NSVALUE_PARAM1(CGSize);
+                        VZT_FORWARD_NSVALUE_PARAM1(CGAffineTransform);
+                        VZT_FORWARD_NSVALUE_PARAM1(CATransform3D);
+                        VZT_FORWARD_NSVALUE_PARAM1(UIEdgeInsets);
+                        VZT_FORWARD_NSVALUE_PARAM1(CGVector);
+                        VZT_FORWARD_NSVALUE_PARAM1(UIOffset);
+#else
+                        VZT_FORWARD_NSVALUE_PARAM(CGPoint, pointValue);
+                        VZT_FORWARD_NSVALUE_PARAM(CGSize, sizeValue);
+                        VZT_FORWARD_NSVALUE_PARAM(CGRect, rectValue);
+                        VZT_FORWARD_NSVALUE_PARAM(NSEdgeInsets, edgeInsetsValue);
+#endif
+                        VZT_FORWARD_NSVALUE_PARAM(_NSRange, rangeValue);
+                    }
+                }
+                break;
+            case '[': // [array type]        An array
             case '(': // (name=type...)        A union
             case 'b': // bnum        A bit field of num bits
             case '^': // ^type        A pointer to type
@@ -163,6 +194,7 @@ id vzt_invokeMethod(id target, SEL selector, NSArray *parameters)
     }
     [invocation invoke];
 
+    const char *returnType = [signature methodReturnType];
     char prefix = returnType[0];
     if (prefix == 'r' || prefix == 'n' || prefix == 'N' || prefix == 'o' || prefix == 'O' || prefix == 'R' || prefix == 'V') {
         prefix = returnType[1];
@@ -212,9 +244,35 @@ id vzt_invokeMethod(id target, SEL selector, NSArray *parameters)
             return (__bridge id)returnValue;
             break;
         }
+        case '{': // {name=type...}        A structure
+        {
+#define VZT_FORWARD_NSVALUE_RETURN_VALUE(type, selector) \
+            if (strncmp(#type, returnType + 1, sizeof(#type) - 1) == 0) { \
+                struct type r; \
+                [invocation getReturnValue:&r]; \
+                return [NSValue selector:r]; \
+            }
+#define VZT_FORWARD_NSVALUE_RETURN_VALUE1(type) VZT_FORWARD_NSVALUE_RETURN_VALUE(type, valueWith##type)
+#if TARGET_OS_IPHONE
+            VZT_FORWARD_NSVALUE_RETURN_VALUE1(CGPoint);
+            VZT_FORWARD_NSVALUE_RETURN_VALUE1(CGRect);
+            VZT_FORWARD_NSVALUE_RETURN_VALUE1(CGSize);
+            VZT_FORWARD_NSVALUE_RETURN_VALUE1(CGAffineTransform);
+            VZT_FORWARD_NSVALUE_RETURN_VALUE1(CATransform3D);
+            VZT_FORWARD_NSVALUE_RETURN_VALUE1(UIEdgeInsets);
+            VZT_FORWARD_NSVALUE_RETURN_VALUE1(CGVector);
+            VZT_FORWARD_NSVALUE_RETURN_VALUE1(UIOffset);
+#else
+            VZT_FORWARD_NSVALUE_RETURN_VALUE(CGPoint, valueWithPoint);
+            VZT_FORWARD_NSVALUE_RETURN_VALUE(CGSize, valueWithSize);
+            VZT_FORWARD_NSVALUE_RETURN_VALUE(CGRect, valueWithRect);
+            VZT_FORWARD_NSVALUE_RETURN_VALUE(NSEdgeInsets, valueWithEdgeInsets);
+#endif
+            VZT_FORWARD_NSVALUE_RETURN_VALUE(_NSRange, valueWithRange);
+            break;
+        }
         case ':': // :        A method selector (SEL)
         case '[': // [array type]        An array
-        case '{': // {name=type...}        A structure
         case '(': // (name=type...)        A union
         case 'b': // bnum        A bit field of num bits
         case '?': // ?        An unknown type (among other things, this code is used for function pointers)

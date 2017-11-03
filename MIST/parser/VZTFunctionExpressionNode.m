@@ -39,6 +39,13 @@
 
 - (id)compute:(VZTExpressionContext *)context
 {
+    if (!_target) {
+        typedef id(^BlockType)(id);
+        id value = [_action compute:context];
+        if ([value isKindOfClass:NSClassFromString(@"NSBlock")]) {
+            return ((BlockType)value)([_parameters.firstObject compute:context]);
+        }
+    }
     id target = _target ? [_target compute:context] : [VZTGlobalFunctions class];
     if (!target) {
         return nil;
@@ -99,24 +106,16 @@
 
 - (id)invokeMethodWithTarget:(id)target selector:(SEL)selector context:(VZTExpressionContext *)context
 {
-    NSMutableArray *arguments = [NSMutableArray array];
-    NSMutableArray *lambdaParameters = [NSMutableArray array];
-    for (VZTExpressionNode *expression in _parameters) {
-        if ([expression isKindOfClass:[VZTLambdaExpressionNode class]]) {
-            NSString *parameter = ((VZTLambdaExpressionNode *)expression).parameter;
-            [lambdaParameters addObject:parameter];
-            [context pushVariableWithKey:parameter value:nil];
+    if (_parameters.count > 0) {
+        NSMutableArray *arguments = [NSMutableArray array];
+        for (VZTExpressionNode *expression in _parameters) {
+            [arguments addObject:[expression compute:context] ?: [VZTNull null]];
         }
-        [arguments addObject:[expression compute:context] ?: [VZTNull null]];
+        return vzt_invokeMethod(target, selector, arguments);
     }
-
-    id value = vzt_invokeMethod(target, selector, arguments);
-
-    for (NSString *parameter in lambdaParameters) {
-        [context popVariableWithKey:parameter];
+    else {
+        return vzt_invokeMethod(target, selector, nil);
     }
-
-    return value;
 }
 
 @end

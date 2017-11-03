@@ -287,6 +287,10 @@ static const void *kMistItemInCell = &kMistItemInCell;
         [_expressionContext pushVariableWithKey:@"_width_" value:@([UIScreen mainScreen].bounds.size.width)];
         [_expressionContext pushVariableWithKey:@"_height_" value:@([UIScreen mainScreen].bounds.size.height)];
         [_expressionContext pushVariables:[VZMistListItem builtinVars]];
+        __weak __typeof(self) weakSelf = self;
+        [_expressionContext pushVariableWithKey:@"viewWithTag" value:^(NSNumber *tag) {
+            return [weakSelf.tplController viewWithTag:tag.integerValue];
+        }];
         
         if (_customData) {
             [_expressionContext pushVariables:_customData];

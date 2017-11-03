@@ -39,7 +39,7 @@
 - (id)copyWithZone:(NSZone *)zone {
     VZTExpressionContext *ctx = [VZTExpressionContext new];
     NSMutableDictionary *dict = [NSMutableDictionary new];
-    for (NSString *key in _variablesTable) {
+    for (NSString *key in _variablesTable.copy) {
         dict[key] = _variablesTable[key].mutableCopy;
     }
     ctx->_variablesTable = dict;

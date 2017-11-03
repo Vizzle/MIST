@@ -23,8 +23,10 @@
 - (id)compute:(VZTExpressionContext *)context
 {
     id block = ^id(id param) {
-        [context setValue:param forKey:_parameter];
-        return [_expression compute:context];
+        [context pushVariableWithKey:_parameter value:param];
+        id value = [_expression compute:context];
+        [context popVariableWithKey:_parameter];
+        return value;
     };
 
     return block;

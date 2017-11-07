@@ -48,6 +48,7 @@ static const void *kMistItemInCell = &kMistItemInCell;
 
 @interface VZMistListItem ()
 @property (nonatomic, copy) void (^updateStateCompletion)();
+@property (strong, readwrite) NSDictionary *state;
 
 #ifdef DEBUG
 @property (nonatomic, strong) UIWindow *errorWindow;
@@ -143,7 +144,7 @@ static const void *kMistItemInCell = &kMistItemInCell;
     Class tplClass = _tpl.tplControllerClass ?: [self templateControllerClass];
     _tplController = [[tplClass alloc] initWithItem:self];
     _didLoad = NO;
-    _state = nil;
+    self.state = nil;
     [self _rebuild:YES];
 }
 
@@ -162,14 +163,14 @@ static const void *kMistItemInCell = &kMistItemInCell;
         
         [_stateUpdatesQueue addObject:block];
         
-        //丢弃来不及处理的state
+        // 一个时间片只需调用一次
         if (_stateUpdatesQueue.count == 1) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 
                 [self _doUpdateState];
             });
         }
-        
+
     });
 }
 
@@ -233,9 +234,12 @@ static const void *kMistItemInCell = &kMistItemInCell;
 
 - (void)_doUpdateState
 {
+    if (_stateUpdatesQueue.count == 0) {
+        return;
+    }
     //求最终state的值
     for (NSDictionary * (^block)(NSDictionary *) in _stateUpdatesQueue) {
-        _state = block(_state);
+        self.state = block(self.state);
     }
     [_stateUpdatesQueue removeAllObjects];
 
@@ -313,10 +317,14 @@ static const void *kMistItemInCell = &kMistItemInCell;
         }
 
         if (useInitialState) {
-            _state = _tpl.initialState ?: [_tplController initialState];
+            if (_tpl.initialState) {
+                self.state = [VZMistTemplateHelper extractValueForExpression:_tpl.initialState withContext:_expressionContext];
+            }
+            else {
+                self.state = [_tplController initialState];
+            }
         }
-        _state = [VZMistTemplateHelper extractValueForExpression:_state withContext:_expressionContext];
-        [_expressionContext pushVariableWithKey:@"state" value:_state];
+        [_expressionContext pushVariableWithKey:@"state" value:self.state];
         
 
         [self updateModel:@{}

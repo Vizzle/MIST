@@ -9,8 +9,9 @@
 #import "VZTExpressionContext.h"
 #import "VZTUtils.h"
 
+#import <pthread.h>
 
-@interface VZTWeakWrapper : NSObject 
+@interface VZTWeakWrapper : NSObject
 @property (nonatomic, weak) id object;
 + (instancetype)newWithObject:(id)object;
 @end
@@ -25,6 +26,7 @@
 
 @implementation VZTExpressionContext
 {
+    NSLock *_lock;
     NSMutableDictionary<NSString *, NSMutableArray *> *_variablesTable;
 }
 
@@ -32,6 +34,7 @@
 {
     if (self = [super init]) {
         _variablesTable = [NSMutableDictionary dictionary];
+        _lock = [NSLock new];
     }
     return self;
 }
@@ -39,15 +42,23 @@
 - (id)copyWithZone:(NSZone *)zone {
     VZTExpressionContext *ctx = [VZTExpressionContext new];
     NSMutableDictionary *dict = [NSMutableDictionary new];
-    for (NSString *key in _variablesTable.copy) {
+
+    [_lock lock];
+    for (NSString *key in _variablesTable) {
         dict[key] = _variablesTable[key].mutableCopy;
     }
+    [_lock unlock];
     ctx->_variablesTable = dict;
     return ctx;
 }
 
 - (id)pushVariableWithKey:(NSString *)key value:(id)value
 {
+    if (!key) {
+        return nil;
+    }
+
+    [_lock lock];
     NSMutableArray *valueStack = _variablesTable[key];
     if (!valueStack) {
         valueStack = [NSMutableArray array];
@@ -55,6 +66,7 @@
     }
 
     [valueStack addObject:value ?: [VZTNull null]];
+    [_lock unlock];
     return valueStack;
 }
 
@@ -65,19 +77,23 @@
 
 - (void)popVariableWithKey:(NSString *)key
 {
+    [_lock lock];
     NSMutableArray *valueStack = _variablesTable[key];
     if (valueStack.count == 0) {
         NSAssert(NO, @"there is no variable named '%@' to pop", key);
     } else {
         [valueStack removeLastObject];
     }
+    [_lock unlock];
 }
 
 - (void)pushVariables:(NSDictionary *)variables
 {
-	if (![variables isKindOfClass:[NSDictionary class]]) {
-		return;
-	}
+    if (![variables isKindOfClass:[NSDictionary class]]) {
+        return;
+    }
+
+    variables = variables.copy;
     for (NSString *key in variables) {
         [self pushVariableWithKey:key value:variables[key]];
     }
@@ -85,7 +101,7 @@
 
 - (void)popVariables:(NSDictionary *)variables
 {
-    for (NSString *key in variables) {
+    for (NSString *key in variables.allKeys) {
         [self popVariableWithKey:key];
     }
 }
@@ -97,6 +113,7 @@
 
 - (id)valueForKey:(NSString *)key count:(NSInteger *)count
 {
+    [_lock lock];
     NSMutableArray *valueStack = _variablesTable[key];
     id value = nil;
     if (valueStack.count > 0) {
@@ -108,6 +125,7 @@
     if (count) {
         *count = valueStack.count;
     }
+    [_lock unlock];
 
     if ([value isKindOfClass:[VZTWeakWrapper class]]) {
         value = ((VZTWeakWrapper *)value).object;
@@ -117,17 +135,22 @@
 
 - (void)setValue:(id)value forKey:(NSString *)key
 {
+    [_lock lock];
     NSMutableArray *valueStack = _variablesTable[key];
     if (valueStack.count == 0) {
         NSAssert(NO, @"there is no variable named '%@' to set", key);
     } else {
         valueStack[valueStack.count - 1] = value ?: [VZTNull null];
     }
+    [_lock unlock];
 }
 
 - (void)clear
 {
+    [_lock lock];
     [_variablesTable removeAllObjects];
+    [_lock unlock];
 }
 
 @end
+

@@ -1,13 +1,13 @@
 PODS:
-  - CocoaAsyncSocket (7.6.1)
+  - CocoaAsyncSocket (7.6.2)
   - CocoaHTTPServer (2.3):
     - CocoaAsyncSocket
     - CocoaLumberjack
-  - CocoaLumberjack (3.2.0):
-    - CocoaLumberjack/Default (= 3.2.0)
-    - CocoaLumberjack/Extensions (= 3.2.0)
-  - CocoaLumberjack/Default (3.2.0)
-  - CocoaLumberjack/Extensions (3.2.0):
+  - CocoaLumberjack (3.3.0):
+    - CocoaLumberjack/Default (= 3.3.0)
+    - CocoaLumberjack/Extensions (= 3.3.0)
+  - CocoaLumberjack/Default (3.3.0)
+  - CocoaLumberjack/Extensions (3.3.0):
     - CocoaLumberjack/Default
   - DACircularProgress (2.3.1)
   - IDMPhotoBrowser (1.11.3):
@@ -16,7 +16,7 @@ PODS:
     - SDWebImage (= 4.0.0)
   - MIST (0.0.3):
     - VZFlexLayout
-  - MISTDebug (0.2.1):
+  - MISTDebug (1.0.0):
     - CocoaAsyncSocket
     - CocoaHTTPServer
     - Tweaks
@@ -24,7 +24,7 @@ PODS:
   - SDWebImage (4.0.0):
     - SDWebImage/Core (= 4.0.0)
   - SDWebImage/Core (4.0.0)
-  - Tweaks (2.0.0)
+  - Tweaks (2.2.0)
   - VZFlexLayout (0.3.1)
 
 DEPENDENCIES:
@@ -35,21 +35,21 @@ DEPENDENCIES:
 
 EXTERNAL SOURCES:
   MIST:
-    :path: ../
+    :path: "../"
 
 SPEC CHECKSUMS:
-  CocoaAsyncSocket: 7eadd3f59e1a6c84e2aefc93e9ff7b55156fe174
+  CocoaAsyncSocket: 3541e024f48c54b251638ef72d51dd42808de932
   CocoaHTTPServer: 5624681fc3473d43b18202f635f9b3abb013b530
-  CocoaLumberjack: 9b4aed7073d242f29cc2f62068d995faf67f703a
+  CocoaLumberjack: 3c8c74683302f9012bb168e1c4b7ae3c0b558431
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
   IDMPhotoBrowser: b96159fe4adb991a844068eb17dab9c0b7d7e51a
-  MIST: 0656509ccc56a113e0d23253994a60c9e17d0d65
-  MISTDebug: bf07dac69cc943ba09400b183349f9a168ee3317
+  MIST: '0656509ccc56a113e0d23253994a60c9e17d0d65'
+  MISTDebug: 2845183b110e2e7e4375422cb633ceace43d78a9
   pop: 82ca6b068ce9278fd350fd9dd09482a0ce9492e6
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
-  Tweaks: 524fa47636cce3bf3a4d9156e980f10ae9480e81
+  Tweaks: 0c41be06d41b82a11f515c27711b65d343aa4af6
   VZFlexLayout: 81bac86b04db12ac2b6c89fbf39370bb98d76cfb
 
-PODFILE CHECKSUM: 1771c3f5a8d0914535ca647db6d2a5345e841eb1
+PODFILE CHECKSUM: 394b871bf9f51663147a9b7c2314eeb08baa8273
 
-COCOAPODS: 1.3.1
+COCOAPODS: 1.2.1

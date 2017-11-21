@@ -297,9 +297,9 @@ static inline BOOL o2o_isWhitespace(unichar c)
 
 + (NSString *)htmlEncodedString:(NSString *)str
 {
+    str = [str stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"];
     str = [str stringByReplacingOccurrencesOfString:@"<" withString:@"&lt;"];
     str = [str stringByReplacingOccurrencesOfString:@">" withString:@"&gt;"];
-    str = [str stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"];
     str = [str stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"];
     return str;
 }

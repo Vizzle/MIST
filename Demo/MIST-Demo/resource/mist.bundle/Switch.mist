@@ -73,7 +73,7 @@
             "type": "text",
             "class": "title",
             "style": {
-              "text": "enbaled"
+              "text": "enabled"
             }
           },
           {
@@ -175,14 +175,14 @@
             "type": "text",
             "class": "title",
             "style": {
-              "text": "on-tint-color, thumb-tint-color"
+              "text": "color, thumb-color"
             }
           },
           {
             "type": "text",
             "class": "subtitle",
             "style": {
-              "html-text": "通过 on-tint-color, thumb-tint-color 改变外观"
+              "html-text": "通过 color, thumb-color 改变外观"
             }
           },
           {
@@ -197,8 +197,8 @@
               "margin-top": 10,
               "margin-left": 10,
               "margin-bottom": 10,
-              "on-tint-color": "red",
-              "thumb-tint-color": "blue"
+              "color": "red",
+              "thumb-color": "blue"
             }
           }
         ]

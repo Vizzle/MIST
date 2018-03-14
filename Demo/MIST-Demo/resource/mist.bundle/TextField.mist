@@ -63,7 +63,7 @@
             "class": "line"
           },
           {
-            "type": "textfield",
+            "type": "text-field",
             "class": "commonTextField",
             "style": {
               "placeholder": "I'm here ..."
@@ -97,7 +97,7 @@
             "class": "line"
           },
           {
-            "type": "textfield",
+            "type": "text-field",
             "class": "commonTextField",
             "style": {
               "auto-focus": true
@@ -131,7 +131,7 @@
             "class": "line"
           },
           {
-            "type": "textfield",
+            "type": "text-field",
             "class": "commonTextField",
             "style": {
               "text": "I'm immortal",
@@ -166,7 +166,7 @@
             "class": "line"
           },
           {
-            "type": "textfield",
+            "type": "text-field",
             "class": "commonTextField",
             "style": {
               "placeholder": "10 characters at most",
@@ -201,7 +201,7 @@
             "class": "line"
           },
           {
-            "type": "textfield",
+            "type": "text-field",
             "class": "commonTextField",
             "style": {
 
@@ -237,7 +237,7 @@
             "class": "line"
           },
           {
-            "type": "textfield",
+            "type": "text-field",
             "class": "commonTextField",
             "style": {
 
@@ -259,7 +259,7 @@
             "type": "text",
             "class": "title",
             "style": {
-              "text": "secure-text-entry"
+              "text": "password-mode"
             }
           },
           {
@@ -273,11 +273,11 @@
             "class": "line"
           },
           {
-            "type": "textfield",
+            "type": "text-field",
             "class": "commonTextField",
             "style": {
 
-              "secure-text-entry": true,
+              "password-mode": true,
               "text": "password"
             }
           }
@@ -336,7 +336,7 @@
                 }
               },
               {
-                "type": "textfield",
+                "type": "text-field",
                 "class": "smallTextField",
                 "style": {
                   "keyboard-type": "${types[_index_]}"
@@ -391,7 +391,7 @@
                 }
               },
               {
-                "type": "textfield",
+                "type": "text-field",
                 "class": "smallTextField",
                 "style": {
                   "keyboard-appearance": "${types[_index_]}"
@@ -454,7 +454,7 @@
                 }
               },
               {
-                "type": "textfield",
+                "type": "text-field",
                 "class": "smallTextField",
                 "style": {
                   "return-key-type": "${types[_index_]}"
@@ -510,7 +510,7 @@
                 }
               },
               {
-                "type": "textfield",
+                "type": "text-field",
                 "class": "smallTextField",
                 "style": {
                   "clear-button-mode": "${types[_index_]}"
@@ -546,7 +546,7 @@
             "class": "line"
           },
           {
-            "type": "textfield",
+            "type": "text-field",
             "class": "commonTextField",
             "style": {
 
@@ -583,7 +583,7 @@
             "class": "line"
           },
           {
-            "type": "textfield",
+            "type": "text-field",
             "class": "commonTextField",
             "style": {
               "return-key-type": "done",
@@ -600,9 +600,6 @@
             },
             "on-submit": {
               "onEvent:body:": "on-submit"
-            },
-            "on-end": {
-              "onEvent:body:": "on-end"
             }
           }
         ]

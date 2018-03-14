@@ -91,13 +91,13 @@
         return [VZFLineNode newWithLineAttributes:lineSpecs NodeSpecs:specs];
     }];
 
-    [self registerTag:@"textfield" withProcessor:^VZFNode *(VZ::NodeSpecs specs, NSDictionary *tpl, id<VZMistItem> item, VZTExpressionContext *data) {
+    [self registerTag:@"text-field" withProcessor:^VZFNode *(VZ::NodeSpecs specs, NSDictionary *tpl, id<VZMistItem> item, VZTExpressionContext *data) {
         TextFieldNodeSpecs textFieldSpecs = TextFieldNodeSpecs();
         [VZFNode bindTextFieldNodeSpecs:textFieldSpecs fromTemplate:tpl data:data item:item];
         return [VZFTextFieldNode newWithTextFieldAttributes:textFieldSpecs NodeSpecs:specs];
     }];
 
-    [self registerTag:@"textview" withProcessor:^VZFNode *(VZ::NodeSpecs specs, NSDictionary *tpl, id<VZMistItem> item, VZTExpressionContext *data) {
+    [self registerTag:@"text-view" withProcessor:^VZFNode *(VZ::NodeSpecs specs, NSDictionary *tpl, id<VZMistItem> item, VZTExpressionContext *data) {
         TextViewNodeSpecs textViewSpecs = TextViewNodeSpecs();
         [VZFNode bindTextViewNodeSpecs:textViewSpecs fromTemplate:tpl data:data item:item];
         return [VZFTextViewNode newWithTextViewAttributes:textViewSpecs NodeSpecs:specs];
@@ -109,7 +109,7 @@
         return [VZFSwitchNode newWithSwitchAttributes:switchSpecs NodeSpecs:specs];
     }];
 
-    [self registerTag:@"segmentedcontrol" withProcessor:^VZFNode *(VZ::NodeSpecs specs, NSDictionary *tpl, id<VZMistItem> item, VZTExpressionContext *data) {
+    [self registerTag:@"segmented-control" withProcessor:^VZFNode *(VZ::NodeSpecs specs, NSDictionary *tpl, id<VZMistItem> item, VZTExpressionContext *data) {
         SegmentedControlNodeSpecs segmentedControlSpecs = SegmentedControlNodeSpecs();
         [VZFNode bindSegmentedControlNodeSpecs:segmentedControlSpecs fromTemplate:tpl data:data item:item];
         return [VZFSegmentedControlNode newWithSegmentedControlAttributes:segmentedControlSpecs NodeSpecs:specs];
@@ -121,7 +121,7 @@
         return [VZFPickerNode newWithPickerAttributes:pickerSpecs NodeSpecs:specs];
     }];
 
-    [self registerTag:@"webview" withProcessor:^VZFNode *(VZ::NodeSpecs specs, NSDictionary *tpl, id<VZMistItem> item, VZTExpressionContext *data) {
+    [self registerTag:@"web-view" withProcessor:^VZFNode *(VZ::NodeSpecs specs, NSDictionary *tpl, id<VZMistItem> item, VZTExpressionContext *data) {
         WebViewNodeSpecs webViewSpecs = WebViewNodeSpecs();
         [VZFNode bindWebViewNodeSpecs:webViewSpecs fromTemplate:tpl data:data item:item];
         return [VZFWebViewNode newWithWebViewAttributes:webViewSpecs NodeSpecs:specs];

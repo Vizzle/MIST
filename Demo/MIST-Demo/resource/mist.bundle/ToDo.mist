@@ -33,7 +33,7 @@
         },
         "children": [
           {
-            "type": "textfield",
+            "type": "text-field",
             "tag": 1,
             "style": {
               "flex-grow": 1,
@@ -83,7 +83,7 @@
       },
       {
         "gone": "${state.todos.count == 0}",
-        "type": "segmentedcontrol",
+        "type": "segmented-control",
         "style": {
           "margin-top": 20,
           "width": 200,
@@ -94,7 +94,7 @@
             "Active",
             "Done"
           ],
-          "selected-segmented-index": "${state.filter ?: 0}"
+          "selected-index": "${state.filter ?: 0}"
         },
         "on-change": {
           "updateState:": {

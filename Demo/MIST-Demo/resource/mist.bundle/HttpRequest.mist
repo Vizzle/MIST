@@ -12,7 +12,7 @@
       {
         "children": [
           {
-            "type": "textfield",
+            "type": "text-field",
             "style": {
               "flex-grow": 1,
               "border-width": 1,

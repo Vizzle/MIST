@@ -49,7 +49,7 @@
             }
           },
           {
-            "type": "segmentedcontrol",
+            "type": "segmented-control",
             "style": {
               "margin": 10,
               "height": 30,
@@ -77,14 +77,14 @@
             "type": "text",
             "class": "title",
             "style": {
-              "text": "selected-segmented-index"
+              "text": "selected-index"
             }
           },
           {
             "type": "text",
             "class": "subtitle",
             "style": {
-              "html-text": "可通过 selected-segmented-index 选中 segment，默认为-1，不选中任何segment"
+              "html-text": "可通过 selected-index 选中 segment，默认为-1，不选中任何segment"
             }
           },
           {
@@ -94,11 +94,11 @@
             }
           },
           {
-            "type": "segmentedcontrol",
+            "type": "segmented-control",
             "style": {
               "margin": 10,
               "height": 30,
-              "selected-segmented-index": 2,
+              "selected-index": 2,
               "items": [
                 "one",
                 "two",
@@ -140,7 +140,7 @@
             }
           },
           {
-            "type": "segmentedcontrol",
+            "type": "segmented-control",
             "style": {
               "margin": 10,
               "height": 30,
@@ -186,7 +186,7 @@
             }
           },
           {
-            "type": "segmentedcontrol",
+            "type": "segmented-control",
             "on-change": {
               "onChanged:body:": "on-change"
             },
@@ -194,7 +194,7 @@
               "margin": 10,
               "height": 30,
               "items": "${state.items}",
-              "selected-segmented-index": "${state.selectedSegmentedIndex}"
+              "selected-index": "${state.selectedSegmentedIndex}"
             }
           },
           {

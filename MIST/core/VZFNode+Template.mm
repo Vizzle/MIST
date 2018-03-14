@@ -1277,7 +1277,7 @@ static inline void vz_bindStatefulProperty(StatefulValue<T *> &prop, id value, i
     VZ_BIND_PROPERTY(NSString *, specs.placeholder, style[@"placeholder"], data);
     VZ_BIND_PROPERTY(UIColor *, specs.placeholderColor, style[@"placeholder-color"], data);
     VZ_BIND_NUMBER_PROPERTY(BOOL, specs.editable, style[@"editable"], data, DefaultControlAttrValue::able);
-    VZ_BIND_NUMBER_PROPERTY(BOOL, specs.secureTextEntry, style[@"secure-text-entry"], data);
+    VZ_BIND_NUMBER_PROPERTY(BOOL, specs.secureTextEntry, style[@"password-mode"], data);
     VZ_BIND_PROPERTY(UIKeyboardType, specs.keyboardType, style[@"keyboard-type"], data);
     VZ_BIND_PROPERTY(UIKeyboardAppearance, specs.keyboardAppearance, style[@"keyboard-appearance"], data);
     VZ_BIND_PROPERTY(UIReturnKeyType, specs.returnKeyType, style[@"return-key-type"], data);
@@ -1327,8 +1327,8 @@ static inline void vz_bindStatefulProperty(StatefulValue<T *> &prop, id value, i
     /* gencode start SwitchNodeSpecs */
     VZ_BIND_NUMBER_PROPERTY(BOOL, specs.on, style[@"on"], data);
     VZ_BIND_NUMBER_PROPERTY(BOOL, specs.enabled, style[@"enabled"], data, DefaultControlAttrValue::able);
-    VZ_BIND_PROPERTY(UIColor *, specs.onTintColor, style[@"on-tint-color"], data);
-    VZ_BIND_PROPERTY(UIColor *, specs.thumbTintColor, style[@"thumb-tint-color"], data);
+    VZ_BIND_PROPERTY(UIColor *, specs.onTintColor, style[@"color"], data);
+    VZ_BIND_PROPERTY(UIColor *, specs.thumbTintColor, style[@"thumb-color"], data);
     VZ_BIND_EVENT_PROPERTY(specs.onChange, @"on-change", tpl, data, item);
     /* gencode end */
 }
@@ -1339,7 +1339,7 @@ static inline void vz_bindStatefulProperty(StatefulValue<T *> &prop, id value, i
     /* gencode start SegmentedControlNodeSpecs */
     VZ_BIND_PROPERTY(NSArray<NSString *> *, specs.items, style[@"items"], data);
     VZ_BIND_EVENT_PROPERTY(specs.onChange, @"on-change", tpl, data, item);
-    VZ_BIND_NUMBER_PROPERTY(NSInteger, specs.selectedSegmentedIndex, style[@"selected-segmented-index"], data, DefaultAttributesValue::noSegment);
+    VZ_BIND_NUMBER_PROPERTY(NSInteger, specs.selectedSegmentedIndex, style[@"selected-index"], data, DefaultAttributesValue::noSegment);
     VZ_BIND_NUMBER_PROPERTY(BOOL, specs.enabled, style[@"enabled"], data, DefaultControlAttrValue::able);
     /* gencode end */
 }
@@ -1424,8 +1424,8 @@ static inline void vz_bindStatefulProperty(StatefulValue<T *> &prop, id value, i
     VZ_BIND_PROPERTY(NSString *, specs.title, tpl[@"title"], data);
     VZ_BIND_PROPERTY(NSString *, specs.subTitle, tpl[@"subtitle"], data);
     VZ_BIND_PROPERTY(UIImage *, specs.image, tpl[@"image"], data);
-    VZ_BIND_NUMBER_PROPERTY(double, specs.animateDrop, tpl[@"animate-drop"], data);
-    VZ_BIND_NUMBER_PROPERTY(double, specs.draggable, tpl[@"draggable"], data);
+    VZ_BIND_NUMBER_PROPERTY(BOOL, specs.animateDrop, tpl[@"animate-drop"], data);
+    VZ_BIND_NUMBER_PROPERTY(BOOL, specs.draggable, tpl[@"draggable"], data);
 }
 
 + (void)bindMapOverlaySpecs:(MapOverlaySpecs &)specs fromTemplate:(NSDictionary *)tpl data:(VZTExpressionContext *)data

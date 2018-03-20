@@ -1056,7 +1056,7 @@ static inline void vz_bindStatefulProperty(StatefulValue<T *> &prop, id value, i
     }
 
 
-+ (void)bindTextNodeSpecs:(TextNodeSpecs &)specs fromTemplate:(NSDictionary *)tpl data:(VZTExpressionContext *)data
++ (void)bindTextNodeSpecs:(TextNodeSpecs &)specs fromTemplate:(NSDictionary *)tpl data:(VZTExpressionContext *)data item:(id<VZMistItem>)item
 {
     NSDictionary *style = tpl[@"style"];
     VZ_BIND_PROPERTY(NSAttributedString *, specs._attributedString, style[@"html-text"], data);
@@ -1077,6 +1077,13 @@ static inline void vz_bindStatefulProperty(StatefulValue<T *> &prop, id value, i
     VZ_BIND_NUMBER_PROPERTY(float, specs.kern, style[@"kern"], data);
     VZ_BIND_NUMBER_PROPERTY(float, specs.lineSpacing, style[@"line-spacing"], data);
     /* gencode end */
+    VZMistTemplateEvent *linkEvent = [VZMistTemplateEvent eventWithName:@"on-link" dict:tpl expressionContext:data item:item];
+    if (linkEvent) {
+        specs.linkAction = [VZFBlockAction action:^(id sender) {
+            [linkEvent addEventParamWithName:@"link" object:sender];
+            [linkEvent invokeWithSender:sender];
+        }];
+    }
 }
 
 + (void)bindImageNodeSpecs:(ImageNodeSpecs &)specs fromTemplate:(NSDictionary *)tpl data:(VZTExpressionContext *)data item:(id<VZMistItem>)item

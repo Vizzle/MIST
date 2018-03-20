@@ -53,7 +53,7 @@
 {
     [self registerTag:@"text" withProcessor:^VZFNode *(NodeSpecs specs, NSDictionary *tpl, id<VZMistItem> item, VZTExpressionContext *data) {
         TextNodeSpecs textSpecs = TextNodeSpecs();
-        [VZFNode bindTextNodeSpecs:textSpecs fromTemplate:tpl data:data];
+        [VZFNode bindTextNodeSpecs:textSpecs fromTemplate:tpl data:data item:item];
         return [VZFTextNode newWithTextAttributes:textSpecs NodeSpecs:specs];
     }];
 

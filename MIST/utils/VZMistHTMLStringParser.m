@@ -97,7 +97,7 @@ static NSString *const kImagePlaceholder = @"__mist__image_placeholder";
             attch.image = image;
             attrs[NSAttachmentAttributeName] = attch;
             [_strs addObject:@"\uFFFC"];
-            [_attrs addObject:@{NSAttachmentAttributeName : attch}];
+            [_attrs addObject:attrs];
         }
     }
     // 加粗
@@ -185,6 +185,7 @@ static NSString *const kImagePlaceholder = @"__mist__image_placeholder";
     // 链接
     else if ([@"a" isEqualToString:elementName]) {
         attrs[NSLinkAttributeName] = attributeDict[@"href"];
+        attrs[NSForegroundColorAttributeName] = [UIColor blueColor];
     }
     // 下划线
     else if ([@"u" isEqualToString:elementName]) {

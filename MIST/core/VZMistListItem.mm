@@ -293,7 +293,7 @@ static const void *kMistItemInCell = &kMistItemInCell;
         [_expressionContext pushVariableWithKey:@"_height_" value:@([UIScreen mainScreen].bounds.size.height)];
         [_expressionContext pushVariables:[VZMistListItem builtinVars]];
         __weak __typeof(self) weakSelf = self;
-        [_expressionContext pushVariableWithKey:@"viewWithTag" value:^(NSNumber *tag) {
+        [_expressionContext pushVariableWithKey:@"$" value:^(NSNumber *tag) {
             return [weakSelf.tplController viewWithTag:tag.integerValue];
         }];
         

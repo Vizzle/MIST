@@ -261,7 +261,6 @@ void _readNumber(VZTLexer *lexer, VZTToken *token) {
         StateFractional,
         StateExponentMark,
         StateExponentSign,
-        StateExponentValueStart,
         StateExponentValue,
         StateSuccess,
         StateError,
@@ -335,15 +334,6 @@ void _readNumber(VZTLexer *lexer, VZTToken *token) {
                 }
                 else {
                     state = StateExponentValue;
-                }
-                break;
-            case StateExponentValueStart:
-                if (lexer->c >= '0' && lexer->c <= '9') {
-                    state = StateExponentValue;
-                    next(lexer);
-                }
-                else {
-                    state = StateError;
                 }
                 break;
             case StateExponentValue:
@@ -507,7 +497,7 @@ VZTTokenType _lexerNext(VZTLexer *lexer, VZTToken *token) {
                 return type;
             }
             default:
-                if (lexer->c == '_' || isalpha(lexer->c)) {
+                if (lexer->c == '_' || lexer->c == '$' || isalpha(lexer->c)) {
                     size_t start = lexer->pointer;
                     do {
                         next(lexer);

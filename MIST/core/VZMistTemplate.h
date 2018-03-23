@@ -77,6 +77,15 @@
 @property (nonatomic, strong, readonly) NSDictionary *onStateUpdated;
 
 /**
+ 创建此模版的 Mist 引擎实例
+ */
+@property (nonatomic, weak, readonly) VZMist *mistInstance;
+/**
+ 子模版定义
+ */
+@property (nonatomic, strong, readonly) NSDictionary *templatesMap;
+
+/**
  创建Template实体
 
  @param tplId 模板Id

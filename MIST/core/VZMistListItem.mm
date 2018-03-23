@@ -83,6 +83,7 @@ static const void *kMistItemInCell = &kMistItemInCell;
         _rawData = data;
         _customData = customData ? [customData mutableCopy] : [NSMutableDictionary dictionary];
         _stateUpdatesQueue = [NSMutableArray new];
+        _constrainedSize = CGSizeMake([UIScreen mainScreen].bounds.size.width, VZ::FlexValue::Auto());
 
         _tpl = tpl;
         [self render];
@@ -328,7 +329,7 @@ static const void *kMistItemInCell = &kMistItemInCell;
         
 
         [self updateModel:@{}
-          constrainedSize:CGSizeMake([UIScreen mainScreen].bounds.size.width, VZ::FlexValue::Auto())
+          constrainedSize:_constrainedSize
                   context:[[VZMistWeakObject alloc] initWithObject:self]];
         
         if (_tplController) {
@@ -379,7 +380,7 @@ static const void *kMistItemInCell = &kMistItemInCell;
 - (UIViewController *)viewController
 {
     if (!_viewController) {
-        UIResponder *responder = [[self tableView] nextResponder];
+        UIResponder *responder = [(self.tableView ?: self.attachedView) nextResponder];
         while (responder) {
             if ([responder isKindOfClass:[UIViewController class]]) {
                 _viewController = (UIViewController *)responder;

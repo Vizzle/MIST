@@ -76,6 +76,8 @@
  */
 @property (nonatomic, assign) BOOL asyncDisplay;
 
+@property (nonatomic, assign) CGSize constrainedSize;
+
 /**
  渲染，生成视图布局
  */

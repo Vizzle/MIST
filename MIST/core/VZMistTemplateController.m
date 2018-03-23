@@ -8,6 +8,7 @@
 
 #import "VZMistTemplateController.h"
 #import "VZMistItem.h"
+#import "VZMistListItem.h"
 #import "VZFNodeListItem.h"
 #import "VZFDispatch.h"
 #import "VZDataStructure.h"
@@ -15,6 +16,8 @@
 #import "VZMistTemplateAction.h"
 
 #import <UIKit/UIKit.h>
+
+#import <objc/runtime.h>
 
 
 @implementation VZMistTemplateController{
@@ -145,6 +148,38 @@
         return;
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:name object:nil userInfo:userInfo];
+}
+
+- (void)showPopover:(NSDictionary *)params {
+    params = __vzDictionary(params, @{});
+    NSString *name = __vzString(params[@"template"], @"");
+    NSDictionary *content = __vzDictionary(self.item.tpl.templatesMap[name], nil);
+    if (!content) {
+        NSLog(@"不存在子模版 `%@`", name);
+        return;
+    }
+    NSString *tplId = [NSString stringWithFormat:@"%@_%@", self.item.tpl.tplId, name];
+    VZMistTemplate *template = [[VZMistTemplate alloc] initWithTemplateId:tplId content:content mistInstance:_item.tpl.mistInstance];
+    VZMistListItem *item = [[VZMistListItem alloc] initWithData:nil customData:@{} template:template];
+    item.constrainedSize = [UIScreen mainScreen].bounds.size;
+    [item setData:__vzDictionary(params[@"data"], @{}) keepState:NO];
+    UIViewController *vc = [[UIViewController alloc] init];
+    vc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    objc_setAssociatedObject(vc, @selector(showPopover:), item, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    [self.item.viewController presentViewController:vc animated:NO completion:^{
+        [item attachToView:vc.view];
+    }];
+}
+
+- (void)dismiss {
+    [self.item.viewController dismissViewControllerAnimated:NO completion:nil];
+}
+
+- (void)pop:(BOOL)animated {
+    UIViewController *vc = self.item.viewController;
+    if (vc.navigationController) {
+        [vc.navigationController popViewControllerAnimated:animated];
+    }
 }
 
 @end

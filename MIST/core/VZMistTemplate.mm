@@ -34,6 +34,7 @@
             return nil;
         }
 
+        _mistInstance = mistInstance;
         _tplId = tplId;
         _script = content[@"script"];
         if (_script.length) {
@@ -57,6 +58,7 @@
         _cellHeightAnimation = __vzBool(content[@"cell-height-animation"], NO);
         _tplReuseIdentifier = content[@"reuse-identifier"];
         _onStateUpdated = __vzDictionary([VZMistTemplateHelper parseExpressionsInTemplate:content[@"on-state-updated"] mistInstance:mistInstance], nil);
+        _templatesMap = __vzDictionary(content[@"templates"], @{});
     }
     return self;
 }

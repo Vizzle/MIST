@@ -36,6 +36,12 @@
     NSString *nodeId = [expressionContext valueForKey:kVZTemplateNodeId];
     NSDictionary *actionDict = dict[name];
     NSDictionary *onceActionDict = dict[[name stringByAppendingString:@"-once"]];
+    if ([actionDict isKindOfClass:[VZTExpressionNode class]]) {
+        actionDict = [VZMistTemplateHelper extractValueForExpression:actionDict withContext:expressionContext];
+    }
+    if ([onceActionDict isKindOfClass:[VZTExpressionNode class]]) {
+        onceActionDict = [VZMistTemplateHelper extractValueForExpression:onceActionDict withContext:expressionContext];
+    }
     if (actionDict || onceActionDict) {
         NSString *eventId = [nodeId ?: @"" stringByAppendingFormat:@">%@", name];
         return [[self alloc] initWithItem:item eventId:eventId action:actionDict onceAction:onceActionDict expressionContext:expressionContext];
@@ -50,15 +56,8 @@
            expressionContext:(VZTExpressionContext *)expressionContext
 {
     if (self = [super init]) {
-        if ([action isKindOfClass:[VZTExpressionNode class]]) {
-            action = [VZMistTemplateHelper extractValueForExpression:action withContext:expressionContext];
-        }
         if ([action isKindOfClass:[NSString class]]) {
             action = @{action: @""};
-        }
-        
-        if ([onceAction isKindOfClass:[VZTExpressionNode class]]) {
-            onceAction = [VZMistTemplateHelper extractValueForExpression:onceAction withContext:expressionContext];
         }
         if ([onceAction isKindOfClass:[NSString class]]) {
             onceAction = @{onceAction: @""};

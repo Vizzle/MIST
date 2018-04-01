@@ -48,13 +48,14 @@
                    context:(id)ctx
            completionBlock:(id<VZFActionWrapper>)completion
 {
+    __weak __typeof(self) weakSelf = self;
     [self sd_setImageWithURL:url
             placeholderImage:loadingImage
                      options:0
                    completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                        
                        if (completion) {
-                           [completion invoke:self event:nil];
+                           [completion invoke:weakSelf event:nil];
                        }
                    }];
 }

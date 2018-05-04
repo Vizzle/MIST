@@ -320,3 +320,19 @@
 
 @end
 
+
+@implementation VZTGlobalFunctions (Type)
+
++ (BOOL)isNull:(id)obj {
+    return !obj;
+}
+
++ (NSInteger)int:(id)obj {
+    return [obj isKindOfClass:[NSNumber class]] || [obj isKindOfClass:[NSString class]] ? [obj integerValue] : 0;
+}
+
++ (CGFloat)float:(id)obj {
+    return [obj isKindOfClass:[NSNumber class]] || [obj isKindOfClass:[NSString class]] ? [obj floatValue] : 0;
+}
+
+@end

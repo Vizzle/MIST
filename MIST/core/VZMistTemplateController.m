@@ -94,6 +94,13 @@
     [self _runAction:actionDict actions:self.item.tpl.notifications];
 }
 
+- (void)runAction:(NSString *)action withParams:(NSDictionary *)params {
+    NSMutableDictionary *actionDict = [NSMutableDictionary new];
+    actionDict[@"name"] = action;
+    actionDict[@"params"] = params;
+    [self runAction:actionDict];
+}
+
 #pragma mark - build-in actions
 
 - (void)updateState:(NSDictionary *)stateChanges

@@ -23,7 +23,6 @@
 
 #define kVZTemplateLoopIndex    @"_index_"
 #define kVZTemplateLoopItem     @"_item_"
-#define kVZTemplateMistItem     @"_mistitem_"
 
 using namespace std;
 using namespace VZ;
@@ -741,10 +740,8 @@ static const void *displayEventKey = &displayEventKey;
 
     NSMutableArray *pushedVars = [NSMutableArray array];
     [data pushVariableWithKey:kVZTemplateNodeId value:nodeId];
-    [data pushWeakVariableWithKey:kVZTemplateMistItem value:item];
     @defer
     {
-        [data popVariableWithKey:kVZTemplateMistItem];
         [data popVariableWithKey:kVZTemplateNodeId];
         for (NSString *key in pushedVars) {
             [data popVariableWithKey:key];

@@ -24,5 +24,9 @@
 - (UIView *)viewWithTag:(NSInteger)tag;
 
 - (void)updateState:(NSDictionary *)stateChanges;
+- (void)runAction:(NSString *)action;
+- (void)runAction:(NSString *)action withParams:(NSDictionary *)params;
+- (void)showPopover:(NSDictionary *)params;
+- (void)dismiss;
 
 @end

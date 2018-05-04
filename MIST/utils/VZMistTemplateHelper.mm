@@ -28,13 +28,6 @@ namespace VZ
 {
 UIColor *colorFromRgba(int r, int g, int b, int a = 0xff)
 {
-#if !FN_EDITOR
-    assert(r >= 0 && r <= 0xff);
-    assert(g >= 0 && g <= 0xff);
-    assert(b >= 0 && b <= 0xff);
-    assert(a >= 0 && a <= 0xff);
-#endif
-
     return [UIColor colorWithRed:r / 255.0f green:g / 255.0f blue:b / 255.0f alpha:a / 255.0f];
 }
 
@@ -232,7 +225,6 @@ UIColor *colorFromHex(const char *hex)
                 [array addObject:value];
             } else {
                 NSAssert(NO, @"value cannot be nil");
-                assert(false);
             }
         }
         return array;

@@ -66,7 +66,7 @@ const char *const vzt_tokenNames[] = {
 
 void _newline(VZTLexer *lexer) {
     char old = lexer->c;
-    assert(isNewLine(old));
+    NSCAssert(isNewLine(old), @"");
     next(lexer);
     if (isNewLine(lexer->c) && lexer->c != old) {
         next(lexer);
@@ -76,7 +76,7 @@ void _newline(VZTLexer *lexer) {
 
 void _readString(VZTLexer *lexer, VZTToken *token) {
     char quote = lexer->c;
-    assert(isQuote(quote));
+    NSCAssert(isQuote(quote), @"");
     
     next(lexer);
     size_t start = lexer->pointer;
@@ -195,7 +195,7 @@ segment_start = lexer->pointer + 1;
                 break;
         }
     }
-    assert(lexer->c == quote);
+    NSCAssert(lexer->c == quote, @"");
     next(lexer);
     if (lexer->buffer) {
         PUSH_CURRENT_SEGMENT

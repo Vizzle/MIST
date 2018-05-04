@@ -99,6 +99,8 @@
 		B1878DED1F5E88BC00834ABF /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1878DEC1F5E88BC00834ABF /* ImageIO.framework */; };
 		B1AB9AFE1F99F17F00606DE9 /* VZMistTemplateAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = B1AB9AFC1F99F17F00606DE9 /* VZMistTemplateAnimation.h */; };
 		B1AB9AFF1F99F17F00606DE9 /* VZMistTemplateAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = B1AB9AFD1F99F17F00606DE9 /* VZMistTemplateAnimation.m */; };
+		B1B113D1209C15B50014C610 /* NSNumber+VZTExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = B1B113CF209C15B50014C610 /* NSNumber+VZTExtension.h */; };
+		B1B113D2209C15B50014C610 /* NSNumber+VZTExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B1B113D0209C15B50014C610 /* NSNumber+VZTExtension.m */; };
 		CF7197A3190B60E2B5BFF99E /* libPods-MISTTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E560FFD888ED23A8B43A380E /* libPods-MISTTests.a */; };
 		D0C2F8F02AC964485E4BDA3F /* libPods-MIST.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A296F92AB5C0B3819173F3D /* libPods-MIST.a */; };
 /* End PBXBuildFile section */
@@ -219,6 +221,8 @@
 		B1A0AB4E1EF3E8A00019F8D9 /* libPods-MIST.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-MIST.a"; path = "../../../../Library/Developer/Xcode/DerivedData/MIST-cdwrhaqwmoofypdwpuvikzkwozhp/Build/Products/Debug-iphonesimulator/libPods-MIST.a"; sourceTree = "<group>"; };
 		B1AB9AFC1F99F17F00606DE9 /* VZMistTemplateAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZMistTemplateAnimation.h; sourceTree = "<group>"; };
 		B1AB9AFD1F99F17F00606DE9 /* VZMistTemplateAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZMistTemplateAnimation.m; sourceTree = "<group>"; };
+		B1B113CF209C15B50014C610 /* NSNumber+VZTExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+VZTExtension.h"; sourceTree = "<group>"; };
+		B1B113D0209C15B50014C610 /* NSNumber+VZTExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+VZTExtension.m"; sourceTree = "<group>"; };
 		E560FFD888ED23A8B43A380E /* libPods-MISTTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MISTTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAC95C24E4767BC5EBA4558D /* Pods-MISTTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MISTTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MISTTests/Pods-MISTTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -304,6 +308,8 @@
 		455F93FE1EA601F80050EFFE /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				B1B113CF209C15B50014C610 /* NSNumber+VZTExtension.h */,
+				B1B113D0209C15B50014C610 /* NSNumber+VZTExtension.m */,
 				B15580741FAC54A500DC2AE4 /* NSValue+VZTExtension.h */,
 				B15580751FAC54A600DC2AE4 /* NSValue+VZTExtension.m */,
 				455F93FF1EA601F80050EFFE /* NSArray+VZTExtension.h */,
@@ -464,6 +470,7 @@
 				458FECD81E9F3147004A44DB /* VZMistTemplateController.h in Headers */,
 				458FECD41E9F3147004A44DB /* VZMistListItem.h in Headers */,
 				1F46A8A91F0E089900520AC0 /* VZMistJSContextBuilder.h in Headers */,
+				B1B113D1209C15B50014C610 /* NSNumber+VZTExtension.h in Headers */,
 				1F46A8AB1F0E089900520AC0 /* VZMistCallHelper.h in Headers */,
 				1F2DC7221F178B9C008D5B72 /* VZMistTemplateAction.h in Headers */,
 				458FECD31E9F3147004A44DB /* VZMistItem.h in Headers */,
@@ -499,7 +506,6 @@
 				455F944B1EA601F80050EFFE /* VZTConditionalExpressionNode.h in Headers */,
 				45C9C3531EA786A2001015CD /* VZMacros.h in Headers */,
 				B155807A1FAC54A600DC2AE4 /* NSValue+VZTExtension.h in Headers */,
-				455F94611EA601F80050EFFE /* VZTOperatorNode.h in Headers */,
 				45C497961E8F9D55009BD7AA /* MIST.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -724,11 +730,11 @@
 				458FECD21E9F3147004A44DB /* VZMistError.m in Sources */,
 				455F94481EA601F80050EFFE /* VZTArrayExpressionNode.m in Sources */,
 				455F94421EA601F80050EFFE /* NSDictionary+VZTExtension.m in Sources */,
+				B1B113D2209C15B50014C610 /* NSNumber+VZTExtension.m in Sources */,
 				455F94461EA601F80050EFFE /* VZTGlobalFunctions.m in Sources */,
 				455F94601EA601F80050EFFE /* VZTObjectExpressionNode.m in Sources */,
 				458FECD51E9F3147004A44DB /* VZMistListItem.mm in Sources */,
 				458FECCA1E9F3147004A44DB /* VZFCustomNode.mm in Sources */,
-				455F94621EA601F80050EFFE /* VZTOperatorNode.m in Sources */,
 				455F94741EA601F80050EFFE /* VZImageCache.m in Sources */,
 				458FECD71E9F3147004A44DB /* VZMistTemplate.mm in Sources */,
 				455F94521EA601F80050EFFE /* VZTExpressionNode.m in Sources */,

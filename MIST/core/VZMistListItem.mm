@@ -95,35 +95,23 @@ static const void *kMistItemInCell = &kMistItemInCell;
     static NSDictionary *vars;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        __block UIEdgeInsets safeArea;
-        if (@available(iOS 11.0, *)) {
-            if (![NSThread isMainThread]) {
-                dispatch_sync(dispatch_get_main_queue(), ^{
-                    safeArea = [UIApplication sharedApplication].keyWindow.safeAreaInsets;
-                });
-            }
-            else {
-                safeArea = [UIApplication sharedApplication].keyWindow.safeAreaInsets;
-            }
-        }
-        else {
-            safeArea = UIEdgeInsetsZero;
-        }
+        BOOL isX = [UIScreen mainScreen].bounds.size.height == 812;
+        UIEdgeInsets safeArea = isX ? UIEdgeInsetsMake(44, 0, 34, 0) : UIEdgeInsetsZero;
 
         vars = @{
                  @"system": @{
                          @"name": [UIDevice currentDevice].systemName ?: @"",
                          @"version": [UIDevice currentDevice].systemVersion ?: @"",
-                         @"deviceName": [UIDevice currentDevice].name,
+                         @"deviceName": [UIDevice currentDevice].name ?: @"",
                          },
                  @"screen": @{
                          @"width": @([UIScreen mainScreen].bounds.size.width),
                          @"height": @([UIScreen mainScreen].bounds.size.height),
                          @"scale": @([UIScreen mainScreen].scale),
-                         @"statusBarHeight": @([UIApplication sharedApplication].statusBarFrame.size.height),
+                         @"statusBarHeight": isX ? @44 : @20,
                          @"isPlus": @([UIScreen mainScreen].bounds.size.width > 375),
                          @"isSmall": @([UIScreen mainScreen].bounds.size.width < 375),
-                         @"isX": @([UIScreen mainScreen].bounds.size.height == 812),
+                         @"isX": @(isX),
                          @"safeArea": @{
                                  @"top": @(safeArea.top),
                                  @"left": @(safeArea.left),

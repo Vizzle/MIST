@@ -167,13 +167,16 @@
     }
     NSString *tplId = [NSString stringWithFormat:@"%@_%@", self.item.tpl.tplId, name];
     VZMistTemplate *template = [[VZMistTemplate alloc] initWithTemplateId:tplId content:content mistInstance:_item.tpl.mistInstance];
-    VZMistListItem *item = [[VZMistListItem alloc] initWithData:nil customData:@{} template:template];
+    NSDictionary *customData = __vzDictionary(params[@"customData"], @{});
+    VZMistListItem *item = [[VZMistListItem alloc] initWithData:nil customData:customData template:template];
     item.constrainedSize = [UIScreen mainScreen].bounds.size;
     [item setData:__vzDictionary(params[@"data"], @{}) keepState:NO];
     UIViewController *vc = [[UIViewController alloc] init];
     vc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
     objc_setAssociatedObject(vc, @selector(showPopover:), item, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    [self.item.viewController presentViewController:vc animated:NO completion:^{
+    UIViewController *parentVC = self.item.viewController;
+    parentVC = parentVC.navigationController ?: parentVC.tabBarController ?: parentVC;
+    [parentVC presentViewController:vc animated:NO completion:^{
         [item attachToView:vc.view];
     }];
 }

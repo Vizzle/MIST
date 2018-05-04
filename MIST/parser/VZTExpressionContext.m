@@ -41,9 +41,9 @@
 
 - (id)copyWithZone:(NSZone *)zone {
     VZTExpressionContext *ctx = [VZTExpressionContext new];
-    NSMutableDictionary *dict = [NSMutableDictionary new];
 
     [_lock lock];
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithCapacity:_variablesTable.count];
     for (NSString *key in _variablesTable) {
         dict[key] = _variablesTable[key].mutableCopy;
     }

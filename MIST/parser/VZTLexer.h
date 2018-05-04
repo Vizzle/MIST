@@ -55,7 +55,6 @@ typedef struct {
 VZTLexer * VZTLexer_new(const char* source);
 void VZTLexer_free(VZTLexer *lexer);
 void VZTLexer_next(VZTLexer *lexer);
-void VZTLexer_lookAhead(VZTLexer *lexer);
 
 NSString *vzt_tokenName(VZTTokenType type);
 

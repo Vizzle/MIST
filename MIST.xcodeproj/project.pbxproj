@@ -51,8 +51,6 @@
 		455F945E1EA601F80050EFFE /* VZTLiteralNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F94201EA601F80050EFFE /* VZTLiteralNode.m */; };
 		455F945F1EA601F80050EFFE /* VZTObjectExpressionNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 455F94211EA601F80050EFFE /* VZTObjectExpressionNode.h */; };
 		455F94601EA601F80050EFFE /* VZTObjectExpressionNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F94221EA601F80050EFFE /* VZTObjectExpressionNode.m */; };
-		455F94611EA601F80050EFFE /* VZTOperatorNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 455F94231EA601F80050EFFE /* VZTOperatorNode.h */; };
-		455F94621EA601F80050EFFE /* VZTOperatorNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F94241EA601F80050EFFE /* VZTOperatorNode.m */; };
 		455F94631EA601F80050EFFE /* VZTParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 455F94251EA601F80050EFFE /* VZTParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		455F94641EA601F80050EFFE /* VZTParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F94261EA601F80050EFFE /* VZTParser.m */; };
 		455F94651EA601F80050EFFE /* VZTSyntaxNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 455F94271EA601F80050EFFE /* VZTSyntaxNode.h */; };
@@ -161,8 +159,6 @@
 		455F94201EA601F80050EFFE /* VZTLiteralNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZTLiteralNode.m; sourceTree = "<group>"; };
 		455F94211EA601F80050EFFE /* VZTObjectExpressionNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZTObjectExpressionNode.h; sourceTree = "<group>"; };
 		455F94221EA601F80050EFFE /* VZTObjectExpressionNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZTObjectExpressionNode.m; sourceTree = "<group>"; };
-		455F94231EA601F80050EFFE /* VZTOperatorNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZTOperatorNode.h; sourceTree = "<group>"; };
-		455F94241EA601F80050EFFE /* VZTOperatorNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZTOperatorNode.m; sourceTree = "<group>"; };
 		455F94251EA601F80050EFFE /* VZTParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZTParser.h; sourceTree = "<group>"; };
 		455F94261EA601F80050EFFE /* VZTParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZTParser.m; sourceTree = "<group>"; };
 		455F94271EA601F80050EFFE /* VZTSyntaxNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZTSyntaxNode.h; sourceTree = "<group>"; };
@@ -293,8 +289,6 @@
 				455F94201EA601F80050EFFE /* VZTLiteralNode.m */,
 				455F94211EA601F80050EFFE /* VZTObjectExpressionNode.h */,
 				455F94221EA601F80050EFFE /* VZTObjectExpressionNode.m */,
-				455F94231EA601F80050EFFE /* VZTOperatorNode.h */,
-				455F94241EA601F80050EFFE /* VZTOperatorNode.m */,
 				455F94251EA601F80050EFFE /* VZTParser.h */,
 				455F94261EA601F80050EFFE /* VZTParser.m */,
 				455F94271EA601F80050EFFE /* VZTSyntaxNode.h */,

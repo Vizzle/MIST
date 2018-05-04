@@ -8,7 +8,6 @@
 
 #import "VZTParser.h"
 #import "VZTLexer.h"
-#import "VZTOperatorNode.h"
 #import "VZTExpressionNode.h"
 #import "VZTKeyValueListNode.h"
 #import "VZTLiteralNode.h"

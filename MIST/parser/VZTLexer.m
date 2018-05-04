@@ -43,51 +43,6 @@ void VZTVector_push(VZTVector *vector, const char *data, size_t len) {
 } while(0)
 
 
-VZTVector * _vzt_format(const char *fmt, va_list args) {
-    VZTVector *dst = VZTVector_new();
-    for (;;) {
-        const char *pc = strchr(fmt, '%');
-        if (pc == NULL) {
-            break;
-        }
-        
-        VZTVector_push(dst, fmt, pc - fmt);
-        
-        switch (pc[1]) {
-            case 'c':
-            {
-                char c = va_arg(args, int);
-                VZTVector_push(dst, &c, 1);
-                break;
-            }
-            case 's':
-            {
-                const char* str = va_arg(args, char *);
-                VZTVector_push(dst, str, strlen(str));
-                break;
-            }
-            default:
-                continue;
-        }
-        
-        fmt = pc + 2;
-    }
-    
-    VZTVector_push(dst, fmt, strlen(fmt));
-    static const char zero = 0;
-    VZTVector_push(dst, &zero, 1);
-    return dst;
-}
-
-VZTVector * vzt_format(const char *fmt, ...) {
-    va_list args;
-    va_start(args, fmt);
-    VZTVector *ret = _vzt_format(fmt, args);
-    va_end(args);
-    return ret;
-}
-
-
 const char *const vzt_tokenNames[] = {
     "string",   // VZTTokenTypeString = 256,
     "number",   // VZTTokenTypeNumber,
@@ -556,15 +511,6 @@ void VZTLexer_next(VZTLexer *lexer) {
         if (lexer->error) {
             lexer->token.type = 0;
         }
-    }
-}
-
-void VZTLexer_lookAhead(VZTLexer *lexer) {
-    _freeTokenString(&lexer->lookAhead);
-    lexer->lookAhead.type = _lexerNext(lexer, &lexer->lookAhead);
-    lexer->lookAhead.length = lexer->pointer - lexer->lookAhead.offset;
-    if (lexer->error) {
-        lexer->lookAhead.type = 0;
     }
 }
 

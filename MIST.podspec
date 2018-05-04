@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
 
 
   s.name         = "MIST"
-  s.version      = "0.0.3"
+  s.version      = "0.0.4"
   s.summary      = "A High Performance Dynamic Template Engine."
   s.description  = "Dynamic View Template Engine Powered by Flexlayout"
   s.homepage      = "https://github.com/Vizzle/MIST"

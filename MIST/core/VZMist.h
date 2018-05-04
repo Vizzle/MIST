@@ -25,6 +25,9 @@
  */
 typedef VZFNode * (^VZMistTagProcessor)(NodeSpecs specs, NSDictionary *tpl, id<VZMistItem> item, VZTExpressionContext *data);
 
+typedef void (^VZMistPropertyApplicator)(UIView *view, id value);
+typedef void (^VZMistPropertyUnapplicator)(UIView *view);
+
 
 /**
  Mist 的全局错误处理代码块
@@ -54,6 +57,18 @@ typedef void (^VZMistErrorCallback)(VZMistError *error);
  */
 - (void)registerTag:(NSString *)tag withProcessor:(VZMistTagProcessor)processor;
 
+/**
+ 注册扩展属性
+
+ @param name 属性名称
+ @param type 组件类型，nil 表示所有组件都有的公共属性
+ @param applicator 应用属性的代码块
+ @param unapplicator 清除属性的代码块
+ */
+- (void)registerProperty:(nonnull NSString *)name
+                 forType:(nullable NSString *)type
+          withApplicator:(nonnull VZMistPropertyApplicator)applicator
+            unapplicator:(nullable VZMistPropertyUnapplicator)unapplicator;
 
 /**
  注册 js 全局对象或方法，如果需要注册方法，object 传入 block

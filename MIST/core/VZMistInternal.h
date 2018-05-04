@@ -11,6 +11,11 @@
 
 #import "VZMist.h"
 
+@interface VZMistPropertyProcessor : NSObject
+@property (nonatomic, copy) VZMistPropertyApplicator applicator;
+@property (nonatomic, copy) VZMistPropertyUnapplicator unapplicator;
+@end
+
 @interface VZMist ()
 
 /**
@@ -29,6 +34,7 @@
                    item:(id<VZMistItem>)item
                    data:(VZTExpressionContext *)data;
 
+- (NSDictionary<NSString *, VZMistPropertyProcessor *> *)getProperties:(NSString *)type dict:(NSDictionary *)dict;
 
 /**
  业务注册的 js 方法

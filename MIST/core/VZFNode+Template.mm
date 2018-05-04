@@ -16,6 +16,7 @@
 #import "VZDataStructure.h"
 #import <VZFlexLayout/VZFNodeSubClass.h>
 #import <VZFlexLayout/VZFScrollView.h>
+#import <VZFlexLayout/VZFPagingView.h>
 #import <objc/runtime.h>
 #import "VZMistInternal.h"
 #import <VZFlexLayout/VZFNodeInternal.h>
@@ -790,6 +791,16 @@ static const void *displayEventKey = &displayEventKey;
         }]);
     }
 
+    VZMistTemplateEvent *panEvent = [VZMistTemplateEvent eventWithName:@"on-pan" dict:tpl expressionContext:data item:item];
+    if (panEvent) {
+        specs.gestures.push_back([VZFBlockGesture gestureWithClass:[UIPanGestureRecognizer class] block:^(UIPanGestureRecognizer *sender) {
+            CGPoint translation = [sender translationInView:sender.view];
+            [panEvent addEventParamWithName:@"translation" object:[NSValue valueWithCGPoint:translation]];
+            [panEvent addEventParamWithName:@"state" object:@(sender.state)];
+            [panEvent invokeWithSender:sender];
+        }]);
+    }
+
 #define VZMistEventDef(name, prop) \
     VZMistTemplateEvent *prop##Event = [VZMistTemplateEvent eventWithName:name dict:tpl expressionContext:data item:item]; \
     if (prop##Event) { \
@@ -828,13 +839,46 @@ static const void *displayEventKey = &displayEventKey;
         type = tpl[@"children"] ? @"stack" : @"node";
     }
 
+    NSDictionary *style = __vzDictionary(tpl[@"style"], nil);
+    NSDictionary *properties = __vzDictionary(__extractValue(style[@"properties"], data), nil);
+    NSMutableDictionary *originalProperties = [NSMutableDictionary dictionary];
+    NSDictionary<NSString *, VZMistPropertyProcessor *> *extProperties = [mistInstance getProperties:type dict:style];
+    if (properties.count > 0 || extProperties.count > 0) {
+        NSMutableDictionary *propertyValues = [NSMutableDictionary new];
+        for (NSString *key in extProperties) {
+            propertyValues[key] = __extractValue(style[key], data);
+        }
+        specs.applicator = ^(UIView *view) {
+            for (NSString *key in properties) {
+                originalProperties[key] = [view valueForKeyPath:key] ?: [NSNull null];
+                id value = properties[key];
+                value = value == [NSNull null] ? nil : value;
+                [view setValue:value forKeyPath:key];
+            }
+            for (NSString *key in extProperties) {
+                VZMistPropertyProcessor *processor = extProperties[key];
+                if (processor.applicator) processor.applicator(view, propertyValues[key]);
+            }
+        };
+        specs.unapplicator = ^(UIView *view) {
+            for (NSString *key in originalProperties) {
+                id value = originalProperties[key];
+                value = value == [NSNull null] ? nil : value;
+                [view setValue:value forKeyPath:key];
+            }
+            for (NSString *key in extProperties) {
+                VZMistPropertyProcessor *processor = extProperties[key];
+                if (processor.unapplicator) processor.unapplicator(view);
+            }
+        };
+    }
 
     node = [mistInstance processTag:type
                           withSpecs:specs
                            template:tpl
                                item:item
                                data:data];
-
+    
     if (node && specs.identifier.empty()) {
         node.specs.identifier = nodeId.UTF8String;
     }
@@ -980,7 +1024,15 @@ static const void *displayEventKey = &displayEventKey;
             if (!backingViewClass || ![backingViewClass conformsToProtocol:@protocol(VZFNodeBackingViewInterface)]) {
                 backingViewClass = [VZFScrollView class];
             }
-            
+
+            VZMistTemplateEvent *scrollEvent = [VZMistTemplateEvent eventWithName:@"on-scroll" dict:tpl expressionContext:data item:item];
+            if (scrollEvent) {
+                scrollSpecs.scrolled = [VZFBlockAction action:^(UIScrollView *sender) {
+                    [scrollEvent addEventParamWithName:@"offset" object:[NSValue valueWithCGPoint:sender.contentOffset]];
+                    [scrollEvent invokeWithSender:sender];
+                }];
+            }
+
             node = [VZFScrollNode newWithScrollAttributes:scrollSpecs StackAttributes:stackSpecs NodeSpecs:specs BackingViewClass:backingViewClass Children:list];
         } else if ([@"paging" isEqualToString:type]) {
             PagingNodeSpecs pagingSpecs = PagingNodeSpecs();
@@ -988,7 +1040,8 @@ static const void *displayEventKey = &displayEventKey;
 
             VZMistTemplateEvent *switchEvent = [VZMistTemplateEvent eventWithName:@"on-switch" dict:tpl expressionContext:data item:item];
             if (switchEvent) {
-                pagingSpecs.switched = [VZFBlockAction action:^(id sender) {
+                pagingSpecs.switched = [VZFBlockAction action:^(VZFPagingView *sender) {
+                    [switchEvent addEventParamWithName:@"page" object:@(sender.currentPage)];
                     [switchEvent invokeWithSender:sender];
                 }];
             }

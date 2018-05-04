@@ -13,9 +13,13 @@
 #include <pthread.h>
 #import "VZMistInternal.h"
 
+@implementation VZMistPropertyProcessor
+@end
+
 @implementation VZMist
 {
     NSMutableDictionary<NSString *, VZMistTagProcessor> *_processorMap;
+    NSMutableDictionary<NSString *, NSMutableDictionary<NSString *, VZMistPropertyProcessor *> *> *_propertiesMap;
     pthread_rwlock_t rwlock;
     
     pthread_rwlock_t jsRwlock;
@@ -37,6 +41,7 @@
     if (self) {
         pthread_rwlock_init(&rwlock, NULL);
         _processorMap = [NSMutableDictionary dictionaryWithCapacity:10];
+        _propertiesMap = [NSMutableDictionary dictionaryWithCapacity:10];
         [self registerDefaultTags];
         
         pthread_rwlock_init(&jsRwlock, NULL);
@@ -161,6 +166,39 @@
     }
     pthread_rwlock_unlock(&rwlock);
     return ret;
+}
+
+- (void)registerProperty:(nonnull NSString *)name
+                 forType:(nullable NSString *)type
+          withApplicator:(nonnull VZMistPropertyApplicator)applicator
+            unapplicator:(nullable VZMistPropertyUnapplicator)unapplicator {
+    if (!type) type = @"shared";
+    VZMistPropertyProcessor *processor = [VZMistPropertyProcessor new];
+    processor.applicator = applicator;
+    processor.unapplicator = unapplicator;
+    NSMutableDictionary *map = _propertiesMap[type];
+    if (!map) {
+        map = [NSMutableDictionary dictionary];
+        _propertiesMap[type] = map;
+    }
+    map[name] = processor;
+}
+
+- (NSDictionary<NSString *,VZMistPropertyProcessor *> *)getProperties:(NSString *)type dict:(NSDictionary *)dict {
+    NSMutableDictionary *properties = [NSMutableDictionary new];
+    NSDictionary *sharedProperties = _propertiesMap[@"shared"];
+    NSDictionary *typeProperties = _propertiesMap[type];
+    for (NSString *name in sharedProperties) {
+        if (dict[name]) {
+            properties[name] = sharedProperties[name];
+        }
+    }
+    for (NSString *name in typeProperties) {
+        if (dict[name]) {
+            properties[name] = typeProperties[name];
+        }
+    }
+    return properties;
 }
 
 - (void)registerJSGlobalVariable:(NSString *)name object:(id)object {

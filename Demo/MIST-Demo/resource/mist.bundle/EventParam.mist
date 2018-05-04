@@ -11,7 +11,7 @@
     },
     "children": [
       {
-        "type": "textview",
+        "type": "text-view",
         "on-change": {
           "updateState:": {
             "text": "${_event_.sender.text}"

@@ -25,6 +25,6 @@ Pod::Spec.new do |s|
     'CLANG_CXX_LIBRARY' => 'libc++'
   }
   s.library = 'c++'
-  s.dependency "VZFlexLayout", "0.3.4"
+  s.dependency "VZFlexLayout"
 
 end

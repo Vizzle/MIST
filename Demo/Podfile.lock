@@ -1,21 +1,21 @@
 PODS:
-  - CocoaAsyncSocket (7.6.2)
+  - CocoaAsyncSocket (7.6.3)
   - CocoaHTTPServer (2.3):
     - CocoaAsyncSocket
     - CocoaLumberjack
-  - CocoaLumberjack (3.3.0):
-    - CocoaLumberjack/Default (= 3.3.0)
-    - CocoaLumberjack/Extensions (= 3.3.0)
-  - CocoaLumberjack/Default (3.3.0)
-  - CocoaLumberjack/Extensions (3.3.0):
+  - CocoaLumberjack (3.4.2):
+    - CocoaLumberjack/Default (= 3.4.2)
+    - CocoaLumberjack/Extensions (= 3.4.2)
+  - CocoaLumberjack/Default (3.4.2)
+  - CocoaLumberjack/Extensions (3.4.2):
     - CocoaLumberjack/Default
   - DACircularProgress (2.3.1)
   - IDMPhotoBrowser (1.11.3):
     - DACircularProgress
     - pop
     - SDWebImage (= 4.0.0)
-  - MIST (0.0.3):
-    - VZFlexLayout
+  - MIST (0.0.5):
+    - VZFlexLayout (= 0.3.4)
   - MISTDebug (1.0.0):
     - CocoaAsyncSocket
     - CocoaHTTPServer
@@ -25,7 +25,7 @@ PODS:
     - SDWebImage/Core (= 4.0.0)
   - SDWebImage/Core (4.0.0)
   - Tweaks (2.2.0)
-  - VZFlexLayout (0.3.1)
+  - VZFlexLayout (0.3.4)
 
 DEPENDENCIES:
   - IDMPhotoBrowser
@@ -33,23 +33,36 @@ DEPENDENCIES:
   - MISTDebug
   - SDWebImage
 
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - CocoaAsyncSocket
+    - CocoaHTTPServer
+    - CocoaLumberjack
+    - DACircularProgress
+    - IDMPhotoBrowser
+    - MISTDebug
+    - pop
+    - SDWebImage
+    - Tweaks
+    - VZFlexLayout
+
 EXTERNAL SOURCES:
   MIST:
     :path: "../"
 
 SPEC CHECKSUMS:
-  CocoaAsyncSocket: 3541e024f48c54b251638ef72d51dd42808de932
+  CocoaAsyncSocket: eafaa68a7e0ec99ead0a7b35015e0bf25d2c8987
   CocoaHTTPServer: 5624681fc3473d43b18202f635f9b3abb013b530
-  CocoaLumberjack: 3c8c74683302f9012bb168e1c4b7ae3c0b558431
+  CocoaLumberjack: db7cc9e464771f12054c22ff6947c5a58d43a0fd
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
   IDMPhotoBrowser: b96159fe4adb991a844068eb17dab9c0b7d7e51a
-  MIST: '0656509ccc56a113e0d23253994a60c9e17d0d65'
+  MIST: 38a5ac43ab69d292fa35b89ad6a53a406f58e702
   MISTDebug: 2845183b110e2e7e4375422cb633ceace43d78a9
   pop: 82ca6b068ce9278fd350fd9dd09482a0ce9492e6
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
   Tweaks: 0c41be06d41b82a11f515c27711b65d343aa4af6
-  VZFlexLayout: 81bac86b04db12ac2b6c89fbf39370bb98d76cfb
+  VZFlexLayout: 16606c7d0ca00676ca473964f312f55e520eeca8
 
 PODFILE CHECKSUM: 394b871bf9f51663147a9b7c2314eeb08baa8273
 
-COCOAPODS: 1.2.1
+COCOAPODS: 1.5.3

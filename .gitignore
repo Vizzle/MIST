@@ -15,6 +15,8 @@ DerivedData/
 *.perspectivev3
 !default.perspectivev3
 xcuserdata/
+xcshareddata/
+
 
 ## Other
 *.moved-aside
@@ -32,3 +34,7 @@ Carthage/Build
 Pods/*
 Pods
 node_modules/*
+
+## vscode
+.vscode
+.vscode/*

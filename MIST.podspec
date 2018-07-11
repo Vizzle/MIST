@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
   s.description  = "Dynamic View Template Engine Powered by Flexlayout"
   s.homepage      = "https://github.com/Vizzle/MIST"
   s.license       = "MIT"
-  s.author        = { "vizlabxt" => "jayson.xu@foxmail.com" }
+  s.author        = { "xta0.me" => "jayson.xu@foxmail.com" }
   s.source        = { :git => "https://github.com/Vizzle/MIST.git", :tag => s.version.to_s }
   s.source_files  = "MIST/**/*.{h,m,mm}"
   s.frameworks    = 'UIKit','ImageIO'

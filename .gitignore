@@ -30,7 +30,7 @@ appledoc
 Carthage/Build
 
 ## cocoapods
-
+Podfile.lock
 Pods/*
 Pods
 node_modules/*

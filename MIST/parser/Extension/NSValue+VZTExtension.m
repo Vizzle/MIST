@@ -6,6 +6,7 @@
 //
 
 #import "NSValue+VZTExtension.h"
+#import <UIKit/UIKit.h>
 
 @implementation NSValue (VZTExtension)
 

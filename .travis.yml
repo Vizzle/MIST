@@ -9,4 +9,5 @@ branches:
   - master
 rvm: 2.4.1
 before_install:
-  - pod repo update > /dev/null
+  - gem install cocoapods -v '1.5.3'
+  

@@ -37,3 +37,4 @@ node_modules/*
 ## vscode
 .vscode
 .vscode/*
+/Podfile.lock

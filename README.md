@@ -5,12 +5,15 @@
 
 MIST lets you create iOS app with nothing but JSON templates.  
 
-<video src="https://os.alipayobjects.com/rmsportal/xZYDLLqUaAdxoJATpljU.mp4" width="100%" height="600" align="middle" allowScriptAccess="never" allowFullScreen="true"></video>
-
 [![Build Status](https://travis-ci.org/Vizzle/MIST.svg?branch=master)](https://travis-ci.org/Vizzle/MIST)
 [![Version](https://img.shields.io/cocoapods/v/MIST.svg?style=flat)](http://cocoapods.org/pods/MIST)
 [![License](https://img.shields.io/cocoapods/l/MIST.svg?style=flat)](http://cocoapods.org/pods/MIST)
 [![Platform](https://img.shields.io/cocoapods/p/MIST.svg?style=flat)](http://cocoapods.org/pods/MIST)
+
+## Why MIST
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Am4h2MZUggY" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
 
 ## Example
 

@@ -21,7 +21,7 @@ MIST lets you create iOS app with nothing but JSON templates.
 [![](http://i.ytimg.com/vi/Am4h2MZUggY/maxresdefault.jpg)](https://www.youtube.com/watch?v=Am4h2MZUggY)
 
 
-> MIST has been heavily used to implement O2O services in Alipay Wallet since 2016. It has been battle-tested and proven stable for more than two years with millions of users visit per day.With backend involved, MIST allow us continuously add new features to our app without submiting it to Appstore.
+> MIST has been heavily used to implement O2O services in Alipay Wallet since 2016. It has been battle-tested and proven stable for more than two years with millions of users visit per day.With backend involved, MIST allows our team to  continuously ship new features without submiting our app to Appstore.
 
 ### Example
 

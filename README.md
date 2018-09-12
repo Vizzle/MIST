@@ -10,7 +10,14 @@ MIST lets you create iOS app with nothing but JSON templates.
 [![License](https://img.shields.io/cocoapods/l/MIST.svg?style=flat)](http://cocoapods.org/pods/MIST)
 [![Platform](https://img.shields.io/cocoapods/p/MIST.svg?style=flat)](http://cocoapods.org/pods/MIST)
 
-## Why MIST
+## Features
+
+- Declaretive UI Component usign CSS properties and advacned Flexbox layout algorithm
+- Native template language parser for handling complex rendering logic
+- Built-in support of asynchronous rendering feature for smooth tableview
+- VSCode Extension for code completion and highlight
+
+> MIST has been heavily used to implement O2O services in Alipay Wallet since 2016. It has been battle-tested and proven stable for more than two years with millions of users visit per day.With backend involved, MIST allow us continuously add new features to our app without submiting it to Appstore.
 
 [![](http://i.ytimg.com/vi/Am4h2MZUggY/maxresdefault.jpg)](https://www.youtube.com/watch?v=Am4h2MZUggY)
 
@@ -27,11 +34,9 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 **Podfile**
 
 ```ruby
-
 target YourAwesomeTarget do
   pod 'MIST'
 end
-
 ```
 
 ## Documentation

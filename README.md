@@ -16,6 +16,7 @@ MIST lets you create iOS app with nothing but JSON templates.
 - Native template language parser for handling complex rendering logic
 - Built-in support of asynchronous rendering feature for smooth tableview
 - VSCode Extension for code completion and highlight
+- Detailed [documented](https://vizzle.github.io/MIST/) (the English version is currently underconstruction)
 
 [![](http://i.ytimg.com/vi/Am4h2MZUggY/maxresdefault.jpg)](https://www.youtube.com/watch?v=Am4h2MZUggY)
 
@@ -37,6 +38,10 @@ target YourAwesomeTarget do
   pod 'MIST'
 end
 ```
+### Document
+
+- [Chinese](https://vizzle.github.io/MIST/)
+- [English]()
 
 ## License
 

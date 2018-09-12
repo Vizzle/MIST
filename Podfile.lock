@@ -5,12 +5,12 @@ DEPENDENCIES:
   - VZFlexLayout (~> 0.3.4)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - VZFlexLayout
 
 SPEC CHECKSUMS:
   VZFlexLayout: 16606c7d0ca00676ca473964f312f55e520eeca8
 
-PODFILE CHECKSUM: ba02811aab8e7d1dc8a64dcef9e33253504232ff
+PODFILE CHECKSUM: 17db1ef284bd58d2efa307af73658f0494889c7f
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.5.0

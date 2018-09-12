@@ -10,24 +10,23 @@ MIST lets you create iOS app with nothing but JSON templates.
 [![License](https://img.shields.io/cocoapods/l/MIST.svg?style=flat)](http://cocoapods.org/pods/MIST)
 [![Platform](https://img.shields.io/cocoapods/p/MIST.svg?style=flat)](http://cocoapods.org/pods/MIST)
 
-## Features
+### Features
 
 - Declaretive UI Component usign CSS properties and advacned Flexbox layout algorithm
 - Native template language parser for handling complex rendering logic
 - Built-in support of asynchronous rendering feature for smooth tableview
 - VSCode Extension for code completion and highlight
 
-> MIST has been heavily used to implement O2O services in Alipay Wallet since 2016. It has been battle-tested and proven stable for more than two years with millions of users visit per day.With backend involved, MIST allow us continuously add new features to our app without submiting it to Appstore.
-
 [![](http://i.ytimg.com/vi/Am4h2MZUggY/maxresdefault.jpg)](https://www.youtube.com/watch?v=Am4h2MZUggY)
 
-## Example
+
+> MIST has been heavily used to implement O2O services in Alipay Wallet since 2016. It has been battle-tested and proven stable for more than two years with millions of users visit per day.With backend involved, MIST allow us continuously add new features to our app without submiting it to Appstore.
+
+### Example
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
-## Installation
-
-### Cocoapods
+### Installation
 
 [CocoaPods](http://cocoapods.org) is a dependency manager for Swift and Objective-C Cocoa projects. which automates and simplifies the process of using 3rd-party libraries in your projects. See the [Get Started](https://cocoapods.org/#get_started) section for more details.
 
@@ -38,12 +37,6 @@ target YourAwesomeTarget do
   pod 'MIST'
 end
 ```
-
-## Documentation
-
-MIST Document is currently under construction. 
-
-
 
 ## License
 

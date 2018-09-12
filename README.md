@@ -12,8 +12,7 @@ MIST lets you create iOS app with nothing but JSON templates.
 
 ## Why MIST
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/Am4h2MZUggY" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-
+[![](http://i.ytimg.com/vi/Am4h2MZUggY/maxresdefault.jpg)](https://www.youtube.com/watch?v=Am4h2MZUggY&t=54s)
 
 ## Example
 

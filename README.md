@@ -12,7 +12,7 @@ MIST lets you create iOS app with nothing but JSON templates.
 
 ## Why MIST
 
-[![](http://i.ytimg.com/vi/Am4h2MZUggY/maxresdefault.jpg)](https://www.youtube.com/watch?v=Am4h2MZUggY&t=54s)
+[![](http://i.ytimg.com/vi/Am4h2MZUggY/maxresdefault.jpg)](https://www.youtube.com/watch?v=Am4h2MZUggY)
 
 ## Example
 

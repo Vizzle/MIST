@@ -26,7 +26,7 @@
 }
 
 
-- (void)downloadTemplates:(NSArray *)tplIds completion:(void (^)(NSDictionary<NSString *, NSString *> *))completion options:(NSDictionary *)opt
+- (void)downloadTemplates:(NSArray *)tplIds completion:(void (^)(NSDictionary<NSString *, NSString *> *templates))completion options:(NSDictionary *)opt
 {
     __block NSMutableDictionary<NSString *, NSString *> *results = [NSMutableDictionary dictionary];
     __block NSInteger count = 0;

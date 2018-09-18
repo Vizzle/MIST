@@ -9,19 +9,19 @@
 /* Begin PBXBuildFile section */
 		1F6E992F1F04F6F8004538CB /* MistJSHttpRequestHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6E992E1F04F6F8004538CB /* MistJSHttpRequestHelper.m */; };
 		1F6E995F1F093658004538CB /* MistJSToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6E995E1F093658004538CB /* MistJSToast.m */; };
-		1FF5735B1F0E2E78004AFE82 /* mist.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B19312E51EA9A63D0035331C /* mist.bundle */; };
 		455F94AA1EA63CC70050EFFE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 455F94A91EA63CC70050EFFE /* main.m */; };
 		455F94B31EA63CC70050EFFE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 455F94B11EA63CC70050EFFE /* Main.storyboard */; };
 		455F94B51EA63CC70050EFFE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 455F94B41EA63CC70050EFFE /* Assets.xcassets */; };
 		455F94B81EA63CC70050EFFE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 455F94B61EA63CC70050EFFE /* LaunchScreen.storyboard */; };
 		52A79DEC1F0CB59400658288 /* WBTimelineListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 52A79DEB1F0CB59400658288 /* WBTimelineListViewController.mm */; };
+		78E34BE021516B3700093E31 /* mist.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 78E34BDF21516B3700093E31 /* mist.bundle */; };
 		AEAC3D45DB0D7F3CDBD32272 /* libPods-MIST-Demo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FEABC4C3376B6EEEBF738E8B /* libPods-MIST-Demo.a */; };
 		B193131E1EA9A63D0035331C /* MistDemoImageView.mm in Sources */ = {isa = PBXBuildFile; fileRef = B19312DA1EA9A63D0035331C /* MistDemoImageView.mm */; };
 		B193131F1EA9A63D0035331C /* MistDemoTemplateManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = B19312DC1EA9A63D0035331C /* MistDemoTemplateManager.mm */; };
 		B19313211EA9A63D0035331C /* MistDemoIndexViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = B19312E11EA9A63D0035331C /* MistDemoIndexViewController.mm */; };
 		B19313221EA9A63D0035331C /* MistDemoListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = B19312E31EA9A63D0035331C /* MistDemoListViewController.mm */; };
 		B19313241EA9A63D0035331C /* wb.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B19312E71EA9A63D0035331C /* wb.bundle */; };
-		B19313261EA9A63D0035331C /* WBTimelineTemplateController.m in Sources */ = {isa = PBXBuildFile; fileRef = B19312EB1EA9A63D0035331C /* WBTimelineTemplateController.m */; };
+		B19313261EA9A63D0035331C /* WBTimelineTemplateController.mm in Sources */ = {isa = PBXBuildFile; fileRef = B19312EB1EA9A63D0035331C /* WBTimelineTemplateController.mm */; };
 		B19313271EA9A63D0035331C /* CustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B19312EF1EA9A63D0035331C /* CustomButton.m */; };
 		B19313281EA9A63D0035331C /* MistCustomNodeDemoViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = B19312F11EA9A63D0035331C /* MistCustomNodeDemoViewController.mm */; };
 		B19313291EA9A63D0035331C /* MistIndicatorTemplateController.m in Sources */ = {isa = PBXBuildFile; fileRef = B19312F41EA9A63D0035331C /* MistIndicatorTemplateController.m */; };
@@ -53,6 +53,7 @@
 		455F94B71EA63CC70050EFFE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		455F94B91EA63CC70050EFFE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		52A79DEB1F0CB59400658288 /* WBTimelineListViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WBTimelineListViewController.mm; sourceTree = "<group>"; };
+		78E34BDF21516B3700093E31 /* mist.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = mist.bundle; sourceTree = "<group>"; };
 		8077F1AE59CBBE2DD266CBD9 /* Pods-MIST-Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MIST-Demo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MIST-Demo/Pods-MIST-Demo.debug.xcconfig"; sourceTree = "<group>"; };
 		B0B27EEA8EB467CC9F77B927 /* Pods-MIST-Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MIST-Demo.release.xcconfig"; path = "Pods/Target Support Files/Pods-MIST-Demo/Pods-MIST-Demo.release.xcconfig"; sourceTree = "<group>"; };
 		B19312D91EA9A63D0035331C /* MistDemoImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MistDemoImageView.h; sourceTree = "<group>"; };
@@ -63,11 +64,10 @@
 		B19312E11EA9A63D0035331C /* MistDemoIndexViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MistDemoIndexViewController.mm; sourceTree = "<group>"; };
 		B19312E21EA9A63D0035331C /* MistDemoListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MistDemoListViewController.h; sourceTree = "<group>"; };
 		B19312E31EA9A63D0035331C /* MistDemoListViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MistDemoListViewController.mm; sourceTree = "<group>"; };
-		B19312E51EA9A63D0035331C /* mist.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = mist.bundle; sourceTree = "<group>"; };
 		B19312E71EA9A63D0035331C /* wb.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = wb.bundle; sourceTree = "<group>"; };
 		B19312E81EA9A63D0035331C /* WBTimelineListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBTimelineListViewController.h; sourceTree = "<group>"; };
 		B19312EA1EA9A63D0035331C /* WBTimelineTemplateController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBTimelineTemplateController.h; sourceTree = "<group>"; };
-		B19312EB1EA9A63D0035331C /* WBTimelineTemplateController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBTimelineTemplateController.m; sourceTree = "<group>"; };
+		B19312EB1EA9A63D0035331C /* WBTimelineTemplateController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WBTimelineTemplateController.mm; sourceTree = "<group>"; };
 		B19312EE1EA9A63D0035331C /* CustomButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomButton.h; sourceTree = "<group>"; };
 		B19312EF1EA9A63D0035331C /* CustomButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomButton.m; sourceTree = "<group>"; };
 		B19312F01EA9A63D0035331C /* MistCustomNodeDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MistCustomNodeDemoViewController.h; sourceTree = "<group>"; };
@@ -135,6 +135,8 @@
 		455F94A71EA63CC70050EFFE /* MIST-Demo */ = {
 			isa = PBXGroup;
 			children = (
+				78E34BDE21516B3700093E31 /* Resource */,
+				B19312E61EA9A63D0035331C /* Weibo */,
 				B19312D61EA9A63D0035331C /* Adapter */,
 				B19312EC1EA9A63D0035331C /* Components */,
 				B19313131EA9A63D0035331C /* Expression */,
@@ -143,8 +145,6 @@
 				B19312E11EA9A63D0035331C /* MistDemoIndexViewController.mm */,
 				B19312E21EA9A63D0035331C /* MistDemoListViewController.h */,
 				B19312E31EA9A63D0035331C /* MistDemoListViewController.mm */,
-				B19312E41EA9A63D0035331C /* resource */,
-				B19312E61EA9A63D0035331C /* Weibo */,
 				455F94AB1EA63CC70050EFFE /* AppDelegate.h */,
 				B193131C1EA9A63D0035331C /* AppDelegate.mm */,
 				455F94B11EA63CC70050EFFE /* Main.storyboard */,
@@ -162,6 +162,14 @@
 				455F94A91EA63CC70050EFFE /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		78E34BDE21516B3700093E31 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				78E34BDF21516B3700093E31 /* mist.bundle */,
+			);
+			path = Resource;
 			sourceTree = "<group>";
 		};
 		79E1EF714B52FA5D977EF24C /* Pods */ = {
@@ -203,14 +211,6 @@
 			path = JS;
 			sourceTree = "<group>";
 		};
-		B19312E41EA9A63D0035331C /* resource */ = {
-			isa = PBXGroup;
-			children = (
-				B19312E51EA9A63D0035331C /* mist.bundle */,
-			);
-			path = resource;
-			sourceTree = "<group>";
-		};
 		B19312E61EA9A63D0035331C /* Weibo */ = {
 			isa = PBXGroup;
 			children = (
@@ -218,7 +218,7 @@
 				B19312E81EA9A63D0035331C /* WBTimelineListViewController.h */,
 				52A79DEB1F0CB59400658288 /* WBTimelineListViewController.mm */,
 				B19312EA1EA9A63D0035331C /* WBTimelineTemplateController.h */,
-				B19312EB1EA9A63D0035331C /* WBTimelineTemplateController.m */,
+				B19312EB1EA9A63D0035331C /* WBTimelineTemplateController.mm */,
 			);
 			path = Weibo;
 			sourceTree = "<group>";
@@ -408,7 +408,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1FF5735B1F0E2E78004AFE82 /* mist.bundle in Resources */,
+				78E34BE021516B3700093E31 /* mist.bundle in Resources */,
 				455F94B81EA63CC70050EFFE /* LaunchScreen.storyboard in Resources */,
 				B19313241EA9A63D0035331C /* wb.bundle in Resources */,
 				455F94B51EA63CC70050EFFE /* Assets.xcassets in Resources */,
@@ -473,7 +473,7 @@
 				B19313221EA9A63D0035331C /* MistDemoListViewController.mm in Sources */,
 				1F6E995F1F093658004538CB /* MistJSToast.m in Sources */,
 				B193131E1EA9A63D0035331C /* MistDemoImageView.mm in Sources */,
-				B19313261EA9A63D0035331C /* WBTimelineTemplateController.m in Sources */,
+				B19313261EA9A63D0035331C /* WBTimelineTemplateController.mm in Sources */,
 				B193132C1EA9A63D0035331C /* MistPickerDemoController.m in Sources */,
 				455F94AA1EA63CC70050EFFE /* main.m in Sources */,
 				B19313391EA9A63D0035331C /* AppDelegate.mm in Sources */,

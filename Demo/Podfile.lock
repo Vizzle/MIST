@@ -26,12 +26,14 @@ PODS:
   - SDWebImage/Core (4.0.0)
   - Tweaks (2.2.0)
   - VZFlexLayout (0.3.4)
+  - VZInspector (0.1.8)
 
 DEPENDENCIES:
   - IDMPhotoBrowser
   - MIST (from `../`)
   - MISTDebug
   - SDWebImage
+  - VZInspector
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -45,6 +47,7 @@ SPEC REPOS:
     - SDWebImage
     - Tweaks
     - VZFlexLayout
+    - VZInspector
 
 EXTERNAL SOURCES:
   MIST:
@@ -56,13 +59,14 @@ SPEC CHECKSUMS:
   CocoaLumberjack: db7cc9e464771f12054c22ff6947c5a58d43a0fd
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
   IDMPhotoBrowser: b96159fe4adb991a844068eb17dab9c0b7d7e51a
-  MIST: 0e2d10c33ab25412c48e7321e993455aa04e4f03
+  MIST: 332362074f71409f9c59e43e4ff1c83481198749
   MISTDebug: 2845183b110e2e7e4375422cb633ceace43d78a9
   pop: 82ca6b068ce9278fd350fd9dd09482a0ce9492e6
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
   Tweaks: 0c41be06d41b82a11f515c27711b65d343aa4af6
   VZFlexLayout: 16606c7d0ca00676ca473964f312f55e520eeca8
+  VZInspector: 3d95c67d8a7fe07dafae85b1bfb42a8afafbd613
 
-PODFILE CHECKSUM: 394b871bf9f51663147a9b7c2314eeb08baa8273
+PODFILE CHECKSUM: a737033b4501f14ff4441baa236122c7c220d2cb
 
 COCOAPODS: 1.5.3

@@ -72,41 +72,51 @@
 }
 
 - (VZMistTemplateActionBlock)success {
+    __weak __typeof(self) weakSelf = self;
     return ^(id value) {
-        [_context pushVariableWithKey:_resultName value:value];
-        if (_finishAction) {
-            [[self.class actionWithDictionary:_finishAction expressionContext:_context.copy item:_item] runWithSender:_sender];
+        __strong __typeof(weakSelf) strongSelf = weakSelf;
+        if(strongSelf){
+            [strongSelf->_context pushVariableWithKey:strongSelf->_resultName value:value];
+            if (strongSelf->_finishAction) {
+                [[strongSelf.class actionWithDictionary:strongSelf->_finishAction expressionContext:strongSelf->_context.copy item:strongSelf->_item] runWithSender:strongSelf->_sender];
+            }
+            if (strongSelf->_successAction) {
+                [[strongSelf.class actionWithDictionary:strongSelf->_successAction expressionContext:strongSelf->_context.copy item:strongSelf->_item] runWithSender:strongSelf->_sender];
+            }
+            [strongSelf->_context popVariableWithKey:strongSelf->_resultName];
+            
+            if (strongSelf->_successBlock) {
+                strongSelf->_successBlock(value);
+            }
         }
-        if (_successAction) {
-            [[self.class actionWithDictionary:_successAction expressionContext:_context.copy item:_item] runWithSender:_sender];
-        }
-        [_context popVariableWithKey:_resultName];
 
-        if (_successBlock) {
-            _successBlock(value);
-        }
     };
 }
 
 - (VZMistTemplateActionBlock)error {
+    __weak __typeof(self) weakSelf = self;
     return ^(id error) {
-        [_context pushVariableWithKey:_resultName value:error];
-        if (_finishAction) {
-            [[self.class actionWithDictionary:_finishAction expressionContext:_context.copy item:_item] runWithSender:nil];
+        __strong __typeof(weakSelf) strongSelf = weakSelf;
+        if(strongSelf){
+            [strongSelf->_context pushVariableWithKey:strongSelf->_resultName value:error];
+            if (strongSelf->_finishAction) {
+                [[strongSelf.class actionWithDictionary:strongSelf->_finishAction expressionContext:strongSelf->_context.copy item:strongSelf->_item] runWithSender:nil];
+            }
+            if (strongSelf->_errorAction) {
+                [[strongSelf.class actionWithDictionary:strongSelf->_errorAction expressionContext:strongSelf->_context.copy item:strongSelf->_item] runWithSender:nil];
+            }
+            [strongSelf->_context popVariableWithKey:strongSelf->_resultName];
+            
+            if (strongSelf->_errorBlock) {
+                strongSelf->_errorBlock(error);
+            }
         }
-        if (_errorAction) {
-            [[self.class actionWithDictionary:_errorAction expressionContext:_context.copy item:_item] runWithSender:nil];
-        }
-        [_context popVariableWithKey:_resultName];
 
-        if (_errorBlock) {
-            _errorBlock(error);
-        }
     };
 }
 
 - (void)dealloc {
-    NSLog(@"action dealloc: %@", [_dict dictionaryWithValuesForKeys:@[@"type", @"params"]]);
+//    NSLog(@"action dealloc: %@", [_dict dictionaryWithValuesForKeys:@[@"type", @"params"]]);
 }
 
 - (void)runWithSender:(id)sender {
@@ -116,10 +126,10 @@
             actionBlock = ^(VZMistTemplateAction *action) {
                 VZMistTemplateAction *weakAction = action;
                 NSMutableArray *array = [NSMutableArray new];
-                for (int i = 0; i < _actions.count; i++) {
+                for (int i = 0; i < self->_actions.count; i++) {
                     [array addObject:NSNull.null];
                 }
-                __block int count = (int)_actions.count;
+                __block int count = (int)self->_actions.count;
                 __block BOOL success = YES;
                 void(^block)(int i, id value) = ^(int i, id value) {
                     count--;
@@ -142,8 +152,8 @@
                         weakAction->_actions = nil;
                     }
                 };
-                for (int i = 0; i < _actions.count; i++) {
-                    VZMistTemplateAction *child = _actions[i];
+                for (int i = 0; i < self->_actions.count; i++) {
+                    VZMistTemplateAction *child = self->_actions[i];
                     child->_successBlock = ^(id value) {
                         @synchronized(array) {
                             block(i, value);

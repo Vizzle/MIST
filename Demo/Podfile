@@ -7,5 +7,6 @@ target 'MIST-Demo' do
   pod 'IDMPhotoBrowser'
   pod 'MIST', :path => '../'
   pod 'MISTDebug'
+  pod 'VZInspector'
 
 end

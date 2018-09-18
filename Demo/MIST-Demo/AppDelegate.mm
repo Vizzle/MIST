@@ -17,7 +17,7 @@
 #import "MistJSHttpRequestHelper.h"
 #import "MistJSToast.h"
 #import <MISTDebug/MSTDebugger.h>
-
+#import <VZInspector/VZInspector.h>
 @interface AppDelegate ()
 
 @property (strong, nonatomic) UIViewController *viewController;
@@ -75,14 +75,6 @@ return [[MistSimpleTemplateViewController alloc] initWithTitle:NAME templates:@[
                         return [[MistSimpleTemplateViewController alloc] initWithTitle:@"评价" templates:@[@"EventParam"]];
                     }
                 },
-//                {
-//                    .title = @"计算器",
-//                    .block = ^{
-//                        MistSimpleTemplateViewController *vc = [[MistSimpleTemplateViewController alloc] initWithTitle:nil templates:@[@"Calculator"]];
-//                        vc.tableView.bounces = NO;
-//                        return vc;
-//                    }
-//                },
                 {
                     .title = @"天气",
                     .block = ^{
@@ -357,7 +349,6 @@ return [[MistSimpleTemplateViewController alloc] initWithTitle:NAME templates:@[
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [[MSTDebugger defaultDebugger] startWithDownloader:NSClassFromString(@"MistDemoTemplateManager")];
-    
     // 完成初始化
     [VZMist sharedInstance];
     
@@ -370,6 +361,9 @@ return [[MistSimpleTemplateViewController alloc] initWithTitle:NAME templates:@[
     _navController = [[UINavigationController alloc] initWithRootViewController:_viewController];
     _window.rootViewController = _navController;
     [_window makeKeyAndVisible];
+    
+    [VZInspector setShouldHookNetworkRequest:YES];
+    [VZInspector showOnStatusBar];
     
     return YES;
 }

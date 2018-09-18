@@ -14,6 +14,7 @@
 #import "MistTextViewDemoViewController.h"
 #import "MistTextFieldDemoViewController.h"
 #import "MistCustomNodeDemoViewController.h"
+#import "MSTDemoTableViewController.h"
 #import "MistJSHttpRequestHelper.h"
 #import "MistJSToast.h"
 #import <MISTDebug/MSTDebugger.h>
@@ -103,6 +104,15 @@ return [[MistSimpleTemplateViewController alloc] initWithTitle:NAME templates:@[
             .block = ^{
                 return [[WBTimelineListViewController alloc] init];
             }
+        },
+        {
+            .title=@"TableView",
+            .subtitle=@"A Simple TableView Demo",
+            .block = ^{
+                return [[MSTDemoTableViewController alloc]init];
+            }
+            
+            
         },
         {
             .title = @"Components",

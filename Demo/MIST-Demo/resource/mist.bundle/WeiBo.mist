@@ -30,7 +30,7 @@
       {
         "type": "line",
         "style": {
-          "color": "#ddd",
+          "color": "red",
           "width": "100%",
           "height": "1px"
         }

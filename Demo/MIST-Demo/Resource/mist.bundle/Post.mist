@@ -1,0 +1,31 @@
+{
+  "layout": {
+    "type": "stack",
+    "style": {
+      "direction": "vertical",
+      "background-color": "white",
+      "padding": 12
+    },
+    "children": [
+      {
+        "type": "text",
+        "style": {
+          "font-size": 16,
+          "color": "black",
+          "lines": 0,
+          "text": "${title}"
+        }
+      },
+      {
+        "type": "text",
+        "style": {
+          "margin-top": 10,
+          "font-size": 12,
+          "color": "gray",
+          "lines": 0,
+          "text": "${body}"
+        }
+      }
+    ]
+  }
+}

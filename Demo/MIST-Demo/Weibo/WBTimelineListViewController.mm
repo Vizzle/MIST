@@ -16,7 +16,8 @@
 
 @interface WBTimelineListViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSArray *items;
+@property (nonatomic, strong) NSArray<VZMistListItem* > *items;
+@property (nonatomic, strong) NSArray* data;
 @end
 
 
@@ -58,7 +59,8 @@
         NSString *path = [NSString stringWithFormat:@"%@/mist.bundle/WeiBo.json", [NSBundle bundleForClass:self].bundlePath];
         NSData *rawData = [NSData dataWithContentsOfFile:path];
         NSDictionary *data = [NSJSONSerialization JSONObjectWithData:rawData options:NSJSONReadingAllowFragments error:nil];
-        self.items = [self itemsWithData:data[@"statuses"] templates:templates];
+        self.data  = [data[@"statuses"] copy];
+        self.items = [self itemsWithData:self.data templates:templates];
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
         });
@@ -69,7 +71,14 @@
 - (void)reload{
     self.items = @[];
     [self.tableView reloadData];
-    [self load];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[MistDemoTemplateManager defaultManager] downloadTemplates:@[@"WeiBo"] completion:^(NSDictionary<NSString *,NSString *> *templates) {
+            self.items = [self itemsWithData:self.data templates:templates];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+            });
+        } options:nil];
+    });
 }
 
 
@@ -79,16 +88,20 @@
         return nil;
     }
     NSMutableArray *items = [NSMutableArray new];
+    NSError* error ;
     NSDictionary *tplDict = [NSJSONSerialization JSONObjectWithData:[templates[@"WeiBo"] dataUsingEncoding:NSUTF8StringEncoding]
                                                             options:0
-                                                              error:nil];
+                                                              error:&error];
+    if(error){
+        NSLog(@"Template format error!");
+        return @[];
+    }
     if (!tplDict) {
         return @[];
     }
     VZMistTemplate *tpl = [[VZMistTemplate alloc] initWithTemplateId:@"WeiBo"
                                                                   content:tplDict
                                                              mistInstance:[VZMist sharedInstance]];
-    
     
     for (NSDictionary *i in data) {
         VZMistListItem *item = [[VZMistListItem alloc] initWithData:i customData:@{} template:tpl];

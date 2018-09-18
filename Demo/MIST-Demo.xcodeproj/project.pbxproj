@@ -15,6 +15,7 @@
 		455F94B81EA63CC70050EFFE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 455F94B61EA63CC70050EFFE /* LaunchScreen.storyboard */; };
 		52A79DEC1F0CB59400658288 /* WBTimelineListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 52A79DEB1F0CB59400658288 /* WBTimelineListViewController.mm */; };
 		78E34BE021516B3700093E31 /* mist.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 78E34BDF21516B3700093E31 /* mist.bundle */; };
+		78E34BE4215184EF00093E31 /* MSTDemoTableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 78E34BE3215184EF00093E31 /* MSTDemoTableViewController.mm */; };
 		AEAC3D45DB0D7F3CDBD32272 /* libPods-MIST-Demo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FEABC4C3376B6EEEBF738E8B /* libPods-MIST-Demo.a */; };
 		B193131E1EA9A63D0035331C /* MistDemoImageView.mm in Sources */ = {isa = PBXBuildFile; fileRef = B19312DA1EA9A63D0035331C /* MistDemoImageView.mm */; };
 		B193131F1EA9A63D0035331C /* MistDemoTemplateManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = B19312DC1EA9A63D0035331C /* MistDemoTemplateManager.mm */; };
@@ -54,6 +55,8 @@
 		455F94B91EA63CC70050EFFE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		52A79DEB1F0CB59400658288 /* WBTimelineListViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WBTimelineListViewController.mm; sourceTree = "<group>"; };
 		78E34BDF21516B3700093E31 /* mist.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = mist.bundle; sourceTree = "<group>"; };
+		78E34BE2215184EF00093E31 /* MSTDemoTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MSTDemoTableViewController.h; sourceTree = "<group>"; };
+		78E34BE3215184EF00093E31 /* MSTDemoTableViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MSTDemoTableViewController.mm; sourceTree = "<group>"; };
 		8077F1AE59CBBE2DD266CBD9 /* Pods-MIST-Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MIST-Demo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MIST-Demo/Pods-MIST-Demo.debug.xcconfig"; sourceTree = "<group>"; };
 		B0B27EEA8EB467CC9F77B927 /* Pods-MIST-Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MIST-Demo.release.xcconfig"; path = "Pods/Target Support Files/Pods-MIST-Demo/Pods-MIST-Demo.release.xcconfig"; sourceTree = "<group>"; };
 		B19312D91EA9A63D0035331C /* MistDemoImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MistDemoImageView.h; sourceTree = "<group>"; };
@@ -135,6 +138,7 @@
 		455F94A71EA63CC70050EFFE /* MIST-Demo */ = {
 			isa = PBXGroup;
 			children = (
+				78E34BE1215184BC00093E31 /* TableView */,
 				78E34BDE21516B3700093E31 /* Resource */,
 				B19312E61EA9A63D0035331C /* Weibo */,
 				B19312D61EA9A63D0035331C /* Adapter */,
@@ -170,6 +174,15 @@
 				78E34BDF21516B3700093E31 /* mist.bundle */,
 			);
 			path = Resource;
+			sourceTree = "<group>";
+		};
+		78E34BE1215184BC00093E31 /* TableView */ = {
+			isa = PBXGroup;
+			children = (
+				78E34BE2215184EF00093E31 /* MSTDemoTableViewController.h */,
+				78E34BE3215184EF00093E31 /* MSTDemoTableViewController.mm */,
+			);
+			path = TableView;
 			sourceTree = "<group>";
 		};
 		79E1EF714B52FA5D977EF24C /* Pods */ = {
@@ -476,6 +489,7 @@
 				B19313261EA9A63D0035331C /* WBTimelineTemplateController.mm in Sources */,
 				B193132C1EA9A63D0035331C /* MistPickerDemoController.m in Sources */,
 				455F94AA1EA63CC70050EFFE /* main.m in Sources */,
+				78E34BE4215184EF00093E31 /* MSTDemoTableViewController.mm in Sources */,
 				B19313391EA9A63D0035331C /* AppDelegate.mm in Sources */,
 				B19313341EA9A63D0035331C /* MistWebViewDemoController.m in Sources */,
 				B19313311EA9A63D0035331C /* MistTextFieldDemoViewController.m in Sources */,

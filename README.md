@@ -12,8 +12,8 @@ MIST lets you create iOS app with nothing but JSON templates.
 
 ### Features
 
-- Declaretive UI Component usign CSS properties and advacned Flexbox layout algorithm
-- Native template language parser for handling complex rendering logic
+- Declaretive UI Component using CSS properties and advacned Flexbox layout algorithm
+- Native template syntax parser for handling complex rendering logic
 - Built-in support of asynchronous rendering feature for smooth tableview
 - [VSCode extension](https://github.com/Vizzle/vscode-mist) for code completion and highlight
 - Detailed [documented](https://vizzle.github.io/MIST/) (the English version is currently underconstruction)

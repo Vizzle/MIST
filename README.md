@@ -16,12 +16,8 @@ MIST lets you create iOS app with nothing but JSON templates.
 - Native template syntax parser for handling complex rendering logic
 - Built-in support of asynchronous rendering feature for smooth tableview
 - [VSCode extension](https://github.com/Vizzle/vscode-mist) for code completion and highlight
-- Detailed [documented](https://vizzle.github.io/MIST/) (the English version is currently underconstruction)
 
 [![](http://i.ytimg.com/vi/Am4h2MZUggY/maxresdefault.jpg)](https://www.youtube.com/watch?v=Am4h2MZUggY)
-
-
-> MIST has been heavily used to implement O2O services in Alipay Wallet since 2016. It has been battle-tested and proven stable for more than two years with millions of users visit per day.With backend involved, MIST allows our team to  continuously ship new features without submiting our app to Appstore.
 
 ### Example
 
@@ -38,10 +34,6 @@ target YourAwesomeTarget do
   pod 'MIST'
 end
 ```
-### Document
-
-- [Chinese](https://vizzle.github.io/MIST/)
-- [English]()
 
 ## License
 

@@ -1,9 +1,5 @@
 //
-//  VZMistActionResponse.m
-//  Pods
-//
-//  Created by Sleen on 2017/6/26.
-//
+//  Copyright © 2016年 Vizlab. All rights reserved.
 //
 
 #import "VZMistActionResponse.h"

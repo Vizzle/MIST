@@ -1,9 +1,5 @@
 //
-//  MIST.h
-//  MIST
-//
-//  Created by moxin on 2017/4/1.
-//  Copyright © 2017年 Vizlab. All rights reserved.
+//  Copyright © 2016年 Vizlab. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

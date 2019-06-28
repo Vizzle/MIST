@@ -1,9 +1,5 @@
 //
-//  VZTLexer.h
-//  VZFlexEditor
-//
-//  Created by Sleen on 16/4/14.
-//  Copyright © 2016年 O2O. All rights reserved.
+//  Copyright © 2016年 Vizlab. All rights reserved.
 //
 
 #ifdef __cplusplus

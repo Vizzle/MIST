@@ -1,10 +1,6 @@
 //
-//  NSValue+VZTExtension.m
-//  CocoaAsyncSocket
+//  Copyright © 2016年 Vizlab. All rights reserved.
 //
-//  Created by Sleen on 2017/11/3.
-//
-
 #import "NSValue+VZTExtension.h"
 #import <UIKit/UIKit.h>
 

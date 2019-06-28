@@ -1,9 +1,5 @@
 //
-//  NSNumber+VZTExtension.h
-//  O2OMist
-//
-//  Created by Sleen on 2018/2/1.
-//  Copyright © 2018年 Alipay. All rights reserved.
+//  Copyright © 2016年 Vizlab. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

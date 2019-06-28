@@ -1,9 +1,5 @@
 //
-//  VZMistCallHelper.m
-//  MIST
-//
-//  Created by lingwan on 2017/7/6.
-//
+//  Copyright © 2016年 Vizlab. All rights reserved.
 //
 
 #import "VZMistCallHelper.h"

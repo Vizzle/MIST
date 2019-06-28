@@ -1,9 +1,5 @@
 //
-//  VZMist.h
-//  MIST
-//
-//  Created by John Wong on 12/21/16.
-//  Copyright © 2016 Vizlab. All rights reserved.
+//  Copyright © 2016年 Vizlab. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

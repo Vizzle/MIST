@@ -1,9 +1,5 @@
 //
-//  VZMistInternal.h
-//  MIST
-//
-//  Created by lingwan on 2017/6/23.
-//
+//  Copyright © 2016年 Vizlab. All rights reserved.
 //
 
 #ifndef VZMistInternal_h

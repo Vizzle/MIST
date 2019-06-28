@@ -1,9 +1,5 @@
 //
-//  VZMistJSContextBuilder.h
-//  MIST
-//
-//  Created by lingwan on 2017/7/3.
-//
+//  Copyright © 2016年 Vizlab. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

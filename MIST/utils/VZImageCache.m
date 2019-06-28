@@ -1,9 +1,5 @@
 //
-//  VZImageCache.m
-//  MIST
-//
-//  Created by moxin on 16/9/14.
-//  Copyright © 2016 Vizlab. All rights reserved.
+//  Copyright © 2016年 Vizlab. All rights reserved.
 //
 
 #import "VZImageCache.h"

@@ -1,10 +1,6 @@
 //
-//  VZMistTemplateAnimation.m
-//  MIST
+//  Copyright © 2016年 Vizlab. All rights reserved.
 //
-//  Created by Sleen on 2017/10/12.
-//
-
 #import "VZMistTemplateAnimation.h"
 #import "VZDataStructure.h"
 

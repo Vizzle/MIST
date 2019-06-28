@@ -1,9 +1,5 @@
 //
-//  NSDate+VZTExtension.m
-//  O2O
-//
-//  Created by Sleen on 16/4/21.
-//  Copyright © 2016年 Alipay. All rights reserved.
+//  Copyright © 2016年 Vizlab. All rights reserved.
 //
 
 #import "NSDate+VZTExtension.h"

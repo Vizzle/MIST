@@ -1,9 +1,5 @@
 //
-//  VZMistScriptErrorWindow.h
-//  MIST
-//
-//  Created by lingwan on 2017/7/10.
-//  Copyright © 2017年 Vizlab. All rights reserved.
+//  Copyright © 2016年 Vizlab. All rights reserved.
 //
 
 #ifdef DEBUG

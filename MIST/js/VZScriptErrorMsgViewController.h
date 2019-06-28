@@ -1,9 +1,5 @@
 //
-//  O2OScriptErrorMsgViewController.h
-//  O2OMist
-//
-//  Created by lingwan on 16/7/28.
-//  Copyright © 2016年 Alipay. All rights reserved.
+//  Copyright © 2016年 Vizlab. All rights reserved.
 //
 
 #ifdef DEBUG

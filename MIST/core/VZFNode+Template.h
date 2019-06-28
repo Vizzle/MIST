@@ -1,9 +1,5 @@
 //
-//  VZFNode+Template.h
-//  MIST
-//
-//  Created by John Wong on 12/19/16.
-//  Copyright © 2016 Vizlab. All rights reserved.
+//  Copyright © 2016年 Vizlab. All rights reserved.
 //
 
 #import <VZFlexLayout/VZFlexLayout.h>

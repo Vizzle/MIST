@@ -438,7 +438,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-MIST-Demo/Pods-MIST-Demo-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-MIST-Demo/Pods-MIST-Demo-resources.sh",
 				"${PODS_ROOT}/IDMPhotoBrowser/Classes/IDMPhotoBrowser.bundle",
 				"${PODS_ROOT}/IDMPhotoBrowser/Classes/IDMPBLocalizations.bundle",
 			);
@@ -449,7 +449,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MIST-Demo/Pods-MIST-Demo-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MIST-Demo/Pods-MIST-Demo-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		701459C49AA132F6C92998EA /* [CP] Check Pods Manifest.lock */ = {

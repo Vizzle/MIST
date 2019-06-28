@@ -1,9 +1,5 @@
 //
-//  WBTimelineTemplateController.h
-//  MIST
-//
-//  Created by moxin on 2017/3/14.
-//  Copyright © 2017年 Vizlab. All rights reserved.
+//  Copyright © 2016年 Vizlab. All rights reserved.
 //
 
 #import "VZMistTemplateController.h"

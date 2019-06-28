@@ -1,9 +1,5 @@
 //
-//  MistCustomNodeDemoViewController.h
-//  MIST
-//
-//  Created by Sleen on 2017/3/6.
-//  Copyright © 2017年 Vizlab. All rights reserved.
+//  Copyright © 2016年 Vizlab. All rights reserved.
 //
 
 #import "MistSimpleTemplateViewController.h"

@@ -1,9 +1,5 @@
 //
-//  MistExpressionDemoController.m
-//  MIST-Example
-//
-//  Created by Sleen on 2017/4/5.
-//  Copyright © 2017年 vizlab. All rights reserved.
+//  Copyright © 2016年 Vizlab. All rights reserved.
 //
 
 #import "MistExpressionDemoController.h"

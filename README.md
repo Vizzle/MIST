@@ -17,8 +17,6 @@ MIST lets you create iOS app with nothing but JSON templates.
 - Built-in support of asynchronous rendering feature for smooth tableview
 - [VSCode extension](https://github.com/Vizzle/vscode-mist) for code completion and highlight
 
-[![](http://i.ytimg.com/vi/Am4h2MZUggY/maxresdefault.jpg)](https://www.youtube.com/watch?v=Am4h2MZUggY)
-
 ### Example
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.

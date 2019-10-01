@@ -3,7 +3,7 @@
 
 ![MIST](https://zos.alipayobjects.com/rmsportal/UdQchQQMceYaxFkYQJHu.svg)
 
-MIST lets you create iOS app with nothing but JSON templates.  
+MIST lets you create iOS apps with nothing but JSON templates.  
 
 [![Build Status](https://travis-ci.org/Vizzle/MIST.svg?branch=master)](https://travis-ci.org/Vizzle/MIST)
 [![Version](https://img.shields.io/cocoapods/v/MIST.svg?style=flat)](http://cocoapods.org/pods/MIST)

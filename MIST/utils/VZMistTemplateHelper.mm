@@ -358,12 +358,16 @@ UIColor *colorFromHex(const char *hex)
             return [self gifImageNamed:imageName];
         }
 
-        NSString *file = [NSString stringWithFormat:@"%@/%@", [NSBundle mainBundle].bundlePath, imageName];
+        if (![imageName containsString:@"/"]) {
+            NSString *file = [NSString stringWithFormat:@"%@/%@", [NSBundle mainBundle].bundlePath, imageName];
 
-        if ([[[UIDevice currentDevice] systemVersion] floatValue] < 8.0) {
-            image = [UIImage imageNamed:imageName];
+            if ([[[UIDevice currentDevice] systemVersion] floatValue] < 8.0) {
+                image = [UIImage imageNamed:imageName];
+            } else {
+                image = [UIImage imageWithContentsOfFile:file];
+            }
         } else {
-            image = [UIImage imageWithContentsOfFile:file];
+            image = [self bundledImageWithName:imageName];
         }
 
         if (image) {
@@ -395,6 +399,31 @@ UIColor *colorFromHex(const char *hex)
     }
 
     return image;
+}
+
++ (UIImage *)bundledImageWithName:(NSString *)name {
+    if (![name containsString:@"/"]) {
+        return nil;
+    }
+    
+    NSArray *slices = [name componentsSeparatedByString:@"/"];
+    if (slices.count != 2) {
+        return nil;
+    }
+    
+    NSString *bundleName = slices[0];
+    //normally Foo.bundle/image, Foo/image is also ok.
+    bundleName = [bundleName hasSuffix:@".bundle"] ? bundleName : [NSString stringWithFormat:@"%@.bundle", bundleName];
+    NSString *imageName = slices[1];
+    
+    NSString *bundlePath = [NSString stringWithFormat:@"%@/%@", [[NSBundle mainBundle] resourcePath], bundleName] ;
+    //raw image file
+    UIImage *ret = [UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"%@/%@", bundlePath, imageName]];
+    if (!ret) {
+        //image in Assets.car
+        ret = [UIImage imageNamed:imageName inBundle:[NSBundle bundleWithPath:bundlePath] compatibleWithTraitCollection:nil];
+    }
+    return ret;
 }
 
 + (UIImage *)apmm_animatedGIFWithData:(NSData *)data

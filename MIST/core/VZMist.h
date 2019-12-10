@@ -4,6 +4,7 @@
 
 #import <Foundation/Foundation.h>
 #import <VZFlexLayout/VZFNode.h>
+#import <VZFlexLayout/VZFNetworkImageDownloadProtocol.h>
 #import "VZMistItem.h"
 #import "VZMistError.h"
 
@@ -81,5 +82,7 @@ typedef void (^VZMistErrorCallback)(VZMistError *error);
  @param types 类名数组
  */
 - (void)registerJSTypes:(NSArray<NSString *> *)types;
+
+- (void)registerDefaultImageBackingView:(Class<VZFNetworkImageDownloadProtocol>)clz;
 
 @end

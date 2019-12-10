@@ -71,9 +71,10 @@
     [self registerTag:@"image" withProcessor:^VZFNode *(VZ::NodeSpecs specs, NSDictionary *tpl, id<VZMistItem> item, VZTExpressionContext *data) {
         ImageNodeSpecs imageSpecs = ImageNodeSpecs();
         [VZFNode bindImageNodeSpecs:imageSpecs fromTemplate:tpl data:data item:item];
-        // TODO image view
+        
         NSString *backingView = tpl[@"style"][@"backing-view"];
-        Class backingViewClass = nil;
+        //template specified > registered default backing view > VZFNetworkImageView by default
+        Class backingViewClass = kDefaultImageBackingViewClass;
         if (backingView.length > 0) {
             backingViewClass = NSClassFromString(backingView);
         }
@@ -211,6 +212,14 @@
 
 - (void)registerJSTypes:(NSArray<NSString *> *)types {
     _exportTypes = types;
+}
+
+static Class<VZFNetworkImageDownloadProtocol> kDefaultImageBackingViewClass;
+
+- (void)registerDefaultImageBackingView:(Class<VZFNetworkImageDownloadProtocol>)clz {
+    if ([clz conformsToProtocol:@protocol(VZFNetworkImageDownloadProtocol)]) {
+        kDefaultImageBackingViewClass = clz;
+    }
 }
 
 @end

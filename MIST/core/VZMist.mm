@@ -217,9 +217,8 @@
 static Class<VZFNetworkImageDownloadProtocol> kDefaultImageBackingViewClass;
 
 - (void)registerDefaultImageBackingView:(Class<VZFNetworkImageDownloadProtocol>)clz {
-    if ([clz conformsToProtocol:@protocol(VZFNetworkImageDownloadProtocol)]) {
-        kDefaultImageBackingViewClass = clz;
-    }
+    NSAssert([clz conformsToProtocol:@protocol(VZFNetworkImageDownloadProtocol)], @"Registered default image backing view class MUST conforms to VZFNetworkImageDownloadProtocol");
+    kDefaultImageBackingViewClass = clz;
 }
 
 @end
